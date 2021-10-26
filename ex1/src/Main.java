@@ -14,6 +14,11 @@ public class Main
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
+
+		String[] tokens = {"EOF", "PLUS", "MINUS", "TIMES", "DIVIDE", "LPAREN", "RPAREN", "INT", "ID", "LBRACK", "RBRACK",
+							"LBRACE", "RBRACE", "NIL", "COMMA", "DOT", "SEMICOLON", "ASSIGN", "EQ", "LT", "GT", "ARRAY",
+							"CLASS", "EXTENDS", "RETURN", "WHILE", "IF", "NEW", "STRING"};
+
 		
 		try
 		{
@@ -45,12 +50,13 @@ public class Main
 				/************************/
 				/* [6] Print to console */
 				/************************/
+				System.out.print(tokens[s.sym]);
+				if (s.value != null) 	System.out.print("(" + s.value + ")");
 				System.out.print("[");
 				System.out.print(l.getLine());
 				System.out.print(",");
 				System.out.print(l.getTokenStartPosition());
-				System.out.print("]:");
-				System.out.print(s.value);
+				System.out.print("]");
 				System.out.print("\n");
 				
 				/*********************/

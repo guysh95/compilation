@@ -73,7 +73,16 @@ import java_cup.runtime.*;
 LineTerminator	= \r|\n|\r\n
 WhiteSpace		= {LineTerminator} | [ \t\f]
 INTEGER			= 0 | [1-9][0-9]*
-ID				= [a-z]+
+ID				= [a-zA-Z]+
+NIL             = nil
+CLASS           = class
+ARRAY           = array
+EXTENDS         = extends
+RETURN          = return
+WHILE           = while
+IF              = if
+NEW             = new
+STRING          = "[a-zA-Z]*"
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -95,12 +104,33 @@ ID				= [a-z]+
 
 "+"					{ return symbol(TokenNames.PLUS);}
 "-"					{ return symbol(TokenNames.MINUS);}
-"PPP"				{ return symbol(TokenNames.TIMES);}
+"*"				    { return symbol(TokenNames.TIMES);}
 "/"					{ return symbol(TokenNames.DIVIDE);}
 "("					{ return symbol(TokenNames.LPAREN);}
 ")"					{ return symbol(TokenNames.RPAREN);}
-{INTEGER}			{ return symbol(TokenNames.NUMBER, new Integer(yytext()));}
-{ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}   
+"["					{ return symbol(TokenNames.LBRACK);}
+"]"					{ return symbol(TokenNames.RBRACK);}
+"{"					{ return symbol(TokenNames.LBRACE);}
+"}"					{ return symbol(TokenNames.RBRACE);}
+","					{ return symbol(TokenNames.COMMA);}
+"."					{ return symbol(TokenNames.DOT);}
+";"					{ return symbol(TokenNames.SEMICOLON);}
+"="                 { return symbol(TokenNames.EQ);}
+":="                { return symbol(TokenNames.ASSIGN);}
+"<"					{ return symbol(TokenNames.LT);}
+">"					{ return symbol(TokenNames.GT);}
+{NIL}			    { return symbol(TokenNames.NIL);}
+{INTEGER}			{ return symbol(TokenNames.INT, new Integer(yytext()));}
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
+{CLASS}			    { return symbol(TokenNames.CLASS);}
+{NIL}			    { return symbol(TokenNames.NIL);}
+{ARRAY}			    { return symbol(TokenNames.ARRAY);}
+{EXTENDS}			{ return symbol(TokenNames.EXTENDS);}
+{RETURN}			{ return symbol(TokenNames.RETURN);}
+{WHILE}			    { return symbol(TokenNames.WHILE);}
+{IF}			    { return symbol(TokenNames.IF);}
+{NEW}			    { return symbol(TokenNames.NEW);}
+{ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
+{STRING}			{ return symbol(TokenNames.STRING, new String( yytext()));}
 <<EOF>>				{ return symbol(TokenNames.EOF);}
 }
