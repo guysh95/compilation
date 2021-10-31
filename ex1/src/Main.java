@@ -11,7 +11,7 @@ public class Main
 		Lexer l;
 		Symbol s;
 		FileReader file_reader;
-		PrintWriter file_writer, file_error;
+		PrintWriter file_writer;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
 
@@ -91,9 +91,8 @@ public class Main
 
 		catch (Exception e)
 		{
-			file_error = new PrintWriter(outputFilename);
-			file_error.print("ERROR");
-			file_error.close();
+			file_writer.print("ERROR");
+			file_writer.close();
 			e.printStackTrace();
 		}
 	}
