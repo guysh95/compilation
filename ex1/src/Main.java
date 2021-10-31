@@ -93,7 +93,7 @@ public class Main
 
 		catch (Exception e)
 		{
-			system.out.println("print from catch");
+			System.out.println("print from catch");
 			file_writer.print("ERROR");
 			file_writer.close();
 			e.printStackTrace();
