@@ -67,7 +67,7 @@ import java.lang.Math;
 	/**********************************************/
 	public int getTokenStartPosition() { return yycolumn + 1; }
 
-	public Symbol check_integer(int val) {
+	public Symbol check_integer(int val) throws Exception {
 		if (val <= (Math.pow(2, 15) - 1)){
 			return symbol(TokenNames.INT, yytext());
 		} else{
