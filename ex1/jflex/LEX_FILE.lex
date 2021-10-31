@@ -67,9 +67,9 @@ import java.lang.Math;
 	/**********************************************/
 	public int getTokenStartPosition() { return yycolumn + 1; }
 
-	public int check_integer(Object token, int val) {
+	public int check_integer(int val) {
 		if (val <= (Math.pow(2, 15) - 1)){
-			return symbol(token, yytext());
+			return symbol(TokenNames.INT, yytext());
 		} else{
 			throw new Exception("Integer is too big");
 		}
@@ -137,7 +137,7 @@ COMMENT         = \/\/{ValidInComment1}{LineTerminator} | \/\*{ValidInComment2}\
 {TYPE_INT}    {return symbol(TokenNames.TYPE_INT);}
 {TYPE_STRING} {return symbol(TokenNames.TYPE_STRING);}
 {NIL}			    { return symbol(TokenNames.NIL);}
-{INTEGER}			{ return check_integer(TokenNames.INT, new Integer(yytext())); }
+{INTEGER}			{ return check_integer(new Integer(yytext())); }
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 {CLASS}			    { return symbol(TokenNames.CLASS);}
 {NIL}			    { return symbol(TokenNames.NIL);}
