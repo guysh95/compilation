@@ -66,7 +66,7 @@ import java_cup.runtime.*;
 	/**********************************************/
 	public int getTokenStartPosition() { return yycolumn + 1; }
 
-	check_integer(token, val) {
+	public int check_integer(token, val) {
 		if (val <= (2**15 - 1)){
 			return symbol(token, val);
 		} else{
