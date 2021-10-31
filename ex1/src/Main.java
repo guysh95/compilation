@@ -98,8 +98,8 @@ public class Main
 				file_writer.print("ERROR");
 				file_writer.close();
 			}
-			catch(Exception e){
-				e.printStackTrace();
+			catch(Exception ex){
+				ex.printStackTrace();
 			}
 		}
 	}
