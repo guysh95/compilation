@@ -19,7 +19,7 @@ public class Main
 							"LBRACE", "RBRACE", "NIL", "COMMA", "DOT", "SEMICOLON", "ASSIGN", "EQ", "LT", "GT", "ARRAY",
 							"CLASS", "EXTENDS", "RETURN", "WHILE", "IF", "NEW", "STRING", "TYPE_INT", "TYPE_STRING", "COMMENT"};
 
-
+		file_writer = new PrintWriter(outputFilename);
 		try
 		{
 			/********************************/
@@ -30,7 +30,7 @@ public class Main
 			/********************************/
 			/* [2] Initialize a file writer */
 			/********************************/
-			file_writer = new PrintWriter(outputFilename);
+
 
 			/******************************/
 			/* [3] Initialize a new lexer */
@@ -45,6 +45,7 @@ public class Main
 			/********************************/
 			/* [5] Main reading tokens loop */
 			/********************************/
+
 			while (s.sym != TokenNames.EOF)
 			{
 				/************************/
@@ -62,6 +63,7 @@ public class Main
 				/*********************/
 				/* [7] Print to file */
 				/*********************/
+
 				file_writer.print(tokens[s.sym]);
 				if (s.value != null) 	System.out.print("(" + s.value + ")");
 				file_writer.print("[");
@@ -91,6 +93,9 @@ public class Main
 
 		catch (Exception e)
 		{
+			system.out.println("print from catch");
+			file_writer.print("ERROR");
+			file_writer.close();
 			e.printStackTrace();
 		}
 	}
