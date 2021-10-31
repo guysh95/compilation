@@ -85,8 +85,9 @@ WHILE           = while
 IF              = if
 NEW             = new
 STRING          = "[a-zA-Z]*"
-ValidInComment  = ([\(\)\{\}\[\]\?\!\+\-\*\/\.\;a-zA-Z0-9] | {WhiteSpace})*
-COMMENT         = \/\/{ValidInComment}{LineTerminator} | \/\*{ValidInComment}\*\/
+ValidInComment1  = ([\(\)\{\}\[\]\?\!\+\-\*\/\.\;a-zA-Z0-9 \t\f])*
+ValidInComment2  = ([\(\)\{\}\[\]\?\!\+\-\*\/\.\;a-zA-Z0-9] | {WhiteSpace})*
+COMMENT         = \/\/{ValidInComment1}{LineTerminator} | \/\*{ValidInComment2}\*\/
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
