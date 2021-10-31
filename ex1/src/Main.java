@@ -11,7 +11,7 @@ public class Main
 		Lexer l;
 		Symbol s;
 		FileReader file_reader;
-		PrintWriter file_writer;
+		PrintWriter file_writer, file_error;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
 
@@ -19,7 +19,6 @@ public class Main
 							"LBRACE", "RBRACE", "NIL", "COMMA", "DOT", "SEMICOLON", "ASSIGN", "EQ", "LT", "GT", "ARRAY",
 							"CLASS", "EXTENDS", "RETURN", "WHILE", "IF", "NEW", "STRING", "TYPE_INT", "TYPE_STRING", "COMMENT"};
 
-		file_writer = new PrintWriter(outputFilename);
 
 		try
 		{
@@ -31,7 +30,7 @@ public class Main
 			/********************************/
 			/* [2] Initialize a file writer */
 			/********************************/
-			//file_writer = new PrintWriter(outputFilename);
+			file_writer = new PrintWriter(outputFilename);
 
 			/******************************/
 			/* [3] Initialize a new lexer */
@@ -92,8 +91,9 @@ public class Main
 
 		catch (Exception e)
 		{
-			file_writer.write("ERROR");
-			file_writer.close();
+			file_error = new PrintWriter(outputFilename);
+			file_error.print("ERROR");
+			file_error.close();
 			e.printStackTrace();
 		}
 	}
