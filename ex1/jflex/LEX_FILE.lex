@@ -67,11 +67,11 @@ import java.lang.Math;
 	/**********************************************/
 	public int getTokenStartPosition() { return yycolumn + 1; }
 
-	public Symbol check_integer(int val) throws Exception {
+	public Symbol check_integer(int val) throws RuntimeException {
 		if (val <= (Math.pow(2, 15) - 1)){
 			return symbol(TokenNames.INT, yytext());
 		} else{
-			throw new Exception("Integer is too big");
+			throw new RuntimeException("Integer is too big");
 		}
 	}
 
