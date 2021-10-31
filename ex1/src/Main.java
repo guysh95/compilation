@@ -11,7 +11,7 @@ public class Main
 		Lexer l;
 		Symbol s;
 		FileReader file_reader;
-		PrintWriter file_writer;
+		PrintWriter file_writer, file_error;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
 
