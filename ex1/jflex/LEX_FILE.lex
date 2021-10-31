@@ -6,6 +6,7 @@
 /* USER CODE */
 /*************/
 import java_cup.runtime.*;
+import java.lang.Math;
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -67,7 +68,7 @@ import java_cup.runtime.*;
 	public int getTokenStartPosition() { return yycolumn + 1; }
 
 	public int check_integer(int token, int val) {
-		if (val <= (2**15 - 1)){
+		if (val <= (Math.pow(2, 15) - 1)){
 			return symbol(token, val);
 		} else{
 			throw new Exception("Integer is too big");
@@ -136,7 +137,7 @@ COMMENT         = \/\/{ValidInComment1}{LineTerminator} | \/\*{ValidInComment2}\
 {TYPE_INT}    {return symbol(TokenNames.TYPE_INT);}
 {TYPE_STRING} {return symbol(TokenNames.TYPE_STRING);}
 {NIL}			    { return symbol(TokenNames.NIL);}
-{INTEGER}			{ return check_integer(TokenNames.INT, new Integer(yytext()))}
+{INTEGER}			{ return check_integer(TokenNames.INT, new Integer(yytext())); }
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 {CLASS}			    { return symbol(TokenNames.CLASS);}
 {NIL}			    { return symbol(TokenNames.NIL);}
