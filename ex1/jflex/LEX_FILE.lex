@@ -138,7 +138,7 @@ COMMENT         = \/\/{ValidInComment1}{LineTerminator} | \/\*{ValidInComment2}\
 {IF}			    { return symbol(TokenNames.IF);}
 {NEW}			    { return symbol(TokenNames.NEW);}
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
-{COMMENT}			{}
+{COMMENT}			{ /* skip */ }
 {STRING}			{ return symbol(TokenNames.STRING, new String( yytext()));}
 <<EOF>>				{ return symbol(TokenNames.EOF);}
 }
