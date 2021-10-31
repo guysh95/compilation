@@ -17,7 +17,7 @@ public class Main
 
 		String[] tokens = {"EOF", "PLUS", "MINUS", "TIMES", "DIVIDE", "LPAREN", "RPAREN", "INT", "ID", "LBRACK", "RBRACK",
 							"LBRACE", "RBRACE", "NIL", "COMMA", "DOT", "SEMICOLON", "ASSIGN", "EQ", "LT", "GT", "ARRAY",
-							"CLASS", "EXTENDS", "RETURN", "WHILE", "IF", "NEW", "STRING", "TYPE_INT", "TYPE_STRING"};
+							"CLASS", "EXTENDS", "RETURN", "WHILE", "IF", "NEW", "STRING", "TYPE_INT", "TYPE_STRING", "COMMENT"};
 
 
 		try
