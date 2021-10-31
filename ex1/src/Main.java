@@ -19,8 +19,7 @@ public class Main
 							"LBRACE", "RBRACE", "NIL", "COMMA", "DOT", "SEMICOLON", "ASSIGN", "EQ", "LT", "GT", "ARRAY",
 							"CLASS", "EXTENDS", "RETURN", "WHILE", "IF", "NEW", "STRING", "TYPE_INT", "TYPE_STRING", "COMMENT"};
 
-		try {file_writer = new PrintWriter(outputFilename);}
-		catch(Exception exc) {exc.printStackTrace();}
+
 		try
 		{
 			/********************************/
@@ -31,7 +30,7 @@ public class Main
 			/********************************/
 			/* [2] Initialize a file writer */
 			/********************************/
-
+			file_writer = new PrintWriter(outputFilename);
 
 
 			/******************************/
@@ -92,17 +91,15 @@ public class Main
 			/**************************/
 			file_writer.close();
     	}
-
+		catch (FileNotFoundException fe){
+			fe.printStackTrace();
+		}
 		catch (Exception e)
 		{
-			try{
-				System.out.println("print from catch");
-				file_writer.print("ERROR");
-				file_writer.close();
-			}
-			catch(Exception ex){
-				ex.printStackTrace();
-			}
+			System.out.println("print from catch");
+			file_writer.print("ERROR");
+			file_writer.close();
+			e.printStackTrace();
 		}
 	}
 }
