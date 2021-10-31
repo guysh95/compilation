@@ -73,7 +73,7 @@ import java_cup.runtime.*;
 LineTerminator	= \r|\n|\r\n
 WhiteSpace		= {LineTerminator} | [ \t\f]
 INTEGER			= 0 | [1-9][0-9]*
-ID				= [a-zA-Z]+
+ID				= [a-zA-Z][a-zA-z0-9]*
 NIL             = nil
 CLASS           = class
 ARRAY           = array
@@ -83,6 +83,8 @@ WHILE           = while
 IF              = if
 NEW             = new
 STRING          = "[a-zA-Z]*"
+ValidInComment  = ([\(\)\{\}\[\]\?\!\+\-\*\/\.\;a-zA-Z0-9]|{WhiteSpace})*
+COMMENT         = //{ValidInComment}{LineTerminator} | /\*{ValidInComment}\*/
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -131,6 +133,7 @@ STRING          = "[a-zA-Z]*"
 {IF}			    { return symbol(TokenNames.IF);}
 {NEW}			    { return symbol(TokenNames.NEW);}
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
+{COMMENT}			{ }
 {STRING}			{ return symbol(TokenNames.STRING, new String( yytext()));}
 <<EOF>>				{ return symbol(TokenNames.EOF);}
 }
