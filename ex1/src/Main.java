@@ -1,9 +1,9 @@
-   
+
 import java.io.*;
 import java.io.PrintWriter;
 
 import java_cup.runtime.Symbol;
-   
+
 public class Main
 {
 	static public void main(String argv[])
@@ -17,9 +17,9 @@ public class Main
 
 		String[] tokens = {"EOF", "PLUS", "MINUS", "TIMES", "DIVIDE", "LPAREN", "RPAREN", "INT", "ID", "LBRACK", "RBRACK",
 							"LBRACE", "RBRACE", "NIL", "COMMA", "DOT", "SEMICOLON", "ASSIGN", "EQ", "LT", "GT", "ARRAY",
-							"CLASS", "EXTENDS", "RETURN", "WHILE", "IF", "NEW", "STRING"};
+							"CLASS", "EXTENDS", "RETURN", "WHILE", "IF", "NEW", "STRING", "TYPE_INT", "TYPE_STRING"};
 
-		
+
 		try
 		{
 			/********************************/
@@ -31,7 +31,7 @@ public class Main
 			/* [2] Initialize a file writer */
 			/********************************/
 			file_writer = new PrintWriter(outputFilename);
-			
+
 			/******************************/
 			/* [3] Initialize a new lexer */
 			/******************************/
@@ -58,7 +58,7 @@ public class Main
 				System.out.print(l.getTokenStartPosition());
 				System.out.print("]");
 				System.out.print("\n");
-				
+
 				/*********************/
 				/* [7] Print to file */
 				/*********************/
@@ -66,13 +66,13 @@ public class Main
 				file_writer.print(": ");
 				file_writer.print(s.value);
 				file_writer.print("\n");
-				
+
 				/***********************/
 				/* [8] Read next token */
 				/***********************/
 				s = l.next_token();
 			}
-			
+
 			/******************************/
 			/* [9] Close lexer input file */
 			/******************************/
@@ -83,12 +83,10 @@ public class Main
 			/**************************/
 			file_writer.close();
     	}
-			     
+
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
 }
-
-

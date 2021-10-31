@@ -16,11 +16,11 @@ import java_cup.runtime.*;
 /************************************/
 /* OPTIONS AND DECLARATIONS SECTION */
 /************************************/
-   
-/*****************************************************/ 
+
+/*****************************************************/
 /* Lexer is the name of the class JFlex will create. */
 /* The code will be written to the file Lexer.java.  */
-/*****************************************************/ 
+/*****************************************************/
 %class Lexer
 
 /********************************************************************/
@@ -43,12 +43,12 @@ import java_cup.runtime.*;
 /****************/
 /* DECLARATIONS */
 /****************/
-/*****************************************************************************/   
+/*****************************************************************************/
 /* Code between %{ and %}, both of which must be at the beginning of a line, */
 /* will be copied verbatim (letter to letter) into the Lexer class code.     */
 /* Here you declare member variables and functions that are used inside the  */
-/* scanner actions.                                                          */  
-/*****************************************************************************/   
+/* scanner actions.                                                          */
+/*****************************************************************************/
 %{
 	/*********************************************************************************/
 	/* Create a new java_cup.runtime.Symbol with information about the current token */
@@ -59,12 +59,12 @@ import java_cup.runtime.*;
 	/*******************************************/
 	/* Enable line number extraction from main */
 	/*******************************************/
-	public int getLine() { return yyline + 1; } 
+	public int getLine() { return yyline + 1; }
 
 	/**********************************************/
 	/* Enable token position extraction from main */
 	/**********************************************/
-	public int getTokenStartPosition() { return yycolumn + 1; } 
+	public int getTokenStartPosition() { return yycolumn + 1; }
 %}
 
 /***********************/
@@ -73,8 +73,10 @@ import java_cup.runtime.*;
 LineTerminator	= \r|\n|\r\n
 WhiteSpace		= {LineTerminator} | [ \t\f]
 INTEGER			= 0 | [1-9][0-9]*
-ID				= [a-zA-Z][a-zA-z0-9]*
+ID			       	= [a-zA-Z][a-zA-Z0-9]*
 NIL             = nil
+TYPE_INT        = int
+TYPE_STRING     = string
 CLASS           = class
 ARRAY           = array
 EXTENDS         = extends
@@ -121,6 +123,8 @@ COMMENT         = //{ValidInComment}{LineTerminator} | /\*{ValidInComment}\*/
 ":="                { return symbol(TokenNames.ASSIGN);}
 "<"					{ return symbol(TokenNames.LT);}
 ">"					{ return symbol(TokenNames.GT);}
+{TYPE_INT}    {return symbol(TokenNames.TYPE_INT);}
+{TYPE_STRING} {return symbol(TokenNames.TYPE_STRING);}
 {NIL}			    { return symbol(TokenNames.NIL);}
 {INTEGER}			{ return symbol(TokenNames.INT, new Integer(yytext()));}
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }

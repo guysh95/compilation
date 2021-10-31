@@ -29,5 +29,7 @@ public interface TokenNames {
   public static final int IF = 26;
   public static final int NEW = 27;
   public static final int STRING = 28;
+  public static final int TYPE_INT = 29;
+  public static final int TYPE_STRING = 30;
 
 }
