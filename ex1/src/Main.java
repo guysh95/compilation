@@ -70,7 +70,7 @@ public class Main
 				file_writer.print(l.getTokenStartPosition());
 				file_writer.print("]");
 				file_writer.print("\n");
-				
+
 
 				/***********************/
 				/* [8] Read next token */
@@ -91,6 +91,10 @@ public class Main
 
 		catch (Exception e)
 		{
+			file_writer.close();
+			file_writer = new PrintWriter(outputFilename);
+			file_writer.print("ERROR")
+			file_writer.close();
 			e.printStackTrace();
 		}
 	}
