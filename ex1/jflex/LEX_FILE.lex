@@ -71,8 +71,8 @@ import java_cup.runtime.*;
 /* MACRO DECALARATIONS */
 /***********************/
 LineTerminator	= \r|\n|\r\n
-WhiteSpace		= {LineTerminator} | [ \t\f]
-INTEGER			= 0 | [1-9][0-9]*
+WhiteSpace	   	= {LineTerminator} | [ \t\f]
+INTEGER			    = 0 | [1-9][0-9]*
 ID			       	= [a-zA-Z][a-zA-Z0-9]*
 NIL             = nil
 TYPE_INT        = int
@@ -137,7 +137,7 @@ COMMENT         = //{ValidInComment}{LineTerminator} | /\*{ValidInComment}\*/
 {IF}			    { return symbol(TokenNames.IF);}
 {NEW}			    { return symbol(TokenNames.NEW);}
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
-{COMMENT}			{ }
+{COMMENT}			{ return ;}
 {STRING}			{ return symbol(TokenNames.STRING, new String( yytext()));}
 <<EOF>>				{ return symbol(TokenNames.EOF);}
 }
