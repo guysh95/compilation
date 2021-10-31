@@ -97,9 +97,6 @@ public class Main
 		catch (Exception e)
 		{
 			try{
-				if (file_writer != null){
-					file_writer.close();
-				}
 				error_writer = new PrintWriter(outputFilename);
 				error_writer.print("ERROR");
 				error_writer.close();
