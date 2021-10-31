@@ -91,8 +91,7 @@ public class Main
 
 		catch (Exception e)
 		{
-			file_error = new FileWriter(outputFilename, true);
-			file_error.print("ERROR");
+			file_error.write("ERROR");
 			file_error.close();
 			e.printStackTrace();
 		}
