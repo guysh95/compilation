@@ -19,6 +19,8 @@ public class Main
 							"LBRACE", "RBRACE", "NIL", "COMMA", "DOT", "SEMICOLON", "ASSIGN", "EQ", "LT", "GT", "ARRAY",
 							"CLASS", "EXTENDS", "RETURN", "WHILE", "IF", "NEW", "STRING", "TYPE_INT", "TYPE_STRING", "COMMENT"};
 
+		try {file_writer = new PrintWriter(outputFilename);}
+		catch(Exception exc) {exc.printStackTrace();}
 		try
 		{
 			/********************************/
@@ -29,7 +31,7 @@ public class Main
 			/********************************/
 			/* [2] Initialize a file writer */
 			/********************************/
-			file_writer = new PrintWriter(outputFilename);
+
 
 
 			/******************************/
