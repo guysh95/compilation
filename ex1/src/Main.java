@@ -93,7 +93,7 @@ public class Main
 		{
 			file_writer.close();
 			file_writer = new PrintWriter(outputFilename);
-			file_writer.print("ERROR")
+			file_writer.print("ERROR");
 			file_writer.close();
 			e.printStackTrace();
 		}
