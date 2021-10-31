@@ -65,6 +65,15 @@ import java_cup.runtime.*;
 	/* Enable token position extraction from main */
 	/**********************************************/
 	public int getTokenStartPosition() { return yycolumn + 1; }
+
+	check_integer(token, val) {
+		if (val <= (2**15 - 1)){
+			return symbol(token, val);
+		} else{
+			throw new Exception("Integer is too big");
+		}
+	}
+
 %}
 
 /***********************/
@@ -127,9 +136,7 @@ COMMENT         = \/\/{ValidInComment1}{LineTerminator} | \/\*{ValidInComment2}\
 {TYPE_INT}    {return symbol(TokenNames.TYPE_INT);}
 {TYPE_STRING} {return symbol(TokenNames.TYPE_STRING);}
 {NIL}			    { return symbol(TokenNames.NIL);}
-{INTEGER}			{ val = new Integer(yytext());
-								if (val <= (2**15 - 1)): return symbol(TokenNames.INT, val);
-								else: throw new Exception("Integer is too big");}
+{INTEGER}			{ return check_integer(TokenNames.INT, new Integer(yytext()))}
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 {CLASS}			    { return symbol(TokenNames.CLASS);}
 {NIL}			    { return symbol(TokenNames.NIL);}
