@@ -71,7 +71,8 @@ import java.lang.Math;
 		if (val <= (Math.pow(2, 15) - 1)){
 			return symbol(TokenNames.INT, yytext());
 		} else{
-			throw new RuntimeException("Integer is too big");
+			/* throw new RuntimeException("Integer is too big"); */
+			return symbol(TokenNames.TOKEN_ERROR);
 		}
 	}
 
@@ -83,7 +84,9 @@ import java.lang.Math;
 LineTerminator	= \r|\n|\r\n
 WhiteSpace	   	= {LineTerminator} | [ \t\f]
 INTEGER			    = 0 | [1-9][0-9]*
+BAD_INTEGER         = 0[0-9]+
 ID			       	= [a-zA-Z][a-zA-Z0-9]*
+BAD_ID              = [0-9]+{ID}
 NIL             = nil
 TYPE_INT        = int
 TYPE_STRING     = string
@@ -94,7 +97,8 @@ RETURN          = return
 WHILE           = while
 IF              = if
 NEW             = new
-STRING          = "[a-zA-Z]*"
+STRING          = \"[a-zA-Z]*\" | \"\"
+BAD_STRING      = \"[a-zA-Z]* | [a-zA-Z]*\" | \"([a-zA-Z]*)(~[a-zA-Z\"])
 ValidInComment1  = ([\(\)\{\}\[\]\?\!\+\-\*\/\.\;a-zA-Z0-9 \t\f])*
 ValidInComment2  = ([\(\)\{\}\[\]\?\!\+\-\*\/\.\;a-zA-Z0-9] | {WhiteSpace})*
 COMMENT         = \/\/{ValidInComment1}{LineTerminator} | \/\*{ValidInComment2}\*\/
@@ -134,8 +138,8 @@ COMMENT         = \/\/{ValidInComment1}{LineTerminator} | \/\*{ValidInComment2}\
 ":="                { return symbol(TokenNames.ASSIGN);}
 "<"					{ return symbol(TokenNames.LT);}
 ">"					{ return symbol(TokenNames.GT);}
-{TYPE_INT}    {return symbol(TokenNames.TYPE_INT);}
-{TYPE_STRING} {return symbol(TokenNames.TYPE_STRING);}
+{TYPE_INT}          {return symbol(TokenNames.TYPE_INT);}
+{TYPE_STRING}       {return symbol(TokenNames.TYPE_STRING);}
 {NIL}			    { return symbol(TokenNames.NIL);}
 {INTEGER}			{ return check_integer(new Integer(yytext())); }
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
@@ -149,6 +153,11 @@ COMMENT         = \/\/{ValidInComment1}{LineTerminator} | \/\*{ValidInComment2}\
 {NEW}			    { return symbol(TokenNames.NEW);}
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
 {COMMENT}			{ /* skip */ }
+"//"                { return symbol(TokenNames.TOKEN_ERROR);}
+"/*"                { return symbol(TokenNames.TOKEN_ERROR);}
+{BAD_INTEGER}       { return symbol(TokenNames.TOKEN_ERROR);}
 {STRING}			{ return symbol(TokenNames.STRING, new String( yytext()));}
+{BAD_STRING}        { return symbol(TokenNames.TOKEN_ERROR);}
+{BAD_ID}        { return symbol(TokenNames.TOKEN_ERROR);}
 <<EOF>>				{ return symbol(TokenNames.EOF);}
 }

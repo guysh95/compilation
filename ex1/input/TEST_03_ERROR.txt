@@ -28,8 +28,9 @@ void PrintPrimes(int start, int end)
         if (IsPrime(p))
         {
             PrintInt(p);
-            /* SHOULD CATCH ERROR HERE
+            //
         }
+
     }
 }
 

@@ -6,12 +6,11 @@ import java_cup.runtime.Symbol;
 
 public class Main
 {
-	static public void main(String argv[])
-	{
-		Lexer l;
+	static public void main(String argv[]) {
+		Lexer l = null;
 		Symbol s;
 		FileReader file_reader;
-		PrintWriter file_writer, error_writer;
+		PrintWriter file_writer = null, error_writer;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
 
@@ -41,7 +40,18 @@ public class Main
 			/***********************/
 			/* [4] Read next token */
 			/***********************/
-			s = l.next_token();
+			try {
+				s = l.next_token();
+			}
+			catch (Error e) {
+				System.out.print("ERROR\n");
+				l.yyclose();
+				file_writer.close();
+				error_writer = new PrintWriter(outputFilename);
+				error_writer.print("ERROR");
+				error_writer.close();
+				return;
+			}
 
 			/********************************/
 			/* [5] Main reading tokens loop */
@@ -52,6 +62,15 @@ public class Main
 				/************************/
 				/* [6] Print to console */
 				/************************/
+				if (s.sym == -1) {
+					System.out.print("ERROR\n");
+					l.yyclose();
+					file_writer.close();
+					error_writer = new PrintWriter(outputFilename);
+					error_writer.print("ERROR");
+					error_writer.close();
+					return;
+				}
 				System.out.print(tokens[s.sym]);
 				if (s.value != null) 	System.out.print("(" + s.value + ")");
 				System.out.print("[");
@@ -66,7 +85,7 @@ public class Main
 				/*********************/
 
 				file_writer.print(tokens[s.sym]);
-				if (s.value != null) 	System.out.print("(" + s.value + ")");
+				if (s.value != null) 	file_writer.print("(" + s.value + ")");
 				file_writer.print("[");
 				file_writer.print(l.getLine());
 				file_writer.print(",");
@@ -78,7 +97,18 @@ public class Main
 				/***********************/
 				/* [8] Read next token */
 				/***********************/
-				s = l.next_token();
+				try {
+					s = l.next_token();
+				}
+				catch (Error e) {
+					System.out.print("ERROR\n");
+					l.yyclose();
+					file_writer.close();
+					error_writer = new PrintWriter(outputFilename);
+					error_writer.print("ERROR");
+					error_writer.close();
+					return;
+				}
 			}
 
 			/******************************/
@@ -90,20 +120,10 @@ public class Main
 			/* [10] Close output file */
 			/**************************/
 			file_writer.close();
-    	}
-		/*catch (FileNotFoundException fe){
+
+    	} catch (Exception fe){
 			fe.printStackTrace();
-		}*/
-		catch (Exception e)
-		{
-			try{
-				error_writer = new PrintWriter(outputFilename);
-				error_writer.print("ERROR");
-				error_writer.close();
-			}
-			catch (Exception ex){
-				e.printStackTrace();
-			}
 		}
+
 	}
 }

@@ -1,0 +1,10 @@
+array
+string
+int
+nil
+if
+while
+return
+class
+extends
+new

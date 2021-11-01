@@ -32,5 +32,5 @@ public interface TokenNames {
   public static final int TYPE_INT = 29;
   public static final int TYPE_STRING = 30;
   public static final int COMMENT = 31;
-
+  public static final int TOKEN_ERROR = -1;
 }
