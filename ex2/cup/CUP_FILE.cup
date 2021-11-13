@@ -55,6 +55,7 @@ scan with
 terminal IF;
 terminal EQ;
 terminal DOT;
+terminal COMMA;
 terminal PLUS;
 terminal MINUS;
 terminal TIMES;
@@ -68,12 +69,23 @@ terminal LBRACE;
 terminal RBRACE;
 terminal SEMICOLON;
 terminal ASSIGN;
+terminal ARRAY;
+terminal CLASS;
+terminal EXTENDS;
+terminal RETURN;
+terminal NEW;
+terminal TYPE_INT;
+terminal TYPE_STRING;
+terminal COMMENT;
+terminal TOKEN_ERROR;
+terminal TYPE_VOID;
 
 /*************/
 /* TERMINALS */
 /*************/
 terminal Integer INT;
 terminal String ID;
+terminal string STRING;
 
 /*****************/
 /* NON TERMINALS */
@@ -82,6 +94,7 @@ non terminal AST_EXP exp;
 non terminal AST_VAR var;
 non terminal AST_STMT stmt;
 non terminal AST_STMT_LIST stmtList;
+
 
 /***********************/
 /* OPERATOR PRECEDENCE */
@@ -92,30 +105,139 @@ precedence left TIMES;
 precedence left DIVIDE;
 
 /************************/
-/* START WITH: stmtList */
+/* START WITH: Program */
 /************************/
-start with stmtList;
+start with Program;
 
 /********************/
 /* DERIVATION RULES */
 /********************/
 
-stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
-					| stmt:s				{: RESULT = new AST_STMT_LIST(s,null); :}
-					;
+Program     ::=     dec:d Program:p                   {: RESULT = new ... :}
+                    | dec:d                           {: RESULT = new ... :}
+                    ;
+
+dec         ::=     varDec:v                            {: RESULT = new ... :}
+                    | funcDec:v                        {: RESULT = new ... :}
+                    | classDec:v                       {: RESULT = new ... :}
+                    | arrayTypedefDec:v                {: RESULT = new ... :}
+                    ;
+
+type        ::=     TYPE_INT:t                          {: RESULT = new ... :}
+                    | TYPE_STRING:t                    {: RESULT = new ... :}
+                    | TYPE_VOID:t                      {: RESULT = new ... :}
+                    | ID:t                             {: RESULT = new ... :}
+                    ;
+
+arrayTypedef::=     ARRAY ID:name EQ type:t LBRACK RBRACK    {: RESULT = new ... :}
+                    ;
+
+assignExp   ::=     ASSIGN exp:e                             {: RESULT = new ... :}
+                    |                                        {: RESULT = new ... :}
+                    ;
+
+varDec      ::=     type:t ID:name assignExp:ae SEMICOLON               {: RESULT = new ... :}
+                    | type:t ID:name ASSIGN newExp:ne SEMICOLON         {: RESULT = new ... :}
+                    ;
+
+funcArgs     ::=     type:t2 ID:n3 COMMA funcArgs:fa                  {: RESULT = new ... :}
+                    | type:t1 ID:n2                                        {: RESULT = new ... :}
+                    ;
+
+funcDec     ::=     type:t ID:n1 LPAREN funcArgs:fa RPAREN LBRACE stmtList:sl RBRACE {: RESULT = new ... :}
+                    ;
+
+extendOp    ::=     EXTENDS ID:n2                            {: RESULT = new ... :}
+                    |                                        {: RESULT = new ... :}
+                    ;
+
+cFieldList  ::=     cField:cf cFieldList:fl                     {: RESULT = new ... :}
+                    | cField:cf                                           {: RESULT = new ... :}
+                    ;
+
+classDec    ::=     CLASS ID:name extendOp:eo LBRACE cFieldList:fl RBRACE {: RESULT = new :}
+                    ;
+
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
-					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
-					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :} 
-					;
-					
-stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
-					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
-					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
+					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :}
+					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :}
 					;
 
-exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
-					| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
-					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
-					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1);:}
+opExp       ::=     exp:e                                        {: RESULT = new ... :}
+                    |                                            {: RESULT = new ... :}
+                    ;
+
+stmtList	::=		stmt:s	stmtList:l		            {: RESULT = new AST_STMT_LIST(s,l);    :}
+					| stmt:s				            {: RESULT = new AST_STMT_LIST(s,null); :}
 					;
+
+opVarAccess ::=     var:v DOT                                    {: RESULT = new ... :}
+                    |                                            {: RESULT = new ... :}
+                    ;
+
+stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
+                    | varDec:vd								                    {: RESULT = new AST_STMT_ASSIGN(v,e); :}
+                    | var:v ASSIGN newExp:ne SEMICOLON                          {: RESULT = new ... :}
+                    | RETURN opExp:op SEMICOLON                                 {: RESULT = new ... :}
+					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
+					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
+					| opVarAccess:va ID:name LPAREN expList RPAREN SEMICOLON
+					;
+
+exp			::=		var:v								    {: RESULT = new AST_EXP_VAR(v);          :}
+					| exp:e1 BINOP:b  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
+					| LPAREN exp:e RPAREN                   {: RESULT = new ... :}
+					| opVarAccess ID:name LPAREN expList RPAREN {: RESULT = new ... :}
+					| NIL:n                                 {: RESULT = new ... :}
+					| STRING:s                              {: RESULT = new ... :}
+					| INT:i								    {: RESULT = new AST_EXP_INT(i);    :}
+					| MINUS INT:i                           {: RESULT = new AST_EXP_INT(-i);   :}
+					;
+
+expList     ::=     exp:e COMMA expList:el                  {: RESULT = new ... :}
+                    | exp:e                                        {: RESULT = new ... :}
+                    ;
+
+newExp      ::=     NEW ID:newD                         {: RESULT = new ... :}
+                    | NEW ID:name LBRACK exp:e RBRACK        {: RESULT = new ... :}
+                    ;
+
+cField      ::=     varDec:v                            {: RESULT = new ... :}
+                    | funcDec:v                        {: RESULT = new ... :}
+                    ;
+
+BINOP       ::=     PLUS:plus                           {: RESULT = new ... :}
+                    | MINUS:minus                       {: RESULT = new ... :}
+                    | TIMES:times                       {: RESULT = new ... :}
+                    | DIVIDE:divide                     {: RESULT = new ... :}
+                    | LT:lt                             {: RESULT = new ... :}
+                    | GT:gt                             {: RESULT = new ... :}
+                    | EQ:eq                             {: RESULT = new ... :}
+                    ;
+
+lessSigInt  ::=     0:num lessSig:ls                    {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    |                                   {: RESULT = new ... :}
+                    ;
+
+INT         ::=     0:num                               {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    ;
+

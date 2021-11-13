@@ -158,6 +158,6 @@ COMMENT         = \/\/{ValidInComment1}{LineTerminator} | \/\*{ValidInComment2}\
 {BAD_INTEGER}       { return symbol(TokenNames.TOKEN_ERROR);}
 {STRING}			{ return symbol(TokenNames.STRING, new String( yytext()));}
 {BAD_STRING}        { return symbol(TokenNames.TOKEN_ERROR);}
-{BAD_ID}        { return symbol(TokenNames.TOKEN_ERROR);}
+{BAD_ID}            { return symbol(TokenNames.TOKEN_ERROR);}
 <<EOF>>				{ return symbol(TokenNames.EOF);}
 }
