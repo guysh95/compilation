@@ -99,10 +99,14 @@ non terminal AST_STMT_LIST stmtList;
 /***********************/
 /* OPERATOR PRECEDENCE */
 /***********************/
-precedence left PLUS;
-precedence left MINUS;
-precedence left TIMES;
-precedence left DIVIDE;
+precedence right ASSIGN;
+precedence left EQ;
+precedence left GT, LT;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+precedence right LBRACK;
+precedence right LPAREN;
+precedence left DOT;
 
 /************************/
 /* START WITH: Program */
@@ -129,7 +133,7 @@ type        ::=     TYPE_INT:t                          {: RESULT = new ... :}
                     | ID:t                             {: RESULT = new ... :}
                     ;
 
-arrayTypedef::=     ARRAY ID:name EQ type:t LBRACK RBRACK    {: RESULT = new ... :}
+arrayTypedef::=     ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON    {: RESULT = new ... :}
                     ;
 
 assignExp   ::=     ASSIGN exp:e                             {: RESULT = new ... :}
@@ -199,8 +203,8 @@ expList     ::=     exp:e COMMA expList:el                  {: RESULT = new ... 
                     | exp:e                                        {: RESULT = new ... :}
                     ;
 
-newExp      ::=     NEW ID:newD                         {: RESULT = new ... :}
-                    | NEW ID:name LBRACK exp:e RBRACK        {: RESULT = new ... :}
+newExp      ::=     NEW type:newT                         {: RESULT = new ... :}
+                    | NEW type:name LBRACK exp:e RBRACK        {: RESULT = new ... :}
                     ;
 
 cField      ::=     varDec:v                            {: RESULT = new ... :}
@@ -218,26 +222,26 @@ BINOP       ::=     PLUS:plus                           {: RESULT = new ... :}
 
 lessSigInt  ::=     0:num lessSig:ls                    {: RESULT = new ... :}
                     | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 2:num lessSig:ls                  {: RESULT = new ... :}
+                    | 3:num lessSig:ls                  {: RESULT = new ... :}
+                    | 4:num lessSig:ls                  {: RESULT = new ... :}
+                    | 5:num lessSig:ls                  {: RESULT = new ... :}
+                    | 6:num lessSig:ls                  {: RESULT = new ... :}
+                    | 7:num lessSig:ls                  {: RESULT = new ... :}
+                    | 8:num lessSig:ls                  {: RESULT = new ... :}
+                    | 9:num lessSig:ls                  {: RESULT = new ... :}
                     |                                   {: RESULT = new ... :}
                     ;
 
 INT         ::=     0:num                               {: RESULT = new ... :}
                     | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
+                    | 2:num lessSig:ls                  {: RESULT = new ... :}
+                    | 3:num lessSig:ls                  {: RESULT = new ... :}
+                    | 4:num lessSig:ls                  {: RESULT = new ... :}
+                    | 5:num lessSig:ls                  {: RESULT = new ... :}
+                    | 6:num lessSig:ls                  {: RESULT = new ... :}
+                    | 7:num lessSig:ls                  {: RESULT = new ... :}
+                    | 8:num lessSig:ls                  {: RESULT = new ... :}
+                    | 9:num lessSig:ls                  {: RESULT = new ... :}
                     ;
 
