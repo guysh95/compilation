@@ -136,11 +136,8 @@ type        ::=     TYPE_INT:t                          {: RESULT = new ... :}
 arrayTypedef::=     ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON    {: RESULT = new ... :}
                     ;
 
-assignExp   ::=     ASSIGN exp:e                             {: RESULT = new ... :}
-                    |                                        {: RESULT = new ... :}
-                    ;
-
-varDec      ::=     type:t ID:name assignExp:ae SEMICOLON               {: RESULT = new ... :}
+varDec      ::=     type:t ID:name ASSIGN exp:e SEMICOLON               {: RESULT = new AST_DEC_VAR(t, name, e); :}
+                    | type:t ID:name SEMICOLON               {: RESULT = new AST_DEC_VAR(t, name); :}
                     | type:t ID:name ASSIGN newExp:ne SEMICOLON         {: RESULT = new ... :}
                     ;
 
@@ -180,7 +177,7 @@ opVarAccess ::=     var:v DOT                                    {: RESULT = new
                     |                                            {: RESULT = new ... :}
                     ;
 
-stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
+stmt		::=		var:v exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
                     | varDec:vd								                    {: RESULT = new AST_STMT_ASSIGN(v,e); :}
                     | var:v ASSIGN newExp:ne SEMICOLON                          {: RESULT = new ... :}
                     | RETURN opExp:op SEMICOLON                                 {: RESULT = new ... :}
@@ -190,7 +187,7 @@ stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v
 					;
 
 exp			::=		var:v								    {: RESULT = new AST_EXP_VAR(v);          :}
-					| exp:e1 BINOP:b  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
+					| exp:e1 BINOP:b  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, b);:}
 					| LPAREN exp:e RPAREN                   {: RESULT = new ... :}
 					| opVarAccess ID:name LPAREN expList RPAREN {: RESULT = new ... :}
 					| NIL:n                                 {: RESULT = new ... :}
@@ -211,37 +208,14 @@ cField      ::=     varDec:v                            {: RESULT = new ... :}
                     | funcDec:v                        {: RESULT = new ... :}
                     ;
 
-BINOP       ::=     PLUS:plus                           {: RESULT = new ... :}
-                    | MINUS:minus                       {: RESULT = new ... :}
-                    | TIMES:times                       {: RESULT = new ... :}
-                    | DIVIDE:divide                     {: RESULT = new ... :}
-                    | LT:lt                             {: RESULT = new ... :}
-                    | GT:gt                             {: RESULT = new ... :}
-                    | EQ:eq                             {: RESULT = new ... :}
+
+BINOP       ::=     PLUS                            {: RESULT = new AST_BINOP_PLUS(); :}
+                    | MINUS                         {: RESULT = new AST_BINOP_MINUS(); :}
+                    | TIMES                         {: RESULT = new AST_BINOP_TIMES(); :}
+                    | DIVIDE                        {: RESULT = new AST_BINOP_DIVIDE(); :}
+                    | LT                            {: RESULT = new AST_BINOP_LT(); :}
+                    | GT                            {: RESULT = new AST_BINOP_GT(); :}
+                    | EQ                            {: RESULT = new AST_BINOP_EQ(); :}
                     ;
 
-lessSigInt  ::=     0:num lessSig:ls                    {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 2:num lessSig:ls                  {: RESULT = new ... :}
-                    | 3:num lessSig:ls                  {: RESULT = new ... :}
-                    | 4:num lessSig:ls                  {: RESULT = new ... :}
-                    | 5:num lessSig:ls                  {: RESULT = new ... :}
-                    | 6:num lessSig:ls                  {: RESULT = new ... :}
-                    | 7:num lessSig:ls                  {: RESULT = new ... :}
-                    | 8:num lessSig:ls                  {: RESULT = new ... :}
-                    | 9:num lessSig:ls                  {: RESULT = new ... :}
-                    |                                   {: RESULT = new ... :}
-                    ;
-
-INT         ::=     0:num                               {: RESULT = new ... :}
-                    | 1:num lessSig:ls                  {: RESULT = new ... :}
-                    | 2:num lessSig:ls                  {: RESULT = new ... :}
-                    | 3:num lessSig:ls                  {: RESULT = new ... :}
-                    | 4:num lessSig:ls                  {: RESULT = new ... :}
-                    | 5:num lessSig:ls                  {: RESULT = new ... :}
-                    | 6:num lessSig:ls                  {: RESULT = new ... :}
-                    | 7:num lessSig:ls                  {: RESULT = new ... :}
-                    | 8:num lessSig:ls                  {: RESULT = new ... :}
-                    | 9:num lessSig:ls                  {: RESULT = new ... :}
-                    ;
 
