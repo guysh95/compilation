@@ -79,6 +79,7 @@ terminal TYPE_STRING;
 terminal COMMENT;
 terminal TOKEN_ERROR;
 terminal TYPE_VOID;
+terminal TOKEN_ERROR;
 
 /*************/
 /* TERMINALS */
@@ -94,6 +95,14 @@ non terminal AST_EXP exp;
 non terminal AST_VAR var;
 non terminal AST_STMT stmt;
 non terminal AST_STMT_LIST stmtList;
+non terminal AST_PROGRAM Program;
+non terminal AST_DEC dec;
+non terminal AST_TYPEVAR type;
+non terminal AST_DEC arrayTypedef; // to fix
+non terminal AST_VARDEC varDec;
+non terminal AST_FUNCARGS funcArgs;
+non terminal AST_DEC cField; // to fix
+
 
 
 /***********************/
@@ -127,17 +136,17 @@ dec         ::=     varDec:v                            {: RESULT = new ... :}
                     | arrayTypedefDec:v                {: RESULT = new ... :}
                     ;
 
-type        ::=     TYPE_INT:t                          {: RESULT = new ... :}
-                    | TYPE_STRING:t                    {: RESULT = new ... :}
-                    | TYPE_VOID:t                      {: RESULT = new ... :}
-                    | ID:t                             {: RESULT = new ... :}
+type        ::=     TYPE_INT                         {: RESULT = new AST_TYPE_INT(); :}
+                    | TYPE_STRING                    {: RESULT = new AST_TYPE_STRING(); :}
+                    | TYPE_VOID                      {: RESULT = new AST_TYPE_VOID(); :}
+                    | ID:name                        {: RESULT = new AST_TYPE_SIMPLE(name); :}
                     ;
 
-arrayTypedef::=     ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON    {: RESULT = new ... :}
+arrayTypedef::=     ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON    {: RESULT = new AST_ARRAY_TYPE_DEF(name, type); :}
                     ;
 
 varDec      ::=     type:t ID:name ASSIGN exp:e SEMICOLON               {: RESULT = new AST_VARDEC_ASSIGN(t, name, e); :}
-                    | type:t ID:name SEMICOLON               {: RESULT = new AST_VARDEC(t, name); :}
+                    | type:t ID:name SEMICOLON                          {: RESULT = new AST_VARDEC(t, name); :}
                     | type:t ID:name ASSIGN newExp:ne SEMICOLON         {: RESULT = new AST_VARDEC_NEW(t, name, ne); :}
                     ;
 
@@ -145,11 +154,12 @@ funcArgs     ::=     type:t2 ID:n3 COMMA funcArgs:fa                       {: RE
                     | type:t1 ID:n2                                        {: RESULT = new ... :}
                     ;
 
-funcDec     ::=     type:t ID:n1 LPAREN funcArgs:fa RPAREN LBRACE stmtList:sl RBRACE {: RESULT = new AST_FUNCDEC(t, n1, fa, sl) :}
+funcDec     ::=     type:t ID:n1 LPAREN funcArgs:fa RPAREN LBRACE stmtList:sl RBRACE {: RESULT = new AST_FUNCDEC(t, n1, fa, sl); :}
+                    | type:t ID:n1 LPAREN RPAREN LBRACE stmtList:sl RBRACE           {: RESULT = new AST_FUNCDEC(t, n1, null, sl); :}
                     ;
 
 cField      ::=     varDec:v                            {: RESULT = new ... :}
-                    | funcDec:v                        {: RESULT = new ... :}
+                    | funcDec:v                         {: RESULT = new ... :}
                     ;
 
 cFieldList  ::=     cField:cf cFieldList:fl                               {: RESULT = new ... :}

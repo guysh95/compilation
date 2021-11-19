@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_DECVAR_NEW extends AST_DEC
+public class AST_VARDEC_NEW extends AST_DEC
 {
 	public AST_TYPE type;
     public AST_VAR_SIMPLE id;
