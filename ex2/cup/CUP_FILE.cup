@@ -136,9 +136,9 @@ type        ::=     TYPE_INT:t                          {: RESULT = new ... :}
 arrayTypedef::=     ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON    {: RESULT = new ... :}
                     ;
 
-varDec      ::=     type:t ID:name ASSIGN exp:e SEMICOLON               {: RESULT = new AST_DEC_VAR(t, name, e); :}
-                    | type:t ID:name SEMICOLON               {: RESULT = new AST_DEC_VAR(t, name); :}
-                    | type:t ID:name ASSIGN newExp:ne SEMICOLON         {: RESULT = new ... :}
+varDec      ::=     type:t ID:name ASSIGN exp:e SEMICOLON               {: RESULT = new AST_DECVAR_ASSIGN(t, name, e); :}
+                    | type:t ID:name SEMICOLON               {: RESULT = new AST_DECVAR(t, name); :}
+                    | type:t ID:name ASSIGN newExp:ne SEMICOLON         {: RESULT = new AST_DECVAR_NEW(t, name, ne); :}
                     ;
 
 funcArgs     ::=     type:t2 ID:n3 COMMA funcArgs:fa                  {: RESULT = new ... :}
