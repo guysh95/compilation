@@ -2,12 +2,12 @@ package AST;
 
 public class AST_DEC_FUNC extends AST_DEC
 {
-	public AST_DEC v;
+	public AST_FUNCDEC v;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_FUNC(AST_FUNC v)
+	public AST_EXP_FUNC(AST_FUNCDEC v)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */

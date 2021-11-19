@@ -131,9 +131,9 @@ Program     ::=     dec:d Program:p                   {: RESULT = new AST_PROGRA
                     ;
 
 dec         ::=     varDec:v                            {: RESULT = new AST_DEC_VAR(v); :}
-                    | funcDec:v                        {: RESULT = new ... :}
-                    | classDec:v                       {: RESULT = new ... :}
-                    | arrayTypedefDec:v                {: RESULT = new ... :}
+                    | funcDec:v                        {: RESULT = new AST_DEC_FUNC(v); :}
+                    | classDec:v                       {: RESULT = new AST_DEC_CLASS(v); :}
+                    | arrayTypedefDec:v                {: RESULT = new AST_DEC_ARRAY(v); :}
                     ;
 
 type        ::=     TYPE_INT                         {: RESULT = new AST_TYPE_INT(); :}
@@ -166,8 +166,8 @@ cFieldList  ::=     cField:cf cFieldList:fl                               {: RES
                     | cField:cf                                           {: RESULT = new ... :}
                     ;
 
-classDec    ::=     CLASS ID:name LBRACE cFieldList:fl RBRACE                       {: RESULT = new ... :}
-                    | CLASS ID:name EXTENDS ID:name2 LBRACE cFieldList:fl RBRACE    {: RESULT = new ... :}
+classDec    ::=     CLASS ID:name LBRACE cFieldList:fl RBRACE                       {: RESULT = new AST_CLASS_DEC(name, null, fl); :}
+                    | CLASS ID:name EXTENDS ID:name2 LBRACE cFieldList:fl RBRACE    {: RESULT = new AST_CLASS_DEC(name, name2, fl); :}
                     ;
 
 

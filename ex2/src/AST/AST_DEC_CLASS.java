@@ -2,12 +2,12 @@ package AST;
 
 public class AST_DEC_CLASS extends AST_DEC
 {
-	public AST_DEC v;
+	public AST_CLASS_DEC dec;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_CLASS(AST_CLASS v)
+	public AST_DEC_CLASS(AST_CLASS_DEC dec)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -22,7 +22,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
-		this.v = v;
+		this.dec = dec;
 	}
 	
 	/***********************************************/
@@ -38,7 +38,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		/*****************************/
 		/* RECURSIVELY PRINT var ... */
 		/*****************************/
-		if (v != null) v.PrintMe();
+		if (dec != null) dec.PrintMe();
 		
 		/*********************************/
 		/* Print to AST GRAPHIZ DOT file */
@@ -50,7 +50,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,v.SerialNumber);
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,dec.SerialNumber);
 			
 	}
 }
