@@ -1,14 +1,13 @@
 package AST;
 
-public class AST_VARDEC extends AST_DEC
+public class AST_DEC_VAR extends AST_DEC
 {
-	public AST_TYPE type;
-    public String id;
+	public AST_DEC v;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VARDEC(AST_TYPE type, String id)
+	public AST_EXP_VAR(AST_VAR v)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -18,13 +17,12 @@ public class AST_VARDEC extends AST_DEC
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-        System.out.print("====================== varDec -> type ID;\n");
+		System.out.print("====================== dec -> varDec\n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
-		this.type = type;
-        this.id = id;
+		this.v = v;
 	}
 	
 	/***********************************************/
@@ -40,20 +38,19 @@ public class AST_VARDEC extends AST_DEC
 		/*****************************/
 		/* RECURSIVELY PRINT var ... */
 		/*****************************/
-		if (type != null) type.PrintMe();
-        System.out.format("VAR ID(%s)", id);
+		if (v != null) v.PrintMe();
 		
 		/*********************************/
 		/* Print to AST GRAPHIZ DOT file */
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"DECLARE\nVAR\n");
+			"DEC\nVAR");
 
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		if (type != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,v.SerialNumber);
 			
 	}
 }

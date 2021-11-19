@@ -130,7 +130,7 @@ Program     ::=     dec:d Program:p                   {: RESULT = new AST_PROGRA
                     | dec:d                           {: RESULT = new AST_PROGRAM(d, null); :}
                     ;
 
-dec         ::=     varDec:v                            {: RESULT = new ... :}
+dec         ::=     varDec:v                            {: RESULT = new AST_DEC_VAR(v); :}
                     | funcDec:v                        {: RESULT = new ... :}
                     | classDec:v                       {: RESULT = new ... :}
                     | arrayTypedefDec:v                {: RESULT = new ... :}
@@ -146,12 +146,12 @@ arrayTypedef::=     ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON    {: RESULT
                     ;
 
 varDec      ::=     type:t ID:name ASSIGN exp:e SEMICOLON               {: RESULT = new AST_VARDEC_ASSIGN(t, name, e); :}
-                    | type:t ID:name SEMICOLON                          {: RESULT = new AST_VARDEC(t, name); :}
+                    | type:t ID:name SEMICOLON                          {: RESULT = new AST_VARDEC_REG(t, name); :}
                     | type:t ID:name ASSIGN newExp:ne SEMICOLON         {: RESULT = new AST_VARDEC_NEW(t, name, ne); :}
                     ;
 
-funcArgs     ::=     type:t2 ID:n3 COMMA funcArgs:fa                       {: RESULT = new ... :}
-                    | type:t1 ID:n2                                        {: RESULT = new ... :}
+funcArgs     ::=     type:t ID:n COMMA funcArgs:fa                       {: RESULT = new AST_FUNCARGS(t, n, fa); :}
+                    | type:t ID:n                                        {: RESULT = new AST_FUNCARGS(t, n); :}
                     ;
 
 funcDec     ::=     type:t ID:n1 LPAREN funcArgs:fa RPAREN LBRACE stmtList:sl RBRACE {: RESULT = new AST_FUNCDEC(t, n1, fa, sl); :}
