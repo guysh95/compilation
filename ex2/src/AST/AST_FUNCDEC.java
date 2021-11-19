@@ -1,15 +1,16 @@
 package AST;
 
-public class AST_DECVAR_NEW extends AST_DEC
+public class AST_FUNCDEC extends AST_DEC
 {
 	public AST_TYPE type;
     public AST_VAR_SIMPLE id;
-    public AST_NEW_EXP exp;
+    public AST_FUNCARGS fa;
+    public AST_STMT_LIST sl;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VARDEC_NEW(AST_TYPE type, AST_VAR_SIMPLE id, AST_NEW_EXP exp)
+	public AST_FUNCDEC(AST_TYPE type, AST_VAR_SIMPLE id, AST_FUNCARGS fa, AST_STMT_LIST sl)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -19,15 +20,15 @@ public class AST_DECVAR_NEW extends AST_DEC
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("====================== varDec -> type ID [ASSING NEW exp]\n");
-        
+        System.out.print("====================== funcDec -> type ID ( funcArgs ) { stmtList }\n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
 		this.type = type;
         this.id = id;
-        this.exp = exp;
+        this.fa = fa;
+        this.sl = sl;        
 
 	}
 	
@@ -39,28 +40,32 @@ public class AST_DECVAR_NEW extends AST_DEC
 		/************************************/
 		/* AST NODE TYPE = EXP VAR AST NODE */
 		/************************************/
-		System.out.print("AST NODE DEC NEW EXP\n");
+		System.out.print("AST NODE FUNC DEC\n");
 
 		/*****************************/
 		/* RECURSIVELY PRINT var ... */
 		/*****************************/
 		if (type != null) type.PrintMe();
         if (id != null) id.PrintMe();
-        if (exp != null) exp.PrintMe();
+        if (fa != null) fa.PrintMe();
+        if (sl != null) sl.PrintMe();
+        
 		
 		/*********************************/
 		/* Print to AST GRAPHIZ DOT file */
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"DEC\nNEW EXP");
+			"FUNC\nVAR\n");
 
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		if (type != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
         if (id != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,id.SerialNumber);
-        if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+        if (fa != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,fa.SerialNumber);
+        if (sl != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,sl.SerialNumber);
+        
 			
 	}
 }

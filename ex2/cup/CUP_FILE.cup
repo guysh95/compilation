@@ -145,7 +145,7 @@ funcArgs     ::=     type:t2 ID:n3 COMMA funcArgs:fa                       {: RE
                     | type:t1 ID:n2                                        {: RESULT = new ... :}
                     ;
 
-funcDec     ::=     type:t ID:n1 LPAREN funcArgs:fa RPAREN LBRACE stmtList:sl RBRACE {: RESULT = new ... :}
+funcDec     ::=     type:t ID:n1 LPAREN funcArgs:fa RPAREN LBRACE stmtList:sl RBRACE {: RESULT = new AST_FUNCDEC(t, n1, fa, sl) :}
                     ;
 
 cField      ::=     varDec:v                            {: RESULT = new ... :}
