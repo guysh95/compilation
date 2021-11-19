@@ -34,21 +34,6 @@ public class AST_EXP_BINOP extends AST_EXP
 	/*************************************************/
 	public void PrintMe()
 	{
-<<<<<<< HEAD
-		String sOP="";
-		
-		/*********************************/
-		/* CONVERT OP to a printable sOP */
-		/*********************************/
-		if (OP == 0) {sOP = "+";}
-		if (OP == 1) {sOP = "-";}
-		if (OP == 2) {sOP = "*";}
-		if (OP == 3) {sOP = "/";}
-		if (OP == 4) {sOP = "<";}
-		if (OP == 5) {sOP = ">";}
-		if (OP == 6) {sOP = "=";}
-=======
->>>>>>> 41d92a0b0c763cd0e2882c8669159373d8525781
 		
 		/*************************************/
 		/* AST NODE TYPE = AST BINOP EXP */
