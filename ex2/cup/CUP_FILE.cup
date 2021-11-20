@@ -158,12 +158,12 @@ funcDec     ::=     type:t ID:n1 LPAREN funcArgs:fa RPAREN LBRACE stmtList:sl RB
                     | type:t ID:n1 LPAREN RPAREN LBRACE stmtList:sl RBRACE           {: RESULT = new AST_FUNCDEC(t, n1, null, sl); :}
                     ;
 
-cField      ::=     varDec:v                            {: RESULT = new ... :}
-                    | funcDec:v                         {: RESULT = new ... :}
+cField      ::=     varDec:v                            {: RESULT = new AST_DEC_VAR(v); :}
+                    | funcDec:v                         {: RESULT = new AST_DEC_FUNC(v); :}
                     ;
 
-cFieldList  ::=     cField:cf cFieldList:fl                               {: RESULT = new ... :}
-                    | cField:cf                                           {: RESULT = new ... :}
+cFieldList  ::=     cField:cf cFieldList:fl                               {: RESULT = new AST_CFIELD_LIST(cf, fl); :}
+                    | cField:cf                                           {: RESULT = new AST_CFIELD_LIST(cf); :}
                     ;
 
 classDec    ::=     CLASS ID:name LBRACE cFieldList:fl RBRACE                       {: RESULT = new AST_CLASS_DEC(name, null, fl); :}
@@ -176,12 +176,12 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :}
 					;
 
-stmt		::=		var:v exp:e SEMICOLON								        {: RESULT = new AST_STMT_ASSIGN(v,e); :}
-                    | varDec:vd								                    {: RESULT = new AST_STMT_ASSIGN(v,e); :}
+stmt		::=		var:v exp:e SEMICOLON								        {: RESULT = new ... :}
+                    | varDec:vd								                    {: RESULT = new ... :}
                     | var:v ASSIGN newExp:ne SEMICOLON                          {: RESULT = new ... :}
                     | RETURN exp:e SEMICOLON                                    {: RESULT = new ... :}
                     | RETURN SEMICOLON                                          {: RESULT = new ... :}
-					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
+					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
 					| ID:name LPAREN expList RPAREN SEMICOLON                   {: RESULT = new ... :}
 					| var:v DOT ID:name LPAREN expList RPAREN SEMICOLON         {: RESULT = new ... :}
