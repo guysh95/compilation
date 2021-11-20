@@ -84,7 +84,7 @@ import java.lang.Math;
 /***********************/
 LineTerminator	= \r|\n|\r\n
 WhiteSpace	   	= {LineTerminator} | [ \t\f]
-INTEGER			    = 0 | [1-9][0-9]*
+INT			    = 0 | [1-9][0-9]*
 BAD_INTEGER         = 0[0-9]+
 ID			       	= [a-zA-Z][a-zA-Z0-9]*
 BAD_ID              = [0-9]+{ID}
@@ -142,7 +142,7 @@ COMMENT         = \/\/{ValidInComment1}{LineTerminator} | \/\*{ValidInComment2}\
 {TYPE_INT}          {return symbol(TokenNames.TYPE_INT);}
 {TYPE_STRING}       {return symbol(TokenNames.TYPE_STRING);}
 {NIL}			    { return symbol(TokenNames.NIL);}
-{INTEGER}			{ return check_integer(new Integer(yytext())); }
+{INT}			{ return check_integer(new Integer(yytext())); }
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 {CLASS}			    { return symbol(TokenNames.CLASS);}
 {NIL}			    { return symbol(TokenNames.NIL);}
