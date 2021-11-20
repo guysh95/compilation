@@ -176,15 +176,15 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :}
 					;
 
-stmt		::=		var:v exp:e SEMICOLON								        {: RESULT = new ... :}
-                    | varDec:vd								                    {: RESULT = new ... :}
-                    | var:v ASSIGN newExp:ne SEMICOLON                          {: RESULT = new ... :}
-                    | RETURN exp:e SEMICOLON                                    {: RESULT = new ... :}
-                    | RETURN SEMICOLON                                          {: RESULT = new ... :}
+stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v, e); :}
+                    | varDec:vd								                    {: RESULT = new AST_DEC_VAR(vd); :}
+                    | var:v ASSIGN newExp:ne SEMICOLON                          {: RESULT = new AST_STMT_ASSIGN_NEW(v, ne); :}
+                    | RETURN exp:e SEMICOLON                                    {: RESULT = new AST_STMT_RETURN(e); :}
+                    | RETURN SEMICOLON                                          {: RESULT = new AST_STMT_RETURN(); :}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
-					| ID:name LPAREN expList RPAREN SEMICOLON                   {: RESULT = new ... :}
-					| var:v DOT ID:name LPAREN expList RPAREN SEMICOLON         {: RESULT = new ... :}
+					| ID:name LPAREN expList:e RPAREN SEMICOLON                   {: RESULT = new AST_STMT_EXPLIST(null, name, e); :}
+					| var:v DOT ID:name LPAREN expList:e RPAREN SEMICOLON         {: RESULT = new AST_STMT_EXPLIST(v, name, e) :}
 					;
 
 stmtList	::=		stmt:s	stmtList:l		            {: RESULT = new AST_STMT_LIST(s,l);    :}
