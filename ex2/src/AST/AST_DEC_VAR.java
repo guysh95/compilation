@@ -7,7 +7,7 @@ public class AST_DEC_VAR extends AST_DEC
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_VAR(AST_VAR v)
+	public AST_DEC_VAR(AST_DEC v)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */

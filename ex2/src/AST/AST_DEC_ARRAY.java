@@ -2,12 +2,12 @@ package AST;
 
 public class AST_DEC_ARRAY extends AST_DEC
 {
-	public AST_DEC v;
+	public AST_ARRAY_TYPE_DEF v;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_ARRAY(AST_ARRAY v)
+	public AST_DEC_ARRAY(AST_ARRAY_TYPE_DEF v)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -17,7 +17,7 @@ public class AST_DEC_ARRAY extends AST_DEC
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("====================== dec -> arrayDec\n");
+		System.out.print("====================== dec -> arrayTypedef\n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */

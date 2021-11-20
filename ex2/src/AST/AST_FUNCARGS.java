@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_FUNCARGS extends AST_NODE
+public class AST_FUNCARGS extends AST_Node
 {
 	public AST_TYPE type;
     public AST_VAR_SIMPLE id;
@@ -10,7 +10,7 @@ public class AST_FUNCARGS extends AST_NODE
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_FUNARGS(AST_TYPE type, AST_VAR_SIMPLE id, AST_FUNCARGS fa)
+	public AST_FUNCARGS(AST_TYPE type, AST_VAR_SIMPLE id, AST_FUNCARGS fa)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
