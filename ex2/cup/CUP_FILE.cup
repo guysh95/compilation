@@ -203,6 +203,7 @@ exp			::=		var:v								        {: RESULT = new AST_EXP_VAR(v);          :}
 					| LPAREN exp:e RPAREN                       {: RESULT = new AST_EXP_PAREN(e); :}
 					| ID:name LPAREN expList:el RPAREN             {: RESULT = new AST_EXP_FCALL(null, name, el); :}
 					| var:v DOT ID:name LPAREN expList:el RPAREN   {: RESULT = new AST_EXP_FCALL(v, name, el); :}
+					| var:v DOT ID:name LPAREN RPAREN           {: RESULT = new AST_EXP_FCALL(v, name, null); :}
 					| NIL:n                                     {: RESULT = new AST_EXP_NIL(); :}
 					| STRING:s                                  {: RESULT = new AST_EXP_STRING(s); :}
 					| INT:i								        {: RESULT = new AST_EXP_INT(i);    :}

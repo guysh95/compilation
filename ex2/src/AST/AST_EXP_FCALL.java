@@ -20,8 +20,8 @@ public class AST_EXP_FCALL extends AST_EXP {
             /***************************************/
             /* PRINT CORRESPONDING DERIVATION RULE */
             /***************************************/
-            if (caller != null) System.out.format("====================== exp -> var DOT ID(%s) LPAREN expList RPAREN\n", name);
-            if (caller == null) System.out.format("====================== exp -> ID(%s) LPAREN expList RPAREN\n", name);
+            if (explist != null) System.out.format("====================== exp -> var . ID(%s) ( expList )\n", name);
+            if (explist == null) System.out.format("====================== exp -> var . ID(%s) ()\n", name);
 
             /*******************************/
             /* COPY INPUT DATA NENBERS ... */
