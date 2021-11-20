@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_CFIELD_LIST extends AST_DEC
+public class AST_CFIELD_LIST extends AST_Node
 {
 	/****************/
 	/* DATA MEMBERS */
