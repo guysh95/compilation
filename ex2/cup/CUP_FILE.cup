@@ -79,7 +79,9 @@ terminal TYPE_STRING;
 terminal COMMENT;
 terminal TOKEN_ERROR;
 terminal TYPE_VOID;
-terminal TOKEN_ERROR;
+terminal LT;
+terminal GT;
+terminal NIL;
 
 /*************/
 /* TERMINALS */
@@ -138,7 +140,7 @@ Program     ::=     dec:d Program:p                   {: RESULT = new AST_PROGRA
 dec         ::=     varDec:v                            {: RESULT = new AST_DEC_VAR(v); :}
                     | funcDec:v                        {: RESULT = new AST_DEC_FUNC(v); :}
                     | classDec:v                       {: RESULT = new AST_DEC_CLASS(v); :}
-                    | arrayTypedefDec:v                {: RESULT = new AST_DEC_ARRAY(v); :}
+                    | arrayTypedef:v                {: RESULT = new AST_DEC_ARRAY(v); :}
                     ;
 
 type        ::=     TYPE_INT                         {: RESULT = new AST_TYPE_INT(); :}

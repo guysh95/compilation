@@ -12,7 +12,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_EXPLIST(AST_VAR var, AST_VAR_SIMPLE id, AST_EXPlist exps)
+	public AST_STMT_EXPLIST(AST_VAR var, AST_VAR_SIMPLE id, AST_EXPLIST exps)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */

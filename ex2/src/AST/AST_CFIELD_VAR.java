@@ -2,12 +2,12 @@ package AST;
 
 public class AST_CFIELD_VAR extends AST_CFIELD
 {
-	public AST_VARDEC v;
+	public AST_DEC_VAR v;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_CFIELD_VAR(AST_VARDEC v)
+	public AST_CFIELD_VAR(AST_DEC_VAR v)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */

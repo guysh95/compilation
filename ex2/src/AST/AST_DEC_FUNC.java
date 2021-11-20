@@ -7,7 +7,7 @@ public class AST_DEC_FUNC extends AST_DEC
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_FUNC(AST_FUNCDEC v)
+	public AST_DEC_FUNC(AST_FUNCDEC v)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
