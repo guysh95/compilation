@@ -88,7 +88,7 @@ terminal NIL;
 /*************/
 terminal Integer INT;
 terminal String ID;
-terminal string STRING;
+terminal String STRING;
 
 /*****************/
 /* NON TERMINALS */
@@ -184,10 +184,10 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					;
 
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v, e); :}
-                    | varDec:vd								                    {: RESULT = new AST_DEC_VAR(vd); :}
+                    | varDec:vd								                    {: RESULT = new AST_STMT_VARDEC(vd); :}
                     | var:v ASSIGN newExp:ne SEMICOLON                          {: RESULT = new AST_STMT_ASSIGN_NEW(v, ne); :}
                     | RETURN exp:e SEMICOLON                                    {: RESULT = new AST_STMT_RETURN(e); :}
-                    | RETURN SEMICOLON                                          {: RESULT = new AST_STMT_RETURN(); :}
+                    | RETURN SEMICOLON                                          {: RESULT = new AST_STMT_RETURN(null); :}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
 					| ID:name LPAREN expList:e RPAREN SEMICOLON                   {: RESULT = new AST_STMT_EXPLIST(null, name, e); :}
