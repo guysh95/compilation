@@ -5,13 +5,13 @@ public class AST_CFIELD_LIST extends AST_Node
 	/****************/
 	/* DATA MEMBERS */
 	/****************/
-	public AST_DEC head;
+	public AST_CFIELD head;
 	public AST_CFIELD_LIST tail;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_CFIELD_LIST(AST_DEC head,AST_CFIELD_LIST tail)
+	public AST_CFIELD_LIST(AST_CFIELD head,AST_CFIELD_LIST tail)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */

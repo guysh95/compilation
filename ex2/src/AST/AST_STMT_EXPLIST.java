@@ -6,13 +6,13 @@ public class AST_STMT_EXPLIST extends AST_STMT
 	/* DATA MEMBERS */
 	/****************/
 	public AST_VAR var;
-    public AST_VAR_SIMPLE id;
+    public String id;
     public AST_EXPLIST exps;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_EXPLIST(AST_VAR var, AST_VAR_SIMPLE id, AST_EXPLIST exps)
+	public AST_STMT_EXPLIST(AST_VAR var, String id, AST_EXPLIST exps)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -48,7 +48,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		/* RECURSIVELY PRINT HEAD + TAIL ... */
 		/*************************************/
 		if (var != null) var.PrintMe();
-        if (id != null) id.PrintMe();
+        if (id != null) System.out.format("ID(\"%s\"",id);
         if (exps != null) exps.PrintMe();
 
 		/**********************************/
@@ -62,7 +62,6 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
-        if (id != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,id.SerialNumber);
         if (exps != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exps.SerialNumber);
 		
 	}

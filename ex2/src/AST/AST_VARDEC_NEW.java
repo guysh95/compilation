@@ -1,15 +1,15 @@
 package AST;
 
-public class AST_VARDEC_NEW extends AST_DEC
+public class AST_VARDEC_NEW extends AST_DEC_VAR
 {
 	public AST_TYPE type;
-    public AST_VAR_SIMPLE id;
+    public String id;
     public AST_NEW_EXP exp;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VARDEC_NEW(AST_TYPE type, AST_VAR_SIMPLE id, AST_NEW_EXP exp)
+	public AST_VARDEC_NEW(AST_TYPE type, String id, AST_NEW_EXP exp)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -45,7 +45,7 @@ public class AST_VARDEC_NEW extends AST_DEC
 		/* RECURSIVELY PRINT var ... */
 		/*****************************/
 		if (type != null) type.PrintMe();
-        if (id != null) id.PrintMe();
+        if (id != null) System.out.format("ID(\"%s\")",id);
         if (exp != null) exp.PrintMe();
 		
 		/*********************************/
@@ -59,7 +59,6 @@ public class AST_VARDEC_NEW extends AST_DEC
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		if (type != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
-        if (id != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,id.SerialNumber);
         if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 	}
 }

@@ -99,10 +99,10 @@ non terminal AST_TYPE type;
 non terminal AST_ARRAY_TYPE_DEF arrayTypedef;
 non terminal AST_DEC_VAR varDec;
 non terminal AST_FUNCARGS funcArgs;
-non terminal AST_DEC_FUNC funcDec;
+non terminal AST_FUNCDEC funcDec;
 non terminal AST_CFIELD cField;
 non terminal AST_CFIELD_LIST cFieldList;
-non terminal AST_DEC_CLASS classDec;
+non terminal AST_CLASS_DEC classDec;
 non terminal AST_VAR var;
 non terminal AST_STMT stmt;
 non terminal AST_STMT_LIST stmtList;
@@ -149,7 +149,7 @@ type        ::=     TYPE_INT                         {: RESULT = new AST_TYPE_IN
                     | ID:name                        {: RESULT = new AST_TYPE_SIMPLE(name); :}
                     ;
 
-arrayTypedef::=     ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON    {: RESULT = new AST_ARRAY_TYPE_DEF(name, type); :}
+arrayTypedef::=     ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON    {: RESULT = new AST_ARRAY_TYPE_DEF(name, t); :}
                     ;
 
 varDec      ::=     type:t ID:name ASSIGN exp:e SEMICOLON               {: RESULT = new AST_VARDEC_ASSIGN(t, name, e); :}
@@ -158,7 +158,7 @@ varDec      ::=     type:t ID:name ASSIGN exp:e SEMICOLON               {: RESUL
                     ;
 
 funcArgs     ::=     type:t ID:n COMMA funcArgs:fa                       {: RESULT = new AST_FUNCARGS(t, n, fa); :}
-                    | type:t ID:n                                        {: RESULT = new AST_FUNCARGS(t, n); :}
+                    | type:t ID:n                                        {: RESULT = new AST_FUNCARGS(t, n, null); :}
                     ;
 
 funcDec     ::=     type:t ID:n1 LPAREN funcArgs:fa RPAREN LBRACE stmtList:sl RBRACE {: RESULT = new AST_FUNCDEC(t, n1, fa, sl); :}
@@ -170,7 +170,7 @@ cField      ::=     varDec:v                            {: RESULT = new AST_CFIE
                     ;
 
 cFieldList  ::=     cField:cf cFieldList:fl                               {: RESULT = new AST_CFIELD_LIST(cf, fl); :}
-                    | cField:cf                                           {: RESULT = new AST_CFIELD_LIST(cf); :}
+                    | cField:cf                                           {: RESULT = new AST_CFIELD_LIST(cf, null); :}
                     ;
 
 classDec    ::=     CLASS ID:name LBRACE cFieldList:fl RBRACE                       {: RESULT = new AST_CLASS_DEC(name, null, fl); :}

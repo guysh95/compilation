@@ -3,14 +3,14 @@ package AST;
 public class AST_FUNCARGS extends AST_Node
 {
 	public AST_TYPE type;
-    public AST_VAR_SIMPLE id;
+    public String id;
     public AST_FUNCARGS fa;
     
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_FUNCARGS(AST_TYPE type, AST_VAR_SIMPLE id, AST_FUNCARGS fa)
+	public AST_FUNCARGS(AST_TYPE type, String id, AST_FUNCARGS fa)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -46,7 +46,7 @@ public class AST_FUNCARGS extends AST_Node
 		/* RECURSIVELY PRINT var ... */
 		/*****************************/
 		if (type != null) type.PrintMe();
-        if (id != null) id.PrintMe();
+        if (id != null) System.out.format("ID(\"%s\"",id);
         if (fa != null) fa.PrintMe();
         
         
@@ -62,7 +62,6 @@ public class AST_FUNCARGS extends AST_Node
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		if (type != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
-        if (id != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,id.SerialNumber);
         if (fa != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,fa.SerialNumber);
         
         

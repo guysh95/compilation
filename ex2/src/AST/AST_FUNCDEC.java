@@ -3,14 +3,14 @@ package AST;
 public class AST_FUNCDEC extends AST_DEC
 {
 	public AST_TYPE type;
-    public AST_VAR_SIMPLE id;
+    public String id;
     public AST_FUNCARGS fa;
     public AST_STMT_LIST sl;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_FUNCDEC(AST_TYPE type, AST_VAR_SIMPLE id, AST_FUNCARGS fa, AST_STMT_LIST sl)
+	public AST_FUNCDEC(AST_TYPE type, String id, AST_FUNCARGS fa, AST_STMT_LIST sl)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -46,7 +46,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/* RECURSIVELY PRINT var ... */
 		/*****************************/
 		if (type != null) type.PrintMe();
-        if (id != null) id.PrintMe();
+        if (id != null) System.out.format("ID(\"%s\"",id);
         if (fa != null) fa.PrintMe();
         if (sl != null) sl.PrintMe();
         
@@ -62,7 +62,6 @@ public class AST_FUNCDEC extends AST_DEC
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		if (type != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
-        if (id != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,id.SerialNumber);
         if (fa != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,fa.SerialNumber);
         if (sl != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,sl.SerialNumber);
         

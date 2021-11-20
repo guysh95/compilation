@@ -24,7 +24,10 @@ public class AST_DEC_VAR extends AST_DEC
 		/*******************************/
 		this.v = v;
 	}
-	
+
+	public AST_DEC_VAR() {
+	}
+
 	/***********************************************/
 	/* The default message for an exp var AST node */
 	/***********************************************/

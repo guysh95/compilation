@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_VARDEC_ASSIGN extends AST_DEC
+public class AST_VARDEC_ASSIGN extends AST_DEC_VAR
 {
 	public AST_TYPE type;
     public String id;
