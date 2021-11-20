@@ -70,7 +70,7 @@ import java.lang.Math;
 
 	public Symbol check_integer(int val) throws RuntimeException {
 		if (val <= (Math.pow(2, 15) - 1)){
-			return symbol(TokenNames.INT, yytext());
+			return symbol(TokenNames.INT, new Integer(yytext()));
 		} else{
 			/* throw new RuntimeException("Integer is too big"); */
 			return symbol(TokenNames.TOKEN_ERROR);
