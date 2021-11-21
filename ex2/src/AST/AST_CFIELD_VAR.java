@@ -45,7 +45,7 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"CFIELD\nVAR");
+			"CLASS\nVAR");
 
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

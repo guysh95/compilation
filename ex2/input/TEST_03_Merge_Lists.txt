@@ -45,7 +45,7 @@ void main()
     IntList B := new IntList;
     IntList C := new IntList;
     IntList D := new IntList;
-       
+
     a.head := 34;
     b.head := 70;
     c.head := 92;

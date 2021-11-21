@@ -56,7 +56,7 @@ public class AST_FUNCARGS extends AST_Node
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"FUNC\nARGS\n");
+			String.format("FUNC\nARG\n( %s )\n", id));
 
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

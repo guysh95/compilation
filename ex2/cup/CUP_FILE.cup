@@ -190,8 +190,10 @@ stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v
                     | RETURN SEMICOLON                                          {: RESULT = new AST_STMT_RETURN(null); :}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
-					| ID:name LPAREN expList:e RPAREN SEMICOLON                   {: RESULT = new AST_STMT_EXPLIST(null, name, e); :}
-					| var:v DOT ID:name LPAREN expList:e RPAREN SEMICOLON         {: RESULT = new AST_STMT_EXPLIST(v, name, e); :}
+					| ID:name LPAREN expList:e RPAREN SEMICOLON                 {: RESULT = new AST_STMT_EXPLIST(null, name, e); :}
+					| var:v DOT ID:name LPAREN expList:e RPAREN SEMICOLON       {: RESULT = new AST_STMT_EXPLIST(v, name, e); :}
+					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_STMT_EXPLIST(null, name, null); :}
+					| var:v DOT ID:name LPAREN RPAREN SEMICOLON                 {: RESULT = new AST_STMT_EXPLIST(v, name, null); :}
 					;
 
 stmtList	::=		stmt:s	stmtList:l		            {: RESULT = new AST_STMT_LIST(s,l);    :}
@@ -202,6 +204,7 @@ exp			::=		var:v								        {: RESULT = new AST_EXP_VAR(v);          :}
 					| exp:e1 BINOP:b  exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, b);:}
 					| LPAREN exp:e RPAREN                       {: RESULT = new AST_EXP_PAREN(e); :}
 					| ID:name LPAREN expList:el RPAREN             {: RESULT = new AST_EXP_FCALL(null, name, el); :}
+					| ID:name LPAREN RPAREN             {: RESULT = new AST_EXP_FCALL(null, name, null); :}
 					| var:v DOT ID:name LPAREN expList:el RPAREN   {: RESULT = new AST_EXP_FCALL(v, name, el); :}
 					| var:v DOT ID:name LPAREN RPAREN           {: RESULT = new AST_EXP_FCALL(v, name, null); :}
 					| NIL:n                                     {: RESULT = new AST_EXP_NIL(); :}

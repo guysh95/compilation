@@ -42,6 +42,6 @@ public class AST_TYPE_SIMPLE extends AST_TYPE {
         /*********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("SIMPLE\nTYPE\n(%s)",name));
+                String.format("TYPE\n(%s)",name));
     }
 }

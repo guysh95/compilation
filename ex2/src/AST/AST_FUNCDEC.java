@@ -56,7 +56,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"FUNC\nVAR\n");
+			String.format("%s FUNC\nDEC\n", id));
 
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

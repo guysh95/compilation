@@ -45,7 +45,7 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"CFIELD\nFUNC");
+			"CLASS\nFUNC");
 
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

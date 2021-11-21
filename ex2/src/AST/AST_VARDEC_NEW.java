@@ -53,7 +53,7 @@ public class AST_VARDEC_NEW extends AST_DEC_VAR
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"DEC\nNEW EXP");
+			String.format("DEC\nNEW EXP (%s)", id));
 
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

@@ -22,8 +22,14 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		if (var != null) System.out.print("====================== stmt -> var.id (exp list); \n");
-		if (var == null) System.out.print("====================== stmt -> id (exp list);\n");
+		if (var != null) {
+			if (exps != null) System.out.print("====================== stmt -> var.id (exp list); \n");
+			else System.out.print("====================== stmt -> var.id (); \n");
+		}
+		if (var == null){
+			if (exps != null) System.out.print("====================== stmt -> id (exp list);\n");
+			else System.out.print("====================== stmt -> id ();\n");
+		}
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
@@ -56,7 +62,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		/**********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"STMT\nEXPLIST\n");
+			String.format("STMT\nEXPLIST\nVAR.(%s)", id));
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

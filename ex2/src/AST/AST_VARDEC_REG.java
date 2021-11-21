@@ -48,7 +48,7 @@ public class AST_VARDEC_REG extends AST_DEC_VAR
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"DECLARE\nVAR\n");
+			String.format("DECLARE\nVAR (%s)\n", id));
 
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
