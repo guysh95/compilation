@@ -18,6 +18,7 @@ class Student extends Person
 	{
 		int i := 0;
 		int sum := 0;
+		int example := -6;
 		while (i<10)
 		{
 			sum := sum+grades[i];
