@@ -52,6 +52,7 @@ public class Main
 			/*************************/
 			/* [7] Close output file */
 			/*************************/
+			file_writer.print("OK");
 			file_writer.close();
 			
 			/*************************************/
@@ -62,7 +63,31 @@ public class Main
 			     
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			try {
+				file_writer = new PrintWriter(outputFilename);
+				if (e.getMessage().equals("lexical")) {
+					file_writer.print("ERROR");
+					System.out.print("Lexical Error");
+				}
+				else if (isNumeric(e.getMessage()))
+				{
+					file_writer.print("ERROR[" + e.getMessage() + "]");
+					System.out.print("Syntax Error");
+				}
+				file_writer.close();
+			}
+			catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+
+	public static boolean isNumeric(String str) {
+		try {
+			Double.parseDouble(str);
+			return true;
+		} catch(NumberFormatException e){
+			return false;
 		}
 	}
 }
