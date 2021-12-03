@@ -71,7 +71,7 @@ public class Main
 				}
 				else if (isNumeric(e.getMessage()))
 				{
-					file_writer.print("ERROR[" + e.getMessage() + "]");
+					file_writer.print("ERROR(" + e.getMessage() + ")");
 					System.out.print("Syntax Error");
 				}
 				file_writer.close();

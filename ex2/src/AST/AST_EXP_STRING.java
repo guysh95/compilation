@@ -41,6 +41,6 @@ public class AST_EXP_STRING extends AST_EXP {
         /*********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("STRING(\"%s\")",str_val));
+                String.format("STRING(%s)",str_val.replace('"','/')));
     }
 }

@@ -56,4 +56,35 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		if (var       != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 		if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,subscript.SerialNumber);
 	}
+
+	public TYPE SemantMe() {
+		TYPE t = null;
+		TYPE_ARRAY ta = null;
+		TYPE sub_t = null;
+
+		/******************************/
+		/* [1] Recursively semant var */
+		/******************************/
+		if (var != null) t = var.SemantMe();
+
+		/*********************************/
+		/* [2] Make sure type is a Array */
+		/*********************************/
+		if (t.isArray() == false) {
+			System.out.format(">> ERROR [%d:%d] access subscript of a non-array variable\n",6,6);
+			System.exit(0);
+		}
+		else {
+			ta = (TYPE_ARRAY) t;
+		}
+		/************************************/
+		/* [3] Make sure subscript is integral */
+		/************************************/
+		if (subscript.SemantMe() != TYPE_INT.getInstance()) {
+			System.out.format(">> ERROR [%d:%d] expression inside subscript is not integral\n",2,2);
+			System.exit(0);
+		}
+
+		return ta.member_type;
+	}
 }
