@@ -26,6 +26,9 @@ public class AST_TYPE_INT extends AST_TYPE {
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
                 String.format("TYPE_INT"));
+    }
 
+    public TYPE SemantMe() {
+        return TYPE_INT.getInstance();
     }
 }

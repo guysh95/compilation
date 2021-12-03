@@ -56,4 +56,32 @@ public class AST_VARDEC_REG extends AST_DEC_VAR
 		if (type != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
 			
 	}
+
+	public TYPE SemantMe() {
+
+		TYPE t = null;
+
+		/****************************/
+		/* [1] Check If Type exists */
+		/****************************/
+		t = type.SemantMe()
+
+		/**************************************/
+		/* [2] Check That Name does NOT exist */
+		/**************************************/
+		if (SYMBOL_TABLE.getInstance().find(name) != null)
+		{
+			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
+		}
+
+		/***************************************************/
+		/* [3] Enter the Function Type to the Symbol Table */
+		/***************************************************/
+		SYMBOL_TABLE.getInstance().enter(name,t);
+
+		/*********************************************************/
+		/* [4] Return value is irrelevant for class declarations */
+		/*********************************************************/
+		return null;
+	}
 }

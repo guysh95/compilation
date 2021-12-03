@@ -28,4 +28,8 @@ public class AST_TYPE_STRING extends AST_TYPE {
                 String.format("TYPE_STRING"));
 
     }
+
+    public TYPE SemantMe() {
+        return TYPE_STRING.getInstance();
+    }
 }

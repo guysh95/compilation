@@ -19,7 +19,7 @@ public class AST_VARDEC_NEW extends AST_DEC_VAR
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		System.out.print("====================== varDec -> type ID [ASSING NEW exp]\n");
+		System.out.print("====================== varDec -> type ID ASSIGN NEW exp\n");
         
 
 		/*******************************/
@@ -60,5 +60,9 @@ public class AST_VARDEC_NEW extends AST_DEC_VAR
 		/****************************************/
 		if (type != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
         if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+	}
+
+	public TYPE SemantMe() {
+
 	}
 }

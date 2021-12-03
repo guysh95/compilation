@@ -3,13 +3,13 @@ package AST;
 public class AST_VARDEC_ASSIGN extends AST_DEC_VAR
 {
 	public AST_TYPE type;
-    public String id;
+    public String name;
     public AST_EXP exp;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VARDEC_ASSIGN(AST_TYPE type, String id, AST_EXP exp)
+	public AST_VARDEC_ASSIGN(AST_TYPE type, String name, AST_EXP exp)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -25,7 +25,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC_VAR
 		/* COPY INPUT DATA MEMBERS ... */
 		/*******************************/
 		this.type = type;
-        this.id = id;
+        this.name = name;
         this.exp = exp;
 
 	}
@@ -44,7 +44,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC_VAR
 		/* RECURSIVELY PRINT id ... */
 		/*****************************/
 		if (type != null) type.PrintMe();
-		System.out.format("VAR ID( %s )\n",id);
+		System.out.format("VAR ID( %s )\n", name);
         if (exp != null) exp.PrintMe();
 		
 		/*********************************/
@@ -52,7 +52,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC_VAR
 		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			String.format("ASSIGN\nID(%s) := right\n", id));
+			String.format("ASSIGN\nID(%s) := right\n", name));
 
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
@@ -60,5 +60,28 @@ public class AST_VARDEC_ASSIGN extends AST_DEC_VAR
 		if (type != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
         if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 			
+	}
+
+	public TYPE SemantMe() {
+		TYPE t1 = null;
+		TYPE t2 = null;
+
+		/**************************************/
+		/* [2] Check That Name does NOT exist */
+		/**************************************/
+		if (SYMBOL_TABLE.getInstance().find(name) != null) {
+			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
+			System.exit(0);
+		}
+
+		if (type != null) t1 = type.SemantMe();
+		if (exp != null) t2 = exp.SemantMe();
+
+		if (t1 != t2) {
+			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+			System.exit(0);
+		}
+		return null;
+
 	}
 }

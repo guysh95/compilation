@@ -28,4 +28,8 @@ public class AST_TYPE_VOID extends AST_TYPE {
                 String.format("TYPE_VOID"));
 
     }
+
+    public TYPE SemantMe() {
+        return TYPE_VOID.getInstance();
+    }
 }

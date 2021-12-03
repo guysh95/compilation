@@ -57,4 +57,32 @@ public class AST_NEW_EXP extends AST_Node {
         if (new_name != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,new_name.SerialNumber);
         if (e != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,e.SerialNumber);
     }
+
+    public TYPE SemantMe() {
+        TYPE t1 = null;
+        TYPE t2 = null;
+
+        /****************************************/
+        /* Check Type is in symbol table and not isn't TYPE_VOID */
+        /****************************************/
+        if (new_name != null) t1 = new_name.SemantMe();
+        if (t1 == TYPE_VOID.getInstance()){
+            System.out.format(">> ERROR [%d:%d] type void is non instanceable\n",7,7);
+            System.exit(0);
+        }
+
+        if (e != null) {
+            /****************************************/
+            /* Check e is integral (maybe needs to add checks here) */
+            /****************************************/
+            //TODO check if needs to add more validations here
+            t2 = e.SemantMe();
+            if (t2 != TYPE_INT.getInstance()){
+                System.out.format(">> ERROR [%d:%d] expression inside subscript is not integral\n",2,2);
+                System.exit(0);
+            }
+
+        }
+        return null;
+    }
 }
