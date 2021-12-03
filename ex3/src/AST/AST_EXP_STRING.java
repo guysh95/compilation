@@ -17,7 +17,7 @@ public class AST_EXP_STRING extends AST_EXP {
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.format("====================== exp -> STRING(\"%s\")\n", str_val);
+        System.out.format("====================== exp -> STRING( %s )\n", str_val);
 
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
@@ -34,13 +34,13 @@ public class AST_EXP_STRING extends AST_EXP {
         /*******************************/
         /* AST NODE TYPE = AST STRING EXP */
         /*******************************/
-        System.out.format("AST NODE STRING(\"%s\")\n",str_val);
+        System.out.format("AST NODE STRING( %s )\n",str_val);
 
         /*********************************/
         /* Print to AST GRAPHIZ DOT file */
         /*********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("STRING(\"%s\")",str_val));
+                String.format("STRING(%s)",str_val.replace('"','\'')));
     }
 }

@@ -141,10 +141,10 @@ Program     ::=     dec:d Program:p                   {: RESULT = new AST_PROGRA
                     | dec:d                           {: RESULT = new AST_PROGRAM(d, null); :}
                     ;
 
-dec         ::=     varDec:v                            {: RESULT = new AST_DEC_VAR(v); :}
-                    | funcDec:v                        {: RESULT = new AST_DEC_FUNC(v); :}
-                    | classDec:v                       {: RESULT = new AST_DEC_CLASS(v); :}
-                    | arrayTypedef:v                {: RESULT = new AST_DEC_ARRAY(v); :}
+dec         ::=     varDec:v                            {: RESULT = v; :}
+                    | funcDec:v                        {: RESULT = v; :}
+                    | classDec:v                       {: RESULT = v; :}
+                    | arrayTypedef:v                {: RESULT = v; :}
                     ;
 
 type        ::=     TYPE_INT                         {: RESULT = new AST_TYPE_INT(); :}

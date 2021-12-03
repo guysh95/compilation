@@ -3,24 +3,24 @@ string right := "RIGHT";
 
 class Person
 {
-    int left;
-    int right;
+    int personLeft;
+    int personRight;
 }
 
 int foo(int d, int k)
 {
-    int left := 50;
-    int right := 40;
-	
+    int fooLeft := 50;
+    int fooRight := 40;
+	string pinGadol := 666;
+
     if (d+k = 17)
     {
-        Person left;
-        Person right;
-		
-        return left.left;
+        Person leftWing;
+        Person rightWing;
+
     }
 	
-    return left;
+    return fooLeft;
 }
 
 void main()
