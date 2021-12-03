@@ -1,17 +1,15 @@
 package AST;
 
-import TYPES.*;
-
 public class AST_EXP_BINOP extends AST_EXP
 {
-	int OP;
+	public AST_BINOP bOP;
 	public AST_EXP left;
 	public AST_EXP right;
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int OP)
+	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,AST_BINOP bOP)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -28,7 +26,7 @@ public class AST_EXP_BINOP extends AST_EXP
 		/*******************************/
 		this.left = left;
 		this.right = right;
-		this.OP = OP;
+		this.bOP = bOP;
 	}
 	
 	/*************************************************/
@@ -36,54 +34,31 @@ public class AST_EXP_BINOP extends AST_EXP
 	/*************************************************/
 	public void PrintMe()
 	{
-		String sOP="";
 		
-		/*********************************/
-		/* CONVERT OP to a printable sOP */
-		/*********************************/
-		if (OP == 0) {sOP = "+";}
-		if (OP == 1) {sOP = "-";}
-		if (OP == 3) {sOP = "=";}
-
 		/*************************************/
-		/* AST NODE TYPE = AST SUBSCRIPT VAR */
+		/* AST NODE TYPE = AST BINOP EXP */
 		/*************************************/
 		System.out.print("AST NODE BINOP EXP\n");
-		System.out.format("BINOP EXP(%s)\n",sOP);
 
 		/**************************************/
 		/* RECURSIVELY PRINT left + right ... */
 		/**************************************/
 		if (left != null) left.PrintMe();
+		if (bOP != null) bOP.PrintMe();
 		if (right != null) right.PrintMe();
-
+		
 		/***************************************/
 		/* PRINT Node to AST GRAPHVIZ DOT file */
 		/***************************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			String.format("BINOP(%s)",sOP));
+			String.format("BINOP"));
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,left.SerialNumber);
+		if (bOP != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,bOP.SerialNumber);
 		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.SerialNumber);
 	}
-	public TYPE SemantMe()
-	{
-		TYPE t1 = null;
-		TYPE t2 = null;
-		
-		if (left  != null) t1 = left.SemantMe();
-		if (right != null) t2 = right.SemantMe();
-		
-		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
-		{
-			return TYPE_INT.getInstance();
-		}
-		System.exit(0);
-		return null;
-	}
-
 }

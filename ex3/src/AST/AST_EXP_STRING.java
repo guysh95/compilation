@@ -1,44 +1,46 @@
 package AST;
 
-import TYPES.*;
+public class AST_EXP_STRING extends AST_EXP {
 
-public class AST_EXP_STRING extends AST_EXP
-{
-	public String value;
-	
-	/******************/
-	/* CONSTRUCTOR(S) */
-	/******************/
-	public AST_EXP_STRING(String value)
-	{
-		/******************************/
-		/* SET A UNIQUE SERIAL NUMBER */
-		/******************************/
-		SerialNumber = AST_Node_Serial_Number.getFresh();
+    public String str_val;
 
-		System.out.format("====================== exp -> STRING( %s )\n", value);
-		this.value = value;
-	}
+    /******************/
+    /* CONSTRUCTOR(S) */
+    /******************/
+    public AST_EXP_STRING(String str_val)
+    {
+        /******************************/
+        /* SET A UNIQUE SERIAL NUMBER */
+        /******************************/
+        SerialNumber = AST_Node_Serial_Number.getFresh();
 
-	/******************************************************/
-	/* The printing message for a STRING EXP AST node */
-	/******************************************************/
-	public void PrintMe()
-	{
-		/*******************************/
-		/* AST NODE TYPE = AST STRING EXP */
-		/*******************************/
-		System.out.format("AST NODE STRING( %s )\n",value);
+        /***************************************/
+        /* PRINT CORRESPONDING DERIVATION RULE */
+        /***************************************/
+        System.out.format("====================== exp -> STRING(\"%s\")\n", str_val);
 
-		/***************************************/
-		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-			SerialNumber,
-			String.format("STRING\n%s",value.replace('"','\'')));
-	}
-	public TYPE SemantMe()
-	{
-		return TYPE_STRING.getInstance();
-	}
+        /*******************************/
+        /* COPY INPUT DATA NENBERS ... */
+        /*******************************/
+        this.str_val = str_val;
+    }
+
+
+    /************************************************/
+    /* The printing message for an STRING EXP AST node */
+    /************************************************/
+    public void PrintMe()
+    {
+        /*******************************/
+        /* AST NODE TYPE = AST STRING EXP */
+        /*******************************/
+        System.out.format("AST NODE STRING(\"%s\")\n",str_val);
+
+        /*********************************/
+        /* Print to AST GRAPHIZ DOT file */
+        /*********************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                String.format("STRING(\"%s\")",str_val));
+    }
 }

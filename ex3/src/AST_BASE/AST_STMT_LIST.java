@@ -1,16 +1,19 @@
 package AST;
 
-public class AST_STMT_RETURN extends AST_STMT
+import TYPES.*;
+
+public class AST_STMT_LIST extends AST_Node
 {
 	/****************/
 	/* DATA MEMBERS */
 	/****************/
-	public AST_EXP exp;
+	public AST_STMT head;
+	public AST_STMT_LIST tail;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_RETURN(AST_EXP exp)
+	public AST_STMT_LIST(AST_STMT head,AST_STMT_LIST tail)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -20,14 +23,14 @@ public class AST_STMT_RETURN extends AST_STMT
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
-		if (exp != null) System.out.print("====================== stmt -> RETURN exp\n");
-		if (exp == null) System.out.print("====================== stmt -> RETURN      \n");
+		if (tail != null) System.out.print("====================== stmts -> stmt stmts\n");
+		if (tail == null) System.out.print("====================== stmts -> stmt      \n");
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
-		this.exp = exp;
-		
+		this.head = head;
+		this.tail = tail;
 	}
 
 	/******************************************************/
@@ -43,20 +46,28 @@ public class AST_STMT_RETURN extends AST_STMT
 		/*************************************/
 		/* RECURSIVELY PRINT HEAD + TAIL ... */
 		/*************************************/
-		if (exp != null) exp.PrintMe();
+		if (head != null) head.PrintMe();
+		if (tail != null) tail.PrintMe();
 
 		/**********************************/
 		/* PRINT to AST GRAPHVIZ DOT file */
 		/**********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"STMT\nRETURN\n");
+			"STMT\nLIST\n");
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
-		
+		if (head != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,head.SerialNumber);
+		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
 	}
 	
+	public TYPE SemantMe()
+	{
+		if (head != null) head.SemantMe();
+		if (tail != null) tail.SemantMe();
+		
+		return null;
+	}
 }

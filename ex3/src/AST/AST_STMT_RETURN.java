@@ -7,9 +7,9 @@ public class AST_STMT_RETURN extends AST_STMT
 	/****************/
 	public AST_EXP exp;
 
-	/*******************/
-	/*  CONSTRUCTOR(S) */
-	/*******************/
+	/******************/
+	/* CONSTRUCTOR(S) */
+	/******************/
 	public AST_STMT_RETURN(AST_EXP exp)
 	{
 		/******************************/
@@ -17,34 +17,46 @@ public class AST_STMT_RETURN extends AST_STMT
 		/******************************/
 		SerialNumber = AST_Node_Serial_Number.getFresh();
 
+		/***************************************/
+		/* PRINT CORRESPONDING DERIVATION RULE */
+		/***************************************/
+		if (exp != null) System.out.print("====================== stmt -> RETURN exp\n");
+		if (exp == null) System.out.print("====================== stmt -> RETURN      \n");
+
+		/*******************************/
+		/* COPY INPUT DATA NENBERS ... */
+		/*******************************/
 		this.exp = exp;
+		
 	}
 
-	/************************************************************/
-	/* The printing message for a function declaration AST node */
-	/************************************************************/
+	/******************************************************/
+	/* The printing message for a statement list AST node */
+	/******************************************************/
 	public void PrintMe()
 	{
-		/*************************************/
-		/* AST NODE TYPE = AST SUBSCRIPT VAR */
-		/*************************************/
-		System.out.print("AST NODE STMT RETURN\n");
+		/**************************************/
+		/* AST NODE TYPE = AST STATEMENT LIST */
+		/**************************************/
+		System.out.print("AST NODE STMT LIST\n");
 
-		/*****************************/
-		/* RECURSIVELY PRINT exp ... */
-		/*****************************/
+		/*************************************/
+		/* RECURSIVELY PRINT HEAD + TAIL ... */
+		/*************************************/
 		if (exp != null) exp.PrintMe();
 
-		/***************************************/
-		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
+		/**********************************/
+		/* PRINT to AST GRAPHVIZ DOT file */
+		/**********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			"RETURN");
-
+			"STMT\nRETURN\n");
+		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+		
 	}
+	
 }
