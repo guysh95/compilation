@@ -5,12 +5,12 @@ import SYMBOL_TABLE.*;
 
 public class AST_CFIELD_FUNC extends AST_CFIELD
 {
-	public AST_FUNCDEC v;
+	public AST_DEC v;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_CFIELD_FUNC(AST_FUNCDEC v)
+	public AST_CFIELD_FUNC(AST_DEC v)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */

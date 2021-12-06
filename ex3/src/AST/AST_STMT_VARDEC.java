@@ -5,12 +5,12 @@ import SYMBOL_TABLE.*;
 
 public class AST_STMT_VARDEC extends AST_STMT {
 
-    public AST_DEC_VAR vd;
+    public AST_DEC vd;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_STMT_VARDEC(AST_DEC_VAR vd)
+    public AST_STMT_VARDEC(AST_DEC vd)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */

@@ -39,7 +39,7 @@ public class AST_EXP_BINOP extends AST_EXP
 	/*************************************************/
 	public void PrintMe()
 	{
-		String sOP;
+		String sOP = "";
 
 		/*********************************/
 		/* CONVERT OP to a printable sOP */
