@@ -283,7 +283,7 @@ public class SYMBOL_TABLE
 					new TYPE_FUNCTION(
 							TYPE_VOID.getInstance(),
 							"PrintTrace",
-							null);
+							null));
 			
 		}
 		return instance;

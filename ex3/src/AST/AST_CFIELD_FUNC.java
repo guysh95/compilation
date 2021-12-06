@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_CFIELD_FUNC extends AST_CFIELD
 {
 	public AST_FUNCDEC v;

@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_FUNCARGS extends AST_Node
 {
 	public AST_TYPE type;

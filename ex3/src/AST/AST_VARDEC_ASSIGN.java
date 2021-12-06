@@ -1,6 +1,9 @@
 package AST;
 
-public class AST_VARDEC_ASSIGN extends AST_DEC_VAR
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
+public class AST_VARDEC_ASSIGN extends AST_DEC
 {
 	public AST_TYPE type;
     public String name;

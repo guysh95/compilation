@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_EXP_PAREN extends AST_EXP {
 
     public AST_EXP child;

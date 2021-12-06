@@ -1,6 +1,7 @@
 package AST;
 
 import TYPES.*;
+import SYMBOL_TABLE.*;
 
 public class AST_STMT_ASSIGN_NEW extends AST_STMT
 {

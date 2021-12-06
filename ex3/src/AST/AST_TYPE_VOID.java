@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_TYPE_VOID extends AST_TYPE {
 
     public AST_TYPE_VOID() {

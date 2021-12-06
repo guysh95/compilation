@@ -1,6 +1,7 @@
 package AST;
 
 import TYPES.*;
+import SYMBOL_TABLE.*;
 
 public abstract class AST_STMT extends AST_Node
 {

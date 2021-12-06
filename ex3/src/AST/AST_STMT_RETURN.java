@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_STMT_RETURN extends AST_STMT
 {
 	/****************/

@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_EXP_FCALL extends AST_EXP {
     /****************/
     /* DATA MEMBERS */

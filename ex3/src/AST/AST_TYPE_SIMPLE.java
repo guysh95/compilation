@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_TYPE_SIMPLE extends AST_TYPE {
 
     /************************/

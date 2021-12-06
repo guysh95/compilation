@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_STMT_WHILE extends AST_STMT
 {
 	public AST_EXP cond;

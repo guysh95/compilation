@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_ARRAY_TYPE_DEF extends AST_DEC {
     public AST_TYPE type;
     public String arrayName;

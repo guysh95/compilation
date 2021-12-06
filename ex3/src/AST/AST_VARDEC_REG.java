@@ -1,6 +1,9 @@
 package AST;
 
-public class AST_VARDEC_REG extends AST_DEC_VAR
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
+public class AST_VARDEC_REG extends AST_DEC
 {
 	public AST_TYPE type;
     public String id;
@@ -64,7 +67,7 @@ public class AST_VARDEC_REG extends AST_DEC_VAR
 		/****************************/
 		/* [1] Check If Type exists */
 		/****************************/
-		t = type.SemantMe()
+		t = type.SemantMe();
 
 		/**************************************/
 		/* [2] Check That Name does NOT exist */

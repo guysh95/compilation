@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_FUNCDEC extends AST_DEC
 {
 	public AST_TYPE type;

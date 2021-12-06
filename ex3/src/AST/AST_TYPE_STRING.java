@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_TYPE_STRING extends AST_TYPE {
 
     public AST_TYPE_STRING() {
