@@ -54,6 +54,14 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,v.SerialNumber);
-			
+	}
+
+	public TYPE SemantMe() {
+		AST_FUNCDEC func = (AST_FUNCDEC) v;
+		TYPE_FUNCTION tf;
+		if (v != null) tf = (TYPE_FUNCTION) v.SemantMe();
+		//TODO fix all cases of semant me
+		//TODO need to check if function already exists in super class
+		//TODO need to consider types of functions
 	}
 }

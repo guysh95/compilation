@@ -66,8 +66,12 @@ public class AST_FUNCARGS extends AST_Node
 		/****************************************/
 		if (type != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
         if (fa != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,fa.SerialNumber);
-        
-        
-			
+
+	}
+	//TODO add SemantMe()
+	//TODO remember to check parameter list with the super overridden method
+	//TODO decide if need to check here or in funcdec
+	public TYPE SemantMe() {
+
 	}
 }

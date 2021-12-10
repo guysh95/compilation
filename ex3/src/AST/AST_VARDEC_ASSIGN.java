@@ -84,6 +84,8 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
 			System.exit(0);
 		}
+
+		SYMBOL_TABLE.getInstance().enter(name, t1)
 		return null;
 
 	}

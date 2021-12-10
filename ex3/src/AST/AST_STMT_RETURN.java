@@ -61,5 +61,9 @@ public class AST_STMT_RETURN extends AST_STMT
 		if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 		
 	}
-	
+
+	public TYPE SemantMe(){
+		//TODO add semant me
+		//TODO need to make sure return type match function/method type
+	}
 }

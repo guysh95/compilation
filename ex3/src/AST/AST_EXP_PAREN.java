@@ -55,4 +55,9 @@ public class AST_EXP_PAREN extends AST_EXP {
         /****************************************/
         if (child != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,child.SerialNumber);
     }
+
+    public TYPE SemantMe() {
+        if (child != null) return child.SemantMe();
+        return null;
+    }
 }

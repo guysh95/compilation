@@ -65,6 +65,23 @@ public class AST_CLASS_DEC extends AST_DEC {
 
     public TYPE SemantMe()
     {
+        if (SYMBOL_TABLE.getInstance().isGlobalScope() == false){
+            System.out.print("Class not defined in global scope");
+            System.exit(0);
+        }
+        if (extendedClass != null){
+            TYPE extended_type = SYMBOL_TABLE.getInstance().find(extendedClass);
+            if (extended_type == null){
+                System.out.print("%s Extended class is not defined", extendedClass);
+                System.exit(0);
+            }
+        }
+        if (SYMBOL_TABLE.getInstance.find(className) != null){
+            System.out.format("%s Class already defined", className);
+            System.exit(0);
+        }
+
+
         /*************************/
         /* [1] Begin Class Scope */
         /*************************/
@@ -73,7 +90,7 @@ public class AST_CLASS_DEC extends AST_DEC {
         /***************************/
         /* [2] Semant Data Members */
         /***************************/
-        TYPE_CLASS t = new TYPE_CLASS(null,name,data_members.SemantMe());
+        TYPE_CLASS t = new TYPE_CLASS(null,name,list.SemantMe());
 
         /*****************/
         /* [3] End Scope */

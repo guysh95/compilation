@@ -67,7 +67,8 @@ public class AST_FUNCDEC extends AST_DEC
 		if (type != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
         if (fa != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,fa.SerialNumber);
         if (sl != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,sl.SerialNumber);
-        
-			
+
 	}
+	//TODO add semant me
+	//look at funcargs
 }

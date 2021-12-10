@@ -56,4 +56,10 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,v.SerialNumber);
 			
 	}
+
+	public TYPE SemantMe() {
+		//TODO add SemantMe()
+		//TODO need to check if var already exists in super class
+		//TODO need to consider types of var
+	}
 }

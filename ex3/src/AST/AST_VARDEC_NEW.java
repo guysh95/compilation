@@ -23,7 +23,7 @@ public class AST_VARDEC_NEW extends AST_DEC
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/
 		System.out.print("====================== varDec -> type ID ASSIGN NEW exp\n");
-        
+        // father peleg := NEW son;
 
 		/*******************************/
 		/* COPY INPUT DATA NENBERS ... */
@@ -66,6 +66,6 @@ public class AST_VARDEC_NEW extends AST_DEC
 	}
 
 	public TYPE SemantMe() {
-
+		// TODO add semantMe
 	}
 }

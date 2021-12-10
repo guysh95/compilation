@@ -20,7 +20,7 @@ public class AST_NEW_EXP extends AST_Node {
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        if (e != null) System.out.print("====================== newExp -> NEW type LPAREN exp RPRAEN\n");
+        if (e != null) System.out.print("====================== newExp -> NEW type LBRACK exp RBRACK\n");
         else System.out.print("====================== newExp -> NEW type\n");
 
 
@@ -66,7 +66,7 @@ public class AST_NEW_EXP extends AST_Node {
         TYPE t2 = null;
 
         /****************************************/
-        /* Check Type is in symbol table and not isn't TYPE_VOID */
+        /* Check Type is in symbol table and isn't TYPE_VOID */
         /****************************************/
         if (new_name != null) t1 = new_name.SemantMe();
         if (t1 == TYPE_VOID.getInstance()){
@@ -79,6 +79,10 @@ public class AST_NEW_EXP extends AST_Node {
             /* Check e is integral (maybe needs to add checks here) */
             /****************************************/
             //TODO check if needs to add more validations here
+            if(t1.isArray() == false) {
+                System.out.format(">> ERROR [%d:%d] type is not array\n",2,2);
+                System.exit(0);
+            }
             t2 = e.SemantMe();
             if (t2 != TYPE_INT.getInstance()){
                 System.out.format(">> ERROR [%d:%d] expression inside subscript is not integral\n",2,2);

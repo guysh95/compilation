@@ -73,4 +73,7 @@ public class AST_EXP_FCALL extends AST_EXP {
         if (caller != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,caller.SerialNumber);
         if (explist != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,explist.SerialNumber);
     }
+
+    //TODO add SemantMe()
+    //consider functions scope and function arguments etc.
 }

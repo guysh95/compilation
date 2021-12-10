@@ -52,4 +52,15 @@ public class AST_PROGRAM extends AST_Node{
         if (head != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,head.SerialNumber);
         if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
     }
+
+    public TYPE SemantMe()
+    {
+        /*************************************/
+        /* RECURSIVELY PRINT HEAD + TAIL ... */
+        /*************************************/
+        if (head != null) head.SemantMe();
+        if (tail != null) tail.SemantMe();
+
+        return null;
+    }
 }

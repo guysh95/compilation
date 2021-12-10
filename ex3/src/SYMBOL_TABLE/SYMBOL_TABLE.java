@@ -26,6 +26,7 @@ public class SYMBOL_TABLE
 	private SYMBOL_TABLE_ENTRY[] table = new SYMBOL_TABLE_ENTRY[hashArraySize];
 	private SYMBOL_TABLE_ENTRY top;
 	private int top_index = 0;
+	private int scopeLayer = 0;
 	
 	/**************************************************************/
 	/* A very primitive hash function for exposition purposes ... */
@@ -80,6 +81,10 @@ public class SYMBOL_TABLE
 		PrintMe();
 	}
 
+	public boolean isGlobalScope() {
+		return (scopeLayer == 0);
+	}
+
 	/***********************************************/
 	/* Find the inner-most scope element with name */
 	/***********************************************/
@@ -113,6 +118,8 @@ public class SYMBOL_TABLE
 			"SCOPE-BOUNDARY",
 			new TYPE_FOR_SCOPE_BOUNDARIES("NONE"));
 
+		scopeLayer++;
+
 		/*********************************************/
 		/* Print the symbol table after every change */
 		/*********************************************/
@@ -140,7 +147,7 @@ public class SYMBOL_TABLE
 		table[top.index] = top.next;
 		top_index = top_index-1;
 		top = top.prevtop;
-
+		scopeLayer--;
 		/*********************************************/
 		/* Print the symbol table after every change */		
 		/*********************************************/

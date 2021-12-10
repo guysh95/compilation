@@ -48,7 +48,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			SerialNumber,
 			String.format("SIMPLE\nVAR\n(%s)",name));
 	}
-
+	//TODO add case for error when find returns null
 	public TYPE SemantMe()
 	{
 		return SYMBOL_TABLE.getInstance().find(name);
