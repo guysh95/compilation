@@ -85,7 +85,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 			System.exit(0);
 		}
 
-		SYMBOL_TABLE.getInstance().enter(name, t1)
+		SYMBOL_TABLE.getInstance().enter(name, t1);
 		return null;
 
 	}

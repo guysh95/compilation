@@ -81,8 +81,7 @@ public class AST_VARDEC_NEW extends AST_DEC
 		if (type != null) t1 = type.SemantMe();
 		if (exp != null) t2 = exp.SemantMe();
 		try {
-			TYPE_CLASS texp = (TYPE_CLASS) t2;
-			for(texp; texp != null; texp = texp.father){
+			for(TYPE_CLASS texp = (TYPE_CLASS) t2; texp != null; texp = texp.father){
 				if (texp == t1) {
 					SYMBOL_TABLE.getInstance().enter(id, t2)
 					return null;
@@ -90,14 +89,14 @@ public class AST_VARDEC_NEW extends AST_DEC
 			}
 			System.out.format(">> ERROR no heritage for var decleration\n",6,6);
 			System.exit(0);
-		} catch {
+		} catch (Exception e){
 			if (t1 != t2) {
 				System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
 				System.exit(0);
 			}
 		}
 
-		SYMBOL_TABLE.getInstance().enter(id, t2)
+		SYMBOL_TABLE.getInstance().enter(id, t2);
 		return null;
 	}
 }
