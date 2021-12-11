@@ -72,15 +72,15 @@ public class AST_VARDEC_REG extends AST_DEC
 		/**************************************/
 		/* [2] Check That Name does NOT exist */
 		/**************************************/
-		if (SYMBOL_TABLE.getInstance().find(name) != null)
+		if (SYMBOL_TABLE.getInstance().find(id) != null)
 		{
-			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
+			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,id);
 		}
 
 		/***************************************************/
 		/* [3] Enter the Function Type to the Symbol Table */
 		/***************************************************/
-		SYMBOL_TABLE.getInstance().enter(name,t);
+		SYMBOL_TABLE.getInstance().enter(id,t);
 
 		/*********************************************************/
 		/* [4] Return value is irrelevant for class declarations */

@@ -90,7 +90,8 @@ public class AST_NEW_EXP extends AST_Node {
                 System.exit(0);
             }
             if (e.getClass().getSimpleName().equals("AST_EXP_INT")){
-                if (e.value <= 0){
+                AST_EXP_INT num = (AST_EXP_INT) e;
+                if (num.value <= 0){
                     System.out.format(">> ERROR [%d:%d] try to init array to size smaller then zero\n",2,2);
                     System.exit(0);
                 }
