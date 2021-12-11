@@ -76,7 +76,7 @@ public class AST_FUNCARGS extends AST_Node
 		TYPE t2 = null;
 
 		t = type.SemantMe();
-		SYMBOL_TABLE.getInstance().enter(name,t);
+		SYMBOL_TABLE.getInstance().enter(id,t);
 		if(fa != null){
 			t2 = fa.SemantMe();
 			return t;

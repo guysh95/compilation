@@ -130,7 +130,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 
 			return null;
 		} else { // var is null
-			t2 = SYMBOL_TABLE.get_instance().find(id);
+			t2 = SYMBOL_TABLE.getInstance().find(id);
 			if (t2 != null){
 				if(! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")){
 					System.out.format(">> ERROR provided explist although this is not a function");

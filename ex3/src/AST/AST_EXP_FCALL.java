@@ -140,19 +140,19 @@ public class AST_EXP_FCALL extends AST_EXP {
                 System.out.format(">> ERROR provided explist although this is not a function");
                 System.exit(0);
             }
-            if (exps != null){
-                exps.SemantMe();
+            if (explist != null){
+                explist.SemantMe();
             }
 
             return null;
         } else { // caller is null
-            t2 = SYMBOL_TABLE.get_instance().find(fieldName);
+            t2 = SYMBOL_TABLE.getInstance().find(fieldName);
             if(t2 != TYPE_FUNCTION){
                 System.out.format(">> ERROR provided explist although this is not a function");
                 System.exit(0);
             }
-            if (exps != null){
-                exps.SemantMe();
+            if (explist != null){
+                explist.SemantMe();
             }
             return null;
         }

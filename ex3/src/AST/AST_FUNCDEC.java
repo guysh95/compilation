@@ -78,7 +78,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/*******************/
 		/* [0] return type */
 		/*******************/
-		returnType = SYMBOL_TABLE.getInstance().find(type);
+		returnType = SYMBOL_TABLE.getInstance().find(type); //TODO might need to be "type.SemantMe().name)" inside find call
 		if (returnType == null)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing return type %s\n",6,6,returnType);
@@ -87,7 +87,7 @@ public class AST_FUNCDEC extends AST_DEC
 		if (SYMBOL_TABLE.getInstance().isGlobalScope()) {
 			if (SYMBOL_TABLE.getInstance().find(id) != null){
 				System.out.format(">> ERROR: %s global function name already exists\n", id);
-				System.exit("0");
+				System.exit(0);
 			}
 		}
 
