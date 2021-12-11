@@ -59,18 +59,14 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 
 	public TYPE SemantMe() {
 		TYPE t1 = null;
+		t1 = v.SemantMe();
 
-		t1 = SYMBOL_TABLE.get_instance().find(v);
-		if(t1 != null) {
+		if(SYMBOL_TABLE.getInstance().findInScope(t1.name) != null) {
 			System.out.format(">> ERROR variable already exists in scope\n");
 			System.exit(0);
 		}
-		v.SemantMe()
-		return null;
+		return t1;
 
-
-		//TODO add SemantMe()
 		//TODO need to check if var already exists in super class
-		//TODO need to consider types of var
 	}
 }

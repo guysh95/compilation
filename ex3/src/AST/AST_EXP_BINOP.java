@@ -97,9 +97,8 @@ public class AST_EXP_BINOP extends AST_EXP
 						}
 					} catch (Exception e){
 						System.out.print("if for division by zero not working!!!\n");
-						break;
+						System.exit(0);
 					}
-
 				}
 
 			}

@@ -103,19 +103,25 @@ public class SYMBOL_TABLE
 		return null;
 	}
 
-	public TYPE find_in_scope(String name)
+	public TYPE findInScope(String name)
 	{
 		SYMBOL_TABLE_ENTRY e;
 
-		for (e = table[hash(name)]; e != null; e = e.next)
+		for (e = top; e != null; e = e.prevtop)
 		{
+			if(e.name.equals("SCOPE-BOUNDARY")){
+				return null;
+			}
 			if (name.equals(e.name))
 			{
 				return e.type;
 			}
 		}
-
 		return null;
+	}
+
+	public TYPE findInSuperClass(TYPE_CLASS superClass, String name){
+
 	}
 
 

@@ -63,17 +63,16 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 		*/
 
 		TYPE t1 = null;
+		t1 = v.SemantMe();
 
-		t1 = SYMBOL_TABLE.get_instance().find(v);
-		if(t1 != null) {
-			System.out.format(">> ERROR function already exists in scope\n");
+		if(SYMBOL_TABLE.getInstance().findInScope(t1.name) != null) {
+			System.out.format(">> ERROR function name already exists in scope\n");
 			System.exit(0);
 		}
-		v.SemantMe()
-		return null;
+
+		return t1;
 
 		//TODO fix all cases of semant me
-		//TODO need to check if function already exists in super class
 		//TODO need to consider types of functions
 	}
 }

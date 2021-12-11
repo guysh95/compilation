@@ -74,22 +74,18 @@ public class AST_EXP_FCALL extends AST_EXP {
         if (explist != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,explist.SerialNumber);
     }
 
-    public TYPE SemantMe() {
+    /* public TYPE SemantMe() {
         TYPE t = null;
         TYPE tc = null;
         TYPE tfunc = null;
 
-        /******************************/
-        /* [1] Recursively semant var */
-        /******************************/
+
 
         // when there is var - check that the var is class type and that the function within class scope
         if (caller != null){
             t = caller.SemantMe();
 
-            /*********************************/
-            /* [2] Make sure type is a class */
-            /*********************************/
+
             if (t.isClass() == false)
             {
                 System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
@@ -100,9 +96,7 @@ public class AST_EXP_FCALL extends AST_EXP {
                 tc = (TYPE_CLASS) t;
             }
 
-            /************************************/
-            /* [3] Look for fiedlName inside tc */
-            /************************************/
+
             for (TYPE_LIST it=tc.data_members;it != null;it=it.tail)
             {
                 if (it.head.name == fieldName)
@@ -115,13 +109,10 @@ public class AST_EXP_FCALL extends AST_EXP {
         // when there is no var - check that the function exists
 
 
-
-
-
-    }
+    } */
     public TYPE SemantMe() {
         TYPE t1 = null;
-        TYPE tc = null;
+        TYPE_CLASS tc = null;
         TYPE t2 = null;
 
         // only if we have caller
@@ -132,7 +123,7 @@ public class AST_EXP_FCALL extends AST_EXP {
                 System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
                 System.exit(0);
             } else {
-                tc = (TYPE_CLASS) t;
+                tc = (TYPE_CLASS) t1;
             }
             // check that fieldName in class scope
             for (TYPE_LIST it=tc.data_members;it != null;it=it.tail) {

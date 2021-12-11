@@ -72,11 +72,15 @@ public class AST_CLASS_DEC extends AST_DEC {
         if (extendedClass != null){
             TYPE extended_type = SYMBOL_TABLE.getInstance().find(extendedClass);
             if (extended_type == null){
-                System.out.print("%s Extended class is not defined", extendedClass);
+                System.out.format("%s Extended class is not defined\n", extendedClass);
+                System.exit(0);
+            }
+            if(extended_type.isClass() == false){
+                System.out.format("%s Extended class is not of type class\n", extendedClass);
                 System.exit(0);
             }
         }
-        if (SYMBOL_TABLE.getInstance.find(className) != null){
+        if (SYMBOL_TABLE.getInstance().find(className) != null){
             System.out.format("%s Class already defined", className);
             System.exit(0);
         }
@@ -90,7 +94,24 @@ public class AST_CLASS_DEC extends AST_DEC {
         /***************************/
         /* [2] Semant Data Members */
         /***************************/
-        TYPE_CLASS t = new TYPE_CLASS(null,name,list.SemantMe());
+        /* if(extendedClass != null){
+            for(AST_CFIELD_LIST p = list; p != null; p=p.tail){
+                AST_CFIELD field = p.head;
+                TYPE fieldType = field.SemantMe();
+                TYPE_CLASS ancestor = extendedClass;
+                SYMBOL_TABLE.getInstance().findInSuperClass(ancestor, fieldType);
+                while(ancestor != null){
+                    for(TYPE_LIST ancTypeList = ancestor.data_members; ancTypeList != null; ancTypeList = ancTypeList.tail){
+                        TYPE current = ancTypeList.head;
+                        if(fieldType.name.equals(current.name)){
+                            if(fieldType == current)
+                        }
+                    }
+                    ancestor = ancestor.father;
+                }
+            }
+        } */
+        TYPE_CLASS t = new TYPE_CLASS(null,className,list.SemantMe());
 
         /*****************/
         /* [3] End Scope */
@@ -100,7 +121,7 @@ public class AST_CLASS_DEC extends AST_DEC {
         /************************************************/
         /* [4] Enter the Class Type to the Symbol Table */
         /************************************************/
-        SYMBOL_TABLE.getInstance().enter(name,t);
+        SYMBOL_TABLE.getInstance().enter(className,t);
 
         /*********************************************************/
         /* [5] Return value is irrelevant for class declarations */

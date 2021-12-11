@@ -83,7 +83,7 @@ public class AST_VARDEC_NEW extends AST_DEC
 		try {
 			for(TYPE_CLASS texp = (TYPE_CLASS) t2; texp != null; texp = texp.father){
 				if (texp == t1) {
-					SYMBOL_TABLE.getInstance().enter(id, t2)
+					SYMBOL_TABLE.getInstance().enter(id, t2);
 					return null;
 				}
 			}
