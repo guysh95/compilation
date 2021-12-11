@@ -72,6 +72,17 @@ public class AST_FUNCARGS extends AST_Node
 	//TODO remember to check parameter list with the super overridden method
 	//TODO decide if need to check here or in funcdec
 	public TYPE SemantMe() {
+		TYPE t = null;
+		TYPE t2 = null;
+
+		t = type.SemantMe()
+		SYMBOL_TABLE.getInstance().enter(name,t);
+		if(fa != null){
+			t2 = fa.SemantMe();
+			return t2;
+		}
+
+		return null;
 
 	}
 }

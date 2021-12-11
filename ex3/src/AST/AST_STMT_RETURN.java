@@ -63,7 +63,17 @@ public class AST_STMT_RETURN extends AST_STMT
 	}
 
 	public TYPE SemantMe(){
+		TYPE t = null;
+
+		if (exp == null){
+			return null;
+		} else {
+			t = exp.SemantMe();
+			return t;
+		}
+
+
 		//TODO add semant me
-		//TODO need to make sure return type match function/method type
+		//TODO need to make sure return type match function/method type - need to do it in FUNCDEC
 	}
 }

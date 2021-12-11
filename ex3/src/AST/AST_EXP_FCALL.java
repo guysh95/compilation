@@ -8,13 +8,13 @@ public class AST_EXP_FCALL extends AST_EXP {
     /* DATA MEMBERS */
     /****************/
     public AST_VAR caller;
-    public String name;
+    public String fieldName;
     public AST_EXPLIST explist;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_EXP_FCALL(AST_VAR caller, String name, AST_EXPLIST explist) {
+    public AST_EXP_FCALL(AST_VAR caller, String fieldName, AST_EXPLIST explist) {
             /******************************/
             /* SET A UNIQUE SERIAL NUMBER */
             /******************************/
@@ -24,19 +24,19 @@ public class AST_EXP_FCALL extends AST_EXP {
             /* PRINT CORRESPONDING DERIVATION RULE */
             /***************************************/
             if (explist != null) {
-                if (caller != null) System.out.format("====================== exp -> var . ID(%s) ( expList )\n", name);
-                else System.out.format("====================== exp -> ID(%s) ( expList )\n", name);
+                if (caller != null) System.out.format("====================== exp -> var . ID(%s) ( expList )\n", fieldName);
+                else System.out.format("====================== exp -> ID(%s) ( expList )\n", fieldName);
             }
             else {
-                if (caller != null) System.out.format("====================== exp -> var . ID(%s) ()\n", name);
-                else System.out.format("====================== exp -> ID(%s) ()\n", name);
+                if (caller != null) System.out.format("====================== exp -> var . ID(%s) ()\n", fieldName);
+                else System.out.format("====================== exp -> ID(%s) ()\n", fieldName);
             }
 
             /*******************************/
             /* COPY INPUT DATA NENBERS ... */
             /*******************************/
             this.caller = caller;
-            this.name = name;
+            this.fieldName = fieldName;
             this.explist = explist;
     }
 
@@ -55,9 +55,9 @@ public class AST_EXP_FCALL extends AST_EXP {
         /*************************************/
         if (caller != null) {
             caller.PrintMe();
-            if (name!= null) System.out.format(".ID( %s )", name);
+            if (fieldName!= null) System.out.format(".ID( %s )", fieldName);
         }
-        else System.out.format("ID( %s )", name);
+        else System.out.format("ID( %s )", fieldName);
         if (explist != null) explist.PrintMe();
 
         /**********************************/
@@ -65,13 +65,106 @@ public class AST_EXP_FCALL extends AST_EXP {
         /**********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("FUNC\nCALL\nID(%s)\n", name));
+                String.format("FUNC\nCALL\nID(%s)\n", fieldName));
 
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
         if (caller != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,caller.SerialNumber);
         if (explist != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,explist.SerialNumber);
+    }
+
+    public TYPE SemantMe() {
+        TYPE t = null;
+        TYPE tc = null;
+        TYPE tfunc = null;
+
+        /******************************/
+        /* [1] Recursively semant var */
+        /******************************/
+
+        // when there is var - check that the var is class type and that the function within class scope
+        if (caller != null){
+            t = caller.SemantMe();
+
+            /*********************************/
+            /* [2] Make sure type is a class */
+            /*********************************/
+            if (t.isClass() == false)
+            {
+                System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
+                System.exit(0);
+            }
+            else
+            {
+                tc = (TYPE_CLASS) t;
+            }
+
+            /************************************/
+            /* [3] Look for fiedlName inside tc */
+            /************************************/
+            for (TYPE_LIST it=tc.data_members;it != null;it=it.tail)
+            {
+                if (it.head.name == fieldName)
+                {
+                    tfunc = it.head;
+                }
+            }
+        }
+
+        // when there is no var - check that the function exists
+
+
+
+
+
+    }
+    public TYPE SemantMe() {
+        TYPE t1 = null;
+        TYPE tc = null;
+        TYPE t2 = null;
+
+        // only if we have caller
+        if (caller != null){
+            t1 = caller.SemantMe();
+            if (t1.isClass() == false)
+            {
+                System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
+                System.exit(0);
+            } else {
+                tc = (TYPE_CLASS) t;
+            }
+            // check that fieldName in class scope
+            for (TYPE_LIST it=tc.data_members;it != null;it=it.tail) {
+                if (it.head.name == fieldName) {
+                    t2 = it.head;
+                }
+            }
+            if (t2 == null){
+                System.out.format(">> ERROR no %s field on the scope\n",fieldName);
+                System.exit(0);
+            }
+
+            if (t2 != TYPE_FUNCTION) { //todo: is this how you check the type?
+                System.out.format(">> ERROR provided explist although this is not a function");
+                System.exit(0);
+            }
+            if (exps != null){
+                exps.SemantMe();
+            }
+
+            return null;
+        } else { // caller is null
+            t2 = SYMBOL_TABLE.get_instance().find(fieldName);
+            if(t2 != TYPE_FUNCTION){
+                System.out.format(">> ERROR provided explist although this is not a function");
+                System.exit(0);
+            }
+            if (exps != null){
+                exps.SemantMe();
+            }
+            return null;
+        }
     }
 
     //TODO add SemantMe()

@@ -87,6 +87,17 @@ public class AST_EXP_BINOP extends AST_EXP
 		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
 		{
 			if (bOP == 3){
+				if (right.getClass().getSimpleName() == AST_EXP_INT){
+					try {
+						if (right.value == 0){
+							System.out.print("error division by zero");
+							System.exit(0);
+						}
+					} catch {
+						break;
+					}
+
+				}
 				//TODO need to check if right value is 0 if right is of AST_EXP_INT
 				// (prevent division by zero)
 			}

@@ -57,9 +57,21 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 	}
 
 	public TYPE SemantMe() {
-		AST_FUNCDEC func = (AST_FUNCDEC) v;
+		/* AST_FUNCDEC func = (AST_FUNCDEC) v;
 		TYPE_FUNCTION tf;
 		if (v != null) tf = (TYPE_FUNCTION) v.SemantMe();
+		*/
+
+		TYPE t1 = null;
+
+		t1 = SYMBOL_TABLE.get_instance().find(v);
+		if(t1 != null) {
+			System.out.format(">> ERROR function already exists in scope\n");
+			System.exit(0);
+		}
+		v.SemantMe()
+		return null;
+
 		//TODO fix all cases of semant me
 		//TODO need to check if function already exists in super class
 		//TODO need to consider types of functions

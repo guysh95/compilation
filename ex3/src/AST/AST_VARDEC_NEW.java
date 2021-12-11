@@ -67,5 +67,27 @@ public class AST_VARDEC_NEW extends AST_DEC
 
 	public TYPE SemantMe() {
 		// TODO add semantMe
+		TYPE t1 = null;
+		TYPE t2 = null;
+
+		/**************************************/
+		/* [2] Check That id does NOT exist */
+		/**************************************/
+		if (SYMBOL_TABLE.getInstance().find(id) != null) {
+			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,id);
+			System.exit(0);
+		}
+
+		if (type != null) t1 = type.SemantMe();
+		if (exp != null) t2 = exp.SemantMe();
+
+		if (t1 != t2) {
+			//TODO: need top check if t2 extends t1
+			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+			System.exit(0);
+		}
+
+		SYMBOL_TABLE.getInstance().enter(id, t2)
+		return null;
 	}
 }

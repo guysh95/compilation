@@ -51,6 +51,13 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	//TODO add case for error when find returns null
 	public TYPE SemantMe()
 	{
-		return SYMBOL_TABLE.getInstance().find(name);
+		TYPE t = null;
+		t = SYMBOL_TABLE.getInstance().find(name);
+		if (t != null)
+			return t;
+		else {
+			System.out.format(">> ERROR ID %s does not exists", name);
+			System.exit(0);
+		}
 	}
 }
