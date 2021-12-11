@@ -78,7 +78,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/*******************/
 		/* [0] return type */
 		/*******************/
-		returnType = SYMBOL_TABLE.getInstance().find(type); //TODO might need to be "type.SemantMe().name)" inside find call
+		returnType = SYMBOL_TABLE.getInstance().find(type.SemantMe().name); //TODO might need to be "type.SemantMe().name)" inside find call
 		if (returnType == null)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing return type %s\n",6,6,returnType);
@@ -99,17 +99,17 @@ public class AST_FUNCDEC extends AST_DEC
 		/***************************/
 		/* [2] Semant Input Params */
 		/***************************/
-		for (AST_FUNCARGS it = fa; it  != null; it = it.tail)
+		for (AST_FUNCARGS it = fa; it != null; it = it.fa)
 		{
-			t = SYMBOL_TABLE.getInstance().find(it.head.type);
+			t = SYMBOL_TABLE.getInstance().find(it.type.SemantMe().name);
 			if (t == null)
 			{
-				System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,it.head.type);
+				System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type.SemantMe().name);
 			}
 			else
 			{
 				type_list = new TYPE_LIST(t,type_list);
-				SYMBOL_TABLE.getInstance().enter(it.head.name,t);
+				SYMBOL_TABLE.getInstance().enter(it.id,t);
 			}
 		}
 

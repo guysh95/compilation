@@ -77,7 +77,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 
 	public TYPE SemantMe() {
 		TYPE t1 = null;
-		TYPE tc = null;
+		TYPE_CLASS tc = null;
 		TYPE t2 = null;
 		TYPE_LIST texps = null;
 
@@ -86,14 +86,14 @@ public class AST_STMT_EXPLIST extends AST_STMT
 			t1 = var.SemantMe();
 			if (t1.isClass() == false)
 			{
-				System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
+				System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,id);
 				System.exit(0);
-			} else {
-				tc = (TYPE_CLASS) t;
 			}
+			tc = (TYPE_CLASS) t1;
+
 			// check that id in class scope
 			for (TYPE_LIST it=tc.data_members;it != null;it=it.tail) {
-				if (it.head.name == id) {
+				if (it.head.name.equals(id)) {
 					t2 = it.head;
 				}
 			}

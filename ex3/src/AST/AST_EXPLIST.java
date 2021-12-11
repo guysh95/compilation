@@ -63,6 +63,7 @@ public class AST_EXPLIST extends AST_Node {
     }
 
     public TYPE SemantMe() {
+        
         if (head != null) head.SemantMe();
         if (tail != null) tail.SemantMe();
 
