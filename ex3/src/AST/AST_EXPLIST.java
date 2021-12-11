@@ -9,6 +9,7 @@ public class AST_EXPLIST extends AST_Node {
     /****************/
     public AST_EXP head;
     public AST_EXPLIST tail;
+    public TYPE_LIST allTypes = null;
 
     /******************/
     /* CONSTRUCTOR(S) */
@@ -63,10 +64,23 @@ public class AST_EXPLIST extends AST_Node {
     }
 
     public TYPE SemantMe() {
-
-        if (head != null) head.SemantMe();
-        if (tail != null) tail.SemantMe();
-
+        TYPE t = null;
+        if (head == null){
+            System.out.print(">> ERROR in EXPLIST semantme");
+            System.exit(0);
+        }
+        t = head.SemantMe();
+        allTypes = new TYPE_LIST(t, null);
+        for(AST_EXPLIST pointer = tail; pointer != null; pointer = pointer.tail){
+            t = pointer.head.SemantMe();
+            allTypes = new TYPE_LIST(t, allTypes);
+        }
         return null;
     }
+
+    public TYPE_LIST getTypes() {
+        this.SemantMe();
+        return allTypes;
+    }
+
 }

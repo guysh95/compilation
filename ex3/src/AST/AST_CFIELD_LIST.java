@@ -10,6 +10,7 @@ public class AST_CFIELD_LIST extends AST_Node
 	/****************/
 	public AST_CFIELD head;
 	public AST_CFIELD_LIST tail;
+	public TYPE_LIST allTypes = null;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -65,12 +66,22 @@ public class AST_CFIELD_LIST extends AST_Node
 	}
 
 	public TYPE SemantMe() {
-		/*************************************/
-		/* RECURSIVELY PRINT HEAD + TAIL ... */
-		/*************************************/
-		if (head != null) head.SemantMe();
-		if (tail != null) tail.SemantMe();
-
+		TYPE t = null;
+		if (head == null){
+			System.out.print(">> ERROR in CFIELD_LIST semantme");
+			System.exit(0);
+		}
+		t = head.SemantMe();
+		allTypes = new TYPE_LIST(t, null);
+		for(AST_CFIELD_LIST pointer = tail; pointer != null; pointer = pointer.tail){
+			t = pointer.head.SemantMe();
+			allTypes = new TYPE_LIST(t, allTypes);
+		}
 		return null;
+	}
+
+	public TYPE_LIST getTypes() {
+		this.SemantMe();
+		return allTypes;
 	}
 }

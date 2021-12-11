@@ -111,7 +111,7 @@ public class AST_CLASS_DEC extends AST_DEC {
                 }
             }
         } */
-        TYPE_CLASS t = new TYPE_CLASS(null,className,list.SemantMe());
+        TYPE_CLASS t = new TYPE_CLASS(null,className,list.getTypes());
 
         /*****************/
         /* [3] End Scope */

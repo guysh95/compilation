@@ -120,9 +120,10 @@ public class SYMBOL_TABLE
 		return null;
 	}
 
-	public TYPE findInSuperClass(TYPE_CLASS superClass, String name){
+	//TODO function here
+	/* public TYPE findInSuperClass(TYPE_CLASS superClass, String name){
 
-	}
+	} */
 
 
 	/***************************************************************************/

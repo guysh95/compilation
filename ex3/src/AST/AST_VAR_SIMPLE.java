@@ -53,11 +53,10 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	{
 		TYPE t = null;
 		t = SYMBOL_TABLE.getInstance().find(name);
-		if (t != null)
-			return t;
-		else {
+		if (t == null){
 			System.out.format(">> ERROR ID %s does not exists", name);
 			System.exit(0);
 		}
+		return t;
 	}
 }

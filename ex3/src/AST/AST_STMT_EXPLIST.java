@@ -108,7 +108,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 			}
 			TYPE_FUNCTION t3 = (TYPE_FUNCTION) t2;
 			if (exps != null){
-				texps = exps.SemantMe();
+				texps = exps.getTypes();
 				for (TYPE_LIST it=t3.params;it != null;it=it.tail) {
 					if (texps.head == null){
 						System.out.format(">> ERROR missing arguments for function\n");
@@ -141,7 +141,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 
 			TYPE_FUNCTION t3 = (TYPE_FUNCTION) t2;
 			if (exps != null){
-				texps = exps.SemantMe();
+				texps = exps.getTypes();
 				for (TYPE_LIST it=t3.params;it != null;it=it.tail) {
 					if (texps.head == null){
 						System.out.format(">> ERROR missing arguments for function\n");
