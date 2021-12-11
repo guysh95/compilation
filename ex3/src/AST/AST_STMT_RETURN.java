@@ -73,7 +73,6 @@ public class AST_STMT_RETURN extends AST_STMT
 		}
 
 
-		//TODO add semant me
-		//TODO need to make sure return type match function/method type - need to do it in FUNCDEC
+
 	}
 }

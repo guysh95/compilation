@@ -6,7 +6,7 @@ public class TYPE_LIST
 	/* DATA MEMBERS */
 	/****************/
 	public TYPE head;
-	public TYPE_LIST tail;
+	public TYPE_LIST tail = null;
 
 	/******************/
 	/* CONSTRUCTOR(S) */

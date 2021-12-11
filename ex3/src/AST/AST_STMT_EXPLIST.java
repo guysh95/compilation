@@ -79,6 +79,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		TYPE t1 = null;
 		TYPE tc = null;
 		TYPE t2 = null;
+		TYPE_LIST texps = null;
 
 		// only if we have var
 		if (var != null){
@@ -101,26 +102,64 @@ public class AST_STMT_EXPLIST extends AST_STMT
 				System.exit(0);
 			}
 
-			if (t2 != TYPE_FUNCTION) { //todo: is this how you check the type?
-				System.out.format(">> ERROR provided explist although this is not a function");
+			if (! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")) {
+				System.out.format(">> ERROR provided explist although this is not a function\n");
 				System.exit(0);
 			}
+			TYPE_FUNCTION t3 = (TYPE_FUNCTION) t2;
 			if (exps != null){
-				exps.SemantMe();
+				texps = exps.SemantMe();
+				for (TYPE_LIST it=t3.params;it != null;it=it.tail) {
+					if (texps.head == null){
+						System.out.format(">> ERROR missing arguments for function\n");
+						System.exit(0);
+					}
+					if (it.head != texps.head) {
+						System.out.format(">> ERROR parameters for function are not equal\n");
+						System.exit(0);
+					}
+					texps = texps.tail;
+				}
+				if (texps.head != null){
+					System.out.format(">> ERROR to many parameters for function\n");
+					System.exit(0);
+				}
 			}
+
+
 
 			return null;
 		} else { // var is null
 			t2 = SYMBOL_TABLE.get_instance().find(id);
-			if(t2 != TYPE_FUNCTION){
-				System.out.format(">> ERROR provided explist although this is not a function");
-				System.exit(0);
+			if (t2 != null){
+				if(! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")){
+					System.out.format(">> ERROR provided explist although this is not a function");
+					System.exit(0);
+				}
+
 			}
+
+			TYPE_FUNCTION t3 = (TYPE_FUNCTION) t2;
 			if (exps != null){
-				exps.SemantMe();
+				texps = exps.SemantMe();
+				for (TYPE_LIST it=t3.params;it != null;it=it.tail) {
+					if (texps.head == null){
+						System.out.format(">> ERROR missing arguments for function\n");
+						System.exit(0);
+					}
+					if (it.head != texps.head) {
+						System.out.format(">> ERROR parameters for function are not equal\n");
+						System.exit(0);
+					}
+					texps = texps.tail;
+				}
+				if (texps.head != null){
+					System.out.format(">> ERROR to many parameters for function\n");
+					System.exit(0);
+				}
 			}
 			return null;
 		}
 	}
-	//TODO add semantMe()
+
 }

@@ -79,7 +79,7 @@ public class AST_FUNCARGS extends AST_Node
 		SYMBOL_TABLE.getInstance().enter(name,t);
 		if(fa != null){
 			t2 = fa.SemantMe();
-			return t2;
+			return t;
 		}
 
 		return null;

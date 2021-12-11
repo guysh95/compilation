@@ -74,12 +74,12 @@ public class AST_NEW_EXP extends AST_Node {
             System.exit(0);
         }
 
+
         if (e != null) {
             /****************************************/
             /* Check e is integral (maybe needs to add checks here) */
             /****************************************/
-            //TODO check if needs to add more validations here
-            //TODO check that integer is not lower than 0
+
             if(t1.isArray() == false) {
                 System.out.format(">> ERROR [%d:%d] type is not array\n",2,2);
                 System.exit(0);
@@ -89,14 +89,19 @@ public class AST_NEW_EXP extends AST_Node {
                 System.out.format(">> ERROR [%d:%d] expression inside subscript is not integral\n",2,2);
                 System.exit(0);
             }
-            if (e.getClass().getSimpleName() == AST_EXP_INT){
-                if (e.value < 0){
+            if (e.getClass().getSimpleName().equals("AST_EXP_INT")){
+                if (e.value <= 0){
                     System.out.format(">> ERROR [%d:%d] try to init array to size smaller then zero\n",2,2);
                     System.exit(0);
                 }
             }
-
+            return t1;
         }
-        return null;
+
+        if(t1.isClass() == false) {
+            System.out.format(">> ERROR [%d:%d] type is not class\n",2,2);
+            System.exit(0);
+        }
+        return t1;
     }
 }

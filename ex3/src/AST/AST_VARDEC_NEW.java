@@ -66,7 +66,7 @@ public class AST_VARDEC_NEW extends AST_DEC
 	}
 
 	public TYPE SemantMe() {
-		// TODO add semantMe
+
 		TYPE t1 = null;
 		TYPE t2 = null;
 
@@ -80,11 +80,21 @@ public class AST_VARDEC_NEW extends AST_DEC
 
 		if (type != null) t1 = type.SemantMe();
 		if (exp != null) t2 = exp.SemantMe();
-
-		if (t1 != t2) {
-			//TODO: need top check if t2 extends t1
-			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+		try {
+			TYPE_CLASS texp = (TYPE_CLASS) t2;
+			for(texp; texp != null; texp = texp.father){
+				if (texp == t1) {
+					SYMBOL_TABLE.getInstance().enter(id, t2)
+					return null;
+				}
+			}
+			System.out.format(">> ERROR no heritage for var decleration\n",6,6);
 			System.exit(0);
+		} catch {
+			if (t1 != t2) {
+				System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+				System.exit(0);
+			}
 		}
 
 		SYMBOL_TABLE.getInstance().enter(id, t2)
