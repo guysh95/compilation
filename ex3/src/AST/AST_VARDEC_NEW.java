@@ -66,7 +66,7 @@ public class AST_VARDEC_NEW extends AST_DEC
         if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 	}
 
-	public TYPE SemantMe() {
+	public TYPE SemantMe(String scope) {
 
 		TYPE t1 = null;
 		TYPE t2 = null;
@@ -80,8 +80,8 @@ public class AST_VARDEC_NEW extends AST_DEC
 			//System.exit(0);
 		}
 
-		if (type != null) t1 = type.SemantMe();
-		if (exp != null) t2 = exp.SemantMe();
+		if (type != null) t1 = type.SemantMe(null);
+		if (exp != null) t2 = exp.SemantMe(null);
 		try {
 			for(TYPE_CLASS texp = (TYPE_CLASS) t2; texp != null; texp = texp.father){
 				if (texp == t1) {

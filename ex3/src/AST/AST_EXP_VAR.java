@@ -59,8 +59,8 @@ public class AST_EXP_VAR extends AST_EXP
 
 	}
 
-	public TYPE SemantMe() {
-		if (var != null) return var.SemantMe();
+	public TYPE SemantMe(String scope) {
+		if (var != null) return var.SemantMe(null);
 		return null;
 	}
 

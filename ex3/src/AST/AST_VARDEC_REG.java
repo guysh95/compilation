@@ -62,14 +62,14 @@ public class AST_VARDEC_REG extends AST_DEC
 			
 	}
 
-	public TYPE SemantMe() {
+	public TYPE SemantMe(String scope) {
 
 		TYPE t = null;
 
 		/****************************/
 		/* [1] Check If Type exists */
 		/****************************/
-		t = type.SemantMe();
+		t = type.SemantMe(null);
 
 		/**************************************/
 		/* [2] Check That Name does NOT exist */

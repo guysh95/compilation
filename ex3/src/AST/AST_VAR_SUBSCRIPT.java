@@ -62,7 +62,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,subscript.SerialNumber);
 	}
 
-	public TYPE SemantMe() {
+	public TYPE SemantMe(String scope) {
 		TYPE t = null;
 		TYPE_ARRAY ta = null;
 		TYPE sub_t = null;
@@ -70,7 +70,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/******************************/
 		/* [1] Recursively semant var */
 		/******************************/
-		if (var != null) t = var.SemantMe();
+		if (var != null) t = var.SemantMe(null);
 
 		/*********************************/
 		/* [2] Make sure type is a Array */
@@ -86,7 +86,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/************************************/
 		/* [3] Make sure subscript is integral */
 		/************************************/
-		if (subscript.SemantMe() != TYPE_INT.getInstance()) {
+		if (subscript.SemantMe(null) != TYPE_INT.getInstance()) {
 			System.out.format(">> ERROR [%d:%d] expression inside subscript is not integral\n",2,2);
 			throw new lineException(Integer.toString(this.row));
 			//System.exit(0);

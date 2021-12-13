@@ -58,7 +58,7 @@ public class AST_ARRAY_TYPE_DEF extends AST_DEC {
 
     }
 
-    public TYPE SemantMe() {
+    public TYPE SemantMe(String scope) {
         /************************************/
         /* [0] Check we are in global scope */
         /************************************/
@@ -79,7 +79,7 @@ public class AST_ARRAY_TYPE_DEF extends AST_DEC {
         /***************************/
         /* [2] Semant members type */
         /***************************/
-        TYPE t = type.SemantMe();
+        TYPE t = type.SemantMe(null);
         if (t == TYPE_VOID.getInstance()){
             System.out.print("void array isn't defined");
             throw new lineException(Integer.toString(this.row));

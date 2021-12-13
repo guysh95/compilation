@@ -64,13 +64,13 @@ public class AST_STMT_RETURN extends AST_STMT
 		
 	}
 
-	public TYPE SemantMe(){
+	public TYPE SemantMe(String scope){
 		TYPE t = null;
 
 		if (exp == null){
 			return TYPE_VOID.getInstance();
 		} else {
-			t = exp.SemantMe();
+			t = exp.SemantMe(null);
 			return t;
 		}
 	}

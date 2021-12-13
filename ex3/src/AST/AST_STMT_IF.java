@@ -62,12 +62,12 @@ public class AST_STMT_IF extends AST_STMT
 		if (body != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,body.SerialNumber);
 	}
 
-	public TYPE SemantMe()
+	public TYPE SemantMe(String scope)
 	{
 		/****************************/
 		/* [0] Semant the Condition */
 		/****************************/
-		if (cond.SemantMe() != TYPE_INT.getInstance())
+		if (cond.SemantMe(null) != TYPE_INT.getInstance())
 		{
 			System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",2,2);
 			throw new lineException(Integer.toString(this.row));
@@ -84,7 +84,7 @@ public class AST_STMT_IF extends AST_STMT
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
-		body.SemantMe();
+		body.SemantMe(null);
 
 		/*****************/
 		/* [3] End Scope */

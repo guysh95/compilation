@@ -79,12 +79,12 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.SerialNumber);
 	}
 
-	public TYPE SemantMe() {
+	public TYPE SemantMe(String scope) {
 		TYPE t1 = null;
 		TYPE t2 = null;
 
-		if (left  != null) t1 = left.SemantMe();
-		if (right != null) t2 = right.SemantMe();
+		if (left  != null) t1 = left.SemantMe(null);
+		if (right != null) t2 = right.SemantMe(null);
 
 		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
 		{

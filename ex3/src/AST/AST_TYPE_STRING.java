@@ -32,7 +32,7 @@ public class AST_TYPE_STRING extends AST_TYPE {
 
     }
 
-    public TYPE SemantMe() {
+    public TYPE SemantMe(String scope) {
         return TYPE_STRING.getInstance();
     }
 }

@@ -52,7 +52,7 @@ public class Main
 			/**************************/
 			/* [7] Semant the AST ... */
 			/**************************/
-			AST.SemantMe();
+			AST.SemantMe(null);
 			
 			/*************************/
 			/* [8] Close output file */

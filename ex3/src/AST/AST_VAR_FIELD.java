@@ -61,7 +61,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 	}
 
-	public TYPE SemantMe()
+	public TYPE SemantMe(String scope)
 	{
 		TYPE t = null;
 		TYPE_CLASS tc = null;
@@ -69,7 +69,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		/******************************/
 		/* [1] Recursively semant var */
 		/******************************/
-		if (var != null) t = var.SemantMe();
+		if (var != null) t = var.SemantMe(null);
 
 		/*********************************/
 		/* [2] Make sure type is a class */

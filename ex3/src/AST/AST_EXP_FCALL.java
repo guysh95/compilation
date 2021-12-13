@@ -76,7 +76,7 @@ public class AST_EXP_FCALL extends AST_EXP {
         if (explist != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,explist.SerialNumber);
     }
 
-    /* public TYPE SemantMe() {
+    /* public TYPE SemantMe(null) {
         TYPE t = null;
         TYPE tc = null;
         TYPE tfunc = null;
@@ -85,7 +85,7 @@ public class AST_EXP_FCALL extends AST_EXP {
 
         // when there is var - check that the var is class type and that the function within class scope
         if (caller != null){
-            t = caller.SemantMe();
+            t = caller.SemantMe(null);
 
 
             if (t.isClass() == false)
@@ -112,14 +112,14 @@ public class AST_EXP_FCALL extends AST_EXP {
 
 
     } */
-    public TYPE SemantMe() {
+    public TYPE SemantMe(String scope) {
         TYPE t1 = null;
         TYPE_CLASS tc = null;
         TYPE t2 = null;
 
         // only if we have caller
         if (caller != null){
-            t1 = caller.SemantMe();
+            t1 = caller.SemantMe(null);
             if (t1.isClass() == false)
             {
                 System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
@@ -149,7 +149,7 @@ public class AST_EXP_FCALL extends AST_EXP {
             }
             if (explist != null){
                 //TODO check that arguments provided match function parameters
-                explist.SemantMe();
+                explist.SemantMe(null);
             }
 
             return ((TYPE_FUNCTION) t2).returnType;
@@ -162,12 +162,12 @@ public class AST_EXP_FCALL extends AST_EXP {
             }
             if (explist != null){
                 //TODO check that arguments provided match function parameters
-                explist.SemantMe();
+                explist.SemantMe(null);
             }
             return ((TYPE_FUNCTION) t2).returnType;
         }
     }
 
-    //TODO add SemantMe()
+    //TODO add SemantMe(null)
     //consider functions scope and function arguments etc.
 }

@@ -65,13 +65,13 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 	}
 
-	public TYPE SemantMe()
+	public TYPE SemantMe(String scope)
 	{
 		TYPE t1 = null;
 		TYPE t2 = null;
 
-		if (var != null) t1 = var.SemantMe();
-		if (exp != null) t2 = exp.SemantMe();
+		if (var != null) t1 = var.SemantMe(null);
+		if (exp != null) t2 = exp.SemantMe(null);
 
 		if (t1 != t2)
 		{
