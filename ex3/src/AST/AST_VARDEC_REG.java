@@ -82,7 +82,11 @@ public class AST_VARDEC_REG extends AST_DEC
 			//System.exit(0);
 
 		}
+		if (t == TYPE_VOID.getInstance()){
+			System.out.print("void variable isn't defined");
+			throw new lineException(Integer.toString(this.row));
 
+		}
 		/***************************************************/
 		/* [3] Enter the Function Type to the Symbol Table */
 		/***************************************************/
