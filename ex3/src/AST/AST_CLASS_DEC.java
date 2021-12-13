@@ -65,7 +65,7 @@ public class AST_CLASS_DEC extends AST_DEC {
 
     public TYPE SemantMe()
     {
-        TYPE extended_type = null
+        TYPE extended_type = null;
         if (SYMBOL_TABLE.getInstance().isGlobalScope() == false){
             System.out.print("Class not defined in global scope");
             System.exit(0);
