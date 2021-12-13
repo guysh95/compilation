@@ -7,11 +7,12 @@ public class AST_VARDEC_REG extends AST_DEC
 {
 	public AST_TYPE type;
     public String id;
+	public int row;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VARDEC_REG(AST_TYPE type, String id)
+	public AST_VARDEC_REG(AST_TYPE type, String id, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -28,6 +29,7 @@ public class AST_VARDEC_REG extends AST_DEC
 		/*******************************/
 		this.type = type;
         this.id = id;
+		this.row = row;
 	}
 	
 	/***********************************************/
@@ -75,6 +77,9 @@ public class AST_VARDEC_REG extends AST_DEC
 		if (SYMBOL_TABLE.getInstance().find(id) != null)
 		{
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,id);
+			throw new lineException(Integer.toString(this.row));
+			//System.exit(0);
+
 		}
 
 		/***************************************************/

@@ -9,11 +9,12 @@ public class AST_EXP_BINOP extends AST_EXP
 	int bOP;
 	public AST_EXP left;
 	public AST_EXP right;
-	
+	public int row;
+
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int bOP)
+	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int bOP, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -32,6 +33,7 @@ public class AST_EXP_BINOP extends AST_EXP
 		this.left = left;
 		this.right = right;
 		this.bOP = bOP;
+		this.row = row;
 	}
 	
 	/*************************************************/
@@ -92,7 +94,8 @@ public class AST_EXP_BINOP extends AST_EXP
 					AST_EXP_INT num = (AST_EXP_INT) right;
 					if (num.value == 0) {
 						System.out.print("error division by zero\n");
-						System.exit(0);
+						throw new lineException(Integer.toString(this.row));
+						//System.exit(0);
 					}
 
 				}
@@ -104,7 +107,8 @@ public class AST_EXP_BINOP extends AST_EXP
 			return TYPE_STRING.getInstance();
 		}
 		System.out.print("unmatching types or undeclared string operation");
-		System.exit(0);
-		return null;
+		throw new lineException(Integer.toString(this.row));
+		//System.exit(0);
+		//return null;
 	}
 }

@@ -7,8 +7,9 @@ public class AST_PROGRAM extends AST_Node{
 
     public AST_DEC head;
     public AST_PROGRAM tail;
+    public int row;
 
-    public AST_PROGRAM(AST_DEC head, AST_PROGRAM tail) {
+    public AST_PROGRAM(AST_DEC head, AST_PROGRAM tail, int row) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
@@ -25,6 +26,7 @@ public class AST_PROGRAM extends AST_Node{
         /*******************************/
         this.head = head;
         this.tail = tail;
+        this.row = row;
     }
 
     public void PrintMe() {

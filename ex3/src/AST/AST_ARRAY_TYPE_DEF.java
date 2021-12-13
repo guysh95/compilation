@@ -6,8 +6,9 @@ import SYMBOL_TABLE.*;
 public class AST_ARRAY_TYPE_DEF extends AST_DEC {
     public AST_TYPE type;
     public String arrayName;
+    public int row;
 
-    public AST_ARRAY_TYPE_DEF(String name, AST_TYPE type) {
+    public AST_ARRAY_TYPE_DEF(String name, AST_TYPE type, int row) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
@@ -23,6 +24,7 @@ public class AST_ARRAY_TYPE_DEF extends AST_DEC {
         /*******************************/
         this.type = type;
         this.arrayName = name;
+        this.row = row;
     }
 
     /***********************************************/
@@ -62,14 +64,17 @@ public class AST_ARRAY_TYPE_DEF extends AST_DEC {
         /************************************/
         if(SYMBOL_TABLE.getInstance().isGlobalScope() == false) {
             System.out.print("array definition isn't in global scope");
-            System.exit(0);
+            throw new lineException(Integer.toString(this.row));
+
+
         }
         /*****************************************/
         /* [1] Check if array is already defined */
         /*****************************************/
         if(SYMBOL_TABLE.getInstance().find(arrayName) != null) {
             System.out.print("array is already defined");
-            System.exit(0);
+            throw new lineException(Integer.toString(this.row));
+
         }
         /***************************/
         /* [2] Semant members type */
@@ -77,7 +82,8 @@ public class AST_ARRAY_TYPE_DEF extends AST_DEC {
         TYPE t = type.SemantMe();
         if (t == TYPE_VOID.getInstance()){
             System.out.print("void array isn't defined");
-            System.exit(0);
+            throw new lineException(Integer.toString(this.row));
+
         }
         TYPE_ARRAY ta = new TYPE_ARRAY(arrayName, t);
         /************************************************/

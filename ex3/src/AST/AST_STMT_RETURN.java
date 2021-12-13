@@ -9,11 +9,13 @@ public class AST_STMT_RETURN extends AST_STMT
 	/* DATA MEMBERS */
 	/****************/
 	public AST_EXP exp;
+	public int row;
+
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_RETURN(AST_EXP exp)
+	public AST_STMT_RETURN(AST_EXP exp, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -30,7 +32,7 @@ public class AST_STMT_RETURN extends AST_STMT
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
 		this.exp = exp;
-		
+		this.row = row;
 	}
 
 	/******************************************************/

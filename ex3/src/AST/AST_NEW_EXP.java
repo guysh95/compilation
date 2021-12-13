@@ -7,11 +7,13 @@ public class AST_NEW_EXP extends AST_Node {
 
     public AST_TYPE new_name;
     public AST_EXP e;
+    public int row;
+
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_NEW_EXP(AST_TYPE new_name, AST_EXP e) {
+    public AST_NEW_EXP(AST_TYPE new_name, AST_EXP e, int row) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
@@ -29,6 +31,8 @@ public class AST_NEW_EXP extends AST_Node {
         /*******************************/
         this.new_name = new_name;
         this.e = e;
+        this.row = row;
+
     }
 
     /***********************************************/
@@ -71,7 +75,8 @@ public class AST_NEW_EXP extends AST_Node {
         if (new_name != null) t1 = new_name.SemantMe();
         if (t1 == TYPE_VOID.getInstance()){
             System.out.format(">> ERROR [%d:%d] type void is non instanceable\n",7,7);
-            System.exit(0);
+            throw new lineException(Integer.toString(this.row));
+            //System.exit(0);
         }
 
 
@@ -82,18 +87,21 @@ public class AST_NEW_EXP extends AST_Node {
 
             if(t1.isArray() == false) {
                 System.out.format(">> ERROR [%d:%d] type is not array\n",2,2);
-                System.exit(0);
+                throw new lineException(Integer.toString(this.row));
+                //System.exit(0);
             }
             t2 = e.SemantMe();
             if (t2 != TYPE_INT.getInstance()){
                 System.out.format(">> ERROR [%d:%d] expression inside subscript is not integral\n",2,2);
-                System.exit(0);
+                throw new lineException(Integer.toString(this.row));
+                //System.exit(0);
             }
             if (e.getClass().getSimpleName().equals("AST_EXP_INT")){
                 AST_EXP_INT num = (AST_EXP_INT) e;
                 if (num.value <= 0){
                     System.out.format(">> ERROR [%d:%d] try to init array to size smaller then zero\n",2,2);
-                    System.exit(0);
+                    throw new lineException(Integer.toString(this.row));
+                    //System.exit(0);
                 }
             }
             return t1;
@@ -101,7 +109,8 @@ public class AST_NEW_EXP extends AST_Node {
 
         if(t1.isClass() == false) {
             System.out.format(">> ERROR [%d:%d] type is not class\n",2,2);
-            System.exit(0);
+            throw new lineException(Integer.toString(this.row));
+            //System.exit(0);
         }
         return t1;
     }

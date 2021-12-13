@@ -6,11 +6,12 @@ import SYMBOL_TABLE.*;
 public class AST_CFIELD_FUNC extends AST_CFIELD
 {
 	public AST_DEC v;
+	public int row;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_CFIELD_FUNC(AST_DEC v)
+	public AST_CFIELD_FUNC(AST_DEC v, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -26,6 +27,8 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
 		this.v = v;
+		this.row = row;
+
 	}
 	
 	/***********************************************/
@@ -67,7 +70,7 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 
 		if(SYMBOL_TABLE.getInstance().findInScope(t1.name) != null) {
 			System.out.format(">> ERROR function name already exists in scope\n");
-			System.exit(0);
+			throw new lineException(Integer.toString(this.row));
 		}
 
 		return t1;

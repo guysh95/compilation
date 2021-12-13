@@ -11,11 +11,12 @@ public class AST_CFIELD_LIST extends AST_Node
 	public AST_CFIELD head;
 	public AST_CFIELD_LIST tail;
 	public TYPE_LIST allTypes = null;
+	public int row;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_CFIELD_LIST(AST_CFIELD head,AST_CFIELD_LIST tail)
+	public AST_CFIELD_LIST(AST_CFIELD head,AST_CFIELD_LIST tail, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -33,6 +34,8 @@ public class AST_CFIELD_LIST extends AST_Node
 		/*******************************/
 		this.head = head;
 		this.tail = tail;
+		this.row = row;
+
 	}
 
 	/******************************************************/
@@ -69,7 +72,8 @@ public class AST_CFIELD_LIST extends AST_Node
 		TYPE t = null;
 		if (head == null){
 			System.out.print(">> ERROR in CFIELD_LIST semantme");
-			System.exit(0);
+			throw new lineException(Integer.toString(this.row));
+			//System.exit(0);
 		}
 		t = head.SemantMe();
 		allTypes = new TYPE_LIST(t, null);

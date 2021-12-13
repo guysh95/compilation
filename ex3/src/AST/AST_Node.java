@@ -1,8 +1,10 @@
 package AST;
 import TYPES.*;
 
+
 public abstract class AST_Node
 {
+
 	/*******************************************/
 	/* The serial number is for debug purposes */
 	/* In particular, it can help in creating  */

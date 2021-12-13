@@ -10,11 +10,12 @@ public class AST_EXPLIST extends AST_Node {
     public AST_EXP head;
     public AST_EXPLIST tail;
     public TYPE_LIST allTypes = null;
+    public int row;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_EXPLIST(AST_EXP head,AST_EXPLIST tail) {
+    public AST_EXPLIST(AST_EXP head,AST_EXPLIST tail, int row) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
@@ -31,6 +32,7 @@ public class AST_EXPLIST extends AST_Node {
         /*******************************/
         this.head = head;
         this.tail = tail;
+        this.row = row;
     }
 
     /******************************************************/
@@ -67,7 +69,8 @@ public class AST_EXPLIST extends AST_Node {
         TYPE t = null;
         if (head == null){
             System.out.print(">> ERROR in EXPLIST semantme");
-            System.exit(0);
+            throw new lineException(Integer.toString(this.row));
+            //System.exit(0);
         }
         t = head.SemantMe();
         allTypes = new TYPE_LIST(t, null);

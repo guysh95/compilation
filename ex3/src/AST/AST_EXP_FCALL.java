@@ -10,11 +10,12 @@ public class AST_EXP_FCALL extends AST_EXP {
     public AST_VAR caller;
     public String fieldName;
     public AST_EXPLIST explist;
+    public int row;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_EXP_FCALL(AST_VAR caller, String fieldName, AST_EXPLIST explist) {
+    public AST_EXP_FCALL(AST_VAR caller, String fieldName, AST_EXPLIST explist, int row) {
             /******************************/
             /* SET A UNIQUE SERIAL NUMBER */
             /******************************/
@@ -38,6 +39,7 @@ public class AST_EXP_FCALL extends AST_EXP {
             this.caller = caller;
             this.fieldName = fieldName;
             this.explist = explist;
+            this.row = row;
     }
 
     /******************************************************/
@@ -121,7 +123,8 @@ public class AST_EXP_FCALL extends AST_EXP {
             if (t1.isClass() == false)
             {
                 System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
-                System.exit(0);
+                throw new lineException(Integer.toString(this.row));
+                //System.exit(0);
             } else {
                 tc = (TYPE_CLASS) t1;
             }
@@ -133,12 +136,14 @@ public class AST_EXP_FCALL extends AST_EXP {
             }
             if (t2 == null){
                 System.out.format(">> ERROR no %s field on the scope\n",fieldName);
-                System.exit(0);
+                throw new lineException(Integer.toString(this.row));
+                //System.exit(0);
             }
 
             if (t2.equals("TYPE_FUNCTION")) {
                 System.out.format(">> ERROR provided explist although this is not a function");
-                System.exit(0);
+                throw new lineException(Integer.toString(this.row));
+                //System.exit(0);
             }
             if (explist != null){
                 explist.SemantMe();
@@ -149,7 +154,8 @@ public class AST_EXP_FCALL extends AST_EXP {
             t2 = SYMBOL_TABLE.getInstance().find(fieldName);
             if(t2.equals("TYPE_FUNCTION")){
                 System.out.format(">> ERROR provided explist although this is not a function");
-                System.exit(0);
+                throw new lineException(Integer.toString(this.row));
+                //System.exit(0);
             }
             if (explist != null){
                 explist.SemantMe();

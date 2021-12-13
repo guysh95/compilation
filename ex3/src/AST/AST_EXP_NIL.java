@@ -5,6 +5,7 @@ import SYMBOL_TABLE.*;
 
 public class AST_EXP_NIL extends AST_EXP {
 
+
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
@@ -13,6 +14,7 @@ public class AST_EXP_NIL extends AST_EXP {
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
         SerialNumber = AST_Node_Serial_Number.getFresh();
+
 
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */

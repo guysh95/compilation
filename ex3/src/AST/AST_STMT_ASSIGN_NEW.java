@@ -7,11 +7,12 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 {
 	public AST_VAR var;
     public AST_NEW_EXP exp;
+	public int row;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_ASSIGN_NEW(AST_VAR var, AST_NEW_EXP exp)
+	public AST_STMT_ASSIGN_NEW(AST_VAR var, AST_NEW_EXP exp, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -29,6 +30,7 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 		/*******************************/
 		this.var = var;
         this.exp = exp;
+		this.row = row;
 
 	}
 	
@@ -74,6 +76,9 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 		if (t1 != t2)
 		{
 			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+			throw new lineException(Integer.toString(this.row));
+			//System.exit(0);
+
 		}
 		return null;
 	}

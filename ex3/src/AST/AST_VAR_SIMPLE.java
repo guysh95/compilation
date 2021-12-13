@@ -9,11 +9,12 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	/* simple variable name */
 	/************************/
 	public String name;
-	
+	public int row;
+
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VAR_SIMPLE(String name)
+	public AST_VAR_SIMPLE(String name, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -29,6 +30,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
 		this.name = name;
+		this.row = row;
 	}
 
 	/**************************************************/
@@ -55,7 +57,8 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		t = SYMBOL_TABLE.getInstance().find(name);
 		if (t == null){
 			System.out.format(">> ERROR ID %s does not exists", name);
-			System.exit(0);
+			throw new lineException(Integer.toString(this.row));
+			//System.exit(0);
 		}
 		return t;
 	}

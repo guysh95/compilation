@@ -8,12 +8,13 @@ public class AST_FUNCARGS extends AST_Node
 	public AST_TYPE type;
     public String id;
     public AST_FUNCARGS fa;
-    
+	public int row;
+
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_FUNCARGS(AST_TYPE type, String id, AST_FUNCARGS fa)
+	public AST_FUNCARGS(AST_TYPE type, String id, AST_FUNCARGS fa, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -31,7 +32,8 @@ public class AST_FUNCARGS extends AST_Node
 		this.type = type;
         this.id = id;
         this.fa = fa;
-        
+		this.row = row;
+
 
 	}
 	

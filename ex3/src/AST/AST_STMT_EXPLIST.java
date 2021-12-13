@@ -11,11 +11,12 @@ public class AST_STMT_EXPLIST extends AST_STMT
 	public AST_VAR var;
     public String id;
     public AST_EXPLIST exps;
+	public int row;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_EXPLIST(AST_VAR var, String id, AST_EXPLIST exps)
+	public AST_STMT_EXPLIST(AST_VAR var, String id, AST_EXPLIST exps, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -40,7 +41,8 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		this.var = var;
         this.id = id;
         this.exps = exps;
-		
+		this.row = row;
+
 	}
 
 	/******************************************************/
@@ -87,7 +89,8 @@ public class AST_STMT_EXPLIST extends AST_STMT
 			if (t1.isClass() == false)
 			{
 				System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,id);
-				System.exit(0);
+				throw new lineException(Integer.toString(this.row));
+				//System.exit(0);
 			}
 			tc = (TYPE_CLASS) t1;
 
@@ -99,12 +102,14 @@ public class AST_STMT_EXPLIST extends AST_STMT
 			}
 			if (t2 == null){
 				System.out.format(">> ERROR no %s field on the scope\n",id);
-				System.exit(0);
+				throw new lineException(Integer.toString(this.row));
+				//System.exit(0);
 			}
 
 			if (! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")) {
 				System.out.format(">> ERROR provided explist although this is not a function\n");
-				System.exit(0);
+				throw new lineException(Integer.toString(this.row));
+				//System.exit(0);
 			}
 			TYPE_FUNCTION t3 = (TYPE_FUNCTION) t2;
 			if (exps != null){
@@ -112,17 +117,20 @@ public class AST_STMT_EXPLIST extends AST_STMT
 				for (TYPE_LIST it=t3.params;it != null;it=it.tail) {
 					if (texps.head == null){
 						System.out.format(">> ERROR missing arguments for function\n");
-						System.exit(0);
+						throw new lineException(Integer.toString(this.row));
+						//System.exit(0);
 					}
 					if (it.head != texps.head) {
 						System.out.format(">> ERROR parameters for function are not equal\n");
-						System.exit(0);
+						throw new lineException(Integer.toString(this.row));
+						//System.exit(0);
 					}
 					texps = texps.tail;
 				}
 				if (texps.head != null){
 					System.out.format(">> ERROR to many parameters for function\n");
-					System.exit(0);
+					throw new lineException(Integer.toString(this.row));
+					//System.exit(0);
 				}
 			}
 
@@ -134,7 +142,8 @@ public class AST_STMT_EXPLIST extends AST_STMT
 			if (t2 != null){
 				if(! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")){
 					System.out.format(">> ERROR provided explist although this is not a function");
-					System.exit(0);
+					throw new lineException(Integer.toString(this.row));
+					//System.exit(0);
 				}
 
 			}
@@ -145,17 +154,20 @@ public class AST_STMT_EXPLIST extends AST_STMT
 				for (TYPE_LIST it=t3.params;it != null;it=it.tail) {
 					if (texps.head == null){
 						System.out.format(">> ERROR missing arguments for function\n");
-						System.exit(0);
+						throw new lineException(Integer.toString(this.row));
+						//System.exit(0);
 					}
 					if (it.head != texps.head) {
 						System.out.format(">> ERROR parameters for function are not equal\n");
-						System.exit(0);
+						throw new lineException(Integer.toString(this.row));
+						//System.exit(0);
 					}
 					texps = texps.tail;
 				}
 				if (texps.head != null){
 					System.out.format(">> ERROR to many parameters for function\n");
-					System.exit(0);
+					throw new lineException(Integer.toString(this.row));
+					//System.exit(0);
 				}
 			}
 			return null;
