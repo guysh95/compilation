@@ -1,8 +1,10 @@
 string left := "LEFT";
 string right := "RIGHT";
+int x;
 
 class Person
 {
+    int x;
     int personLeft;
     int personRight;
 }
@@ -11,9 +13,9 @@ int foo(int d, int k)
 {
     int fooLeft := 50;
     int fooRight := 40;
-	string pinGadol := 666;
+	string pinGadol := "Guy";
 
-    if (d+k = 17)
+    if (d+k)
     {
         Person leftWing;
         Person rightWing;
@@ -25,7 +27,7 @@ int foo(int d, int k)
 
 void main()
 {
-    if (foo(2,4))
+    if (2)
     {
         PrintInt(800);
     }

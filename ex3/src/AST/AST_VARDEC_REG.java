@@ -72,16 +72,18 @@ public class AST_VARDEC_REG extends AST_DEC
 		/**************************************/
 		/* [2] Check That Name does NOT exist */
 		/**************************************/
-		if (SYMBOL_TABLE.getInstance().find(id) != null)
+		if (SYMBOL_TABLE.getInstance().findInScope(id) != null)
 		{
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,id);
+			System.exit(0);
 		}
 
 		/***************************************************/
 		/* [3] Enter the Function Type to the Symbol Table */
 		/***************************************************/
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t, id);
-
+		System.out.println("now we are at vardec reg with: " + id);
+		System.out.println("t3 is now: "+ t3.name + " and its type is " + t3.t.name);
 		SYMBOL_TABLE.getInstance().enter(id,t);
 
 		/*********************************************************/

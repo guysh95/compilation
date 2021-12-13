@@ -130,6 +130,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 
 			return null;
 		} else { // var is null
+			System.out.println("We are in stmt calling " + id);
 			t2 = SYMBOL_TABLE.getInstance().find(id);
 			if (t2 != null){
 				if(! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")){

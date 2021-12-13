@@ -72,7 +72,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 		/**************************************/
 		/* [2] Check That Name does NOT exist */
 		/**************************************/
-		if (SYMBOL_TABLE.getInstance().find(name) != null) {
+		if (SYMBOL_TABLE.getInstance().findInScope(name) != null) {
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
 			System.exit(0);
 		}

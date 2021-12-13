@@ -73,7 +73,10 @@ public class AST_CFIELD_LIST extends AST_Node
 		}
 		t = head.SemantMe();
 		allTypes = new TYPE_LIST(t, null);
+		int i = 0;
 		for(AST_CFIELD_LIST pointer = tail; pointer != null; pointer = pointer.tail){
+			System.out.println("where are we in class declarations: " + i);
+			i++;
 			t = pointer.head.SemantMe();
 			allTypes = new TYPE_LIST(t, allTypes);
 		}

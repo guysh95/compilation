@@ -60,6 +60,7 @@ public class AST_PROGRAM extends AST_Node{
         /*************************************/
         if (head != null) head.SemantMe();
         if (tail != null) tail.SemantMe();
+        System.out.print("now we semnat program");
 
         return null;
     }

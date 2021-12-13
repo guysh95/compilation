@@ -103,6 +103,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/****************************/
 		/* [1] Begin Function Scope */
 		/****************************/
+		System.out.println("######### Semanting " + id + " ##########");
 		SYMBOL_TABLE.getInstance().beginScope();
 
 		/***************************/

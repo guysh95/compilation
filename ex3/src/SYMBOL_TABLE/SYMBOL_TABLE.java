@@ -107,10 +107,12 @@ public class SYMBOL_TABLE
 	public TYPE findInScope(String name)
 	{
 		SYMBOL_TABLE_ENTRY e;
-
+		System.out.println("need to find: " + name);
 		for (e = top; e != null; e = e.prevtop)
 		{
+			System.out.println("currently looking at: " + e.name);
 			if(e.name.equals("SCOPE-BOUNDARY")){
+				System.out.println("we return null");
 				return null;
 			}
 			if (name.equals(e.name))
@@ -161,14 +163,14 @@ public class SYMBOL_TABLE
 		/**************************************************************************/
 		/* Pop elements from the symbol table stack until a SCOPE-BOUNDARY is hit */		
 		/**************************************************************************/
-		if(!saveElements) {
+		/* if(!saveElements) { */
 			while (top.name != "SCOPE-BOUNDARY")
 			{
 				table[top.index] = top.next;
 				top_index = top_index-1;
 				top = top.prevtop;
 			}
-		}
+		/* }
 		else{
 			// we want to save class\function elements for comparison later
 			while (top.name != "SCOPE-BOUNDARY")
@@ -189,7 +191,7 @@ public class SYMBOL_TABLE
 				}
 				top = top.prevtop;
 			}
-		}
+		} */
 		/**************************************/
 		/* Pop the SCOPE-BOUNDARY sign itself */		
 		/**************************************/
