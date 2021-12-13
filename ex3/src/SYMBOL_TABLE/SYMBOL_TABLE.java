@@ -182,12 +182,12 @@ public class SYMBOL_TABLE
 					//first class field/ param
 					subFields = top;
 					subFields.next = null;
-					subFields.prevtop = null;
+					subFields.prevTop = null;
 				}
 				else {
 					top.next = subFields;
 					subFields = top;
-					subFields.prevtop= null;
+					subFields.prevTop= null;
 				}
 				top = top.prevtop;
 			}
