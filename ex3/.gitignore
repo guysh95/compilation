@@ -3,3 +3,5 @@ bin/Lexer.class
 bin/Main.class
 bin/Parser.class
 bin/TokenNames.class
+output/
+COMPILER
