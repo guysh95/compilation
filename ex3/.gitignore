@@ -5,3 +5,5 @@ bin/Parser.class
 bin/TokenNames.class
 output/
 COMPILER
+ourinputs
+ouroutputs
