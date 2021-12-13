@@ -17,7 +17,10 @@ public class TYPE_CLASS extends TYPE
 	public boolean isClass() { return true;}
 
 	public TYPE findInClass(String name){
-
+		for(TYPE_LIST it=this.data_members; it != null; it = it.tail){
+			break;
+		}
+		return TYPE_INT;
 	}
 
 

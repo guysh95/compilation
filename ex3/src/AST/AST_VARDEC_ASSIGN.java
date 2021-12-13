@@ -86,7 +86,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 		}
 
 		SYMBOL_TABLE.getInstance().enter(name, t1);
-		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, name)
+		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, name);
 		return t3;
 
 	}
