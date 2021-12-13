@@ -15,7 +15,12 @@ public class TYPE_CLASS extends TYPE
 	public TYPE_LIST data_members;
 
 	public boolean isClass() { return true;}
-	
+
+	public TYPE findInClass(String name){
+
+	}
+
+
 	/****************/
 	/* CTROR(S) ... */
 	/****************/

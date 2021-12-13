@@ -90,15 +90,11 @@ public class AST_EXP_BINOP extends AST_EXP
 
 				if (right.getClass().getSimpleName().equals("AST_EXP_INT")){
 					AST_EXP_INT num = (AST_EXP_INT) right;
-					try {
-						if (num.value == 0){
-							System.out.print("error division by zero\n");
-							System.exit(0);
-						}
-					} catch (Exception e){
-						System.out.print("if for division by zero not working!!!\n");
+					if (num.value == 0) {
+						System.out.print("error division by zero\n");
 						System.exit(0);
 					}
+
 				}
 
 			}

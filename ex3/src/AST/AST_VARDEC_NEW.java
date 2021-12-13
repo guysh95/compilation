@@ -95,8 +95,9 @@ public class AST_VARDEC_NEW extends AST_DEC
 				System.exit(0);
 			}
 		}
+		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, id)
 
 		SYMBOL_TABLE.getInstance().enter(id, t2);
-		return null;
+		return t3;
 	}
 }

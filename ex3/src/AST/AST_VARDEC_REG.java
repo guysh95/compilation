@@ -80,11 +80,13 @@ public class AST_VARDEC_REG extends AST_DEC
 		/***************************************************/
 		/* [3] Enter the Function Type to the Symbol Table */
 		/***************************************************/
+		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t, id)
+
 		SYMBOL_TABLE.getInstance().enter(id,t);
 
 		/*********************************************************/
 		/* [4] Return value is irrelevant for class declarations */
 		/*********************************************************/
-		return null;
+		return t3;
 	}
 }
