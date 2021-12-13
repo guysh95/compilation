@@ -85,8 +85,8 @@ public class AST_NEW_EXP extends AST_Node {
             /* Check e is integral (maybe needs to add checks here) */
             /****************************************/
             System.out.println("type checking for :" + t1);
-            if(t1.isArray() == false) {
-                System.out.format(">> ERROR [%d:%d] type is not array\n",2,2);
+            if(!t1.isArray() && !t1.isClass() && !t1.name.equals("int") && !t1.name.equals("string")) {
+                System.out.format(">> ERROR [%d:%d] type is not suitable for array\n",2,2);
                 throw new lineException(Integer.toString(this.row));
                 //System.exit(0);
             }
@@ -104,7 +104,7 @@ public class AST_NEW_EXP extends AST_Node {
                     //System.exit(0);
                 }
             }
-            return t1;
+            return new TYPE_ARRAY("array", t1);
         }
 
         if(t1.isClass() == false) {

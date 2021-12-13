@@ -93,7 +93,13 @@ public class AST_VARDEC_NEW extends AST_DEC
 			throw new lineException(Integer.toString(this.row));
 			//System.exit(0);
 		} catch (Exception e){
-			if (t1 != t2) {
+			if (t1.isArray() && t2.isArray()){
+				if(((TYPE_ARRAY)t1).member_type != ((TYPE_ARRAY)t2).member_type){
+					System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+					throw new lineException(Integer.toString(this.row));
+				}
+			}
+			else if (t1 != t2) {
 				System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
 				throw new lineException(Integer.toString(this.row));
 				//System.exit(0);
