@@ -67,7 +67,6 @@ public class AST_TYPE_SIMPLE extends AST_TYPE {
             return t;
         }
         System.out.format(">> ERROR [%d:%d] %s non existing type\n",2,2,type);
-        System.exit(0);
-        return null;
+        throw new lineException(Integer.toString(this.row));
     }
 }

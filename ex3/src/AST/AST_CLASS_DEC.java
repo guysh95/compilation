@@ -123,6 +123,7 @@ public class AST_CLASS_DEC extends AST_DEC {
             }
         } */
         System.out.println("now we semant the class fields");
+        //TODO insert class name down (need to fix assignment 7)
         TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className,list.getTypes(null));
 
         //check that there is no function shadowing
