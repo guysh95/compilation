@@ -66,7 +66,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 			
 	}
 
-	public TYPE SemantMe() {
+	public TYPE SemantMe(String scope) {
 		TYPE t1 = null;
 		TYPE t2 = null;
 
@@ -79,8 +79,8 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 			//System.exit(0);
 		}
 
-		if (type != null) t1 = type.SemantMe();
-		if (exp != null) t2 = exp.SemantMe();
+		if (type != null) t1 = type.SemantMe(null);
+		if (exp != null) t2 = exp.SemantMe(null);
 
 		if (t1 != t2) {
 			if (!((t1.isClass() || t1.isArray()) && t2 == TYPE_NIL.getInstance())) {

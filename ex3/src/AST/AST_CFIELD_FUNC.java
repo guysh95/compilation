@@ -59,14 +59,14 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,v.SerialNumber);
 	}
 
-	public TYPE SemantMe() {
+	public TYPE SemantMe(String scope) {
 		/* AST_FUNCDEC func = (AST_FUNCDEC) v;
 		TYPE_FUNCTION tf;
-		if (v != null) tf = (TYPE_FUNCTION) v.SemantMe();
+		if (v != null) tf = (TYPE_FUNCTION) v.SemantMe(null);
 		*/
 
 		TYPE t1 = null;
-		t1 = v.SemantMe();
+		t1 = v.SemantMe(null);
 
 		if(SYMBOL_TABLE.getInstance().findInScope(t1.name) != null) {
 			System.out.format(">> ERROR function name already exists in scope\n");

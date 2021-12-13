@@ -39,7 +39,7 @@ public class AST_EXP_NIL extends AST_EXP {
                 "NIL");
     }
 
-    public TYPE SemantMe() {
+    public TYPE SemantMe(String scope) {
         return TYPE_NIL.getInstance();
     }
 }

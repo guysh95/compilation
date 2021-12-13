@@ -48,7 +48,7 @@ public class AST_EXP_INT extends AST_EXP
 			String.format("INT(%d)",value));
 	}
 
-	public TYPE SemantMe() {
+	public TYPE SemantMe(String scope) {
 		return TYPE_INT.getInstance();
 	}
 }

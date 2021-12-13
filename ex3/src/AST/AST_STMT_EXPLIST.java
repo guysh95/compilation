@@ -77,7 +77,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		
 	}
 
-	public TYPE SemantMe() {
+	public TYPE SemantMe(String scope) {
 		TYPE t1 = null;
 		TYPE_CLASS tc = null;
 		TYPE t2 = null;
@@ -85,7 +85,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 
 		// only if we have var
 		if (var != null){
-			t1 = var.SemantMe();
+			t1 = var.SemantMe(null);
 			if (t1.isClass() == false)
 			{
 				System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,id);
@@ -113,7 +113,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 			}
 			TYPE_FUNCTION t3 = (TYPE_FUNCTION) t2;
 			if (exps != null){
-				texps = exps.getTypes();
+				texps = exps.getTypes(null);
 				for (TYPE_LIST it=t3.params;it != null;it=it.tail) {
 					if (texps.head == null){
 						System.out.format(">> ERROR missing arguments for function\n");
@@ -152,7 +152,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 			TYPE_FUNCTION t3 = (TYPE_FUNCTION) t2;
 			System.out.println("we converted" + t2 + " to " + t3);
 			if (exps != null){
-				texps = exps.getTypes();
+				texps = exps.getTypes(null);
 				System.out.println("we got texps");
 				for (TYPE_LIST it=t3.params;it != null;it=it.tail) {
 					System.out.println("1" + texps.head.name);

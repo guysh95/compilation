@@ -50,7 +50,7 @@ public class AST_TYPE_SIMPLE extends AST_TYPE {
                 String.format("TYPE\n(%s)", type));
     }
 
-    public TYPE SemantMe() {
+    public TYPE SemantMe(String scope) {
         TYPE t;
 
         /****************************/

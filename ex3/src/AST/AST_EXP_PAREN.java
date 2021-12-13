@@ -33,7 +33,7 @@ public class AST_EXP_PAREN extends AST_EXP {
     /************************************************/
     /* The printing message for an NESTED EXP AST node */
     /************************************************/
-    public void PrintMe()
+    public void PrintMe(String scope)
     {
         /*******************************/
         /* AST NODE TYPE = AST NESTED EXP */
@@ -58,8 +58,8 @@ public class AST_EXP_PAREN extends AST_EXP {
         if (child != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,child.SerialNumber);
     }
 
-    public TYPE SemantMe() {
-        if (child != null) return child.SemantMe();
+    public TYPE SemantMe(String scope) {
+        if (child != null) return child.SemantMe(null);
         return null;
     }
 }

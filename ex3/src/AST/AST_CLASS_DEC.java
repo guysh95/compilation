@@ -65,7 +65,7 @@ public class AST_CLASS_DEC extends AST_DEC {
 
     }
 
-    public TYPE SemantMe()
+    public TYPE SemantMe(String scope)
     {
         System.out.println("now we semant " + className + " class");
         TYPE extended_type = null;
@@ -108,7 +108,7 @@ public class AST_CLASS_DEC extends AST_DEC {
         /* if(extendedClass != null){
             for(AST_CFIELD_LIST p = list; p != null; p=p.tail){
                 AST_CFIELD field = p.head;
-                TYPE fieldType = field.SemantMe();
+                TYPE fieldType = field.SemantMe(null);
                 TYPE_CLASS ancestor = extendedClass;
                 SYMBOL_TABLE.getInstance().findInSuperClass(ancestor, fieldType);
                 while(ancestor != null){
@@ -123,7 +123,7 @@ public class AST_CLASS_DEC extends AST_DEC {
             }
         } */
         System.out.println("now we semant the class fields");
-        TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className,list.getTypes());
+        TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className,list.getTypes(null));
 
         //check that there is no function shadowing
         //if(extended_type_casted != null){

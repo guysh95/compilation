@@ -71,14 +71,14 @@ public class AST_FUNCARGS extends AST_Node
         if (fa != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,fa.SerialNumber);
 
 	}
-	//TODO add SemantMe()
+	//TODO add SemantMe(null)
 	//TODO remember to check parameter list with the super overridden method
 	//TODO decide if need to check here or in funcdec
-	public TYPE SemantMe() {
+	public TYPE SemantMe(String scope) {
 		TYPE t = null;
 		TYPE t2 = null;
 
-		t = type.SemantMe();
+		t = type.SemantMe(null);
 		//System.out.println(t.name);
 		if (t == TYPE_VOID.getInstance()){
 			System.out.print("void param isn't defined");
@@ -92,7 +92,7 @@ public class AST_FUNCARGS extends AST_Node
 		for(AST_FUNCARGS pointer = fa; pointer != null; pointer = pointer.fa){
 			System.out.println("where are we in class declarations: " + i);
 			i++;
-			t = pointer.type.SemantMe();
+			t = pointer.type.SemantMe(null);
 			if (t == TYPE_VOID.getInstance()){
 				System.out.print("void param isn't defined");
 				throw new lineException(Integer.toString(this.row));
@@ -104,8 +104,8 @@ public class AST_FUNCARGS extends AST_Node
 
 	}
 
-	public TYPE_LIST getTypes() {
-		this.SemantMe();
+	public TYPE_LIST getTypes(String scope) {
+		this.SemantMe(null);
 		return allTypes;
 	}
 

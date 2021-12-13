@@ -68,27 +68,27 @@ public class AST_CFIELD_LIST extends AST_Node
 		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
 	}
 
-	public TYPE SemantMe() {
+	public TYPE SemantMe(String scope) {
 		TYPE t = null;
 		if (head == null){
 			System.out.print(">> ERROR in CFIELD_LIST semantme");
 			throw new lineException(Integer.toString(this.row));
 			//System.exit(0);
 		}
-		t = head.SemantMe();
+		t = head.SemantMe(null);
 		allTypes = new TYPE_LIST(t, null);
 		int i = 0;
 		for(AST_CFIELD_LIST pointer = tail; pointer != null; pointer = pointer.tail){
 			System.out.println("where are we in class declarations: " + i);
 			i++;
-			t = pointer.head.SemantMe();
+			t = pointer.head.SemantMe(null);
 			allTypes = new TYPE_LIST(t, allTypes);
 		}
 		return null;
 	}
 
-	public TYPE_LIST getTypes() {
-		this.SemantMe();
+	public TYPE_LIST getTypes(String scope) {
+		this.SemantMe(null);
 		return allTypes;
 	}
 }

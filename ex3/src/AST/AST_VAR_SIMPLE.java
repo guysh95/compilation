@@ -51,7 +51,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			String.format("SIMPLE\nVAR\n(%s)",name));
 	}
 
-	public TYPE SemantMe()
+	public TYPE SemantMe(String scope)
 	{
 		TYPE t = null;
 		t = SYMBOL_TABLE.getInstance().find(name);

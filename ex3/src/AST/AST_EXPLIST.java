@@ -65,24 +65,24 @@ public class AST_EXPLIST extends AST_Node {
         if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
     }
 
-    public TYPE SemantMe() {
+    public TYPE SemantMe(String scope) {
         TYPE t = null;
         if (head == null){
             System.out.print(">> ERROR in EXPLIST semantme");
             throw new lineException(Integer.toString(this.row));
             //System.exit(0);
         }
-        t = head.SemantMe();
+        t = head.SemantMe(null);
         allTypes = new TYPE_LIST(t, null);
         for(AST_EXPLIST pointer = tail; pointer != null; pointer = pointer.tail){
-            t = pointer.head.SemantMe();
+            t = pointer.head.SemantMe(null);
             allTypes = new TYPE_LIST(t, allTypes);
         }
         return null;
     }
 
-    public TYPE_LIST getTypes() {
-        this.SemantMe();
+    public TYPE_LIST getTypes(String scope) {
+        this.SemantMe(null);
         return allTypes;
     }
 

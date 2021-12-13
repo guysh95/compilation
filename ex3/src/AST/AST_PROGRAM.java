@@ -55,13 +55,13 @@ public class AST_PROGRAM extends AST_Node{
         if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
     }
 
-    public TYPE SemantMe()
+    public TYPE SemantMe(String scope)
     {
         /*************************************/
         /* RECURSIVELY PRINT HEAD + TAIL ... */
         /*************************************/
-        if (head != null) head.SemantMe();
-        if (tail != null) tail.SemantMe();
+        if (head != null) head.SemantMe(null);
+        if (tail != null) tail.SemantMe(null);
         System.out.print("now we semnat program");
 
         return null;
