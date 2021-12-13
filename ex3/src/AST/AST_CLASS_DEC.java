@@ -65,12 +65,13 @@ public class AST_CLASS_DEC extends AST_DEC {
 
     public TYPE SemantMe()
     {
+        TYPE extended_type = null
         if (SYMBOL_TABLE.getInstance().isGlobalScope() == false){
             System.out.print("Class not defined in global scope");
             System.exit(0);
         }
         if (extendedClass != null){
-            TYPE extended_type = SYMBOL_TABLE.getInstance().find(extendedClass);
+             extended_type = SYMBOL_TABLE.getInstance().find(extendedClass);
             if (extended_type == null){
                 System.out.format("%s Extended class is not defined\n", extendedClass);
                 System.exit(0);
@@ -111,7 +112,7 @@ public class AST_CLASS_DEC extends AST_DEC {
                 }
             }
         } */
-        TYPE_CLASS t = new TYPE_CLASS(null,className,list.getTypes());
+        TYPE_CLASS t = new TYPE_CLASS(extended_type,className,list.getTypes());
 
         /*****************/
         /* [3] End Scope */
@@ -126,6 +127,6 @@ public class AST_CLASS_DEC extends AST_DEC {
         /*********************************************************/
         /* [5] Return value is irrelevant for class declarations */
         /*********************************************************/
-        return null;
+        return t;
     }
 }
