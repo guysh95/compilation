@@ -57,6 +57,7 @@ public class Main
 			/*************************/
 			/* [8] Close output file */
 			/*************************/
+			file_writer.print("OK");
 			file_writer.close();
 
 			/*************************************/
