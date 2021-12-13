@@ -27,6 +27,7 @@ public class SYMBOL_TABLE
 	private SYMBOL_TABLE_ENTRY top;
 	private int top_index = 0;
 	private int scopeLayer = 0;
+	private SYMBOL_TABLE_ENTRY subFields = null;
 	
 	/**************************************************************/
 	/* A very primitive hash function for exposition purposes ... */
@@ -63,8 +64,8 @@ public class SYMBOL_TABLE
 		/**************************************************************************/
 		/* [3] Prepare a new symbol table entry with name, type, next and prevtop */
 		/**************************************************************************/
-		SYMBOL_TABLE_ENTRY e = new SYMBOL_TABLE_ENTRY(name,t,hashValue,next,top,top_index++);
-
+		SYMBOL_TABLE_ENTRY e = new SYMBOL_TABLE_ENTRY(name,t,hashValue,next,top,subFields,top_index++);
+		subFields = null;
 		/**********************************************/
 		/* [4] Update the top of the symbol table ... */
 		/**********************************************/
@@ -121,9 +122,13 @@ public class SYMBOL_TABLE
 	}
 
 	//TODO function here
-	/* public TYPE findInSuperClass(TYPE_CLASS superClass, String name){
+	public TYPE findInSuperClass(TYPE_CLASS superClass, String name){
+		TYPE_LIST members;
+		TYPE head;
+		while(superClass != null) {
 
-	} */
+		}
+	}
 
 
 	/***************************************************************************/
@@ -153,16 +158,39 @@ public class SYMBOL_TABLE
 	/* end scope = Keep popping elements out of the data structure,                 */
 	/* from most recent element entered, until a <NEW-SCOPE> element is encountered */
 	/********************************************************************************/
-	public void endScope()
+	public void endScope(boolean saveElements)
 	{
 		/**************************************************************************/
 		/* Pop elements from the symbol table stack until a SCOPE-BOUNDARY is hit */		
 		/**************************************************************************/
-		while (top.name != "SCOPE-BOUNDARY")
-		{
-			table[top.index] = top.next;
-			top_index = top_index-1;
-			top = top.prevtop;
+		if(!saveElements) {
+			while (top.name != "SCOPE-BOUNDARY")
+			{
+				table[top.index] = top.next;
+				top_index = top_index-1;
+				top = top.prevtop;
+			}
+		}
+		else{
+			// we want to save class\function elements for comparison later
+			while (top.name != "SCOPE-BOUNDARY")
+			{
+				table[top.index] = top.next;
+				top_index = top_index-1;
+
+				if (subFields == null) {
+					//first class field/ param
+					subFields = top;
+					subFields.next = null;
+					subFields.prevTop = null;
+				}
+				else {
+					top.next = subFields;
+					subFields = top;
+					subFields.prevTop= null;
+				}
+				top = top.prevtop;
+			}
 		}
 		/**************************************/
 		/* Pop the SCOPE-BOUNDARY sign itself */		
@@ -282,6 +310,7 @@ public class SYMBOL_TABLE
 			/*****************************************/
 			instance.enter("int",   TYPE_INT.getInstance());
 			instance.enter("string",TYPE_STRING.getInstance());
+			instance.enter("void", TYPE_VOID.getInstance());
 
 			/*************************************/
 			/* [2] How should we handle void ??? */

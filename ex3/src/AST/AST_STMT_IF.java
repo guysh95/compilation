@@ -83,7 +83,7 @@ public class AST_STMT_IF extends AST_STMT
 		/*****************/
 		/* [3] End Scope */
 		/*****************/
-		SYMBOL_TABLE.getInstance().endScope();
+		SYMBOL_TABLE.getInstance().endScope(false);
 
 		/*********************************************************/
 		/* [4] Return value is irrelevant for class declarations */

@@ -116,7 +116,7 @@ public class AST_CLASS_DEC extends AST_DEC {
         /*****************/
         /* [3] End Scope */
         /*****************/
-        SYMBOL_TABLE.getInstance().endScope();
+        SYMBOL_TABLE.getInstance().endScope(true);
 
         /************************************************/
         /* [4] Enter the Class Type to the Symbol Table */

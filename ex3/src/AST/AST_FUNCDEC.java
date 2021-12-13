@@ -121,7 +121,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/*****************/
 		/* [4] End Scope */
 		/*****************/
-		SYMBOL_TABLE.getInstance().endScope();
+		SYMBOL_TABLE.getInstance().endScope(true);
 
 		/***************************************************/
 		/* [5] Enter the Function Type to the Symbol Table */

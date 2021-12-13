@@ -60,7 +60,7 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 	public TYPE SemantMe() {
 		TYPE t1 = null;
 		t1 = v.SemantMe();
-
+		//TODO
 		if(SYMBOL_TABLE.getInstance().findInScope(t1.name) != null) {
 			System.out.format(">> ERROR variable already exists in scope\n");
 			System.exit(0);
