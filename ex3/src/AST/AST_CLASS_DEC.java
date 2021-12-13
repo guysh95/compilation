@@ -8,8 +8,9 @@ public class AST_CLASS_DEC extends AST_DEC {
     public String className;
     public String extendedClass;
     public AST_CFIELD_LIST list;
+    public int row;
 
-    public AST_CLASS_DEC(String className, String extendedClass, AST_CFIELD_LIST list) {
+    public AST_CLASS_DEC(String className, String extendedClass, AST_CFIELD_LIST list, int row) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
@@ -29,6 +30,7 @@ public class AST_CLASS_DEC extends AST_DEC {
         this.className = className;
         this.extendedClass = extendedClass;
         this.list = list;
+        this.row = row;
     }
 
     /***********************************************/
@@ -70,24 +72,28 @@ public class AST_CLASS_DEC extends AST_DEC {
         TYPE_CLASS extended_type_casted = null;
         if (SYMBOL_TABLE.getInstance().isGlobalScope() == false){
             System.out.print("Class not defined in global scope");
-            System.exit(0);
+            throw new lineException(Integer.toString(this.row));
+            // System.exit(0);
         }
         if (extendedClass != null){
             extended_type = SYMBOL_TABLE.getInstance().find(extendedClass);
             if (extended_type == null){
                 System.out.format("%s Extended class is not defined\n", extendedClass);
-                System.exit(0);
+                throw new lineException(Integer.toString(this.row));
+                //System.exit(0);
             }
             if(extended_type.isClass() == false){
                 System.out.format("%s Extended class is not of type class\n", extendedClass);
-                System.exit(0);
+                throw new lineException(Integer.toString(this.row));
+                //System.exit(0);
             } else {
                 extended_type_casted = (TYPE_CLASS) extended_type;
             }
         }
         if (SYMBOL_TABLE.getInstance().find(className) != null){
             System.out.format("%s Class already defined", className);
-            System.exit(0);
+            throw new lineException(Integer.toString(this.row));
+            //System.exit(0);
         }
 
 

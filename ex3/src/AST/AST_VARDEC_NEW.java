@@ -8,11 +8,12 @@ public class AST_VARDEC_NEW extends AST_DEC
 	public AST_TYPE type;
     public String id;
     public AST_NEW_EXP exp;
+	public int row;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VARDEC_NEW(AST_TYPE type, String id, AST_NEW_EXP exp)
+	public AST_VARDEC_NEW(AST_TYPE type, String id, AST_NEW_EXP exp, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -31,7 +32,7 @@ public class AST_VARDEC_NEW extends AST_DEC
 		this.type = type;
         this.id = id;
         this.exp = exp;
-
+		this.row = row;
 	}
 	
 	/***********************************************/
@@ -75,7 +76,8 @@ public class AST_VARDEC_NEW extends AST_DEC
 		/**************************************/
 		if (SYMBOL_TABLE.getInstance().findInScope(id) != null) {
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,id);
-			System.exit(0);
+			throw new lineException(Integer.toString(this.row));
+			//System.exit(0);
 		}
 
 		if (type != null) t1 = type.SemantMe();
@@ -88,11 +90,13 @@ public class AST_VARDEC_NEW extends AST_DEC
 				}
 			}
 			System.out.format(">> ERROR no heritage for var decleration\n",6,6);
-			System.exit(0);
+			throw new lineException(Integer.toString(this.row));
+			//System.exit(0);
 		} catch (Exception e){
 			if (t1 != t2) {
 				System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
-				System.exit(0);
+				throw new lineException(Integer.toString(this.row));
+				//System.exit(0);
 			}
 		}
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, id);

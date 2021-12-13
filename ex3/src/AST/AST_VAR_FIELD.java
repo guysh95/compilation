@@ -7,11 +7,12 @@ public class AST_VAR_FIELD extends AST_VAR
 {
 	public AST_VAR var;
 	public String fieldName;
-	
+	public int row;
+
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VAR_FIELD(AST_VAR var,String fieldName)
+	public AST_VAR_FIELD(AST_VAR var,String fieldName, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -28,6 +29,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		/*******************************/
 		this.var = var;
 		this.fieldName = fieldName;
+		this.row = row;
 	}
 
 	/*************************************************/
@@ -97,7 +99,8 @@ public class AST_VAR_FIELD extends AST_VAR
 		/* [4] fieldName does not exist in class var */
 		/*********************************************/
 		System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",6,6,fieldName);
-		System.exit(0);
-		return null;
+		throw new lineException(Integer.toString(this.row));
+		//System.exit(0);
+		//return null;
 	}
 }

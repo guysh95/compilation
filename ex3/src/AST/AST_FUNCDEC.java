@@ -9,11 +9,13 @@ public class AST_FUNCDEC extends AST_DEC
     public String id;
     public AST_FUNCARGS fa;
     public AST_STMT_LIST sl;
+	public int row;
+
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_FUNCDEC(AST_TYPE type, String id, AST_FUNCARGS fa, AST_STMT_LIST sl)
+	public AST_FUNCDEC(AST_TYPE type, String id, AST_FUNCARGS fa, AST_STMT_LIST sl, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -31,7 +33,8 @@ public class AST_FUNCDEC extends AST_DEC
 		this.type = type;
         this.id = id;
         this.fa = fa;
-        this.sl = sl;        
+        this.sl = sl;
+		this.row = row;
 
 	}
 	
@@ -85,18 +88,23 @@ public class AST_FUNCDEC extends AST_DEC
 		if (returnType == null)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing return type %s\n",6,6,returnType);
+			throw new lineException(Integer.toString(this.row));
+			//System.exit(0);
+
 		}
 
 		if (SYMBOL_TABLE.getInstance().isGlobalScope()) {
 			if (SYMBOL_TABLE.getInstance().find(id) != null){
 				System.out.format(">> ERROR: %s global function name already exists\n", id);
-				System.exit(0);
+				throw new lineException(Integer.toString(this.row));
+				//System.exit(0);
 			}
 		} else {	// in class scope
 			t1 = SYMBOL_TABLE.getInstance().findInScope(id);
 			if(t1 != null){ // check if func declared already in class
 				System.out.format(">> ERROR: %s function already declared in class\n", id);
-				System.exit(0);
+				throw new lineException(Integer.toString(this.row));
+				//System.exit(0);
 			}
 		}
 
@@ -115,6 +123,8 @@ public class AST_FUNCDEC extends AST_DEC
 			if (t == null)
 			{
 				System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type.SemantMe().name);
+				throw new lineException(Integer.toString(this.row));
+
 			}
 			else
 			{

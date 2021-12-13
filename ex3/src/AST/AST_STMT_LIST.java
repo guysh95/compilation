@@ -10,11 +10,12 @@ public class AST_STMT_LIST extends AST_Node
 	/****************/
 	public AST_STMT head;
 	public AST_STMT_LIST tail;
+	public int row;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_LIST(AST_STMT head,AST_STMT_LIST tail)
+	public AST_STMT_LIST(AST_STMT head,AST_STMT_LIST tail, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -32,6 +33,7 @@ public class AST_STMT_LIST extends AST_Node
 		/*******************************/
 		this.head = head;
 		this.tail = tail;
+		this.row = row;
 	}
 
 	/******************************************************/

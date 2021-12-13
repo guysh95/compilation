@@ -7,11 +7,12 @@ public class AST_STMT_WHILE extends AST_STMT
 {
 	public AST_EXP cond;
 	public AST_STMT_LIST body;
+	public int row;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_STMT_WHILE(AST_EXP cond,AST_STMT_LIST body)
+	public AST_STMT_WHILE(AST_EXP cond,AST_STMT_LIST body, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -28,6 +29,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		/*******************************/
 		this.cond = cond;
 		this.body = body;
+		this.row = row;
 	}
 
 	/**************************************************/
@@ -67,6 +69,8 @@ public class AST_STMT_WHILE extends AST_STMT
 		if (cond.SemantMe() != TYPE_INT.getInstance())
 		{
 			System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",2,2);
+			throw new lineException(Integer.toString(this.row));
+			//System.exit(0);
 		}
 
 		/*************************/

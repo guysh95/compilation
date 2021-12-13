@@ -7,11 +7,12 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 {
 	public AST_VAR var;
 	public AST_EXP subscript;
-	
+	public int row;
+
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VAR_SUBSCRIPT(AST_VAR var,AST_EXP subscript)
+	public AST_VAR_SUBSCRIPT(AST_VAR var,AST_EXP subscript, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -28,6 +29,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/*******************************/
 		this.var = var;
 		this.subscript = subscript;
+		this.row = row;
 	}
 
 	/*****************************************************/
@@ -75,7 +77,8 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/*********************************/
 		if (t.isArray() == false) {
 			System.out.format(">> ERROR [%d:%d] access subscript of a non-array variable\n",6,6);
-			System.exit(0);
+			throw new lineException(Integer.toString(this.row));
+			//System.exit(0);
 		}
 		else {
 			ta = (TYPE_ARRAY) t;
@@ -85,7 +88,8 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/************************************/
 		if (subscript.SemantMe() != TYPE_INT.getInstance()) {
 			System.out.format(">> ERROR [%d:%d] expression inside subscript is not integral\n",2,2);
-			System.exit(0);
+			throw new lineException(Integer.toString(this.row));
+			//System.exit(0);
 		}
 
 		return ta.member_type;

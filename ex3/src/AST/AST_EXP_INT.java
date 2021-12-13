@@ -6,11 +6,12 @@ import SYMBOL_TABLE.*;
 public class AST_EXP_INT extends AST_EXP
 {
 	public int value;
-	
+	public int row;
+
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_INT(int value)
+	public AST_EXP_INT(int value, int row)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -26,6 +27,7 @@ public class AST_EXP_INT extends AST_EXP
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
 		this.value = value;
+		this.row = row;
 	}
 
 	/************************************************/

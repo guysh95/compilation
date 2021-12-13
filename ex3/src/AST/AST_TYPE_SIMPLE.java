@@ -9,11 +9,12 @@ public class AST_TYPE_SIMPLE extends AST_TYPE {
     /* simple variable name */
     /************************/
     public String type;
+    public int row;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_TYPE_SIMPLE(String type) {
+    public AST_TYPE_SIMPLE(String type, int row) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
@@ -28,6 +29,7 @@ public class AST_TYPE_SIMPLE extends AST_TYPE {
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
         this.type = type;
+        this.row = row;
     }
 
     /**************************************************/
@@ -58,7 +60,8 @@ public class AST_TYPE_SIMPLE extends AST_TYPE {
         if (t == null)
         {
             System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
-            System.exit(0);
+            throw new lineException(Integer.toString(this.row));
+            //System.exit(0);
         }
         if(type.equals("int") || type.equals("string") || type.equals("void") || t.isClass() || t.isArray()) {
             return t;

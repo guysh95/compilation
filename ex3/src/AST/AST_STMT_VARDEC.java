@@ -6,11 +6,12 @@ import SYMBOL_TABLE.*;
 public class AST_STMT_VARDEC extends AST_STMT {
 
     public AST_DEC vd;
+    public int row;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_STMT_VARDEC(AST_DEC vd)
+    public AST_STMT_VARDEC(AST_DEC vd, int row)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
@@ -26,6 +27,8 @@ public class AST_STMT_VARDEC extends AST_STMT {
         /* COPY INPUT DATA MEMBERS ... */
         /*******************************/
         this.vd = vd;
+        this.row = row;
+
     }
 
     /******************************************************/
