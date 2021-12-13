@@ -53,7 +53,7 @@ public class SYMBOL_TABLE_ENTRY
 		int index,
 		SYMBOL_TABLE_ENTRY next,
 		SYMBOL_TABLE_ENTRY prevtop,
-		SYMBOL_TABLE_ENTRY subFields;
+		SYMBOL_TABLE_ENTRY subFields,
 		int prevtop_index)
 	{
 		this.index = index;
