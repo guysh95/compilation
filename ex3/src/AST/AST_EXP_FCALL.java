@@ -126,9 +126,11 @@ public class AST_EXP_FCALL extends AST_EXP {
                 tc = (TYPE_CLASS) t1;
             }
             // check that fieldName in class scope
+            //TODO function might be in super class
             for (TYPE_LIST it=tc.data_members;it != null;it=it.tail) {
-                if (it.head.name == fieldName) {
+                if (it.head.name.equals(fieldName)) {
                     t2 = it.head;
+                    break;
                 }
             }
             if (t2 == null){
@@ -136,25 +138,27 @@ public class AST_EXP_FCALL extends AST_EXP {
                 System.exit(0);
             }
 
-            if (t2.equals("TYPE_FUNCTION")) {
+            if (!t2.isFunction()) {
                 System.out.format(">> ERROR provided explist although this is not a function");
                 System.exit(0);
             }
             if (explist != null){
+                //TODO check that arguments provided match function parameters
                 explist.SemantMe();
             }
 
-            return null;
+            return ((TYPE_FUNCTION) t2).returnType;
         } else { // caller is null
             t2 = SYMBOL_TABLE.getInstance().find(fieldName);
-            if(t2.equals("TYPE_FUNCTION")){
+            if(!t2.isFunction()){
                 System.out.format(">> ERROR provided explist although this is not a function");
                 System.exit(0);
             }
             if (explist != null){
+                //TODO check that arguments provided match function parameters
                 explist.SemantMe();
             }
-            return null;
+            return ((TYPE_FUNCTION) t2).returnType;
         }
     }
 

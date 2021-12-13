@@ -27,7 +27,7 @@ int foo(int d, int k)
 
 void main()
 {
-    if (2)
+    if (foo(2,4))
     {
         PrintInt(800);
     }

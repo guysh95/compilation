@@ -79,7 +79,7 @@ public class AST_NEW_EXP extends AST_Node {
             /****************************************/
             /* Check e is integral (maybe needs to add checks here) */
             /****************************************/
-
+            System.out.println("type checking for :" + t1);
             if(t1.isArray() == false) {
                 System.out.format(">> ERROR [%d:%d] type is not array\n",2,2);
                 System.exit(0);

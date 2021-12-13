@@ -66,13 +66,10 @@ public class AST_STMT_RETURN extends AST_STMT
 		TYPE t = null;
 
 		if (exp == null){
-			return null;
+			return TYPE_VOID.getInstance();
 		} else {
 			t = exp.SemantMe();
 			return t;
 		}
-
-
-
 	}
 }
