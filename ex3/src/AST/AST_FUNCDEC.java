@@ -72,13 +72,14 @@ public class AST_FUNCDEC extends AST_DEC
 
 	public TYPE SemantMe() {
 		TYPE t;
+		TYPE t1 = null;
 		TYPE returnType = null;
 		TYPE_LIST type_list = null;
 
 		/*******************/
 		/* [0] return type */
 		/*******************/
-		
+
 
 		returnType = SYMBOL_TABLE.getInstance().find(type.SemantMe().name); //TODO might need to be "type.SemantMe().name)" inside find call
 		if (returnType == null)
@@ -89,6 +90,12 @@ public class AST_FUNCDEC extends AST_DEC
 		if (SYMBOL_TABLE.getInstance().isGlobalScope()) {
 			if (SYMBOL_TABLE.getInstance().find(id) != null){
 				System.out.format(">> ERROR: %s global function name already exists\n", id);
+				System.exit(0);
+			}
+		} else {	// in class scope
+			t1 = SYMBOL_TABLE.getInstance().findInScope(id);
+			if(t1 != null){ // check if func declared already in class
+				System.out.format(">> ERROR: %s function already declared in class\n", id);
 				System.exit(0);
 			}
 		}

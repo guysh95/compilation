@@ -125,9 +125,7 @@ public class SYMBOL_TABLE
 	public TYPE findInSuperClass(TYPE_CLASS superClass, String name){
 		TYPE_LIST members;
 		TYPE head;
-		while(superClass != null) {
-
-		}
+		return null;
 	}
 
 

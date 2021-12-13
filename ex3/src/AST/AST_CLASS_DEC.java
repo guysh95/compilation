@@ -66,12 +66,13 @@ public class AST_CLASS_DEC extends AST_DEC {
     public TYPE SemantMe()
     {
         TYPE extended_type = null;
+        TYPE_CLASS extended_type_casted = null;
         if (SYMBOL_TABLE.getInstance().isGlobalScope() == false){
             System.out.print("Class not defined in global scope");
             System.exit(0);
         }
         if (extendedClass != null){
-             extended_type = SYMBOL_TABLE.getInstance().find(extendedClass);
+            extended_type = SYMBOL_TABLE.getInstance().find(extendedClass);
             if (extended_type == null){
                 System.out.format("%s Extended class is not defined\n", extendedClass);
                 System.exit(0);
@@ -79,6 +80,8 @@ public class AST_CLASS_DEC extends AST_DEC {
             if(extended_type.isClass() == false){
                 System.out.format("%s Extended class is not of type class\n", extendedClass);
                 System.exit(0);
+            } else {
+                extended_type_casted = (TYPE_CLASS) extended_type;
             }
         }
         if (SYMBOL_TABLE.getInstance().find(className) != null){
@@ -112,7 +115,16 @@ public class AST_CLASS_DEC extends AST_DEC {
                 }
             }
         } */
-        TYPE_CLASS t = new TYPE_CLASS(extended_type,className,list.getTypes());
+
+        TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className,list.getTypes());
+
+        //check that there is no function shadowing
+        //if(extended_type_casted != null){
+        //    for(TYPE_CLASS it = extended_type_casted.data_members; it != null; it = it.tail)
+
+        //}
+
+
 
         /*****************/
         /* [3] End Scope */
