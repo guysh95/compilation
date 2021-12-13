@@ -18,9 +18,11 @@ public class TYPE_CLASS extends TYPE
 
 	public TYPE findInClass(String name){
 		for(TYPE_LIST it=this.data_members; it != null; it = it.tail){
-			break;
+			if(it.head.name.equals(name)){
+				return it.head;
+			}
 		}
-		return TYPE_INT;
+		return null;
 	}
 
 

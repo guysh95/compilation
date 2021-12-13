@@ -78,6 +78,8 @@ public class AST_FUNCDEC extends AST_DEC
 		/*******************/
 		/* [0] return type */
 		/*******************/
+		
+
 		returnType = SYMBOL_TABLE.getInstance().find(type.SemantMe().name); //TODO might need to be "type.SemantMe().name)" inside find call
 		if (returnType == null)
 		{
@@ -126,7 +128,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/***************************************************/
 		/* [5] Enter the Function Type to the Symbol Table */
 		/***************************************************/
-		TYPE_FUNCTION tfunc = new TYPE_FUNCTION(returnType,id,type_list)
+		TYPE_FUNCTION tfunc = new TYPE_FUNCTION(returnType,id,type_list);
 		SYMBOL_TABLE.getInstance().enter(id,tfunc);
 
 		/*********************************************************/
