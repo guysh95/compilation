@@ -9,6 +9,7 @@ public class AST_FUNCARGS extends AST_Node
     public String id;
     public AST_FUNCARGS fa;
 	public int row;
+	public TYPE_LIST allTypes;
 
 
 	/******************/
@@ -78,13 +79,35 @@ public class AST_FUNCARGS extends AST_Node
 		TYPE t2 = null;
 
 		t = type.SemantMe();
-		SYMBOL_TABLE.getInstance().enter(id,t);
-		if(fa != null){
-			t2 = fa.SemantMe();
-			return t;
-		}
+		//System.out.println(t.name);
+		if (t == TYPE_VOID.getInstance()){
+			System.out.print("void param isn't defined");
+			throw new lineException(Integer.toString(this.row));
 
+		}
+		SYMBOL_TABLE.getInstance().enter(id,t);
+
+		allTypes = new TYPE_LIST(t, null);
+		int i = 0;
+		for(AST_FUNCARGS pointer = fa; pointer != null; pointer = pointer.fa){
+			System.out.println("where are we in class declarations: " + i);
+			i++;
+			t = pointer.type.SemantMe();
+			if (t == TYPE_VOID.getInstance()){
+				System.out.print("void param isn't defined");
+				throw new lineException(Integer.toString(this.row));
+
+			}
+			allTypes = new TYPE_LIST(t, allTypes);
+		}
 		return null;
 
 	}
+
+	public TYPE_LIST getTypes() {
+		this.SemantMe();
+		return allTypes;
+	}
+
+
 }
