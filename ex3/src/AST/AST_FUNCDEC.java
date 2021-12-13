@@ -111,6 +111,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/****************************/
 		/* [1] Begin Function Scope */
 		/****************************/
+		System.out.println("######### Semanting " + id + " ##########");
 		SYMBOL_TABLE.getInstance().beginScope();
 
 		/***************************/
@@ -135,6 +136,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/*******************/
 		/* [3] Semant Body */
 		/*******************/
+		//TODO check that return type matches function signature
 		sl.SemantMe();
 
 		/*****************/

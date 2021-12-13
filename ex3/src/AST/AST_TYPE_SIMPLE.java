@@ -63,7 +63,11 @@ public class AST_TYPE_SIMPLE extends AST_TYPE {
             throw new lineException(Integer.toString(this.row));
             //System.exit(0);
         }
-
-        return t;
+        if(type.equals("int") || type.equals("string") || type.equals("void") || t.isClass() || t.isArray()) {
+            return t;
+        }
+        System.out.format(">> ERROR [%d:%d] %s non existing type\n",2,2,type);
+        System.exit(0);
+        return null;
     }
 }

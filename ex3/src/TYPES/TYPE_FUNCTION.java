@@ -11,6 +11,8 @@ public class TYPE_FUNCTION extends TYPE
 	/* types of input params */
 	/*************************/
 	public TYPE_LIST params;
+
+	public boolean isFunction(){ return true;};
 	
 	/****************/
 	/* CTROR(S) ... */

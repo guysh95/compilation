@@ -67,6 +67,7 @@ public class AST_CLASS_DEC extends AST_DEC {
 
     public TYPE SemantMe()
     {
+        System.out.println("now we semant " + className + " class");
         TYPE extended_type = null;
         TYPE_CLASS extended_type_casted = null;
         if (SYMBOL_TABLE.getInstance().isGlobalScope() == false){
@@ -121,7 +122,7 @@ public class AST_CLASS_DEC extends AST_DEC {
                 }
             }
         } */
-
+        System.out.println("now we semant the class fields");
         TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className,list.getTypes());
 
         //check that there is no function shadowing

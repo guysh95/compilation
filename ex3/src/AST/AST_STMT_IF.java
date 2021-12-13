@@ -73,6 +73,7 @@ public class AST_STMT_IF extends AST_STMT
 			throw new lineException(Integer.toString(this.row));
 			//System.exit(0);
 
+
 		}
 
 		/*************************/

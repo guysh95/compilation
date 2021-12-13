@@ -61,15 +61,15 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 	}
 
 	public TYPE SemantMe() {
-		TYPE t1 = null;
+		TYPE_CLASS_VAR_DEC t1 = null;
 
-		t1 = v.SemantMe();
-
-		if(SYMBOL_TABLE.getInstance().findInScope(t1.name) != null) {
+		t1 = (TYPE_CLASS_VAR_DEC) v.SemantMe();
+		System.out.println("Adding class var " + t1.name);
+		/* if(SYMBOL_TABLE.getInstance().findInScope(t1.name) != null) {
 			System.out.format(">> ERROR variable already exists in scope\n");
 			throw new lineException(Integer.toString(this.row));
 			//System.exit(0);
-		}
+		} */
 		return t1;
 
 		//TODO need to check if var already exists in super class

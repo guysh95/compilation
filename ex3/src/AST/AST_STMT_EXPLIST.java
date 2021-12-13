@@ -138,6 +138,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 
 			return null;
 		} else { // var is null
+			System.out.println("We are in stmt calling " + id);
 			t2 = SYMBOL_TABLE.getInstance().find(id);
 			if (t2 != null){
 				if(! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")){
@@ -147,11 +148,15 @@ public class AST_STMT_EXPLIST extends AST_STMT
 				}
 
 			}
-
+			System.out.println("We found " + id);
 			TYPE_FUNCTION t3 = (TYPE_FUNCTION) t2;
+			System.out.println("we converted" + t2 + " to " + t3);
 			if (exps != null){
 				texps = exps.getTypes();
+				System.out.println("we got texps");
 				for (TYPE_LIST it=t3.params;it != null;it=it.tail) {
+					System.out.println("1" + texps.head.name);
+					System.out.println("2" + texps.tail);
 					if (texps.head == null){
 						System.out.format(">> ERROR missing arguments for function\n");
 						throw new lineException(Integer.toString(this.row));
@@ -164,7 +169,8 @@ public class AST_STMT_EXPLIST extends AST_STMT
 					}
 					texps = texps.tail;
 				}
-				if (texps.head != null){
+				System.out.println("We finished the loop");
+				if (texps != null){
 					System.out.format(">> ERROR to many parameters for function\n");
 					throw new lineException(Integer.toString(this.row));
 					//System.exit(0);
