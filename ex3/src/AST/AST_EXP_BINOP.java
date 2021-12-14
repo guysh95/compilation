@@ -86,19 +86,6 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (left  != null) t1 = left.SemantMe(scope);
 		if (right != null) t2 = right.SemantMe(scope);
 
-
-		//check if they are vars
-		/*if(t1.isVar()){
-			TYPE_CLASS_VAR_DEC tcurr1 = (TYPE_CLASS_VAR_DEC) t1;
-		} else {
-			TYPE
-		}
-		if(t2.isVar()){
-			TYPE_CLASS_VAR_DEC tvar2 = (TYPE_CLASS_VAR_DEC) t2;
-			t2.name = tvar2.name;
-			t2.t = tvar2.t;
-		}*/
-		System.out.println(t1 + " "+ t2);
 		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
 		{
 			if (bOP == 3){
@@ -121,6 +108,10 @@ public class AST_EXP_BINOP extends AST_EXP
 			return TYPE_STRING.getInstance();
 		}
 		if (bOP == 6) {
+			if ((t1 == TYPE_VOID.getInstance()) && (t2 == TYPE_VOID.getInstance())) {
+				if(right.getClass().getSimpleName().equals("AST_EXP_FCALL") && left.getClass().getSimpleName().equals("AST_EXP_FCALL"))
+					return TYPE_INT.getInstance();
+			}
 			if ((t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance())) {
 				return TYPE_INT.getInstance();	// cond if string equals to another
 			}
@@ -131,7 +122,17 @@ public class AST_EXP_BINOP extends AST_EXP
 				if (t1 == t2) {
 					return TYPE_INT.getInstance();
 				}
-
+				TYPE_CLASS leftClass = (TYPE_CLASS) t1;
+				TYPE_CLASS rightClass = (TYPE_CLASS) t2;
+				//check if left inherited from right or vice versa
+				for(TYPE_CLASS dadOfIns = leftClass.father; dadOfIns != null; dadOfIns = dadOfIns.father){
+					if (dadOfIns == rightClass)
+						return TYPE_INT.getInstance();
+				}
+				for(TYPE_CLASS dadOfIns = rightClass.father; dadOfIns != null; dadOfIns = dadOfIns.father){
+					if (dadOfIns == leftClass)
+						return TYPE_INT.getInstance();
+				}
 			}
 			if (t1.isArray() && t2.isArray()) {
 				if (t1 == TYPE_NIL.getInstance() || t2 == TYPE_NIL.getInstance()) {
@@ -144,7 +145,5 @@ public class AST_EXP_BINOP extends AST_EXP
 		}
 		System.out.print("unmatching types or undeclared string operation");
 		throw new lineException(Integer.toString(this.row));
-		//System.exit(0);
-		//return null;
 	}
 }

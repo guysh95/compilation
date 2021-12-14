@@ -74,7 +74,7 @@ public class AST_FUNCDEC extends AST_DEC
 	}
 
 	public TYPE SemantMe(String scope) {
-		TYPE t;
+		TYPE argType;
 		TYPE t1 = null;
 		TYPE returnType = null;
 		TYPE_LIST type_list = null;
@@ -119,24 +119,23 @@ public class AST_FUNCDEC extends AST_DEC
 		/***************************/
 		for (AST_FUNCARGS it = fa; it != null; it = it.fa)
 		{
-			t = SYMBOL_TABLE.getInstance().find(it.type.SemantMe(scope).name);
-			if (t == null)
-			{
-				System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type.SemantMe(scope).name);
+			System.out.println("AAAAAAAaaaaAAAAAAA");
+			argType = it.type.SemantMe(scope);
+			System.out.println("BBBBBBBBbbbbBBBBBB");
+			if (argType == TYPE_VOID.getInstance()){
+				System.out.println(">> ERROR: void param isn't defined");
 				throw new lineException(Integer.toString(this.row));
-
 			}
-			else
-			{
-				type_list = new TYPE_LIST(t,type_list);
-				SYMBOL_TABLE.getInstance().enter(it.id,t);
-			}
+			// argument type exist in scope and is not void
+			SYMBOL_TABLE.getInstance().enter(it.id, argType);
+			type_list = new TYPE_LIST(argType, type_list);
+			//TODO remember to check parameter list with the super overridden method
 		}
 
 		/*******************/
 		/* [3] Semant Body */
 		/*******************/
-		//TODO check that return type matches function signature
+
 		sl.SemantFunctionMe(scope, returnType);
 
 		/*****************/
@@ -159,7 +158,6 @@ public class AST_FUNCDEC extends AST_DEC
 		return tfunc;
 
 	}
-	//TODO add semant me
-	//look at funcargs
+	//TODO look at funcargs
 	// cant be in the same scope
 }
