@@ -72,15 +72,12 @@ public class AST_FUNCARGS extends AST_Node
 
 	}
 	//TODO add semantme(scope)
-	//TODO remember to check parameter list with the super overridden method
-	//TODO decide if need to check here or in funcdec
 	public TYPE SemantMe(String scope) {
 		TYPE t = null;
 		TYPE t2 = null;
-
+		System.out.println("AAA");
 		t = type.SemantMe(scope);
 		System.out.println("semanted type in funcargs" + t.name);
-		//System.out.println(t.name);
 		if (t == TYPE_VOID.getInstance()){
 			System.out.print("void param isn't defined");
 			throw new lineException(Integer.toString(this.row));
