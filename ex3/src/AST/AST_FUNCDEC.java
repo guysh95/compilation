@@ -143,11 +143,12 @@ public class AST_FUNCDEC extends AST_DEC
 		/* [4] End Scope */
 		/*****************/
 		SYMBOL_TABLE.getInstance().endScope(true);
-
+		System.out.println("we ended the scope for " + scope + " in AST_FUNCDEC");
 		/***************************************************/
 		/* [5] Enter the Function Type to the Symbol Table */
 		/***************************************************/
 		TYPE_FUNCTION tfunc = new TYPE_FUNCTION(returnType,id,fa.getTypes(scope));
+		System.out.println("we created tfunc and its type is " + tfunc + " in AST_FUNCDEC");
 		SYMBOL_TABLE.getInstance().enter(id,tfunc);
 
 		/*********************************************************/

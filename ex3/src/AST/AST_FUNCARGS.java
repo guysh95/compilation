@@ -91,7 +91,7 @@ public class AST_FUNCARGS extends AST_Node
 		allTypes = new TYPE_LIST(t, null);
 		int i = 0;
 		for(AST_FUNCARGS pointer = fa; pointer != null; pointer = pointer.fa){
-			System.out.println("where are we in class declarations: " + i);
+			System.out.println("where are we in func arguments: " + i);
 			i++;
 			t = pointer.type.SemantMe(scope);
 			if (t == TYPE_VOID.getInstance()){
@@ -101,6 +101,7 @@ public class AST_FUNCARGS extends AST_Node
 			}
 			allTypes = new TYPE_LIST(t, allTypes);
 		}
+		System.out.println("finished inspecting function arguments of: " + scope);
 		return null;
 
 	}

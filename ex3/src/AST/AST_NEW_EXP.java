@@ -107,7 +107,7 @@ public class AST_NEW_EXP extends AST_Node {
             }
             return new TYPE_ARRAY("array", t1);
         }
-
+        System.out.println("We check that " + t1.name + " == " + scope + " in AST_NEW_EXP");
         if(t1.isClass() == true || t1.name.equals(scope)) {
             return t1;
         } else { //t1 is not class

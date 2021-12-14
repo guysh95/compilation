@@ -67,7 +67,7 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 
 		TYPE t1 = null;
 		t1 = v.SemantMe(scope);
-
+		System.out.println("Searching " + t1.name + " in " + scope);
 		if(SYMBOL_TABLE.getInstance().findInScope(t1.name) != null) {
 			System.out.format(">> ERROR function name already exists in scope\n");
 			throw new lineException(Integer.toString(this.row));

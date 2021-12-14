@@ -58,25 +58,19 @@ public class AST_TYPE_SIMPLE extends AST_TYPE {
         /****************************/
 
         t = SYMBOL_TABLE.getInstance().find(type);
-        System.out.println("here3");
-        if(type.equals("int") || type.equals("string") || type.equals("void") || t.isClass() || t.isArray()) {
-            System.out.println("returned");
-            return t;
+        System.out.println("here3, t is " + t);
+        if (t != null) {
+            if(type.equals("int") || type.equals("string") || type.equals("void") || t.isClass() || t.isArray()) {
+                System.out.println("returned");
+                return t;
+            }
         }
-
-        System.out.println(scope+" "+ type);
-        if(type.equals(scope)) {
-            return TYPE_ID.getInstance(scope);
+        else {
+            System.out.println("checking if " + scope + " == " + type);
+            if (type.equals(scope)) {
+                return TYPE_ID.getInstance(scope);
+            }
         }
-        if(type.equals("void")) {
-            return TYPE_VOID.getInstance();
-        }
-        if (t == null)
-        {
-            System.out.format(">> ERROR1 [%d:%d] non existing type %s\n",2,2,type);
-            throw new lineException(Integer.toString(this.row));
-        }
-
         System.out.format(">> ERROR2 [%d:%d] %s non existing type\n",2,2,type);
         throw new lineException(Integer.toString(this.row));
     }

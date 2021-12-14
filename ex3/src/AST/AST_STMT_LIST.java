@@ -68,7 +68,10 @@ public class AST_STMT_LIST extends AST_Node
 
 	public TYPE SemantMe(String scope)
 	{
+		System.out.println("semanting " + scope + " statments in AST_STMT_LIST");
 		if (head != null) head.SemantMe(scope);
+		System.out.println(" we semanted " + scope + " statments head and its type is " + head);
+		System.out.println("tail is " + tail);
 		if (tail != null) tail.SemantMe(scope);
 
 		return null;

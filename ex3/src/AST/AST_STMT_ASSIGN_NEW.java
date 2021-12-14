@@ -72,7 +72,7 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 
 		if (var != null) t1 = var.SemantMe(scope);
 		if (exp != null) t2 = exp.SemantMe(scope);
-
+		System.out.println("now checking if " + t1 + " == " + t2 + " in AST_STMT_ASSIGN_NEW");
 		if (t1 != t2)
 		{
 			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
@@ -80,6 +80,7 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 			//System.exit(0);
 
 		}
+		System.out.println("they are equal ido");
 		return t1;
 	}
 }

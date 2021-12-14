@@ -74,14 +74,16 @@ public class AST_CFIELD_LIST extends AST_Node
 			System.out.print(">> ERROR in CFIELD_LIST semantme");
 			throw new lineException(Integer.toString(this.row));
 		}
+		System.out.println("where are we in class declarations: 0");
 		t = head.SemantMe(scope);
-		System.out.println("head in cfield is: " + t.name);
+		System.out.println("head in cfield is " + t + " and its name is: " + t.name);
 		allTypes = new TYPE_LIST(t, null);
-		int i = 0;
+		int i = 1;
 		for(AST_CFIELD_LIST pointer = tail; pointer != null; pointer = pointer.tail){
 			System.out.println("where are we in class declarations: " + i);
 			i++;
 			t = pointer.head.SemantMe(scope);
+			System.out.println("pointer in cfield is " + t + " and its name is: " + t.name);
 			allTypes = new TYPE_LIST(t, allTypes);
 		}
 		return null;
