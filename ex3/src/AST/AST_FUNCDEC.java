@@ -137,7 +137,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/* [3] Semant Body */
 		/*******************/
 		//TODO check that return type matches function signature
-		sl.SemantMe(scope);
+		sl.SemantFunctionMe(scope, returnType);
 
 		/*****************/
 		/* [4] End Scope */

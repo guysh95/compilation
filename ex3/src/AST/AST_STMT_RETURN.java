@@ -9,6 +9,7 @@ public class AST_STMT_RETURN extends AST_STMT
 	/* DATA MEMBERS */
 	/****************/
 	public AST_EXP exp;
+	public TYPE expectedReturnType;
 	public int row;
 
 
@@ -66,12 +67,20 @@ public class AST_STMT_RETURN extends AST_STMT
 
 	public TYPE SemantMe(String scope){
 		TYPE t = null;
-
 		if (exp == null){
 			return TYPE_VOID.getInstance();
 		} else {
+			if (expectedReturnType == TYPE_VOID.getInstance()) {
+				System.out.println(">> ERROR void funtion doesn't return argument");
+				throw new lineException(Integer.toString(this.row));
+			}
 			t = exp.SemantMe(scope);
 			return t;
 		}
+	}
+
+	public TYPE SemantReturnMe(String scope, TYPE returnType){
+		this.expectedReturnType = returnType;
+		return this.SemantMe(scope);
 	}
 }

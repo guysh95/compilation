@@ -10,6 +10,7 @@ public class AST_STMT_LIST extends AST_Node
 	/****************/
 	public AST_STMT head;
 	public AST_STMT_LIST tail;
+	public TYPE expectedReturnType;
 	public int row;
 
 	/******************/
@@ -68,13 +69,62 @@ public class AST_STMT_LIST extends AST_Node
 
 	public TYPE SemantMe(String scope)
 	{
-		System.out.println("semanting " + scope + " statments in AST_STMT_LIST");
-		if (head != null) head.SemantMe(scope);
-		System.out.println(" we semanted " + scope + " statments head and its type is " + head);
-		System.out.println("tail is " + tail);
-		if (tail != null) tail.SemantMe(scope);
-
+		if (head == null){
+			System.out.println(">> ERROR function can't be empty ");
+			throw new lineException(Integer.toString(this.row));
+		}
+		AST_STMT current;
+		TYPE stmtType;
+		System.out.println("Semanting AST_STMT_LIST");
+		System.out.println("Expected return type is " + expectedReturnType);
+		for(AST_STMT_LIST pointer = this; pointer != null; pointer = pointer.tail) {
+			current = pointer.head;
+			// check if current statement is a return statment
+			System.out.println("looking at statment of type " + current);
+			if (current.getClass().getSimpleName().equals("AST_STMT_IF")) {
+				((AST_STMT_IF)current).SemantBodyMe(scope, expectedReturnType);
+				continue;
+			}
+			if (current.getClass().getSimpleName().equals("AST_STMT_WHILE")) {
+				((AST_STMT_WHILE)current).SemantBodyMe(scope, expectedReturnType);
+				continue;
+			}
+			if (current.getClass().getSimpleName().equals("AST_STMT_RETURN")) {
+				stmtType = ((AST_STMT_RETURN)current).SemantReturnMe(scope, expectedReturnType);
+				if (stmtType != expectedReturnType) {
+					if (expectedReturnType.isArray() && (stmtType == TYPE_NIL.getInstance())){
+						continue;
+					}
+					if ((stmtType.isClass()) && (expectedReturnType.isClass())) {
+						// check if stmtType is nil
+						if (stmtType == TYPE_NIL.getInstance())
+							continue;
+						// check if stmtType is a class that extends expectedReturnType
+						TYPE_CLASS pointerClass = (TYPE_CLASS) expectedReturnType;
+						TYPE_CLASS instanceClass = (TYPE_CLASS) stmtType;
+						boolean isLegal = false;
+						for(TYPE_CLASS dadOfIns = instanceClass.father; dadOfIns != null; dadOfIns = dadOfIns.father){
+							if (dadOfIns == pointerClass){
+								isLegal = true;
+								break;
+							}
+						}
+						if (isLegal)
+							continue;
+					}
+					System.out.println(">> ERROR return type " + stmtType.name + " is not " + expectedReturnType.name);
+					throw new lineException(Integer.toString(((AST_STMT_RETURN)current).row));
+				}
+			}
+			// current statment is not a return statment
+			current.SemantMe(scope);
+		}
 		return null;
+	}
+
+	public void SemantFunctionMe(String scope, TYPE returnType) {
+		this.expectedReturnType = returnType;
+		this.SemantMe(scope);
 	}
 	
 }

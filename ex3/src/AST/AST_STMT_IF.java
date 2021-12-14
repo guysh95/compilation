@@ -7,6 +7,7 @@ public class AST_STMT_IF extends AST_STMT
 {
 	public AST_EXP cond;
 	public AST_STMT_LIST body;
+	public TYPE expReturnType;
 	public int row;
 
 	/*******************/
@@ -84,7 +85,7 @@ public class AST_STMT_IF extends AST_STMT
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
-		body.SemantMe(scope);
+		body.SemantFunctionMe(scope, expReturnType);
 
 		/*****************/
 		/* [3] End Scope */
@@ -95,5 +96,10 @@ public class AST_STMT_IF extends AST_STMT
 		/* [4] Return value is irrelevant for class declarations */
 		/*********************************************************/
 		return null;
+	}
+
+	public void SemantBodyMe(String scope, TYPE returnType) {
+		this.expReturnType = returnType;
+		this.SemantMe(scope);
 	}
 }
