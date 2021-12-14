@@ -93,7 +93,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		/************************************/
 		for (TYPE_LIST it=tc.data_members;it != null;it=it.tail)
 		{
-
+			System.out.println(it.head);
 			if(it.head.isVar()){
 				tvar = (TYPE_CLASS_VAR_DEC) it.head;
 				System.out.println("casted class var");

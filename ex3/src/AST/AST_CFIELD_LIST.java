@@ -113,7 +113,7 @@ public class AST_CFIELD_LIST extends AST_Node
 			System.out.println("pointer in cfield is " + t + " and its name is: " + t.name);
 			allTypes = new TYPE_LIST(t, allTypes);
 		}
-		return null;
+		return allTypes;
 	}
 
 }
