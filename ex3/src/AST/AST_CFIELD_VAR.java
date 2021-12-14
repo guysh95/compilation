@@ -85,7 +85,7 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 			return t1;
 		}
 		System.out.println("returned from searchInFathersVars with " + tvar.t);
-		if(t1 != tvar.t){ //not same type as in fathers
+		if(t1.t != tvar.t){ //not same type as in fathers
 			System.out.print(">> ERROR in CFIELD_VAR issue with class scope");
 			throw new lineException(Integer.toString(this.row));
 		}
