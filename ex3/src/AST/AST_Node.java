@@ -19,7 +19,7 @@ public abstract class AST_Node
 	{
 		System.out.print("AST NODE UNKNOWN\n");
 	}
-
+	public TYPE SemantClassMe(TYPE_CLASS scope){return null;}
 	public TYPE SemantMe(String scope)
 	{
 		System.out.print("AST TYPE (semantme) UNKNOWN\n");

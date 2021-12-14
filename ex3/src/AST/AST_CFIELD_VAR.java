@@ -74,4 +74,21 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 
 		//TODO need to check if var already exists in super class
 	}
+
+	public TYPE SemantClassMe(TYPE_CLASS scope) {
+		TYPE t1 = null;
+		TYPE_CLASS_VAR_DEC tvar = null;
+
+		t1 = v.SemantMe(scope.name);
+		tvar = scope.searchInFathersVar(t1.name, this.row);
+		if(tvar == null){ //no var with same name
+			return t1;
+		}
+		System.out.println("returned from searchInFathersVars with " + tvar.t);
+		if(t1 != tvar.t){ //not same type as in fathers
+			System.out.print(">> ERROR in CFIELD_VAR issue with class scope");
+			throw new lineException(Integer.toString(this.row));
+		}
+		return t1;
+	}
 }

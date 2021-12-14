@@ -78,4 +78,53 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 		//TODO fix all cases of semant me
 		//TODO need to consider types of functions
 	}
+
+	public TYPE SemantClassMe(TYPE_CLASS scope) {
+		TYPE t1 = null;
+		TYPE_FUNCTION tfunc = null;
+
+		t1 = v.SemantMe(scope.name);
+		tfunc = scope.searchInFathersFunc(t1.name, this.row);
+		if(tfunc == null){ //no func with same name
+			return t1;
+		}
+		System.out.println("returned from searchInFathersFunc with and checking if same func");
+
+		//need to check same params and returntype
+		if(!sameFunc((TYPE_FUNCTION) t1, tfunc)){
+			System.out.print(">> ERROR in CFIELD_VAR issue with class scope");
+			throw new lineException(Integer.toString(this.row));
+		}
+
+		return t1;
+	}
+
+	public boolean sameFunc(TYPE_FUNCTION declared, TYPE_FUNCTION returned){
+		TYPE t1 = null;
+		TYPE t2 = null;
+		if(declared.returnType != returned.returnType){
+			System.out.print(">> ERROR in samefunc - no same return type");
+			return false;
+		}
+		TYPE_LIST paramsList = declared.params;
+		for(TYPE_LIST it= returned.params; it != null; it=it.tail){
+			if (paramsList == null) {
+				System.out.print(">> ERROR in samefunc - no same amount of params");
+				return false;
+			}
+			t1 = paramsList.head;
+			t2 = it.head;
+			if(t1 != t2){
+				System.out.print(">> ERROR1 in samefunc - no same params types");
+				return false;
+			}
+			paramsList = paramsList.tail;
+		}
+		if (paramsList != null) { //still more params
+			return false;
+		}
+		//all checks passed
+		return true;
+	}
+
 }

@@ -79,6 +79,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		if (t.isClass() == false)
 		{
 			System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
+			throw new lineException(Integer.toString(this.row));
 
 		}
 		else

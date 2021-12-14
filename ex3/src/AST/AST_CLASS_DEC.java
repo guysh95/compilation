@@ -73,19 +73,16 @@ public class AST_CLASS_DEC extends AST_DEC {
         if (SYMBOL_TABLE.getInstance().isGlobalScope() == false){
             System.out.print("Class not defined in global scope");
             throw new lineException(Integer.toString(this.row));
-            // System.exit(0);
         }
         if (extendedClass != null){
             extended_type = SYMBOL_TABLE.getInstance().find(extendedClass);
             if (extended_type == null){
                 System.out.format("%s Extended class is not defined\n", extendedClass);
                 throw new lineException(Integer.toString(this.row));
-                //System.exit(0);
             }
             if(extended_type.isClass() == false){
                 System.out.format("%s Extended class is not of type class\n", extendedClass);
                 throw new lineException(Integer.toString(this.row));
-                //System.exit(0);
             } else {
                 extended_type_casted = (TYPE_CLASS) extended_type;
             }
@@ -93,7 +90,6 @@ public class AST_CLASS_DEC extends AST_DEC {
         if (SYMBOL_TABLE.getInstance().find(className) != null){
             System.out.format("%s Class already defined", className);
             throw new lineException(Integer.toString(this.row));
-            //System.exit(0);
         }
 
 
@@ -123,8 +119,12 @@ public class AST_CLASS_DEC extends AST_DEC {
             }
         } */
         System.out.println("now we semant the class fields");
-        //TODO insert class name down (need to fix assignment 7)
-        TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className,list.getTypes(className));
+        TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className, null);
+
+        TYPE_LIST dataMembers = list.getTypesClass(t);
+
+
+        TYPE_CLASS tclass = new TYPE_CLASS(extended_type_casted,className,dataMembers);
 
         //check that there is no function shadowing
         //if(extended_type_casted != null){
@@ -142,7 +142,7 @@ public class AST_CLASS_DEC extends AST_DEC {
         /************************************************/
         /* [4] Enter the Class Type to the Symbol Table */
         /************************************************/
-        SYMBOL_TABLE.getInstance().enter(className,t);
+        SYMBOL_TABLE.getInstance().enter(className,tclass);
 
         /*********************************************************/
         /* [5] Return value is irrelevant for class declarations */
