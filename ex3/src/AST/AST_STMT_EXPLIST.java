@@ -178,8 +178,8 @@ public class AST_STMT_EXPLIST extends AST_STMT
 			if (param.isArray() && arg == TYPE_NIL.getInstance())
 				isOk = true;
 			// check if they are class
-			System.out.println(param.isClass() + " and param is " + param);
-			System.out.println(arg.isClass() + " and arg is " + arg);
+			System.out.println(param.isClass() + " and param is " + param + " and its name is " + param.name);
+			System.out.println(arg.isClass() + " and arg is " + arg + " and its name is " + arg.name);
 			if (param.isClass() && arg.isClass()) {
 				System.out.println("We are here");
 				if (arg == TYPE_NIL.getInstance()) {
