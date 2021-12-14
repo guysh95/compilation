@@ -70,7 +70,7 @@ public class AST_VARDEC_NEW extends AST_DEC
 
 		TYPE t1 = null;
 		TYPE t2 = null;
-
+		System.out.println("%%%%%%%% semanting in AST_VARDEC_NEW");
 		/**************************************/
 		/* [2] Check That id does NOT exist */
 		/**************************************/
@@ -86,6 +86,8 @@ public class AST_VARDEC_NEW extends AST_DEC
 
 		if (type != null) t1 = type.SemantMe(scope);
 		if (exp != null) t2 = exp.SemantMe(scope);
+		System.out.println("%%%%%%%% finished semanting in AST_VARDEC_NEW");
+		System.out.println("t1 is: " + t1 + ", t2 is: " + t2);
 		try {
 			for(TYPE_CLASS texp = (TYPE_CLASS) t2; texp != null; texp = texp.father){
 				if (texp == t1) {
@@ -98,7 +100,22 @@ public class AST_VARDEC_NEW extends AST_DEC
 			//System.exit(0);
 		} catch (Exception e){
 			if (t1.isArray() && t2.isArray()){
-				if(((TYPE_ARRAY)t1).member_type != ((TYPE_ARRAY)t2).member_type){
+				System.out.println("we are trying to assign array");
+				TYPE t1_member = ((TYPE_ARRAY)t1).member_type;
+				TYPE t2_member = ((TYPE_ARRAY)t2).member_type;
+				if(t1_member != t2_member){
+					// Check if the two arrays hold class type (*)
+					if (t1_member.isClass() && t2_member.isClass()) {
+						// if (*) holds, check if t2 array's class type
+						TYPE_CLASS pointerClass = (TYPE_CLASS) t1_member;
+						TYPE_CLASS instanceClass = (TYPE_CLASS) t2_member;
+						for(TYPE_CLASS dadOfIns = instanceClass.father; dadOfIns != null; dadOfIns = dadOfIns.father){
+							if (dadOfIns == pointerClass) {
+								SYMBOL_TABLE.getInstance().enter(id, ((TYPE_ARRAY)t2));
+								return null;
+							}
+						}
+					}
 					System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
 					throw new lineException(Integer.toString(this.row));
 				}
