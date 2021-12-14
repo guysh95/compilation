@@ -86,6 +86,19 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (left  != null) t1 = left.SemantMe(scope);
 		if (right != null) t2 = right.SemantMe(scope);
 
+
+		//check if they are vars
+		/*if(t1.isVar()){
+			TYPE_CLASS_VAR_DEC tcurr1 = (TYPE_CLASS_VAR_DEC) t1;
+		} else {
+			TYPE
+		}
+		if(t2.isVar()){
+			TYPE_CLASS_VAR_DEC tvar2 = (TYPE_CLASS_VAR_DEC) t2;
+			t2.name = tvar2.name;
+			t2.t = tvar2.t;
+		}*/
+		System.out.println(t1 + " "+ t2);
 		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
 		{
 			if (bOP == 3){
@@ -103,11 +116,12 @@ public class AST_EXP_BINOP extends AST_EXP
 			}
 			return TYPE_INT.getInstance();
 		}
+
 		if ((bOP == 0) && (t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance())) {
 			return TYPE_STRING.getInstance();
 		}
 		if (bOP == 6) {
-			if (t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance())) {
+			if ((t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance())) {
 				return TYPE_INT.getInstance();	// cond if string equals to another
 			}
 			if (t1.isClass() && t2.isClass()) {

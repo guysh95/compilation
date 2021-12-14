@@ -10,4 +10,5 @@ public class TYPE_CLASS_VAR_DEC extends TYPE
 		this.t = t;
 		this.name = name;
 	}
+	public boolean isVar(){return true;}
 }

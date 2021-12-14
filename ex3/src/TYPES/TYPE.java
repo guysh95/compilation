@@ -18,4 +18,5 @@ public abstract class TYPE
 	public boolean isArray(){ return false;}
 
 	public boolean isFunction(){ return false;};
+	public boolean isVar(){return false;}
 }
