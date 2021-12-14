@@ -22,6 +22,7 @@ public class AST_NEW_EXP extends AST_Node {
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
+        System.out.println("semanting in AST_NEW_EXP");
         if (e != null) System.out.print("====================== newExp -> NEW type LBRACK exp RBRACK\n");
         else System.out.print("====================== newExp -> NEW type\n");
 

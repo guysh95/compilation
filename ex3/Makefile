@@ -51,7 +51,7 @@ CUP_FLAGS =                                \
 #########################
 # DEFINITIONS :: PARSER #
 #########################
-INPUT    = /home/guy/ComputerScience/compi/compi_v2/compilation/ex3/ourinputs/ASSIGNMENT_07.txt
+INPUT    = /home/guy/ComputerScience/compi/compi_v2/compilation/ex3/ourinputs/ASSIGNMENT_CONVERTIBLE_ARRAY.txt
 OUTPUT   = ${OUTPUT_DIR}/SemanticStatus.txt
 
 ##########
