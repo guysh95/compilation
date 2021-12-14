@@ -116,7 +116,7 @@ public class AST_EXP_FCALL extends AST_EXP {
         TYPE t1 = null;
         TYPE_CLASS tc = null;
         TYPE t2 = null;
-
+        System.out.println("We are in AST_EXP_FCALL for " + fieldName);
         // only if we have caller
         if (caller != null){
             t1 = caller.SemantMe(scope);
@@ -153,14 +153,18 @@ public class AST_EXP_FCALL extends AST_EXP {
             }
 
             return ((TYPE_FUNCTION) t2).returnType;
-        } else { // caller is null
+        } else { // caller is null\
+            System.out.println("Caller is null for " + fieldName);
             t2 = SYMBOL_TABLE.getInstance().find(fieldName);
+            System.out.println("scope is " + scope);
+            System.out.println(fieldName + " type is " + t2);
             if(!t2.isFunction()){
                 System.out.format(">> ERROR provided explist although this is not a function");
                 throw new lineException(Integer.toString(this.row));
                 //System.exit(0);
             }
             if (explist != null){
+                System.out.println("We are checking arguments for " + fieldName);
                 //TODO check that arguments provided match function parameters
                 explist.SemantMe(scope);
             }

@@ -67,7 +67,6 @@ public class AST_VARDEC_NEW extends AST_DEC
 	}
 
 	public TYPE SemantMe(String scope) {
-
 		TYPE t1 = null;
 		TYPE t2 = null;
 		System.out.println("%%%%%%%% semanting in AST_VARDEC_NEW");
@@ -91,7 +90,7 @@ public class AST_VARDEC_NEW extends AST_DEC
 		try {
 			for(TYPE_CLASS texp = (TYPE_CLASS) t2; texp != null; texp = texp.father){
 				if (texp == t1) {
-					SYMBOL_TABLE.getInstance().enter(id, t2);
+					SYMBOL_TABLE.getInstance().enter(id, t1);
 					return null;
 				}
 			}
@@ -111,7 +110,7 @@ public class AST_VARDEC_NEW extends AST_DEC
 						TYPE_CLASS instanceClass = (TYPE_CLASS) t2_member;
 						for(TYPE_CLASS dadOfIns = instanceClass.father; dadOfIns != null; dadOfIns = dadOfIns.father){
 							if (dadOfIns == pointerClass) {
-								SYMBOL_TABLE.getInstance().enter(id, ((TYPE_ARRAY)t2));
+								SYMBOL_TABLE.getInstance().enter(id, ((TYPE_ARRAY)t1));
 								return null;
 							}
 						}
@@ -127,7 +126,7 @@ public class AST_VARDEC_NEW extends AST_DEC
 		}
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, id);
 
-		SYMBOL_TABLE.getInstance().enter(id, t2);
+		SYMBOL_TABLE.getInstance().enter(id, t1);
 		return t3;
 	}
 }

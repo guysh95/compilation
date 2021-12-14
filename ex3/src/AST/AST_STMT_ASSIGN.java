@@ -69,9 +69,11 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	{
 		TYPE t1 = null;
 		TYPE t2 = null;
-
+		System.out.println("We are Semanting in AST_STMT_ASSIGN");
 		if (var != null) t1 = var.SemantMe(scope);
+		System.out.println("finished t1 in STMT_ASSIGN, result " + t1);
 		if (exp != null) t2 = exp.SemantMe(scope);
+		System.out.println("finished t2 in STMT_ASSIGN, result " + t2);
 
 		if (t1 != t2)
 		{
