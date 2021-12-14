@@ -106,8 +106,27 @@ public class AST_EXP_BINOP extends AST_EXP
 		if ((bOP == 0) && (t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance())) {
 			return TYPE_STRING.getInstance();
 		}
-		if ((bOP == 6) && (t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance())) {
-			return TYPE_INT.getInstance();	// cond if string equals to another
+		if (bOP == 6) {
+			if (t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance())) {
+				return TYPE_INT.getInstance();	// cond if string equals to another
+			}
+			if (t1.isClass() && t2.isClass()) {
+				if (t1 == TYPE_NIL.getInstance() || t2 == TYPE_NIL.getInstance()) {
+					return TYPE_INT.getInstance();
+				}
+				if (t1 == t2) {
+					return TYPE_INT.getInstance();
+				}
+
+			}
+			if (t1.isArray() && t2.isArray()) {
+				if (t1 == TYPE_NIL.getInstance() || t2 == TYPE_NIL.getInstance()) {
+					return TYPE_INT.getInstance();
+				}
+				if (t1 == t2) {
+					return TYPE_INT.getInstance();
+				}
+			}
 		}
 		System.out.print("unmatching types or undeclared string operation");
 		throw new lineException(Integer.toString(this.row));

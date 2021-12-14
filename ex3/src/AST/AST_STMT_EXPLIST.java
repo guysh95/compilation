@@ -140,17 +140,19 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		} else { // var is null
 			System.out.println("We are in stmt calling " + id);
 			t2 = SYMBOL_TABLE.getInstance().find(id);
-			if (t2 != null){
-				if(! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")){
-					System.out.format(">> ERROR provided explist although this is not a function");
-					throw new lineException(Integer.toString(this.row));
-					//System.exit(0);
-				}
-
+			System.out.println(id + " is of type " + t2 + " in AST_STMT_EXPLIST");
+			if (t2 == null) {
+				System.out.format(">> ERROR no function named %s\n", id);
+				throw new lineException(Integer.toString(this.row));
+			}
+			if(! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")){
+				System.out.format(">> ERROR provided explist although this is not a function");
+				throw new lineException(Integer.toString(this.row));
+				//System.exit(0);
 			}
 			System.out.println("We found " + id);
 			TYPE_FUNCTION t3 = (TYPE_FUNCTION) t2;
-			System.out.println("we converted" + t2 + " to " + t3);
+			System.out.println("we converted " + t2 + " to " + t3);
 			if (exps != null){
 				texps = exps.getTypes(null);
 				System.out.println("we got texps");
