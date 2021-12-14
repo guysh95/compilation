@@ -108,7 +108,7 @@ public class AST_CLASS_DEC extends AST_DEC {
         /* if(extendedClass != null){
             for(AST_CFIELD_LIST p = list; p != null; p=p.tail){
                 AST_CFIELD field = p.head;
-                TYPE fieldType = field.SemantMe(null);
+                TYPE fieldType = field.semantme(scope);
                 TYPE_CLASS ancestor = extendedClass;
                 SYMBOL_TABLE.getInstance().findInSuperClass(ancestor, fieldType);
                 while(ancestor != null){
@@ -124,7 +124,7 @@ public class AST_CLASS_DEC extends AST_DEC {
         } */
         System.out.println("now we semant the class fields");
         //TODO insert class name down (need to fix assignment 7)
-        TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className,list.getTypes(null));
+        TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className,list.getTypes(className));
 
         //check that there is no function shadowing
         //if(extended_type_casted != null){

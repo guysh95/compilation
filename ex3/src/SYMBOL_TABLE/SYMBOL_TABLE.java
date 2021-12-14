@@ -95,12 +95,14 @@ public class SYMBOL_TABLE
 				
 		for (e = table[hash(name)]; e != null; e = e.next)
 		{
+
 			if (name.equals(e.name))
 			{
+				System.out.println("found!");
 				return e.type;
 			}
 		}
-		
+		System.out.println("leaving found");
 		return null;
 	}
 

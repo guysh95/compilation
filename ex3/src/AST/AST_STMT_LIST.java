@@ -68,8 +68,8 @@ public class AST_STMT_LIST extends AST_Node
 
 	public TYPE SemantMe(String scope)
 	{
-		if (head != null) head.SemantMe(null);
-		if (tail != null) tail.SemantMe(null);
+		if (head != null) head.SemantMe(scope);
+		if (tail != null) tail.SemantMe(scope);
 
 		return null;
 	}

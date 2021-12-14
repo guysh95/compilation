@@ -70,7 +70,7 @@ public class AST_STMT_RETURN extends AST_STMT
 		if (exp == null){
 			return TYPE_VOID.getInstance();
 		} else {
-			t = exp.SemantMe(null);
+			t = exp.SemantMe(scope);
 			return t;
 		}
 	}

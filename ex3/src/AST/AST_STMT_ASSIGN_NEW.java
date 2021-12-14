@@ -70,8 +70,8 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 		TYPE t1 = null;
 		TYPE t2 = null;
 
-		if (var != null) t1 = var.SemantMe(null);
-		if (exp != null) t2 = exp.SemantMe(null);
+		if (var != null) t1 = var.SemantMe(scope);
+		if (exp != null) t2 = exp.SemantMe(scope);
 
 		if (t1 != t2)
 		{
@@ -80,6 +80,6 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 			//System.exit(0);
 
 		}
-		return null;
+		return t1;
 	}
 }

@@ -79,9 +79,25 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 			//System.exit(0);
 		}
 
-		if (type != null) t1 = type.SemantMe(null);
-		if (exp != null) t2 = exp.SemantMe(null);
+		if (type != null) t1 = type.SemantMe(scope);
+		if (exp != null) t2 = exp.SemantMe(scope);
+		if (scope != null){ // we are in class
+			try{
+				AST_EXP_INT check1 = (AST_EXP_INT) exp;
+			} catch (Exception e1){
+				try{
+					AST_EXP_STRING check2 = (AST_EXP_STRING) exp;
+				} catch (Exception e2) {
+					try {
+						AST_EXP_NIL check3 = (AST_EXP_NIL) exp;
 
+					} catch (Exception e3) {
+						System.out.format(">> ERROR cannot assign to var something else then string, int or nil in class");
+						throw new lineException(Integer.toString(this.row));
+					}
+				}
+			}
+		}
 		if (t1 != t2) {
 			if (!((t1.isClass() || t1.isArray()) && t2 == TYPE_NIL.getInstance())) {
 				System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);

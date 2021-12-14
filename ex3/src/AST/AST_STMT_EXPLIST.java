@@ -85,7 +85,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 
 		// only if we have var
 		if (var != null){
-			t1 = var.SemantMe(null);
+			t1 = var.SemantMe(scope);
 			if (t1.isClass() == false)
 			{
 				System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,id);

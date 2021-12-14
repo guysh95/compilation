@@ -59,7 +59,7 @@ public class AST_EXP_PAREN extends AST_EXP {
     }
 
     public TYPE SemantMe(String scope) {
-        if (child != null) return child.SemantMe(null);
+        if (child != null) return child.SemantMe(scope);
         return null;
     }
 }

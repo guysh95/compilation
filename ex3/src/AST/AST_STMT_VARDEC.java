@@ -60,7 +60,7 @@ public class AST_STMT_VARDEC extends AST_STMT {
     }
 
     public TYPE SemantMe(String scope) {
-        if (vd != null) return vd.SemantMe(null);
+        if (vd != null) return vd.SemantMe(scope);
         return null;
     }
 }

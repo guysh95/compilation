@@ -67,12 +67,14 @@ public class Main
     	}
 		catch (lineException e){
 			try {
+
 				file_writer = new PrintWriter(outputFilename);
 				file_writer.print("ERROR(" + e.getMessage() + ")");
-				System.out.print("Semantic Error");
+				System.out.println("Semantic Error");
 				file_writer.close();
 			}
 			catch (Exception e2) {
+				System.out.println("### we got exception! e2");
 				e2.printStackTrace();
 			}
 		}
@@ -82,16 +84,17 @@ public class Main
 				file_writer = new PrintWriter(outputFilename);
 				if (e.getMessage().equals("lexical")) {
 					file_writer.print("ERROR");
-					System.out.print("Lexical Error");
+					System.out.println("Lexical Error");
 				}
 				else if (isNumeric(e.getMessage()))
 				{
 					file_writer.print("ERROR(" + e.getMessage() + ")");
-					System.out.print("Syntax Error");
+					System.out.println("Syntax Error");
 				}
 				file_writer.close();
 			}
 			catch (Exception e2) {
+				System.out.println("### we got exception! e2");
 				e2.printStackTrace();
 			}
 		}

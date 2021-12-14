@@ -74,14 +74,18 @@ public class AST_VARDEC_NEW extends AST_DEC
 		/**************************************/
 		/* [2] Check That id does NOT exist */
 		/**************************************/
+		if(scope != null) { //not allowed to declare var in class with assignning something else then constant
+			System.out.format(">> ERROR can assign only constant to var dec in class, " +id);
+			throw new lineException(Integer.toString(this.row));
+		}
 		if (SYMBOL_TABLE.getInstance().findInScope(id) != null) {
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,id);
 			throw new lineException(Integer.toString(this.row));
 			//System.exit(0);
 		}
 
-		if (type != null) t1 = type.SemantMe(null);
-		if (exp != null) t2 = exp.SemantMe(null);
+		if (type != null) t1 = type.SemantMe(scope);
+		if (exp != null) t2 = exp.SemantMe(scope);
 		try {
 			for(TYPE_CLASS texp = (TYPE_CLASS) t2; texp != null; texp = texp.father){
 				if (texp == t1) {
@@ -102,7 +106,6 @@ public class AST_VARDEC_NEW extends AST_DEC
 			else if (t1 != t2) {
 				System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
 				throw new lineException(Integer.toString(this.row));
-				//System.exit(0);
 			}
 		}
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, id);

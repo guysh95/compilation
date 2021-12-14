@@ -76,7 +76,7 @@ public class AST_EXP_FCALL extends AST_EXP {
         if (explist != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,explist.SerialNumber);
     }
 
-    /* public TYPE SemantMe(null) {
+    /* public TYPE semantme(scope) {
         TYPE t = null;
         TYPE tc = null;
         TYPE tfunc = null;
@@ -85,13 +85,13 @@ public class AST_EXP_FCALL extends AST_EXP {
 
         // when there is var - check that the var is class type and that the function within class scope
         if (caller != null){
-            t = caller.SemantMe(null);
+            t = caller.semantme(scope);
 
 
             if (t.isClass() == false)
             {
                 System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
-                System.exit(0);
+
             }
             else
             {
@@ -119,7 +119,7 @@ public class AST_EXP_FCALL extends AST_EXP {
 
         // only if we have caller
         if (caller != null){
-            t1 = caller.SemantMe(null);
+            t1 = caller.SemantMe(scope);
             if (t1.isClass() == false)
             {
                 System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
@@ -149,7 +149,7 @@ public class AST_EXP_FCALL extends AST_EXP {
             }
             if (explist != null){
                 //TODO check that arguments provided match function parameters
-                explist.SemantMe(null);
+                explist.SemantMe(scope);
             }
 
             return ((TYPE_FUNCTION) t2).returnType;
@@ -162,12 +162,12 @@ public class AST_EXP_FCALL extends AST_EXP {
             }
             if (explist != null){
                 //TODO check that arguments provided match function parameters
-                explist.SemantMe(null);
+                explist.SemantMe(scope);
             }
             return ((TYPE_FUNCTION) t2).returnType;
         }
     }
 
-    //TODO add SemantMe(null)
+    //TODO add semantme(scope)
     //consider functions scope and function arguments etc.
 }

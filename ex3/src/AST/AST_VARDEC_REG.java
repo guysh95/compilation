@@ -69,8 +69,9 @@ public class AST_VARDEC_REG extends AST_DEC
 		/****************************/
 		/* [1] Check If Type exists */
 		/****************************/
-		t = type.SemantMe(null);
-
+		System.out.println("here1");
+		t = type.SemantMe(scope);
+		System.out.println("here2");
 		/**************************************/
 		/* [2] Check That Name does NOT exist */
 		/**************************************/

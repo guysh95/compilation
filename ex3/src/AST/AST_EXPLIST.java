@@ -70,19 +70,19 @@ public class AST_EXPLIST extends AST_Node {
         if (head == null){
             System.out.print(">> ERROR in EXPLIST semantme");
             throw new lineException(Integer.toString(this.row));
-            //System.exit(0);
+
         }
-        t = head.SemantMe(null);
+        t = head.SemantMe(scope);
         allTypes = new TYPE_LIST(t, null);
         for(AST_EXPLIST pointer = tail; pointer != null; pointer = pointer.tail){
-            t = pointer.head.SemantMe(null);
+            t = pointer.head.SemantMe(scope);
             allTypes = new TYPE_LIST(t, allTypes);
         }
         return null;
     }
 
     public TYPE_LIST getTypes(String scope) {
-        this.SemantMe(null);
+        this.SemantMe(scope);
         return allTypes;
     }
 

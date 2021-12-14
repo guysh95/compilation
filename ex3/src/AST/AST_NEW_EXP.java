@@ -72,7 +72,8 @@ public class AST_NEW_EXP extends AST_Node {
         /****************************************/
         /* Check Type is in symbol table and isn't TYPE_VOID */
         /****************************************/
-        if (new_name != null) t1 = new_name.SemantMe(null);
+        if (new_name != null) t1 = new_name.SemantMe(scope);
+        System.out.println(t1.name);
         if (t1 == TYPE_VOID.getInstance()){
             System.out.format(">> ERROR [%d:%d] type void is non instanceable\n",7,7);
             throw new lineException(Integer.toString(this.row));
@@ -90,7 +91,7 @@ public class AST_NEW_EXP extends AST_Node {
                 throw new lineException(Integer.toString(this.row));
                 //System.exit(0);
             }
-            t2 = e.SemantMe(null);
+            t2 = e.SemantMe(scope);
             if (t2 != TYPE_INT.getInstance()){
                 System.out.format(">> ERROR [%d:%d] expression inside subscript is not integral\n",2,2);
                 throw new lineException(Integer.toString(this.row));
@@ -107,11 +108,12 @@ public class AST_NEW_EXP extends AST_Node {
             return new TYPE_ARRAY("array", t1);
         }
 
-        if(t1.isClass() == false) {
+        if(t1.isClass() == true || t1.name.equals(scope)) {
+            return t1;
+        } else { //t1 is not class
             System.out.format(">> ERROR [%d:%d] type is not class\n",2,2);
             throw new lineException(Integer.toString(this.row));
-            //System.exit(0);
         }
-        return t1;
+
     }
 }

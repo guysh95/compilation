@@ -84,7 +84,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/*******************/
 
 
-		returnType = SYMBOL_TABLE.getInstance().find(type.SemantMe(null).name); //TODO might need to be "type.SemantMe(null).name)" inside find call
+		returnType = SYMBOL_TABLE.getInstance().find(type.SemantMe(scope).name); //TODO might need to be "type.semantme(scope).name)" inside find call
 		if (returnType == null)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing return type %s\n",6,6,returnType);
@@ -119,10 +119,10 @@ public class AST_FUNCDEC extends AST_DEC
 		/***************************/
 		for (AST_FUNCARGS it = fa; it != null; it = it.fa)
 		{
-			t = SYMBOL_TABLE.getInstance().find(it.type.SemantMe(null).name);
+			t = SYMBOL_TABLE.getInstance().find(it.type.SemantMe(scope).name);
 			if (t == null)
 			{
-				System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type.SemantMe(null).name);
+				System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type.SemantMe(scope).name);
 				throw new lineException(Integer.toString(this.row));
 
 			}
@@ -137,7 +137,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/* [3] Semant Body */
 		/*******************/
 		//TODO check that return type matches function signature
-		sl.SemantMe(null);
+		sl.SemantMe(scope);
 
 		/*****************/
 		/* [4] End Scope */
@@ -147,7 +147,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/***************************************************/
 		/* [5] Enter the Function Type to the Symbol Table */
 		/***************************************************/
-		TYPE_FUNCTION tfunc = new TYPE_FUNCTION(returnType,id,fa.getTypes(null));
+		TYPE_FUNCTION tfunc = new TYPE_FUNCTION(returnType,id,fa.getTypes(scope));
 		SYMBOL_TABLE.getInstance().enter(id,tfunc);
 
 		/*********************************************************/

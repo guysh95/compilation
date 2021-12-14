@@ -70,7 +70,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/******************************/
 		/* [1] Recursively semant var */
 		/******************************/
-		if (var != null) t = var.SemantMe(null);
+		if (var != null) t = var.SemantMe(scope);
 
 		/*********************************/
 		/* [2] Make sure type is a Array */
@@ -86,7 +86,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/************************************/
 		/* [3] Make sure subscript is integral */
 		/************************************/
-		if (subscript.SemantMe(null) != TYPE_INT.getInstance()) {
+		if (subscript.SemantMe(scope) != TYPE_INT.getInstance()) {
 			System.out.format(">> ERROR [%d:%d] expression inside subscript is not integral\n",2,2);
 			throw new lineException(Integer.toString(this.row));
 			//System.exit(0);
