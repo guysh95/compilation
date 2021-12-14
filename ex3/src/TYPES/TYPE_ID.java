@@ -12,6 +12,8 @@ public class TYPE_ID extends TYPE
     /*****************************/
     protected TYPE_ID() {}
 
+    public boolean isClass() { return true;};
+
     /******************************/
     /* GET SINGLETON INSTANCE ... */
     /******************************/
