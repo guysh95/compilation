@@ -81,7 +81,9 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 
 		t1 = (TYPE_CLASS_VAR_DEC) v.SemantMe(scope.name);
 		tvar = scope.searchInFathersVar(t1.name, this.row);
+
 		if(tvar == null){ //no var with same name
+			System.out.println("no superclass declaration of var");
 			return t1;
 		}
 		System.out.println("returned from searchInFathersVars with " + tvar.t);

@@ -49,8 +49,16 @@ public class TYPE_CLASS extends TYPE
 	public TYPE_CLASS_VAR_DEC searchInFathersVar(String name, int row){
 		TYPE_CLASS_VAR_DEC tvar = null;
 		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
+			System.out.println("checking in searchInFathersVar - father " + currFather.name);
 			for(TYPE_LIST it = father.data_members; it != null; it = it.tail){
-				if(name.equals(it.head.name)){
+				if(it.head.isVar()){
+					tvar = (TYPE_CLASS_VAR_DEC) it.head;
+					System.out.println("######found var name: " + tvar.name);
+					if(name.equals(tvar.name)){
+						return tvar;
+					}
+				}
+				/*if(name.equals(it.head.name)){
 					if(it.head.isVar()){
 						tvar = (TYPE_CLASS_VAR_DEC) it.head;
 						return tvar;
@@ -58,7 +66,7 @@ public class TYPE_CLASS extends TYPE
 						System.out.println("#ERROR reached in searchinfathervar to something that is not var");
 						throw new lineException(Integer.toString(row));
 					}
-				}
+				}*/
 			}
 
 		}
