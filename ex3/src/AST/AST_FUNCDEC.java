@@ -83,13 +83,11 @@ public class AST_FUNCDEC extends AST_DEC
 		/* [0] return type */
 		/*******************/
 
-
-		returnType = SYMBOL_TABLE.getInstance().find(type.SemantMe(scope).name); //TODO might need to be "type.semantme(scope).name)" inside find call
+		returnType = SYMBOL_TABLE.getInstance().find(type.SemantMe(scope).name);
 		if (returnType == null)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing return type %s\n",6,6,returnType);
 			throw new lineException(Integer.toString(this.row));
-			//System.exit(0);
 
 		}
 
@@ -97,14 +95,12 @@ public class AST_FUNCDEC extends AST_DEC
 			if (SYMBOL_TABLE.getInstance().find(id) != null){
 				System.out.format(">> ERROR: %s global function name already exists\n", id);
 				throw new lineException(Integer.toString(this.row));
-				//System.exit(0);
 			}
 		} else {	// in class scope
 			t1 = SYMBOL_TABLE.getInstance().findInScope(id);
 			if(t1 != null){ // check if func declared already in class
 				System.out.format(">> ERROR: %s function already declared in class\n", id);
 				throw new lineException(Integer.toString(this.row));
-				//System.exit(0);
 			}
 		}
 
@@ -118,6 +114,13 @@ public class AST_FUNCDEC extends AST_DEC
 			if (fatherFunc != null && returnType != fatherFunc.returnType) {
 				System.out.println(">> ERROR: cant overload method with diffrent type");
 				throw new lineException(Integer.toString(this.row));
+			}
+			else {
+				TYPE_CLASS_VAR_DEC fatherVar = ((TYPE_CLASS)scope).searchInFathersVar(id, row);
+				if (fatherVar != null) {
+					System.out.println(">> ERROR: super class already has variable named " + id);
+					throw new lineException(Integer.toString(this.row));
+				}
 			}
 		}
 		SYMBOL_TABLE.getInstance().beginScope();
