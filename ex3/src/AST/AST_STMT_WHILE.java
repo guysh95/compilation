@@ -63,7 +63,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		if (body != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,body.SerialNumber);
 	}
 
-	public TYPE SemantMe(String scope) {
+	public TYPE SemantMe(TYPE scope) {
 		/****************************/
 		/* [0] Semant the Condition */
 		/****************************/
@@ -95,7 +95,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		return null;
 	}
 
-	public void SemantBodyMe(String scope, TYPE returnType) {
+	public void SemantBodyMe(TYPE scope, TYPE returnType) {
 		this.expReturnType = returnType;
 		this.SemantMe(scope);
 	}

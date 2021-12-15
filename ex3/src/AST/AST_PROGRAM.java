@@ -55,7 +55,7 @@ public class AST_PROGRAM extends AST_Node{
         if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
     }
 
-    public TYPE SemantMe(String scope)
+    public TYPE SemantMe(TYPE scope)
     {
         /*************************************/
         /* RECURSIVELY PRINT HEAD + TAIL ... */

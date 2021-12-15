@@ -73,7 +73,7 @@ public class AST_FUNCDEC extends AST_DEC
 
 	}
 
-	public TYPE SemantMe(String scope) {
+	public TYPE SemantMe(TYPE scope) {
 		TYPE argType;
 		TYPE t1 = null;
 		TYPE returnType = null;

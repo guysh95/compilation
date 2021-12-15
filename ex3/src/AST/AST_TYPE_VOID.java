@@ -32,7 +32,7 @@ public class AST_TYPE_VOID extends AST_TYPE {
 
     }
 
-    public TYPE SemantMe(String scope) {
+    public TYPE SemantMe(TYPE scope) {
         return TYPE_VOID.getInstance();
     }
 }

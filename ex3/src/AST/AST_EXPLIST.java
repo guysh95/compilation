@@ -65,7 +65,7 @@ public class AST_EXPLIST extends AST_Node {
         if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
     }
 
-    public TYPE SemantMe(String scope) {
+    public TYPE SemantMe(TYPE scope) {
         TYPE t = null;
         if (head == null){
             System.out.print(">> ERROR in EXPLIST semantme");
@@ -85,7 +85,7 @@ public class AST_EXPLIST extends AST_Node {
         return null;
     }
 
-    public TYPE_LIST getTypes(String scope) {
+    public TYPE_LIST getTypes(TYPE scope) {
         this.SemantMe(scope);
         System.out.println("peleg peleg peleg");
         return allTypes;

@@ -49,7 +49,7 @@ public class AST_EXP_STRING extends AST_EXP {
                 String.format("STRING(%s)",str_val.replace('"','\'')));
     }
 
-    public TYPE SemantMe(String scope) {
+    public TYPE SemantMe(TYPE scope) {
         return TYPE_STRING.getInstance();
     }
 }

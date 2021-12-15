@@ -51,24 +51,41 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			String.format("SIMPLE\nVAR\n(%s)",name));
 	}
 
-	public TYPE SemantMe(String scope)
+	public TYPE SemantMe(TYPE scope)
 	{
 		TYPE t = null;
+		// search in this scope
 		t = SYMBOL_TABLE.getInstance().findInScope(name);
-		if (t == null) {
-			if (scope == null) {
-				t = SYMBOL_TABLE.getInstance().find(name);
-			}
-			else {
+		if (scope != null) System.out.println("scope is " + scope.name);
+		//we are inside scope
+		if (t == null && scope != null) {
+			// search in class scope and superclasses scope
 				System.out.println("scope is " + scope);
-
+				if (scope.isClass()) {
+					TYPE_CLASS tc = (TYPE_CLASS) scope;
+					TYPE myVarType = tc.findInClass(name);
+					System.out.println("myVar is " + myVarType);
+					if (myVarType == null) {
+						TYPE_CLASS_VAR_DEC fatherVar = tc.searchInFathersVar(name, row);
+						if (fatherVar == null) {
+							t = SYMBOL_TABLE.getInstance().find(name);
+							if (t != null) return t;
+							System.out.format(">> ERROR ID %s does not exists\n", name);
+							throw new lineException(Integer.toString(this.row));
+						}
+						return fatherVar.t;
+					}
+					else {
+						// found in class scope
+						return myVarType;
+					}
 			}
 		}
-		if (t == null){
-			System.out.format(">> ERROR ID %s does not exists", name);
-			throw new lineException(Integer.toString(this.row));
-			//System.exit(0);
-		}
-		return t;
+		if (t == null)	t = SYMBOL_TABLE.getInstance().find(name);
+		if (t != null)
+			return t;
+		// we are in global scope
+		System.out.format(">> ERROR ID %s does not exists\n", name);
+		throw new lineException(Integer.toString(this.row));
 	}
 }

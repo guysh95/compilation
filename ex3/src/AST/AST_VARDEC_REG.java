@@ -62,7 +62,7 @@ public class AST_VARDEC_REG extends AST_DEC
 			
 	}
 
-	public TYPE SemantMe(String scope) {
+	public TYPE SemantMe(TYPE scope) {
 
 		TYPE t = null;
 

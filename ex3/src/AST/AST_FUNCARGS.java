@@ -72,7 +72,7 @@ public class AST_FUNCARGS extends AST_Node
 
 	}
 	//TODO add semantme(scope)
-	public TYPE SemantMe(String scope) {
+	public TYPE SemantMe(TYPE scope) {
 		TYPE t = null;
 		TYPE t2 = null;
 		System.out.println("AAA");
@@ -103,7 +103,7 @@ public class AST_FUNCARGS extends AST_Node
 
 	}
 
-	public TYPE_LIST getTypes(String scope) {
+	public TYPE_LIST getTypes(TYPE scope) {
 		this.SemantMe(scope);
 		return allTypes;
 	}

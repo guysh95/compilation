@@ -67,7 +67,7 @@ public class AST_STMT_LIST extends AST_Node
 		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
 	}
 
-	public TYPE SemantMe(String scope)
+	public TYPE SemantMe(TYPE scope)
 	{
 		if (head == null){
 			System.out.println(">> ERROR function can't be empty ");
@@ -122,7 +122,7 @@ public class AST_STMT_LIST extends AST_Node
 		return null;
 	}
 
-	public void SemantFunctionMe(String scope, TYPE returnType) {
+	public void SemantFunctionMe(TYPE scope, TYPE returnType) {
 		this.expectedReturnType = returnType;
 		this.SemantMe(scope);
 	}

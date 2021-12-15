@@ -66,7 +66,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 			
 	}
 
-	public TYPE SemantMe(String scope) {
+	public TYPE SemantMe(TYPE scope) {
 		TYPE t1 = null;
 		TYPE t2 = null;
 

@@ -60,7 +60,7 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 			
 	}
 
-	public TYPE SemantMe(String scope) {
+	public TYPE SemantMe(TYPE scope) {
 		TYPE_CLASS_VAR_DEC t1 = null;
 
 		t1 = (TYPE_CLASS_VAR_DEC) v.SemantMe(scope);
@@ -79,7 +79,7 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 		TYPE_CLASS_VAR_DEC t1 = null;
 		TYPE_CLASS_VAR_DEC tvar = null;
 
-		t1 = (TYPE_CLASS_VAR_DEC) v.SemantMe(scope.name);
+		t1 = (TYPE_CLASS_VAR_DEC) v.SemantMe(scope);
 		tvar = scope.searchInFathersVar(t1.name, this.row);
 
 		if(tvar == null){ //no var with same name

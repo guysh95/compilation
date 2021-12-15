@@ -59,7 +59,7 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,v.SerialNumber);
 	}
 
-	public TYPE SemantMe(String scope) {
+	public TYPE SemantMe(TYPE scope) {
 		/* AST_FUNCDEC func = (AST_FUNCDEC) v;
 		TYPE_FUNCTION tf;
 		if (v != null) tf = (TYPE_FUNCTION) v.semantme(scope);
@@ -83,7 +83,7 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 		TYPE t1 = null;
 		TYPE_FUNCTION tfunc = null;
 
-		t1 = v.SemantMe(scope.name);
+		t1 = v.SemantMe(scope);
 		tfunc = scope.searchInFathersFunc(t1.name, this.row);
 		if(tfunc == null){ //no func with same name
 			return t1;

@@ -12,7 +12,7 @@ public abstract class AST_STMT extends AST_Node
 	{
 		System.out.print("UNKNOWN AST STATEMENT NODE");
 	}
-	public TYPE SemantMe(String scope)
+	public TYPE SemantMe(TYPE scope)
 	{
 		return null;
 	}

@@ -65,7 +65,7 @@ public class AST_STMT_RETURN extends AST_STMT
 		
 	}
 
-	public TYPE SemantMe(String scope){
+	public TYPE SemantMe(TYPE scope){
 		TYPE t = null;
 		if (exp == null){
 			return TYPE_VOID.getInstance();
@@ -79,7 +79,7 @@ public class AST_STMT_RETURN extends AST_STMT
 		}
 	}
 
-	public TYPE SemantReturnMe(String scope, TYPE returnType){
+	public TYPE SemantReturnMe(TYPE scope, TYPE returnType){
 		this.expectedReturnType = returnType;
 		return this.SemantMe(scope);
 	}

@@ -77,7 +77,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		
 	}
 
-	public TYPE SemantMe(String scope) {
+	public TYPE SemantMe(TYPE scope) {
 		TYPE t1 = null;
 		TYPE_CLASS tc = null;
 		TYPE t2 = null;

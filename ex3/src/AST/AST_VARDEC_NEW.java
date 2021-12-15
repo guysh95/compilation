@@ -66,7 +66,7 @@ public class AST_VARDEC_NEW extends AST_DEC
         if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 	}
 
-	public TYPE SemantMe(String scope) {
+	public TYPE SemantMe(TYPE scope) {
 		TYPE t1 = null;
 		TYPE t2 = null;
 		System.out.println("%%%%%%%% semanting in AST_VARDEC_NEW");

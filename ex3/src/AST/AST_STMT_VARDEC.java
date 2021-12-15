@@ -59,7 +59,7 @@ public class AST_STMT_VARDEC extends AST_STMT {
         if (vd != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,vd.SerialNumber);
     }
 
-    public TYPE SemantMe(String scope) {
+    public TYPE SemantMe(TYPE scope) {
         if (vd != null) return vd.SemantMe(scope);
         return null;
     }

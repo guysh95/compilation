@@ -58,7 +58,7 @@ public class AST_ARRAY_TYPE_DEF extends AST_DEC {
 
     }
 
-    public TYPE SemantMe(String scope) {
+    public TYPE SemantMe(TYPE scope) {
         /************************************/
         /* [0] Check we are in global scope */
         /************************************/

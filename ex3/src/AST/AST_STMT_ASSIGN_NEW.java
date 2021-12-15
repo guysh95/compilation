@@ -65,7 +65,7 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 			
 	}
 
-	public TYPE SemantMe(String scope)
+	public TYPE SemantMe(TYPE scope)
 	{
 		TYPE t1 = null;
 		TYPE t2 = null;

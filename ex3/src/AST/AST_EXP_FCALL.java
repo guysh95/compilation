@@ -112,7 +112,7 @@ public class AST_EXP_FCALL extends AST_EXP {
 
 
     } */
-    public TYPE SemantMe(String scope) {
+    public TYPE SemantMe(TYPE scope) {
         TYPE t1 = null;
         TYPE_CLASS tc = null;
         TYPE t2 = null;

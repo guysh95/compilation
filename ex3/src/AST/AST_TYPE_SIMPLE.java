@@ -50,7 +50,7 @@ public class AST_TYPE_SIMPLE extends AST_TYPE {
                 String.format("TYPE\n(%s)", type));
     }
 
-    public TYPE SemantMe(String scope) {
+    public TYPE SemantMe(TYPE scope) {
         TYPE t;
 
         /****************************/
@@ -66,8 +66,8 @@ public class AST_TYPE_SIMPLE extends AST_TYPE {
             }
         }
         else {
-            System.out.println("checking if " + scope + " == " + type);
-            if (type.equals(scope)) {
+            System.out.println("checking if " + scope.name + " == " + type);
+            if (type.equals(scope.name)) {
                 return TYPE_ID.getInstance(scope);
             }
         }

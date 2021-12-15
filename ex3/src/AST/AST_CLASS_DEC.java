@@ -65,7 +65,7 @@ public class AST_CLASS_DEC extends AST_DEC {
 
     }
 
-    public TYPE SemantMe(String scope)
+    public TYPE SemantMe(TYPE scope)
     {
         System.out.println("###$#$#$#$#$#$ now we semant " + className + " class #$#$#$#$#$#$#$#$#$#$");
         TYPE extended_type = null;

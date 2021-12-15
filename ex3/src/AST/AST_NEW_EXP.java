@@ -66,7 +66,7 @@ public class AST_NEW_EXP extends AST_Node {
         if (e != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,e.SerialNumber);
     }
 
-    public TYPE SemantMe(String scope) {
+    public TYPE SemantMe(TYPE scope) {
         TYPE t1 = null;
         TYPE t2 = null;
         TYPE_ARRAY t3 = null;
@@ -110,7 +110,7 @@ public class AST_NEW_EXP extends AST_Node {
         }
         // class case
         System.out.println("We check that " + t1.name + " == " + scope + " in AST_NEW_EXP");
-        if(t1.isClass() == true || t1.name.equals(scope)) {
+        if(t1.isClass() == true || t1.name.equals(scope.name)) {
             return t1;
         } else { //t1 is not class
             System.out.format(">> ERROR [%d:%d] type is not class\n",2,2);

@@ -68,7 +68,7 @@ public class AST_CFIELD_LIST extends AST_Node
 		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
 	}
 
-	public TYPE SemantMe(String scope) {
+	public TYPE SemantMe(TYPE scope) {
 		TYPE t = null;
 		if (head == null){
 			System.out.print(">> ERROR in CFIELD_LIST semantme");
@@ -89,7 +89,7 @@ public class AST_CFIELD_LIST extends AST_Node
 		return null;
 	}
 
-	public TYPE_LIST getTypes(String scope) {
+	public TYPE_LIST getTypes(TYPE scope) {
 		this.SemantMe(scope);
 		return allTypes;
 	}

@@ -61,7 +61,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 	}
 
-	public TYPE SemantMe(String scope)
+	public TYPE SemantMe(TYPE scope)
 	{
 		TYPE t = null;
 		TYPE_CLASS tc = null;

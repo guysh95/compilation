@@ -31,7 +31,7 @@ public class AST_TYPE_INT extends AST_TYPE {
                 String.format("TYPE_INT"));
     }
 
-    public TYPE SemantMe(String scope) {
+    public TYPE SemantMe(TYPE scope) {
         return TYPE_INT.getInstance();
     }
 }
