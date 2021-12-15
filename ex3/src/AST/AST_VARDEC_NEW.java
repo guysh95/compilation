@@ -101,26 +101,34 @@ public class AST_VARDEC_NEW extends AST_DEC
 			if (t1.isArray() && t2.isArray()){
 				System.out.println("we are trying to assign array");
 				TYPE t1_member = ((TYPE_ARRAY)t1).member_type;
+				System.out.println(t1_member);
 				TYPE t2_member = ((TYPE_ARRAY)t2).member_type;
-				if(t1_member != t2_member){
+				System.out.println(t2_member);
+				if(t1_member != t2_member) {
 					// Check if the two arrays hold class type (*)
 					if (t1_member.isClass() && t2_member.isClass()) {
 						// if (*) holds, check if t2 array's class type
 						TYPE_CLASS pointerClass = (TYPE_CLASS) t1_member;
 						TYPE_CLASS instanceClass = (TYPE_CLASS) t2_member;
-						for(TYPE_CLASS dadOfIns = instanceClass.father; dadOfIns != null; dadOfIns = dadOfIns.father){
+						for (TYPE_CLASS dadOfIns = instanceClass.father; dadOfIns != null; dadOfIns = dadOfIns.father) {
+							System.out.println("in dadofins");
 							if (dadOfIns == pointerClass) {
-								SYMBOL_TABLE.getInstance().enter(id, ((TYPE_ARRAY)t1));
+								SYMBOL_TABLE.getInstance().enter(id, ((TYPE_ARRAY) t1));
 								return null;
 							}
 						}
 					}
-					System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+					System.out.format(">> ERROR35 [%d:%d] type mismatch for var := exp\n", 6, 6);
 					throw new lineException(Integer.toString(this.row));
-				}
+				} /* else {
+					TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t2, id);
+
+					SYMBOL_TABLE.getInstance().enter(id, t2);
+					return t3;
+				}*/
 			}
 			else if (t1 != t2) {
-				System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+				System.out.format(">> ERROR23 [%d:%d] type mismatch for var := exp\n",6,6);
 				throw new lineException(Integer.toString(this.row));
 			}
 		}

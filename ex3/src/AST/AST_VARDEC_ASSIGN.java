@@ -100,7 +100,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 		}
 		if (t1 != t2) {
 			if (!((t1.isClass() || t1.isArray()) && t2 == TYPE_NIL.getInstance())) {
-				System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+				System.out.format(">> ERROR6 [%d:%d] type mismatch for var := exp\n",6,6);
 				throw new lineException(Integer.toString(this.row));
 				//System.exit(0);
 			}
