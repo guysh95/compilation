@@ -141,7 +141,21 @@ public class AST_EXP_FCALL extends AST_EXP {
             t2 = SYMBOL_TABLE.getInstance().find(fieldName);
             System.out.println("scope is " + scope);
             System.out.println(fieldName + " type is " + t2);
-            
+            if (t2 == null) {
+                if (scope.isClass()) {
+                    TYPE_CLASS scopeClass = (TYPE_CLASS) scope;
+                    t2 = scopeClass.searchInFathersFunc(fieldName, row);
+                    if (t2 == null) {
+                        System.out.format(">> ERROR %s function doesnt exist\n", fieldName);
+                        throw new lineException(Integer.toString(this.row));
+                    }
+                }
+                else {
+                    System.out.format(">> ERROR %s function doesnt exist\n", fieldName);
+                    throw new lineException(Integer.toString(this.row));
+                }
+            }
+            System.out.println(fieldName + " is " + t2);
             if(!t2.isFunction()){
                 System.out.format(">> ERROR provided explist although this is not a function");
                 throw new lineException(Integer.toString(this.row));

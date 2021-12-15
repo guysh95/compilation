@@ -7,6 +7,6 @@ class Father
 	}
 	void Print()
 	{
-		PrintString(foo(“Jerry”));
+		PrintString(foo("Jerry"));
 	}
 }

@@ -1,4 +1,4 @@
 int Check(string s)
 {
-	return s = “LosPollosHermanos”;
+	int x := s = "LosPollosHermanos";
 }

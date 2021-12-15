@@ -1,0 +1,47 @@
+digraph
+{
+graph [ordering = "out"]
+v0 [label = "TYPE_INT"];
+v1 [label = "INT(4)"];
+v2 [label = "ASSIGN
+ID(A) := right
+"];
+v2 -> v0;
+v2 -> v1;
+v3 [label = "CLASS
+VAR"];
+v3 -> v2;
+v4 [label = "CFIELD
+LIST
+"];
+v4 -> v3;
+v5 [label = "CLASS A
+DEC
+"];
+v5 -> v4;
+v6 [label = "TYPE_INT"];
+v7 [label = "INT(4)"];
+v8 [label = "ASSIGN
+ID(A) := right
+"];
+v8 -> v6;
+v8 -> v7;
+v9 [label = "CLASS
+VAR"];
+v9 -> v8;
+v10 [label = "CFIELD
+LIST
+"];
+v10 -> v9;
+v11 [label = "CLASS B
+DEC
+"];
+v11 -> v10;
+v12 [label = "PROGRAM
+"];
+v12 -> v11;
+v13 [label = "PROGRAM
+"];
+v13 -> v5;
+v13 -> v12;
+}

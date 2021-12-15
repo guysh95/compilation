@@ -1,4 +1,4 @@
-string myvar := “ab”;
+string myvar := "ab";
 class Father
 {
 	Father myvar := nil;

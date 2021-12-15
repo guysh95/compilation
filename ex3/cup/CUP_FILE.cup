@@ -33,7 +33,7 @@ scan with
 {:
 	Symbol s;
 	s = lexer.next_token();
-	//System.out.print(s.sym);
+	// System.out.print(s.sym);
 	if(s.sym == TokenNames.TOKEN_ERROR) {
 	        throw new RuntimeException("lexical");
 	    }
