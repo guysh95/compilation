@@ -69,6 +69,7 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 	{
 		TYPE t1 = null;
 		TYPE t2 = null;
+		TYPE_CLASS tc = null;
 
 		if (var != null) t1 = var.SemantMe(scope);
 		if (exp != null) t2 = exp.SemantMe(scope);
@@ -79,7 +80,7 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 			TYPE_ARRAY tarr2 = (TYPE_ARRAY) t2;
 
 			if(tarr1.member_type != tarr2.member_type){
-				System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+				System.out.format(">> ERROR7 [%d:%d] type mismatch for var := exp\n",6,6);
 				throw new lineException(Integer.toString(this.row));
 			}
 			System.out.println("they are equal peleg");
@@ -94,6 +95,16 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 				System.out.println("t2 is array of " + ((TYPE_ARRAY)t2).member_type);
 				if (t2.name.equals("array") && ((TYPE_ARRAY)t1).member_type == ((TYPE_ARRAY)t2).member_type)
 					return t1;
+
+				if(t2.isClass()){ //cast to son class
+				tc = (TYPE_CLASS) t2;
+				for(TYPE_CLASS currFather = tc.father; currFather != null; currFather = currFather.father){
+					if (currFather.name.equals(t1.name)){
+						return t2;
+					}
+				}
+			}
+			System.out.format(">> ERROR99 [%d:%d] type mismatch for var := exp\n",6,6);
 			} */
 			if (t1.isClass() && t2.isClass())  {
 				System.out.println("we check if son extends father");

@@ -119,9 +119,11 @@ public class AST_VAR_FIELD extends AST_VAR
 		}
 		tarr = tc.searchInFathersArr(fieldName, this.row);
 		if (tarr != null){
+			System.out.println("did found something in searchInFathersArr");
 			return tarr.member_type;
 
 		}
+		System.out.println("didnt find anything in searchInFathersArr");
 
 		tvar = tc.searchInFathersVar(fieldName, this.row);
 		if(tvar != null){

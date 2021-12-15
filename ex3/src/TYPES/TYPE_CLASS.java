@@ -29,7 +29,7 @@ public class TYPE_CLASS extends TYPE
 	public TYPE_FUNCTION searchInFathersFunc(String name, int row){
 		TYPE_FUNCTION tfunc = null;
 		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
-			for(TYPE_LIST it = father.data_members; it != null; it = it.tail){
+			for(TYPE_LIST it = currFather.data_members; it != null; it = it.tail){
 				if(name.equals(it.head.name)){
 					if(it.head.isFunction()){
 						tfunc = (TYPE_FUNCTION) it.head;
@@ -50,7 +50,7 @@ public class TYPE_CLASS extends TYPE
 		TYPE_CLASS_VAR_DEC tvar = null;
 		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
 			System.out.println("checking in searchInFathersVar - father " + currFather.name);
-			for(TYPE_LIST it = father.data_members; it != null; it = it.tail){
+			for(TYPE_LIST it = currFather.data_members; it != null; it = it.tail){
 				if(it.head.isVar()){
 					tvar = (TYPE_CLASS_VAR_DEC) it.head;
 					System.out.println("######found var name: " + tvar.name);
@@ -70,7 +70,7 @@ public class TYPE_CLASS extends TYPE
 		TYPE_ARRAY tarr = null;
 		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
 			System.out.println("checking in searchInFathersArr - father " + currFather.name);
-			for(TYPE_LIST it = father.data_members; it != null; it = it.tail){
+			for(TYPE_LIST it = currFather.data_members; it != null; it = it.tail){
 				if(it.head.isArray()){
 					tarr = (TYPE_ARRAY) it.head;
 					System.out.println("######found arr name: " + tarr.name);
