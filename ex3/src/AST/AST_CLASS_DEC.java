@@ -110,14 +110,20 @@ public class AST_CLASS_DEC extends AST_DEC {
         //TODO nned to replace here recursive instances TYPE_ID with new TYPE_CLASS
         System.out.println(tclass.name + " data members are: ");
         for(TYPE_LIST ptr = tclass.data_members; ptr != null; ptr = ptr.tail){
-            if (((TYPE_CLASS_VAR_DEC)ptr.head).t.getClass().getSimpleName().equals("TYPE_ID")) {
-                System.out.println("Hey my name is " + ((TYPE_CLASS_VAR_DEC)ptr.head).name + " My Type is " + ((TYPE_CLASS_VAR_DEC)ptr.head).t);
+            if (ptr.head.isVar()) {
+                TYPE_CLASS_VAR_DEC var = ((TYPE_CLASS_VAR_DEC)ptr.head);
+                if (var.t.getClass().getSimpleName().equals("TYPE_ID")) {
+                    System.out.println("Hey my name is " + var.name + " My Type is " + var.t);
+                }
+                if (className.equals(((TYPE_CLASS_VAR_DEC)ptr.head).t.name)) {
+                    ((TYPE_CLASS_VAR_DEC)ptr.head).t = tclass;
+                    System.out.println(((TYPE_CLASS_VAR_DEC)ptr.head).name);
+                    System.out.println(((TYPE_CLASS_VAR_DEC)ptr.head).name + " and its type is " + ((TYPE_CLASS_VAR_DEC)ptr.head).t);
+                }
             }
-            if (className.equals(((TYPE_CLASS_VAR_DEC)ptr.head).t.name)) {
-                ((TYPE_CLASS_VAR_DEC)ptr.head).t = tclass;
+            else if (ptr.head.isFunction()) {
+                System.out.println("Hey my name is " + ((TYPE_FUNCTION)ptr.head).name + " My Type is " + ((TYPE_FUNCTION)ptr.head));
             }
-
-            System.out.println(((TYPE_CLASS_VAR_DEC)ptr.head).name + " and its type is " + ((TYPE_CLASS_VAR_DEC)ptr.head).t);
         }
 
         /*****************/

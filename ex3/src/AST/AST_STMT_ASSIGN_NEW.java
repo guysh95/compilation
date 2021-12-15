@@ -90,23 +90,23 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 
 		if (t1 != t2)
 		{
+			if(t2.isClass()) { //cast to son class
+				tc = (TYPE_CLASS) t2;
+				for (TYPE_CLASS currFather = tc.father; currFather != null; currFather = currFather.father) {
+					if (currFather.name.equals(t1.name)) {
+						return t2;
+					}
+				}
+			}
 			/* if (t1.isArray() && t2.isArray()) {
 				System.out.println("t1 is array of " + ((TYPE_ARRAY)t1).member_type);
 				System.out.println("t2 is array of " + ((TYPE_ARRAY)t2).member_type);
 				if (t2.name.equals("array") && ((TYPE_ARRAY)t1).member_type == ((TYPE_ARRAY)t2).member_type)
 					return t1;
-
-				if(t2.isClass()){ //cast to son class
-				tc = (TYPE_CLASS) t2;
-				for(TYPE_CLASS currFather = tc.father; currFather != null; currFather = currFather.father){
-					if (currFather.name.equals(t1.name)){
-						return t2;
-					}
-				}
 			}
 			System.out.format(">> ERROR99 [%d:%d] type mismatch for var := exp\n",6,6);
 			} */
-			if (t1.isClass() && t2.isClass())  {
+			/*if (t1.isClass() && t2.isClass())  {
 				System.out.println("we check if son extends father");
 				TYPE_CLASS pointer = (TYPE_CLASS) t1;
 				System.out.println("father converted");
@@ -121,7 +121,7 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 						return t1;
 					}
 				}
-			}
+			} */
 			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
 			throw new lineException(Integer.toString(this.row));
 			//System.exit(0);
