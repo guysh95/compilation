@@ -89,13 +89,28 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 
 		if (t1 != t2)
 		{
-			if (t1.isArray() && t2.isArray()) {
+			/* if (t1.isArray() && t2.isArray()) {
 				System.out.println("t1 is array of " + ((TYPE_ARRAY)t1).member_type);
 				System.out.println("t2 is array of " + ((TYPE_ARRAY)t2).member_type);
 				if (t2.name.equals("array") && ((TYPE_ARRAY)t1).member_type == ((TYPE_ARRAY)t2).member_type)
 					return t1;
+			} */
+			if (t1.isClass() && t2.isClass())  {
+				System.out.println("we check if son extends father");
+				TYPE_CLASS pointer = (TYPE_CLASS) t1;
+				System.out.println("father converted");
+				TYPE_CLASS instance = (TYPE_CLASS) t2;
+				System.out.println("Son converted");
+				//check if instance inherited from pointer or vice versa
+				System.out.println(instance.father);
+				for(TYPE_CLASS dadOfIns = instance.father; dadOfIns != null; dadOfIns = dadOfIns.father){
+					System.out.println(dadOfIns);
+					if (dadOfIns == pointer) {
+						System.out.println("its ok guy");
+						return t1;
+					}
+				}
 			}
-			if (t1.isClass() && t2.isClass())
 			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
 			throw new lineException(Integer.toString(this.row));
 			//System.exit(0);

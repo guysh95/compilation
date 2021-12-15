@@ -67,7 +67,7 @@ public class AST_CLASS_DEC extends AST_DEC {
 
     public TYPE SemantMe(String scope)
     {
-        System.out.println("now we semant " + className + " class");
+        System.out.println("###$#$#$#$#$#$ now we semant " + className + " class #$#$#$#$#$#$#$#$#$#$");
         TYPE extended_type = null;
         TYPE_CLASS extended_type_casted = null;
         if (SYMBOL_TABLE.getInstance().isGlobalScope() == false){
@@ -92,7 +92,6 @@ public class AST_CLASS_DEC extends AST_DEC {
             throw new lineException(Integer.toString(this.row));
         }
 
-
         /*************************/
         /* [1] Begin Class Scope */
         /*************************/
@@ -101,38 +100,25 @@ public class AST_CLASS_DEC extends AST_DEC {
         /***************************/
         /* [2] Semant Data Members */
         /***************************/
-        /* if(extendedClass != null){
-            for(AST_CFIELD_LIST p = list; p != null; p=p.tail){
-                AST_CFIELD field = p.head;
-                TYPE fieldType = field.semantme(scope);
-                TYPE_CLASS ancestor = extendedClass;
-                SYMBOL_TABLE.getInstance().findInSuperClass(ancestor, fieldType);
-                while(ancestor != null){
-                    for(TYPE_LIST ancTypeList = ancestor.data_members; ancTypeList != null; ancTypeList = ancTypeList.tail){
-                        TYPE current = ancTypeList.head;
-                        if(fieldType.name.equals(current.name)){
-                            if(fieldType == current)
-                        }
-                    }
-                    ancestor = ancestor.father;
-                }
-            }
-        } */
         System.out.println("now we semant the class fields");
         TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className, null);
 
         TYPE_LIST dataMembers = list.getTypesClass(t);
 
-
         TYPE_CLASS tclass = new TYPE_CLASS(extended_type_casted,className,dataMembers);
 
-        //check that there is no function shadowing
-        //if(extended_type_casted != null){
-        //    for(TYPE_CLASS it = extended_type_casted.data_members; it != null; it = it.tail)
+        //TODO nned to replace here recursive instances TYPE_ID with new TYPE_CLASS
+        System.out.println(tclass.name + " data members are: ");
+        for(TYPE_LIST ptr = tclass.data_members; ptr != null; ptr = ptr.tail){
+            if (((TYPE_CLASS_VAR_DEC)ptr.head).t.getClass().getSimpleName().equals("TYPE_ID")) {
+                System.out.println("Hey my name is " + ((TYPE_CLASS_VAR_DEC)ptr.head).name + " My Type is " + ((TYPE_CLASS_VAR_DEC)ptr.head).t);
+            }
+            if (className.equals(((TYPE_CLASS_VAR_DEC)ptr.head).t.name)) {
+                ((TYPE_CLASS_VAR_DEC)ptr.head).t = tclass;
+            }
 
-        //}
-
-
+            System.out.println(((TYPE_CLASS_VAR_DEC)ptr.head).name + " and its type is " + ((TYPE_CLASS_VAR_DEC)ptr.head).t);
+        }
 
         /*****************/
         /* [3] End Scope */
@@ -147,6 +133,6 @@ public class AST_CLASS_DEC extends AST_DEC {
         /*********************************************************/
         /* [5] Return value is irrelevant for class declarations */
         /*********************************************************/
-        return t;
+        return tclass;
     }
 }

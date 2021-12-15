@@ -96,7 +96,7 @@ public class AST_CFIELD_LIST extends AST_Node
 
 	public TYPE_LIST getTypesClass(TYPE_CLASS scope) {
 		TYPE t = null;
-		if (head == null){
+		/* if (head == null){
 			System.out.print(">> ERROR in CFIELD_LIST semantme");
 			throw new lineException(Integer.toString(this.row));
 		}
@@ -104,12 +104,13 @@ public class AST_CFIELD_LIST extends AST_Node
 		t = head.SemantClassMe(scope);
 
 		System.out.println("head in cfield is " + t + " and its name is: " + t.name);
-		allTypes = new TYPE_LIST(t, null);
-		int i = 1;
-		for(AST_CFIELD_LIST pointer = tail; pointer != null; pointer = pointer.tail){
+		allTypes = new TYPE_LIST(t, null); */
+		int i = 0;
+		for(AST_CFIELD_LIST pointer = this; pointer != null; pointer = pointer.tail){
 			System.out.println("where are we in class declarations: " + i);
 			i++;
 			t = pointer.head.SemantClassMe(scope);
+			/*** t is TYPE that is actually TYPE_FUNCTION || t is TYPE that is actually TYPE_CLASS_VAR_DEC ***/
 			System.out.println("pointer in cfield is " + t + " and its name is: " + t.name);
 			allTypes = new TYPE_LIST(t, allTypes);
 		}
