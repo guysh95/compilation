@@ -88,13 +88,21 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		// if var is not null this is a method call
 		if (var != null){
 			t1 = var.SemantMe(scope);
+			System.out.println(t1 + " in AST_STMT_EXPSLIST and ");
 			if (t1.isClass() == false)
 			{
 				System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,id);
 				throw new lineException(Integer.toString(this.row));
 				//System.exit(0);
 			}
-			tc = (TYPE_CLASS) t1;
+			//if (scope != null) System.out.println("our scope here is " + scope);
+			//System.out.println("we try to make class of " + t1.name);
+			if (scope != null && scope.name == t1.name && scope.isClass()) {
+				tc = (TYPE_CLASS) scope;
+			}
+			else {
+				tc = (TYPE_CLASS) t1;
+			}
 
 			// check that id in class scope
 			for (TYPE_LIST it=tc.data_members;it != null;it=it.tail) {
@@ -123,7 +131,6 @@ public class AST_STMT_EXPLIST extends AST_STMT
 							return tfunc.returnType;
 						}
 					}
-
 					return tfunc.returnType;
 				}
 

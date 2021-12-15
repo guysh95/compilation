@@ -112,6 +112,14 @@ public class AST_FUNCDEC extends AST_DEC
 		/* [1] Begin Function Scope */
 		/****************************/
 		System.out.println("######### Semanting " + id + " ##########");
+		if (scope != null && scope.isClass()) {
+			TYPE_FUNCTION fatherFunc = ((TYPE_CLASS)scope).searchInFathersFunc(id, row);
+			System.out.println(id + " already exist and its returnType is " + fatherFunc);
+			if (fatherFunc != null && returnType != fatherFunc.returnType) {
+				System.out.println(">> ERROR: cant overload method with diffrent type");
+				throw new lineException(Integer.toString(this.row));
+			}
+		}
 		SYMBOL_TABLE.getInstance().beginScope();
 
 		/***************************/
@@ -135,12 +143,15 @@ public class AST_FUNCDEC extends AST_DEC
 		/*******************/
 		/* [3] Semant Body */
 		/*******************/
-		if (scope != null ) {
+		TYPE_FUNCTION tfunc = new TYPE_FUNCTION(returnType,id,type_list);
+		if (scope != null && scope.isClass()) {
+			((TYPE_CLASS)scope).data_members = new TYPE_LIST(tfunc, ((TYPE_CLASS)scope).data_members);
 			System.out.println("scope of function is " + scope.name);
 		}
-		TYPE_FUNCTION tfunc = new TYPE_FUNCTION(returnType,id,type_list);
 		SYMBOL_TABLE.getInstance().enter(id,tfunc);
+		System.out.println("====> lets semant function body in AST_FUNCDEC");
 		sl.SemantFunctionMe(scope, returnType);
+		System.out.println("====> We finished semanting body in AST_FUNCDEC");
 
 		/*****************/
 		/* [4] End Scope */

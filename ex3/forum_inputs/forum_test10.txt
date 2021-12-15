@@ -10,6 +10,6 @@ class B extends A
 {
 	void foo()
 	{
-		return 1;
+		return;
 	}
 }

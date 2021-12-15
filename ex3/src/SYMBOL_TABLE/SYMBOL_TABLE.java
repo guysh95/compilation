@@ -119,6 +119,7 @@ public class SYMBOL_TABLE
 			}
 			if (name.equals(e.name))
 			{
+				System.out.println("We found " + e.name + " in scope");
 				return e.type;
 			}
 		}

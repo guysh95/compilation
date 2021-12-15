@@ -60,23 +60,11 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 	}
 
 	public TYPE SemantMe(TYPE scope) {
-		/* AST_FUNCDEC func = (AST_FUNCDEC) v;
-		TYPE_FUNCTION tf;
-		if (v != null) tf = (TYPE_FUNCTION) v.semantme(scope);
-		*/
-
 		TYPE t1 = null;
 		t1 = v.SemantMe(scope);
-		/* System.out.println("Searching " + t1.name + " in " + scope);
-		if(SYMBOL_TABLE.getInstance().findInScope(t1.name) != null) {
-			System.out.format(">> ERROR function name already exists in scope\n");
-			throw new lineException(Integer.toString(this.row));
-		} */
 
 		return t1;
 
-		//TODO fix all cases of semant me
-		//TODO need to consider types of functions
 	}
 
 	public TYPE SemantClassMe(TYPE_CLASS scope) {
