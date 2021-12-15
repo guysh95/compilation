@@ -126,7 +126,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 
 					return tfunc.returnType;
 				}
-				
+
 			}
 
 			if (! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")) {
