@@ -122,6 +122,7 @@ public class SYMBOL_TABLE
 				return e.type;
 			}
 		}
+		System.out.println("we return null");
 		return null;
 	}
 

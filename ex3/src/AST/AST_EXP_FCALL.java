@@ -76,42 +76,6 @@ public class AST_EXP_FCALL extends AST_EXP {
         if (explist != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,explist.SerialNumber);
     }
 
-    /* public TYPE semantme(scope) {
-        TYPE t = null;
-        TYPE tc = null;
-        TYPE tfunc = null;
-
-
-
-        // when there is var - check that the var is class type and that the function within class scope
-        if (caller != null){
-            t = caller.semantme(scope);
-
-
-            if (t.isClass() == false)
-            {
-                System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
-
-            }
-            else
-            {
-                tc = (TYPE_CLASS) t;
-            }
-
-
-            for (TYPE_LIST it=tc.data_members;it != null;it=it.tail)
-            {
-                if (it.head.name == fieldName)
-                {
-                    tfunc = it.head;
-                }
-            }
-        }
-
-        // when there is no var - check that the function exists
-
-
-    } */
     public TYPE SemantMe(TYPE scope) {
         TYPE t1 = null;
         TYPE_CLASS tc = null;
@@ -155,17 +119,6 @@ public class AST_EXP_FCALL extends AST_EXP {
 
             }
 
-            /*if (t2 == null){
-                System.out.format(">> ERROR no %s field on the scope\n",fieldName);
-                throw new lineException(Integer.toString(this.row));
-                //System.exit(0);
-            }
-
-            if (!t2.isFunction()) {
-                System.out.format(">> ERROR provided explist although this is not a function");
-                throw new lineException(Integer.toString(this.row));
-                //System.exit(0);
-            }*/
             if (explist != null) {
                 TYPE_LIST tparams = explist.getTypes(scope);
                 System.out.println("checking params for func call now");

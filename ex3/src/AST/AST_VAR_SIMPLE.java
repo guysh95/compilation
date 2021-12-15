@@ -56,12 +56,13 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		TYPE t = null;
 		// search in this scope
 		t = SYMBOL_TABLE.getInstance().findInScope(name);
-		if (scope != null) System.out.println("scope is " + scope.name);
+		if (scope != null) System.out.println("scope is " + scope.name + " and its type is " + scope);
 		//we are inside scope
 		if (t == null && scope != null) {
 			// search in class scope and superclasses scope
-				System.out.println("scope is " + scope);
+				System.out.println("scope is " + scope + " and its type is " + scope);
 				if (scope.isClass()) {
+					System.out.println("BLAH");
 					TYPE_CLASS tc = (TYPE_CLASS) scope;
 					TYPE myVarType = tc.findInClass(name);
 					System.out.println("myVar is " + myVarType);

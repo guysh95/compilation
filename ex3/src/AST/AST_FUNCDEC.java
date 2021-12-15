@@ -135,7 +135,11 @@ public class AST_FUNCDEC extends AST_DEC
 		/*******************/
 		/* [3] Semant Body */
 		/*******************/
-
+		if (scope != null ) {
+			System.out.println("scope of function is " + scope.name);
+		}
+		TYPE_FUNCTION tfunc = new TYPE_FUNCTION(returnType,id,type_list);
+		SYMBOL_TABLE.getInstance().enter(id,tfunc);
 		sl.SemantFunctionMe(scope, returnType);
 
 		/*****************/
@@ -148,7 +152,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/***************************************************/
 		System.out.println("now we are creating " + id + " type and its arguments are: ");
 		System.out.println("returnType: " + returnType + " id: " + id + " type_list: " + type_list);
-		TYPE_FUNCTION tfunc = new TYPE_FUNCTION(returnType,id,type_list);
+		// TYPE_FUNCTION tfunc = new TYPE_FUNCTION(returnType,id,type_list);
 		System.out.println("we created tfunc and its type is " + tfunc + " in AST_FUNCDEC");
 		SYMBOL_TABLE.getInstance().enter(id,tfunc);
 
