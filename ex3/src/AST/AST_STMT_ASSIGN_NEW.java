@@ -73,8 +73,17 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 		if (var != null) t1 = var.SemantMe(scope);
 		if (exp != null) t2 = exp.SemantMe(scope);
 		System.out.println("now checking if " + t1 + " == " + t2 + " in AST_STMT_ASSIGN_NEW");
+		System.out.println("t1 is of " + t1.name + " t2 is of " + t2.name);
+
 		if (t1 != t2)
 		{
+			if (t1.isArray() && t2.isArray()) {
+				System.out.println("t1 is array of " + ((TYPE_ARRAY)t1).member_type);
+				System.out.println("t2 is array of " + ((TYPE_ARRAY)t2).member_type);
+				if (t2.name.equals("array") && ((TYPE_ARRAY)t1).member_type == ((TYPE_ARRAY)t2).member_type)
+					return t1;
+			}
+			if (t1.isClass() && t2.isClass())
 			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
 			throw new lineException(Integer.toString(this.row));
 			//System.exit(0);

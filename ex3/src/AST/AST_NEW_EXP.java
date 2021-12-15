@@ -81,7 +81,7 @@ public class AST_NEW_EXP extends AST_Node {
             //System.exit(0);
         }
 
-
+        // array case
         if (e != null) {
             /****************************************/
             /* Check e is integral (maybe needs to add checks here) */
@@ -108,6 +108,7 @@ public class AST_NEW_EXP extends AST_Node {
             }
             return new TYPE_ARRAY("array", t1);
         }
+        // class case
         System.out.println("We check that " + t1.name + " == " + scope + " in AST_NEW_EXP");
         if(t1.isClass() == true || t1.name.equals(scope)) {
             return t1;
