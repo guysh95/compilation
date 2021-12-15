@@ -72,17 +72,22 @@ public class AST_EXPLIST extends AST_Node {
             throw new lineException(Integer.toString(this.row));
 
         }
+        System.out.println("peleg is magniv");
         t = head.SemantMe(scope);
+        System.out.println("peleg is legend");
         allTypes = new TYPE_LIST(t, null);
         for(AST_EXPLIST pointer = tail; pointer != null; pointer = pointer.tail){
+            System.out.println("peleg is cool");
             t = pointer.head.SemantMe(scope);
             allTypes = new TYPE_LIST(t, allTypes);
         }
+        System.out.println("peleg is gever");
         return null;
     }
 
     public TYPE_LIST getTypes(String scope) {
         this.SemantMe(scope);
+        System.out.println("peleg peleg peleg");
         return allTypes;
     }
 

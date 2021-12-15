@@ -69,7 +69,7 @@ public class AST_NEW_EXP extends AST_Node {
     public TYPE SemantMe(String scope) {
         TYPE t1 = null;
         TYPE t2 = null;
-
+        TYPE_ARRAY t3 = null;
         /****************************************/
         /* Check Type is in symbol table and isn't TYPE_VOID */
         /****************************************/
@@ -82,7 +82,7 @@ public class AST_NEW_EXP extends AST_Node {
         }
 
 
-        if (e != null) {
+        if (e != null) { //this is array
             /****************************************/
             /* Check e is integral (maybe needs to add checks here) */
             /****************************************/
@@ -106,6 +106,14 @@ public class AST_NEW_EXP extends AST_Node {
                     //System.exit(0);
                 }
             }
+            /*if (t1.isArray()){
+                System.out.println("new exp is array");
+                t3 = (TYPE_ARRAY) t1;
+                return t3;
+            }
+            t1 = SYMBOL_TABLE.getInstance().find(new_name);
+            System.out.println("array name is: " + t1.name);
+            return (TYPE_ARRAY) t1;*/
             return new TYPE_ARRAY("array", t1);
         }
         System.out.println("We check that " + t1.name + " == " + scope + " in AST_NEW_EXP");

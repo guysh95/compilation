@@ -58,21 +58,34 @@ public class TYPE_CLASS extends TYPE
 						return tvar;
 					}
 				}
-				/*if(name.equals(it.head.name)){
-					if(it.head.isVar()){
-						tvar = (TYPE_CLASS_VAR_DEC) it.head;
-						return tvar;
-					}  else {
-						System.out.println("#ERROR reached in searchinfathervar to something that is not var");
-						throw new lineException(Integer.toString(row));
-					}
-				}*/
+
 			}
 
 		}
 		//no var with same name in ancestors
 		return null;
 	}
+
+	public TYPE_ARRAY searchInFathersArr(String name, int row){
+		TYPE_ARRAY tarr = null;
+		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
+			System.out.println("checking in searchInFathersArr - father " + currFather.name);
+			for(TYPE_LIST it = father.data_members; it != null; it = it.tail){
+				if(it.head.isArray()){
+					tarr = (TYPE_ARRAY) it.head;
+					System.out.println("######found arr name: " + tarr.name);
+					if(name.equals(tarr.name)){
+						return tarr;
+					}
+				}
+
+			}
+
+		}
+		//no arr with same name in ancestors
+		return null;
+	}
+
 
 	/****************/
 	/* CTROR(S) ... */
