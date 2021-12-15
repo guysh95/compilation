@@ -143,7 +143,7 @@ public class AST_EXP_BINOP extends AST_EXP
 				}
 			}
 		}
-		System.out.print("unmatching types or undeclared string operation");
+		System.out.print("unmatching types or undeclared string operation\n");
 		throw new lineException(Integer.toString(this.row));
 	}
 }

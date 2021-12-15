@@ -95,6 +95,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		}
 
 		if (t1 != t2) {
+			System.out.println("t1 and t2 different types");
 			if (!((t1.isClass() || t1.isArray()) && t2 == TYPE_NIL.getInstance())) {
 
 				System.out.format(">> ERROR19 [%d:%d] type mismatch for var := exp\n",6,6);
@@ -102,6 +103,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 				//System.exit(0);
 			}
 		}
+		System.out.println("pita pita");
 		return t1;
 	}
 }
