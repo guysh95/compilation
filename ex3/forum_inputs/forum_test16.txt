@@ -1,0 +1,2 @@
+array A = int[];
+A a := new int[-3];

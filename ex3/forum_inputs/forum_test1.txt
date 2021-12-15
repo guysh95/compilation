@@ -1,0 +1,4 @@
+int foo := 0;
+void foo() {
+	PrintInt(foo);
+}

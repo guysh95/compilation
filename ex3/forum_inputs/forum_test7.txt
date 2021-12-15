@@ -1,0 +1,12 @@
+void foo(int a)
+{
+	int b;
+}
+
+class A
+{
+	int foo(int a)
+	{
+		return b;
+	}
+}

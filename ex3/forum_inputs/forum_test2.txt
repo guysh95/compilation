@@ -1,0 +1,4 @@
+class MyClass {
+	int bar;
+	void bar() {return;}
+}

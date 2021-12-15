@@ -1,0 +1,12 @@
+int foo(int a)
+{
+	int b;
+}
+
+class C
+{
+		int foo(int a)
+		{
+			int b;
+		}
+}

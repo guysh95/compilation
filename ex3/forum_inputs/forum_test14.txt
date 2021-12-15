@@ -1,0 +1,11 @@
+void foo(int x) 
+{
+	return;
+}
+
+
+class A
+{
+	int foo := 6;
+	foo(4);
+}

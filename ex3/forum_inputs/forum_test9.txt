@@ -1,0 +1,9 @@
+class A
+{
+	int A := 4;
+}
+
+class B
+{
+	int A := 4;
+}
