@@ -66,7 +66,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		TYPE t = null;
 		TYPE_CLASS tc = null;
 		TYPE_CLASS_VAR_DEC tvar = null;
-
+		TYPE_ARRAY tarr = null;
 
 		/******************************/
 		/* [1] Recursively semant var */
@@ -105,6 +105,27 @@ public class AST_VAR_FIELD extends AST_VAR
 					return tvar.t;
 				}
 			}
+			if(it.head.isArray()){
+				tarr = (TYPE_ARRAY) it.head;
+				System.out.println("casted class array");
+				System.out.println("checking the following data member from class:" +tarr.name);
+				System.out.println("fieldname is: "+ fieldName);
+				if (tarr.name.equals(fieldName))
+				{
+					System.out.println("found field in class " +tc.name);
+					return tarr.member_type;
+				}
+			}
+		}
+		tarr = tc.searchInFathersArr(fieldName, this.row);
+		if (tarr != null){
+			return tarr.member_type;
+
+		}
+
+		tvar = tc.searchInFathersVar(fieldName, this.row);
+		if(tvar != null){
+			return tvar.t;
 		}
 
 		/*********************************************/

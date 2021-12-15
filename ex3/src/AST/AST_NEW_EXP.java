@@ -69,7 +69,7 @@ public class AST_NEW_EXP extends AST_Node {
     public TYPE SemantMe(String scope) {
         TYPE t1 = null;
         TYPE t2 = null;
-
+        TYPE_ARRAY t3 = null;
         /****************************************/
         /* Check Type is in symbol table and isn't TYPE_VOID */
         /****************************************/

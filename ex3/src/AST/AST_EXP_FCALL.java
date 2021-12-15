@@ -116,9 +116,11 @@ public class AST_EXP_FCALL extends AST_EXP {
         TYPE t1 = null;
         TYPE_CLASS tc = null;
         TYPE t2 = null;
+        TYPE_FUNCTION tfunc = null;
         System.out.println("We are in AST_EXP_FCALL for " + fieldName);
         // only if we have caller
         if (caller != null){
+            System.out.println("caller exists for: "+ fieldName);
             t1 = caller.SemantMe(scope);
             if (t1.isClass() == false)
             {
@@ -128,15 +130,32 @@ public class AST_EXP_FCALL extends AST_EXP {
             } else {
                 tc = (TYPE_CLASS) t1;
             }
-            // check that fieldName in class scope
-            //TODO function might be in super class
-            for (TYPE_LIST it=tc.data_members;it != null;it=it.tail) {
-                if (it.head.name.equals(fieldName)) {
-                    t2 = it.head;
-                    break;
+            //check if func in class or its super classes
+            for (TYPE_LIST it=tc.data_members;it != null;it=it.tail)
+            {
+                System.out.println(it.head);
+                if(it.head.isFunction()){
+                    tfunc = (TYPE_FUNCTION) it.head;
+                    System.out.println("casted class func");
+                    System.out.println("checking the following data member from class:" +tfunc.name);
+                    System.out.println("fieldname is: "+ fieldName);
+                    if (tfunc.name.equals(fieldName))
+                    {
+                        System.out.println("found field in class " +tc.name);
+
+                        return tfunc.returnType;
+                    }
                 }
+
             }
-            if (t2 == null){
+            tfunc = tc.searchInFathersFunc(fieldName, this.row);
+            if (tfunc == null){
+                System.out.format(">> ERROR no %s field on the superclasses/class\n",fieldName);
+                throw new lineException(Integer.toString(this.row));
+
+            }
+
+            /*if (t2 == null){
                 System.out.format(">> ERROR no %s field on the scope\n",fieldName);
                 throw new lineException(Integer.toString(this.row));
                 //System.exit(0);
@@ -146,14 +165,25 @@ public class AST_EXP_FCALL extends AST_EXP {
                 System.out.format(">> ERROR provided explist although this is not a function");
                 throw new lineException(Integer.toString(this.row));
                 //System.exit(0);
-            }
-            if (explist != null){
-                //TODO check that arguments provided match function parameters
-                explist.SemantMe(scope);
+            }*/
+            if (explist != null) {
+                TYPE_LIST tparams = explist.getTypes(scope);
+                System.out.println("checking params for func call now");
+                if(!sameParams(tfunc.params, tparams)){
+                    System.out.format(">> ERROR params not matching in exp_fcall");
+                    throw new lineException(Integer.toString(this.row));
+                }
+            } else {
+                if (tfunc.params != null){
+                    System.out.format(">> ERROR params not matching in exp_fcall");
+                    throw new lineException(Integer.toString(this.row));
+                }
             }
 
-            return ((TYPE_FUNCTION) t2).returnType;
-        } else { // caller is null\
+            System.out.println("we have same params for func call!");
+            return tfunc.returnType;
+
+        } else { // caller is null
             System.out.println("Caller is null for " + fieldName);
             t2 = SYMBOL_TABLE.getInstance().find(fieldName);
             System.out.println("scope is " + scope);
@@ -163,15 +193,49 @@ public class AST_EXP_FCALL extends AST_EXP {
                 throw new lineException(Integer.toString(this.row));
                 //System.exit(0);
             }
-            if (explist != null){
-                System.out.println("We are checking arguments for " + fieldName);
-                //TODO check that arguments provided match function parameters
-                explist.SemantMe(scope);
+            tfunc = (TYPE_FUNCTION) t2;
+            if (explist != null) {
+
+                if(!sameParams(tfunc.params, explist.getTypes(scope))){
+                    System.out.format(">> ERROR params not matching in exp_fcall");
+                    throw new lineException(Integer.toString(this.row));
+                }
+            } else{
+                if (tfunc.params != null){
+                    System.out.format(">> ERROR params not matching in exp_fcall");
+                    throw new lineException(Integer.toString(this.row));
+                }
             }
-            return ((TYPE_FUNCTION) t2).returnType;
+
+            return tfunc.returnType;
         }
     }
 
-    //TODO add semantme(scope)
-    //consider functions scope and function arguments etc.
+
+    public boolean sameParams(TYPE_LIST funcParams, TYPE_LIST callerParams){
+        TYPE t1 = null;
+        TYPE t2 = null;
+
+        for(TYPE_LIST it= callerParams; it != null; it=it.tail){
+            System.out.println("started sameParams loop");
+            if (funcParams == null) {
+                System.out.print(">> ERROR in samefunc - no same amount of params");
+                return false;
+            }
+            t1 = funcParams.head;
+            t2 = it.head;
+            if(t1 != t2){
+                System.out.print(">> ERROR1 in samefunc - no same params types");
+                return false;
+            }
+            funcParams = funcParams.tail;
+        }
+        System.out.println("finished sameParams loop");
+        if (funcParams != null) { //still more params
+            return false;
+        }
+        //all checks passed
+
+        return true;
+    }
 }
