@@ -82,6 +82,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		TYPE_CLASS tc = null;
 		TYPE t2 = null;
 		TYPE_LIST texps = null;
+		TYPE_FUNCTION tfunc = null;
 
 		// only if we have var
 		// if var is not null this is a method call
@@ -101,10 +102,31 @@ public class AST_STMT_EXPLIST extends AST_STMT
 					t2 = it.head;
 				}
 			}
-			if (t2 == null){
-				System.out.format(">> ERROR no %s field on the scope\n",id);
-				throw new lineException(Integer.toString(this.row));
-				//System.exit(0);
+
+			if (t2 == null){ //not in same class
+				tfunc = tc.searchInFathersFunc(id, this.row);
+				if (tfunc == null){ // if it is not a function
+					System.out.format(">> ERROR id is not a function in AST_STMT_EXPLIST");
+					throw new lineException(Integer.toString(this.row));
+
+				} else { // if it is a function
+					if (exps != null){ //if there are exps
+						if(!sameParams(tfunc.params, exps.getTypes(scope))){
+							System.out.format(">> ERROR params not matching in exp_fcall");
+							throw new lineException(Integer.toString(this.row));
+						}
+					} else { // if there are no exps
+						if (tfunc.params != null){
+							System.out.format(">> ERROR no %s same amount of params for func\n",id);
+							throw new lineException(Integer.toString(this.row));
+						} else {
+							return tfunc.returnType;
+						}
+					}
+
+					return tfunc.returnType;
+				}
+				
 			}
 
 			if (! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")) {
@@ -205,5 +227,32 @@ public class AST_STMT_EXPLIST extends AST_STMT
 				throw new lineException(Integer.toString(this.row));
 			}
 		}
+	}
+
+	public boolean sameParams(TYPE_LIST funcParams, TYPE_LIST callerParams){
+		TYPE t1 = null;
+		TYPE t2 = null;
+
+		for(TYPE_LIST it= callerParams; it != null; it=it.tail){
+			System.out.println("started sameParams loop");
+			if (funcParams == null) {
+				System.out.print(">> ERROR in samefunc - no same amount of params");
+				return false;
+			}
+			t1 = funcParams.head;
+			t2 = it.head;
+			if(t1 != t2){
+				System.out.print(">> ERROR1 in samefunc - no same params types");
+				return false;
+			}
+			funcParams = funcParams.tail;
+		}
+		System.out.println("finished sameParams loop");
+		if (funcParams != null) { //still more params
+			return false;
+		}
+		//all checks passed
+
+		return true;
 	}
 }

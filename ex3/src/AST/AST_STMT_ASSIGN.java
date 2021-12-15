@@ -75,12 +75,12 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		if (exp != null) t2 = exp.SemantMe(scope);
 		System.out.println("finished t2 in STMT_ASSIGN, result " + t2);
 
-		if (t1 != t2)
-		{
-			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
-			throw new lineException(Integer.toString(this.row));
-			//System.exit(0);
-
+		if (t1 != t2) {
+			if (!((t1.isClass() || t1.isArray()) && t2 == TYPE_NIL.getInstance())) {
+				System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
+				throw new lineException(Integer.toString(this.row));
+				//System.exit(0);
+			}
 		}
 		return t1;
 	}
