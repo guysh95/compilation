@@ -54,7 +54,16 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	public TYPE SemantMe(String scope)
 	{
 		TYPE t = null;
-		t = SYMBOL_TABLE.getInstance().find(name);
+		t = SYMBOL_TABLE.getInstance().findInScope(name);
+		if (t == null) {
+			if (scope == null) {
+				t = SYMBOL_TABLE.getInstance().find(name);
+			}
+			else {
+				System.out.println("scope is " + scope);
+
+			}
+		}
 		if (t == null){
 			System.out.format(">> ERROR ID %s does not exists", name);
 			throw new lineException(Integer.toString(this.row));
