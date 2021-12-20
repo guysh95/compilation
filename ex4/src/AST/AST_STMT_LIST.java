@@ -126,5 +126,21 @@ public class AST_STMT_LIST extends AST_Node
 		this.expectedReturnType = returnType;
 		this.SemantMe(scope);
 	}
+
+	public TEMP IRme()
+	{
+		return null; //need to return temp list from here
+	}
+
+	public TEMP_LIST listIRme(){
+		TEMP t1 = head.IRme();
+		TEMP_LIST tlist = new TEMP_LIST(t1, null);
+
+		for(AST_EXPLIST curr = tail; curr != null; curr = curr.tail){
+			t1 = curr.head.IRme();
+			tlist = new TEMP_LIST(t1, tlist);
+		}
+		return tlist;
+	}
 	
 }

@@ -83,4 +83,14 @@ public class AST_STMT_RETURN extends AST_STMT
 		this.expectedReturnType = returnType;
 		return this.SemantMe(scope);
 	}
+
+	public TEMP IRme(){
+		TEMP t1 = null;
+		if (exp != null){
+			t1 = exp.IRme();
+		}
+		IR.getInstance().Add_IRcommand(new IRcommand_New_Array(t1));
+		return t1; // if no exp then t1 = null
+
+	}
 }
