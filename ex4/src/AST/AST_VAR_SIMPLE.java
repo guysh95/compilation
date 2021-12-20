@@ -89,4 +89,12 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		System.out.format(">> ERROR ID %s does not exists\n", name);
 		throw new lineException(Integer.toString(this.row));
 	}
+
+	public TEMP IRme()
+	{
+		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+		IR.getInstance().Add_IRcommand(new IRcommand_Load(t,name));
+		return t;
+	}
+
 }

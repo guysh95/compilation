@@ -64,4 +64,9 @@ public class AST_EXP_VAR extends AST_EXP
 		return null;
 	}
 
+	public TEMP IRme()
+	{
+		return var.IRme();
+	}
+
 }

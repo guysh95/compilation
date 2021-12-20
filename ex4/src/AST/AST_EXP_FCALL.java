@@ -206,4 +206,32 @@ public class AST_EXP_FCALL extends AST_EXP {
 
         return true;
     }
+
+    public TEMP IRme(){
+        TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
+        TEMP_LIST targs = null;
+        if(caller != null){             // calling method - virtual call
+            TEMP tcaller = caller.IRme();
+            if(explist != null){        //there are args for method
+                targs = explist.listIRme();
+                IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call(dest, tcaller, fieldName, targs));
+            } else {                    // there are no args for method
+                IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call(dest, tcaller, fieldName, null));
+            }
+        } else {                        // calling function
+            if(explist != null){        //there are args for function
+                targs = explist.listIRme();
+                IR.getInstance().Add_IRcommand(new IRcommand_Call(dest, fieldName, targs));
+            } else {                    // there are no args for function
+                IR.getInstance().Add_IRcommand(new IRcommand_Call(dest, fieldName, null));
+            }
+        }
+
+
+
+        TEMP t2 = var.IRme();
+        IR.getInstance().Add_IRcommand(new IRcommand_Field_Access(dest, t2, name));
+        return dest;
+    }
+
 }

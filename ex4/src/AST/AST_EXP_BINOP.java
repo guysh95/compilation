@@ -146,4 +146,60 @@ public class AST_EXP_BINOP extends AST_EXP
 		System.out.print("unmatching types or undeclared string operation\n");
 		throw new lineException(Integer.toString(this.row));
 	}
+
+	public TEMP IRme()
+	{
+		// TODO: need to think how to deal with strings (in mips phase)- maybe create another node for ast_exp_binop_string / with labels
+
+		TEMP t1 = null;
+		TEMP t2 = null;
+		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+
+		if (left  != null) t1 = left.IRme();
+		if (right != null) t2 = right.IRme();
+
+		if (OP == 0)
+		{
+			IR.
+					getInstance().
+					Add_IRcommand(new IRcommand_Binop_Add_Integers(dst,t1,t2));
+		}
+		if (OP == 1)
+		{
+			IR.
+					getInstance().
+					Add_IRcommand(new IRcommand_Binop_Sub_Integers(dst,t1,t2));
+		}
+		if (OP == 2)
+		{
+			IR.
+					getInstance().
+					Add_IRcommand(new IRcommand_Binop_Mul_Integers(dst,t1,t2));
+		}
+		if (OP == 3)
+		{
+			IR.
+					getInstance().
+					Add_IRcommand(new IRcommand_Binop_Divide_Integers(dst,t1,t2));
+		}
+		if (OP == 4)
+		{
+			IR.
+					getInstance().
+					Add_IRcommand(new IRcommand_Binop_LT_Integers(dst,t1,t2));
+		}
+		if (OP == 5)
+		{
+			IR.
+					getInstance().
+					Add_IRcommand(new IRcommand_Binop_GT_Integers(dst,t1,t2));
+		}
+		if (OP == 6)
+		{
+			IR.
+					getInstance().
+					Add_IRcommand(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
+		}
+		return dst;
+	}
 }

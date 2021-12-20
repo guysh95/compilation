@@ -51,4 +51,11 @@ public class AST_EXP_INT extends AST_EXP
 	public TYPE SemantMe(TYPE scope) {
 		return TYPE_INT.getInstance();
 	}
+
+	public TEMP IRme()
+	{
+		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+		IR.getInstance().Add_IRcommand(new IRcommandConstInt(t,value));
+		return t;
+	}
 }

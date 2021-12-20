@@ -94,4 +94,14 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 
 		return ta.member_type;
 	}
+
+	public TEMP IRme()
+	{
+		TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
+		TEMP t1 = var.IRme();
+		TEMP t2 = subscript.IRme();
+		IR.getInstance().Add_IRcommand(new IRcommand_Array_Access(dest, t1, t2));
+		return dest;
+	}
+
 }

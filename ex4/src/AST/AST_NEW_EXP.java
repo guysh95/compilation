@@ -118,4 +118,31 @@ public class AST_NEW_EXP extends AST_Node {
         }
 
     }
+
+    public TEMP IRme(){
+        return null; //not supposed to be use
+    }
+
+    public TEMP newIRme(){    // called from AST_VARDEC_NEW / AST_STMT_ASSIGN_NEW
+        if (e != null){ // new array
+            return newArrayIRme();
+        } else{         // new class
+            return newClassIRme();
+        }
+    }
+
+    public TEMP newClassIRme(){
+        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        AST_TYPE_SIMPLE classType = (AST_TYPE_SIMPLE) e;
+        String className = classType.type;
+        IR.getInstance().Add_IRcommand(new IRcommand_New_Class(t, className));
+        return t;
+    }
+
+    public TEMP newArrayIRme(){
+        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        TEMP t1 = e.IRme();
+        IR.getInstance().Add_IRcommand(new IRcommand_New_Array(t, t1));
+        return t;
+    }
 }

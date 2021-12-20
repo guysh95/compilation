@@ -137,4 +137,10 @@ public class AST_VARDEC_NEW extends AST_DEC
 		SYMBOL_TABLE.getInstance().enter(id, t1);
 		return t3;
 	}
+
+	public TEMP IRme(){
+
+		TEMP t = exp.newClassIRme();
+		return t;
+	}
 }

@@ -138,4 +138,13 @@ public class AST_VAR_FIELD extends AST_VAR
 		//System.exit(0);
 		//return null;
 	}
+
+	public TEMP IRme()
+	{
+		TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
+		TEMP t2 = var.IRme();
+		IR.getInstance().Add_IRcommand(new IRcommand_Field_Access(dest, t2, name));
+		return dest;
+	}
+
 }
