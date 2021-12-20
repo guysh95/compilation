@@ -63,4 +63,9 @@ public class AST_STMT_VARDEC extends AST_STMT {
         if (vd != null) return vd.SemantMe(scope);
         return null;
     }
+
+    public TEMP IRme(){
+        if (vd != null) return vd.IRme();
+        return null;
+    }
 }
