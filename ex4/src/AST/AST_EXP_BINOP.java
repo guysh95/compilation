@@ -150,7 +150,12 @@ public class AST_EXP_BINOP extends AST_EXP
 
 	public TEMP IRme()
 	{
-		// TODO: need to think how to deal with strings (in mips phase)- maybe create another node for ast_exp_binop_string / with labels
+		// we use semant me to get the type
+		TYPE s1 = null;
+		TYPE s2 = null;
+
+		if (left  != null) s1 = left.SemantMe(null);
+		if (right != null) s2 = right.SemantMe(null);
 
 		TEMP t1 = null;
 		TEMP t2 = null;
@@ -159,11 +164,14 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (left  != null) t1 = left.IRme();
 		if (right != null) t2 = right.IRme();
 
-		if (bOP == 0)
+		if (bOP == 0) //added option for string
 		{
-			IR.
-					getInstance().
-					Add_IRcommand(new IRcommand_Binop_Add_Integers(dst,t1,t2));
+			if((s1 == TYPE_INT.getInstance()) && (s2 == TYPE_INT.getInstance())){
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Add_Integers(dst,t1,t2));
+			} else {
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Add_Strings(dst,t1,t2));
+			}
+
 		}
 		if (bOP == 1)
 		{
@@ -197,9 +205,11 @@ public class AST_EXP_BINOP extends AST_EXP
 		}
 		if (bOP == 6)
 		{
-			IR.
-					getInstance().
-					Add_IRcommand(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
+			if((s1 == TYPE_INT.getInstance()) && (s2 == TYPE_INT.getInstance())){
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
+			} else {
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_EQ_Strings(dst,t1,t2));
+			}
 		}
 		return dst;
 	}
