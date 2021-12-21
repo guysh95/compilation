@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_STMT_IF extends AST_STMT
 {
@@ -101,5 +102,38 @@ public class AST_STMT_IF extends AST_STMT
 	public void SemantBodyMe(TYPE scope, TYPE returnType) {
 		this.expReturnType = returnType;
 		this.SemantMe(scope);
+	}
+
+	public TEMP IRme()
+	{
+		/*******************************/
+		/* [1] Allocate fresh label */
+		/*******************************/
+		String label_end   = IRcommand.getFreshLabel("end_if");
+
+		/********************/
+		/* [3] cond.IRme(); */
+		/********************/
+		TEMP cond_temp = cond.IRme();
+
+		/******************************************/
+		/* [4] Jump conditionally to the loop end */
+		/******************************************/
+		IR.getInstance().Add_IRcommand(new IRcommand_Jump_If_Not_Eq_To_Zero(cond_temp,label_end));
+
+		/*******************/
+		/* [5] body.IRme() */
+		/*******************/
+		body.listIRme();
+
+		/**********************/
+		/* [7] Loop end label */
+		/**********************/
+		IR.getInstance().Add_IRcommand(new IRcommand_Label(label_end));
+
+		/*******************/
+		/* [8] return null */
+		/*******************/
+		return null;
 	}
 }

@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_TYPE_SIMPLE extends AST_TYPE {
 
@@ -73,5 +74,10 @@ public class AST_TYPE_SIMPLE extends AST_TYPE {
         }
         System.out.format(">> ERROR2 [%d:%d] %s non existing type\n",2,2,type);
         throw new lineException(Integer.toString(this.row));
+    }
+
+    public TEMP IRme()
+    {
+        return null; //not supposed to reach here
     }
 }

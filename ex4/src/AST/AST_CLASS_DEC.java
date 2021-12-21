@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_CLASS_DEC extends AST_DEC {
 

@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_STMT_RETURN extends AST_STMT
 {
@@ -89,7 +90,7 @@ public class AST_STMT_RETURN extends AST_STMT
 		if (exp != null){
 			t1 = exp.IRme();
 		}
-		IR.getInstance().Add_IRcommand(new IRcommand_New_Array(t1));
+		IR.getInstance().Add_IRcommand(new IRcommand_Return(t1));
 		return t1; // if no exp then t1 = null
 
 	}

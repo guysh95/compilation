@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_STMT_WHILE extends AST_STMT
 {
@@ -99,4 +100,49 @@ public class AST_STMT_WHILE extends AST_STMT
 		this.expReturnType = returnType;
 		this.SemantMe(scope);
 	}
+
+	public TEMP IRme()
+	{
+		/*******************************/
+		/* [1] Allocate 2 fresh labels */
+		/*******************************/
+		String label_end   = IRcommand.getFreshLabel("end_while");
+		String label_start = IRcommand.getFreshLabel("start_while");
+
+		/*********************************/
+		/* [2] entry label for the while */
+		/*********************************/
+		IR.getInstance().Add_IRcommand(new IRcommand_Label(label_start));
+
+		/********************/
+		/* [3] cond.IRme(); */
+		/********************/
+		TEMP cond_temp = cond.IRme();
+
+		/******************************************/
+		/* [4] Jump conditionally to the loop end */
+		/******************************************/
+		IR.getInstance().Add_IRcommand(new IRcommand_Jump_If_Eq_To_Zero(cond_temp,label_end));
+
+		/*******************/
+		/* [5] body.IRme() */
+		/*******************/
+		body.listIRme();
+
+		/******************************/
+		/* [6] Jump to the loop entry */
+		/******************************/
+		IR.getInstance().Add_IRcommand(new IRcommand_Jump_Label(label_start));
+
+		/**********************/
+		/* [7] Loop end label */
+		/**********************/
+		IR.getInstance().Add_IRcommand(new IRcommand_Label(label_end));
+
+		/*******************/
+		/* [8] return null */
+		/*******************/
+		return null;
+	}
+
 }

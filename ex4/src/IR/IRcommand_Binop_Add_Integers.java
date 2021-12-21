@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR;
+package IR; import MIPS.*;
 
 /*******************/
 /* GENERAL IMPORTS */

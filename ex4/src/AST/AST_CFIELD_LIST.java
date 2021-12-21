@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_CFIELD_LIST extends AST_Node
 {
@@ -109,4 +110,18 @@ public class AST_CFIELD_LIST extends AST_Node
 		return allTypes;
 	}
 
+	public TEMP IRme()
+	{
+		return null; //need to return temp list from here
+	}
+
+	public TEMP_LIST listIRme(){
+		// no need to return anything - all stored, need only to IR all stmt
+		head.IRme();
+		for(AST_CFIELD_LIST curr = tail; curr != null; curr = curr.tail){
+			curr.head.IRme();
+			//tlist = new TEMP_LIST(t1, tlist);
+		}
+		return null;
+	}
 }

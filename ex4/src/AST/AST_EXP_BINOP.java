@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_EXP_BINOP extends AST_EXP
 {
@@ -158,43 +159,43 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (left  != null) t1 = left.IRme();
 		if (right != null) t2 = right.IRme();
 
-		if (OP == 0)
+		if (bOP == 0)
 		{
 			IR.
 					getInstance().
 					Add_IRcommand(new IRcommand_Binop_Add_Integers(dst,t1,t2));
 		}
-		if (OP == 1)
+		if (bOP == 1)
 		{
 			IR.
 					getInstance().
 					Add_IRcommand(new IRcommand_Binop_Sub_Integers(dst,t1,t2));
 		}
-		if (OP == 2)
+		if (bOP == 2)
 		{
 			IR.
 					getInstance().
 					Add_IRcommand(new IRcommand_Binop_Mul_Integers(dst,t1,t2));
 		}
-		if (OP == 3)
+		if (bOP == 3)
 		{
 			IR.
 					getInstance().
 					Add_IRcommand(new IRcommand_Binop_Divide_Integers(dst,t1,t2));
 		}
-		if (OP == 4)
+		if (bOP == 4)
 		{
 			IR.
 					getInstance().
 					Add_IRcommand(new IRcommand_Binop_LT_Integers(dst,t1,t2));
 		}
-		if (OP == 5)
+		if (bOP == 5)
 		{
 			IR.
 					getInstance().
 					Add_IRcommand(new IRcommand_Binop_GT_Integers(dst,t1,t2));
 		}
-		if (OP == 6)
+		if (bOP == 6)
 		{
 			IR.
 					getInstance().

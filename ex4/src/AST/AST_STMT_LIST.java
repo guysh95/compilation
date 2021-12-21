@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_STMT_LIST extends AST_Node
 {
@@ -136,7 +137,7 @@ public class AST_STMT_LIST extends AST_Node
 		TEMP t1 = head.IRme();
 		TEMP_LIST tlist = new TEMP_LIST(t1, null);
 
-		for(AST_EXPLIST curr = tail; curr != null; curr = curr.tail){
+		for(AST_STMT_LIST curr = tail; curr != null; curr = curr.tail){
 			t1 = curr.head.IRme();
 			tlist = new TEMP_LIST(t1, tlist);
 		}

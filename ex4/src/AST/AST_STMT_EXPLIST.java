@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_STMT_EXPLIST extends AST_STMT
 {
@@ -262,4 +263,29 @@ public class AST_STMT_EXPLIST extends AST_STMT
 
 		return true;
 	}
+
+	public TEMP IRme(){
+		TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
+		TEMP_LIST targs = null;
+		if (var != null) {	// this is virtual call - method
+			TEMP tvar = var.IRme();
+			if (exps != null) {		// there are args
+				targs = exps.listIRme();
+				IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call(tvar, id, targs));
+			} else {		// there are no args
+				IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call(tvar, id, null));
+			}
+		} else {			// this is a call - function
+			if(exps != null){        //there are args for function
+				targs = exps.listIRme();
+				IR.getInstance().Add_IRcommand(new IRcommand_Call(id, targs));
+			} else {                    // there are no args for function
+				IR.getInstance().Add_IRcommand(new IRcommand_Call(id, null));
+			}
+		}
+		// nothing to return because this is statement
+		return null;
+	}
 }
+
+

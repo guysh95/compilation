@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_FUNCDEC extends AST_DEC
 {
@@ -176,6 +177,15 @@ public class AST_FUNCDEC extends AST_DEC
 		return tfunc;
 
 	}
-	//TODO look at funcargs
-	// cant be in the same scope
+
+	public TEMP IRme()
+	{
+		IR.getInstance().Add_IRcommand(new IRcommand_Label(id));
+		// no need to IRme func args - because we checked in semant me that
+		// the declare and call have the same params - so when we use IRcommand_Call
+		// we use the registers that provided there
+		if (sl != null) sl.IRme();
+
+		return null;
+	}
 }

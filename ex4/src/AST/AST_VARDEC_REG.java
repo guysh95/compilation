@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_VARDEC_REG extends AST_DEC
 {
@@ -100,5 +101,12 @@ public class AST_VARDEC_REG extends AST_DEC
 		/* [4] Return value is irrelevant for class declarations */
 		/*********************************************************/
 		return t3;
+	}
+
+	public TEMP IRme()
+	{
+		IR.getInstance().Add_IRcommand(new IRcommand_Allocate(id));
+
+		return null;
 	}
 }

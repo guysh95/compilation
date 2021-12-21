@@ -13,15 +13,15 @@ package IR; import MIPS.*;
 import TEMP.*;
 import MIPS.*;
 
-public class IRcommand_New_Array extends IRcommand
+public class IRcommand_Jump_If_Not_Eq_To_Zero extends IRcommand
 {
-    TEMP dest;
-    TEMP t1;
+    TEMP t;
+    String label_name;
 
-    public IRcommand_New_Array(TEMP dest, TEMP t1)
+    public IRcommand_Jump_If_Not_Eq_To_Zero(TEMP t, String label_name)
     {
-        this.dest     = dest;
-        this.t1       = t1;
+        this.t          = t;
+        this.label_name = label_name;
     }
 
     /***************/
@@ -29,7 +29,7 @@ public class IRcommand_New_Array extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: create mips command for this
-        //MIPSGenerator.getInstance().store(var_name,src);
+        // todo: add mips command
+        
     }
 }

@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_CFIELD_FUNC extends AST_CFIELD
 {
@@ -113,6 +114,12 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 		}
 		//all checks passed
 		return true;
+	}
+
+	public TEMP IRme(){
+		v.IRme();
+		// stores the results
+		return null;
 	}
 
 }

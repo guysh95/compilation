@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_TYPE_STRING extends AST_TYPE {
 
@@ -34,5 +35,10 @@ public class AST_TYPE_STRING extends AST_TYPE {
 
     public TYPE SemantMe(TYPE scope) {
         return TYPE_STRING.getInstance();
+    }
+
+    public TEMP IRme()
+    {
+        return null; //not supposed to reach here
     }
 }

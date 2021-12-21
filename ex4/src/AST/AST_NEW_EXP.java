@@ -2,6 +2,8 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_NEW_EXP extends AST_Node {
 
@@ -133,7 +135,7 @@ public class AST_NEW_EXP extends AST_Node {
 
     public TEMP newClassIRme(){
         TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
-        AST_TYPE_SIMPLE classType = (AST_TYPE_SIMPLE) e;
+        AST_TYPE_SIMPLE classType = (AST_TYPE_SIMPLE) new_name;
         String className = classType.type;
         IR.getInstance().Add_IRcommand(new IRcommand_New_Class(t, className));
         return t;

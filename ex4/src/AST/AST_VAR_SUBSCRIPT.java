@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_VAR_SUBSCRIPT extends AST_VAR
 {
@@ -104,4 +105,11 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		return dest;
 	}
 
+	public TEMP assignIRme(TEMP texp){
+		TEMP t1 = var.IRme();
+		TEMP t2 = subscript.IRme();
+		IR.getInstance().Add_IRcommand(new IRcommand_Array_Set(t1, t2, texp));
+		// no need to return anything because we assign it - and finish with store
+		return null;
+	}
 }

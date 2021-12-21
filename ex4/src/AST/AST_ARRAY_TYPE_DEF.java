@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_ARRAY_TYPE_DEF extends AST_DEC {
     public AST_TYPE type;
@@ -91,5 +92,10 @@ public class AST_ARRAY_TYPE_DEF extends AST_DEC {
         /************************************************/
         SYMBOL_TABLE.getInstance().enter(arrayName, ta);
         return ta;
+    }
+
+    public TEMP IRme()
+    {
+        return null; //not supposed to reach here
     }
 }

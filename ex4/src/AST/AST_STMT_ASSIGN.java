@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_STMT_ASSIGN extends AST_STMT
 {
@@ -104,6 +105,14 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		}
 		System.out.println("pita pita");
 		return t1;
+	}
+
+	public TEMP IRme(){
+		TEMP t1 = exp.IRme();
+		TEMP t2 = var.assignIRme(t1);
+		// nothing to return because we store the result (in assignIRme we set the result
+		// to field, array or store it for reg var
+		return null;
 	}
 
 }

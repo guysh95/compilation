@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_VAR_FIELD extends AST_VAR
 {
@@ -143,8 +144,15 @@ public class AST_VAR_FIELD extends AST_VAR
 	{
 		TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
 		TEMP t2 = var.IRme();
-		IR.getInstance().Add_IRcommand(new IRcommand_Field_Access(dest, t2, name));
+		IR.getInstance().Add_IRcommand(new IRcommand_Field_Access(dest, t2, fieldName));
 		return dest;
+	}
+
+	public TEMP assignIRme(TEMP texp){
+		TEMP t2 = var.IRme();
+		IR.getInstance().Add_IRcommand(new IRcommand_Field_Set(t2, fieldName, texp));
+		// I think it does not return anything because we assign it - and finish with store
+		return null;
 	}
 
 }

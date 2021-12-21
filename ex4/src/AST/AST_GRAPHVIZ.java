@@ -2,6 +2,7 @@ package AST;
 
 import java.io.*;
 import java.io.PrintWriter;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_GRAPHVIZ
 {

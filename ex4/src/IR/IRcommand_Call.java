@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR;
+package IR; import MIPS.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -15,13 +15,11 @@ import MIPS.*;
 
 public class IRcommand_Call extends IRcommand
 {
-    TEMP dest;
     String funcName;
     TEMP_LIST args = null;
 
-    public IRcommand_Call(TEMP dest, String funcName, TEMP_LIST args)
+    public IRcommand_Call(String funcName, TEMP_LIST args)
     {
-        this.dest = dest;
         this.funcName = funcName;
         this.args = args;
     }

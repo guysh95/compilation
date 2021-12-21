@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR;
+package IR; import MIPS.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -53,7 +53,7 @@ public class IRcommand_Binop_EQ_Integers extends IRcommand
 		/*                      */
 		/************************/
 		MIPSGenerator.getInstance().label(label_AssignOne);
-		MIPSGenerator.getInstance().li(dst,1);
+		MIPSGenerator.getInstance().liInt(dst,1);
 		MIPSGenerator.getInstance().jump(label_end);
 
 		/*************************/
@@ -64,7 +64,7 @@ public class IRcommand_Binop_EQ_Integers extends IRcommand
 		/*                       */
 		/*************************/
 		MIPSGenerator.getInstance().label(label_AssignZero);
-		MIPSGenerator.getInstance().li(dst,0);
+		MIPSGenerator.getInstance().liInt(dst,0);
 		MIPSGenerator.getInstance().jump(label_end);
 
 		/******************/

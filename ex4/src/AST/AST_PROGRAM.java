@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_PROGRAM extends AST_Node{
 
@@ -64,6 +65,16 @@ public class AST_PROGRAM extends AST_Node{
         if (tail != null) tail.SemantMe(scope);
         System.out.println("now we semnat program");
 
+        return null;
+    }
+
+    public TEMP IRme(){
+        // no need to return anything - all stored, need only to IR all decs
+        head.IRme();
+        for(AST_PROGRAM curr = tail; curr != null; curr = curr.tail){
+            curr.head.IRme();
+            //tlist = new TEMP_LIST(t1, tlist);
+        }
         return null;
     }
 }

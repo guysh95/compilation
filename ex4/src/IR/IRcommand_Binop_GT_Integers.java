@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR;
+package IR; import MIPS.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -19,7 +19,7 @@ public class IRcommand_Binop_GT_Integers extends IRcommand
     public TEMP t2;
     public TEMP dst;
 
-    public IRcommand_Binop_L=GT_Integers(TEMP dst,TEMP t1,TEMP t2)
+    public IRcommand_Binop_GT_Integers(TEMP dst,TEMP t1,TEMP t2)
     {
         this.dst = dst;
         this.t1 = t1;
@@ -55,7 +55,7 @@ public class IRcommand_Binop_GT_Integers extends IRcommand
         /*                      */
         /************************/
         MIPSGenerator.getInstance().label(label_AssignOne);
-        MIPSGenerator.getInstance().li(dst,1);
+        MIPSGenerator.getInstance().liInt(dst,1);
         MIPSGenerator.getInstance().jump(label_end);
 
         /*************************/
@@ -66,7 +66,7 @@ public class IRcommand_Binop_GT_Integers extends IRcommand
         /*                       */
         /*************************/
         MIPSGenerator.getInstance().label(label_AssignZero);
-        MIPSGenerator.getInstance().li(dst,0);
+        MIPSGenerator.getInstance().liInt(dst,0);
         MIPSGenerator.getInstance().jump(label_end);
 
         /******************/

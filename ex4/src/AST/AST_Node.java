@@ -1,5 +1,6 @@
 package AST;
 import TYPES.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 
 public abstract class AST_Node
@@ -24,5 +25,9 @@ public abstract class AST_Node
 	{
 		System.out.print("AST TYPE (semantme) UNKNOWN\n");
 		return null;
+	}
+	public TEMP IRme()
+	{
+		return null; //not supposed to reach here
 	}
 }

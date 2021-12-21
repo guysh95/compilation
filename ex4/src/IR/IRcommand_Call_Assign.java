@@ -13,16 +13,16 @@ package IR; import MIPS.*;
 import TEMP.*;
 import MIPS.*;
 
-public class IRcommand_Virtual_Call extends IRcommand
+public class IRcommand_Call_Assign extends IRcommand
 {
-    TEMP var;
-    String methodName;
+    TEMP dest;
+    String funcName;
     TEMP_LIST args = null;
 
-    public IRcommand_Virtual_Call(TEMP var, String methodName, TEMP_LIST args)
+    public IRcommand_Call_Assign(TEMP dest, String funcName, TEMP_LIST args)
     {
-        this.var = var;
-        this.methodName = methodName;
+        this.dest = dest;
+        this.funcName = funcName;
         this.args = args;
     }
 
@@ -31,7 +31,7 @@ public class IRcommand_Virtual_Call extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: create mips command for virtual calls
+        // todo: create mips command for function calls
         // MIPSGenerator.getInstance().print_int(t);
     }
 }

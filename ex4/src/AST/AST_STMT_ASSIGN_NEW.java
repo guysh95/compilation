@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_STMT_ASSIGN_NEW extends AST_STMT
 {
@@ -133,7 +134,7 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 
 	public TEMP IRme(){
 
-		TEMP t = exp.newClassIRme();
+		TEMP t = exp.newIRme();
 		return t;
 	}
 }

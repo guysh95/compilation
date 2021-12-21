@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_VARDEC_ASSIGN extends AST_DEC
 {
@@ -110,5 +111,13 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, name);
 		return t3;
 
+	}
+
+	public TEMP IRme(){
+
+		TEMP t = exp.IRme();
+		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, t));
+		// storing result
+		return null;
 	}
 }

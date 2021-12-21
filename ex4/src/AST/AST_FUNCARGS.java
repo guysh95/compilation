@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import SYMBOL_TABLE.*;
+import TEMP.*; import IR.*; import MIPS.*;
 
 public class AST_FUNCARGS extends AST_Node
 {
@@ -108,5 +109,9 @@ public class AST_FUNCARGS extends AST_Node
 		return allTypes;
 	}
 
+	public TEMP IRme()
+	{
+		return null; //not supposed to reach here
+	}
 
 }
