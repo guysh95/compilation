@@ -30,15 +30,23 @@ public class MIPSGenerator
 		fileWriter.print("\tsyscall\n");
 		fileWriter.close();
 	}
+	// maybe need to consider option of argument being a constant
 	public void print_int(TEMP t)
 	{
 		int idx=t.getSerialNumber();
-		// fileWriter.format("\taddi $a0,Temp_%d,0\n",idx);
 		fileWriter.format("\tmove $a0,Temp_%d\n",idx);
 		fileWriter.format("\tli $v0,1\n");
 		fileWriter.format("\tsyscall\n");
 		fileWriter.format("\tli $a0,32\n");
 		fileWriter.format("\tli $v0,11\n");
+		fileWriter.format("\tsyscall\n");
+	}
+	// maybe need to consider option of argument being a constant
+	public void print_string(TEMP t)
+	{
+		int idx=t.getSerialNumber();
+		fileWriter.format("\tmove $a0,Temp_%d\n",idx);
+		fileWriter.format("\tli $v0,4\n");
 		fileWriter.format("\tsyscall\n");
 	}
 	//public TEMP addressLocalVar(int serialLocalVarNum)
@@ -50,6 +58,26 @@ public class MIPSGenerator
 	//	
 	//	return t;
 	//}
+
+	public void functionProlog(int localCount)
+	{
+		int localSpace = localCount * 4;
+		if (localSpace < 16) localSpace = 16;
+		fileWriter.format("\tsubu $sp,$sp,4\n");
+		fileWriter.format("\tsw $ra,0($sp)\n");
+		fileWriter.format("\tsubu $sp,$sp,4\n");
+		fileWriter.format("\tsw $fp,0($sp)\n");
+		fileWriter.format("\tmove $fp,$sp\n");
+		fileWriter.format("\tsub $sp,$sp,%d\n", localSpace);
+	}
+
+	public void functionEpilogue() {
+		fileWriter.format("\tmove $sp,$fp\n");
+		fileWriter.format("\tlw $fp,0($sp)\n");
+		fileWriter.format("\tlw $ra,4($sp)\n");
+		fileWriter.format("\taddu $sp,$sp,8\n");
+		fileWriter.format("\tjr $ra\n");
+	}
 	public void allocate(String var_name)
 	{
 		fileWriter.format(".data\n");
@@ -57,11 +85,13 @@ public class MIPSGenerator
 	}
 	public void load(TEMP dst,String var_name)
 	{
+		//TODO add all cases of write commands as shown in tirgul 10 page 7
 		int idxdst=dst.getSerialNumber();
 		fileWriter.format("\tlw Temp_%d,global_%s\n",idxdst,var_name);
 	}
 	public void store(String var_name,TEMP src)
 	{
+		//TODO add all cases of load commands as shown in tirgul 10 page 8
 		int idxsrc=src.getSerialNumber();
 		fileWriter.format("\tsw Temp_%d,global_%s\n",idxsrc,var_name);		
 	}
@@ -73,10 +103,12 @@ public class MIPSGenerator
 	public void liString(TEMP t,String value)
 	{
 		int idx=t.getSerialNumber();
-		fileWriter.format("\tli Temp_%d,%d\n",idx,value);
+		//Maybe need to add asciiz for null terminator in end of string
+		fileWriter.format("\tli Temp_%d,%s\n",idx,value);
 	}
 	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
+		//Might need more "add function" when one of oprnds or both are constant
 		int i1 =oprnd1.getSerialNumber();
 		int i2 =oprnd2.getSerialNumber();
 		int dstidx=dst.getSerialNumber();
@@ -85,6 +117,7 @@ public class MIPSGenerator
 	}
 	public void mul(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
+		//Might need more "mul function" when one of oprnds or both are constant
 		int i1 =oprnd1.getSerialNumber();
 		int i2 =oprnd2.getSerialNumber();
 		int dstidx=dst.getSerialNumber();
@@ -106,7 +139,9 @@ public class MIPSGenerator
 	public void jump(String inlabel)
 	{
 		fileWriter.format("\tj %s\n",inlabel);
-	}	
+	}
+	//TODO for all branch function need to add option for oprnds to be constants
+	//MIGHT need to replace bge with bgt
 	public void blt(TEMP oprnd1,TEMP oprnd2,String label)
 	{
 		int i1 =oprnd1.getSerialNumber();
