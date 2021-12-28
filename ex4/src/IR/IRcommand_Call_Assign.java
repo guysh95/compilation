@@ -33,5 +33,7 @@ public class IRcommand_Call_Assign extends IRcommand
     {
         // todo: create mips command for function calls
         // MIPSGenerator.getInstance().print_int(t);
+        MIPSGenerator.getInstance().callFunc(funcName, args, dest);
+
     }
 }

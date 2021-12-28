@@ -102,7 +102,7 @@ public class MIPSGenerator
 		fileWriter.format("\tjr $ra\n");
 	}
 
-	public void callFunc(String funcName, TEMP_LIST tlist) {
+	public void callFunc(String funcName, TEMP_LIST tlist, TEMP dst) {
 		tlist = reverseTempList(tlist);
 		int counter = 0;
 		int idxprm;
@@ -115,6 +115,10 @@ public class MIPSGenerator
 		}
 		fileWriter.format("\tjal %s\n", funcName);
 		fileWriter.format("\taddu $sp,$sp,%d\n", counter*4);
+		if(dst != null) {
+			int dstidx = dst.getSerialNumber();
+			fileWriter.format("\tmove Temp_%d,$v0\n", dstidx);
+		}
 	}
 
 	public void reverseTempList(TEMP_LIST tlist) {
@@ -177,132 +181,40 @@ public class MIPSGenerator
 		label(end2);
 	}
 
-	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2, Integer cnst1, Integer cnst2)
+	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
-		// Assumming that when both are constant we optimize it in MIPSme()
-		int val1;
-		int val2;
-		int i1;
-		int i2;
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
 		int dstidx = dst.getSerialNumber();
-		if ((cnst1 == null && oprnd1 == null) || (cnst2 == null && oprnd2 == null)) {
-			System.out.println("Error in MIPS add function");
-			exit(1);
-		}
-		if (oprnd1 == null) {
-			// first oprnd is constant: 3 + x
-			val1 = cnst1.intValue();
-			i2 = oprnd2.getSerialNumber();
-			fileWriter.format("\tadd Temp_%d,%d,Temp_%d\n",dstidx,val1,i2);
-		}
-		else if (oprnd2 == null) {
-			// second operand is constant: x + 3
-			val2 = cnst1.intValue();
-			i1 = oprnd2.getSerialNumber();
-			fileWriter.format("\tadd Temp_%d,Temp_%d,%d\n",dstidx,i1,val2);
-		}
-		else {
-			// none is constant: x + y
-			i1 =oprnd1.getSerialNumber();
-			i2 =oprnd2.getSerialNumber();
-			fileWriter.format("\tadd Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
-		}
+		fileWriter.format("\tadd Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 		binopCheckup(dstidx);
 	}
 
 
-	public void mul(TEMP dst,TEMP oprnd1,TEMP oprnd2, Integer cnst1, Integer cnst2)
+	public void mul(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
-		// Assumming that when both are constant we optimize it in MIPSme()
-		int val1;
-		int val2;
-		int i1;
-		int i2;
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
 		int dstidx = dst.getSerialNumber();
-		if ((cnst1 == null && oprnd1 == null) || (cnst2 == null && oprnd2 == null)) {
-			System.out.println("Error in MIPS mul function");
-			exit(1);
-		}
-		if (oprnd1 == null) {
-			// first oprnd is constant: 3 * x
-			val1 = cnst1.intValue();
-			i2 = oprnd2.getSerialNumber();
-			fileWriter.format("\tmul Temp_%d,%d,Temp_%d\n",dstidx,val1,i2);
-		}
-		else if (oprnd2 == null) {
-			// second operand is constant: x * 3
-			val2 = cnst1.intValue();
-			i1 = oprnd2.getSerialNumber();
-			fileWriter.format("\tmul Temp_%d,Temp_%d,%d\n",dstidx,i1,val2);
-		}
-		else {
-			// none is constant: x * y
-			i1 =oprnd1.getSerialNumber();
-			i2 =oprnd2.getSerialNumber();
-			fileWriter.format("\tmul Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
-		}
+		fileWriter.format("\tmul Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 		binopCheckup(dstidx);
 	}
 
-	public void sub(TEMP dst,TEMP oprnd1,TEMP oprnd2, Integer cnst1, Integer cnst2)
+	public void sub(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
-		// Assumming that when both are constant we optimize it in MIPSme()
-		int val1;
-		int val2;
-		int i1;
-		int i2;
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
 		int dstidx = dst.getSerialNumber();
-		if ((cnst1 == null && oprnd1 == null) || (cnst2 == null && oprnd2 == null)) {
-			System.out.println("Error in MIPS sub function");
-			exit(1);
-		}
-		if (oprnd1 == null) {
-			// first oprnd is constant: 3 - x
-			val1 = cnst1.intValue();
-			i2 = oprnd2.getSerialNumber();
-			fileWriter.format("\tsub Temp_%d,%d,Temp_%d\n",dstidx,val1,i2);
-		}
-		else if (oprnd2 == null) {
-			// second operand is constant: x - 3
-			val2 = cnst1.intValue();
-			i1 = oprnd2.getSerialNumber();
-			fileWriter.format("\tsub Temp_%d,Temp_%d,%d\n",dstidx,i1,val2);
-		}
-		else {
-			// none is constant: x - y
-			i1 =oprnd1.getSerialNumber();
-			i2 =oprnd2.getSerialNumber();
-			fileWriter.format("\tsub Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
-		}
+		fileWriter.format("\tsub Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 		binopCheckup(dstidx);
 	}
 
-	public void div(TEMP dst,TEMP oprnd1,TEMP oprnd2, Integer cnst1, Integer cnst2)
+	public void div(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
-		// Assumming that when both are constant we optimize it in MIPSme()
-		int val1;
-		int val2;
-		int i1;
-		int i2;
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
 		int dstidx = dst.getSerialNumber();
-		if (oprnd1 == null) {
-			// first oprnd is constant: 3 / x
-			val1 = cnst1.intValue();
-			i2 = oprnd2.getSerialNumber();
-			fileWriter.format("\tdiv Temp_%d,%d,Temp_%d\n",dstidx,val1,i2);
-		}
-		else if (oprnd2 == null) {
-			// second operand is constant: x / 3
-			val2 = cnst1.intValue();
-			i1 = oprnd2.getSerialNumber();
-			fileWriter.format("\tdiv Temp_%d,Temp_%d,%d\n",dstidx,i1,val2);
-		}
-		else {
-			// none is constant: x / y
-			i1 =oprnd1.getSerialNumber();
-			i2 =oprnd2.getSerialNumber();
-			fileWriter.format("\tdiv Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
-		}
+		fileWriter.format("\tdiv Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 		binopCheckup(dstidx);
 	}
 
@@ -322,21 +234,24 @@ public class MIPSGenerator
 	{
 		fileWriter.format("\tj %s\n",inlabel);
 	}
-	//TODO for all branch function need to add option for oprnds to be constants
 	//MIGHT need to replace bge with bgt
 	public void blt(TEMP oprnd1,TEMP oprnd2,String label)
 	{
 		int i1 =oprnd1.getSerialNumber();
 		int i2 =oprnd2.getSerialNumber();
-		
 		fileWriter.format("\tblt Temp_%d,Temp_%d,%s\n",i1,i2,label);				
 	}
 	public void bge(TEMP oprnd1,TEMP oprnd2,String label)
 	{
 		int i1 =oprnd1.getSerialNumber();
 		int i2 =oprnd2.getSerialNumber();
-		
 		fileWriter.format("\tbge Temp_%d,Temp_%d,%s\n",i1,i2,label);				
+	}
+	public void bgt(TEMP oprnd1,TEMP oprnd2,String label)
+	{
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+		fileWriter.format("\tbgt Temp_%d,Temp_%d,%s\n",i1,i2,label);
 	}
 	public void bne(TEMP oprnd1,TEMP oprnd2,String label)
 	{
@@ -357,6 +272,14 @@ public class MIPSGenerator
 		int i1 =oprnd1.getSerialNumber();
 				
 		fileWriter.format("\tbeq Temp_%d,$zero,%s\n",i1,label);				
+	}
+
+	public void return(TEMP t, String funcName)
+	{
+		// Might need to change consider epilogue name for method/function
+		int i1 = oprnd1.getSerialNumber();
+		fileWriter.format("\tmove $v0,Temp_%d\n",i1);
+		fileWriter.format("\tj %s_epilogue\n",funcName);
 	}
 	
 	/**************************************/
