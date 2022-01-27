@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR; import MIPS.*;
+package IR; import MIPS.*; import java.util.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -23,7 +23,17 @@ public class IRcommand_Jump_If_Eq_To_Zero extends IRcommand
 		this.t          = t;
 		this.label_name = label_name;
 	}
-	
+
+	public Set<Integer> getLiveTemps(){
+		Set<Integer> result = new HashSet<Integer>();
+		result.add(t.getSerialNumber());
+		return result;
+	}
+
+	public Set<Integer> getDeadTemps(){
+		return null;
+	}
+
 	/***************/
 	/* MIPS me !!! */
 	/***************/

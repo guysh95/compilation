@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR; import MIPS.*;
+package IR; import MIPS.*; import java.util.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -24,6 +24,21 @@ public class IRcommand_Call_Assign extends IRcommand
         this.dest = dest;
         this.funcName = funcName;
         this.args = args;
+    }
+
+    public Set<Integer> getLiveTemps(){
+        Set<Integer> result = new HashSet<Integer>();
+        for(TEMP_LIST tlist=args; tlist.tail!=null; tlist=tlist.tail){
+            TEMP arg = tlist.head;
+            result.add(arg.getSerialNumber());
+        }
+        return result;
+    }
+
+    public Set<Integer> getDeadTemps(){
+        Set<Integer> result = new HashSet<Integer>();
+        result.add(dest.getSerialNumber());
+        return result;
     }
 
     /***************/

@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR; import MIPS.*;
+package IR; import MIPS.*; import java.util.*;
 
 /*******************/
 /* GENERAL IMPORTS */

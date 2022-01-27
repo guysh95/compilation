@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR; import MIPS.*;
+package IR; import MIPS.*; import java.util.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -25,6 +25,20 @@ public class IRcommand_Binop_Add_Integers extends IRcommand
 		this.t1 = t1;
 		this.t2 = t2;
 	}
+
+	public Set<Integer> getLiveTemps(){
+		Set<Integer> result = new HashSet<Integer>();
+		result.add(t1.getSerialNumber());
+		result.add(t2.getSerialNumber());
+		return result;
+	}
+
+	public Set<Integer> getDeadTemps(){
+		Set<Integer> result = new HashSet<Integer>();
+		result.add(dst.getSerialNumber());
+		return result;
+	}
+
 	/***************/
 	/* MIPS me !!! */
 	/***************/

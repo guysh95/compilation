@@ -5,6 +5,8 @@ import java_cup.runtime.Symbol;
 import AST.*;
 import IR.*;
 import MIPS.*;
+import REG_ALLOC.*;
+
 
 public class Main
 {

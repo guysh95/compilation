@@ -3,6 +3,7 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 import TEMP.*; import IR.*; import MIPS.*;
+import REG_ALLOC.*;
 
 public class AST_STMT_IF extends AST_STMT
 {
@@ -121,6 +122,8 @@ public class AST_STMT_IF extends AST_STMT
 		/******************************************/
 		IR.getInstance().Add_IRcommand(new IRcommand_Jump_If_Not_Eq_To_Zero(cond_temp,label_end));
 
+		CFG_node node1 = CFG.getInstance().getCFGTail(); //supposed to get the node for the jump command
+
 		/*******************/
 		/* [5] body.IRme() */
 		/*******************/
@@ -131,6 +134,10 @@ public class AST_STMT_IF extends AST_STMT
 		/**********************/
 		IR.getInstance().Add_IRcommand(new IRcommand_Label(label_end));
 
+		CFG_node node2 = CFG.getInstance().getCFGTail(); //supposed to get the node for the label command
+		// add to the nodes the jump values
+		node1.jumpTo = node2;
+		node2.jumpFrom = node1;
 		/*******************/
 		/* [8] return null */
 		/*******************/

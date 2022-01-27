@@ -5,8 +5,8 @@ package TEMP;
 
 public class TEMP_LIST
 {
-    TEMP head;
-    TEMP_LIST tail;
+    public TEMP head;
+    public TEMP_LIST tail;
 
     public TEMP_LIST(TEMP head, TEMP_LIST tail)
     {

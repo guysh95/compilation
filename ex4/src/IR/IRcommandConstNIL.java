@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR; import MIPS.*;
+package IR; import MIPS.*; import java.util.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -22,6 +22,16 @@ public class IRcommandConstNIL extends IRcommand
     {
         this.t = t;
         this.value = "NIL";
+    }
+
+    public Set<Integer> getLiveTemps(){
+        return null;
+    }
+
+    public Set<Integer> getDeadTemps(){
+        Set<Integer> result = new HashSet<Integer>();
+        result.add(t.getSerialNumber());
+        return result;
     }
 
     /***************/

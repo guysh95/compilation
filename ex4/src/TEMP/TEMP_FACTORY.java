@@ -19,7 +19,9 @@ public class TEMP_FACTORY
 	{
 		return new TEMP(counter++);
 	}
-	
+
+	// new func to be used when creating the IG
+	public int getNumTemps() { return counter; }
 	/**************************************/
 	/* USUAL SINGLETON IMPLEMENTATION ... */
 	/**************************************/

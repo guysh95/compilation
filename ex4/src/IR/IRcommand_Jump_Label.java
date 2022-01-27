@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR; import MIPS.*;
+package IR; import MIPS.*; import java.util.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -21,7 +21,15 @@ public class IRcommand_Jump_Label extends IRcommand
 	{
 		this.label_name = label_name;
 	}
-	
+
+	public Set<Integer> getLiveTemps(){
+		return null;
+	}
+
+	public Set<Integer> getDeadTemps(){
+		return null;
+	}
+
 	/***************/
 	/* MIPS me !!! */
 	/***************/

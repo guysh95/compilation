@@ -3,6 +3,7 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 import TEMP.*; import IR.*; import MIPS.*;
+import REG_ALLOC.*;
 
 public class AST_STMT_WHILE extends AST_STMT
 {
@@ -114,6 +115,8 @@ public class AST_STMT_WHILE extends AST_STMT
 		/*********************************/
 		IR.getInstance().Add_IRcommand(new IRcommand_Label(label_start));
 
+		CFG_node node_start_label = CFG.getInstance().getCFGTail(); //supposed to get the node for the jump command
+
 		/********************/
 		/* [3] cond.IRme(); */
 		/********************/
@@ -123,6 +126,8 @@ public class AST_STMT_WHILE extends AST_STMT
 		/* [4] Jump conditionally to the loop end */
 		/******************************************/
 		IR.getInstance().Add_IRcommand(new IRcommand_Jump_If_Eq_To_Zero(cond_temp,label_end));
+
+		CFG_node node_jump_end = CFG.getInstance().getCFGTail(); //supposed to get the node for the jump command
 
 		/*******************/
 		/* [5] body.IRme() */
@@ -134,10 +139,22 @@ public class AST_STMT_WHILE extends AST_STMT
 		/******************************/
 		IR.getInstance().Add_IRcommand(new IRcommand_Jump_Label(label_start));
 
+		CFG_node node_jump_start = CFG.getInstance().getCFGTail(); //supposed to get the node for the jump command
+
+		node_start_label.jumpFrom = node_jump_start;
 		/**********************/
 		/* [7] Loop end label */
 		/**********************/
 		IR.getInstance().Add_IRcommand(new IRcommand_Label(label_end));
+
+		CFG_node node_end_label = CFG.getInstance().getCFGTail(); //supposed to get the node for the jump command
+		node_jump_end.jumpTo = node_end_label;
+		node_end_label.prev = node_jump_end; // fix prev of end label to be from to conditional jump
+
+		node_jump_start.next = node_start_label; //fix next from jump to be to start label
+
+
+
 
 		/*******************/
 		/* [8] return null */

@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR; import MIPS.*;
+package IR; import MIPS.*; import java.util.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -24,6 +24,18 @@ public class IRcommand_Field_Access extends IRcommand
         this.dst      = dst;
         this.var = var;
         this.fieldName = fieldName;
+    }
+
+    public Set<Integer> getLiveTemps(){
+        Set<Integer> result = new HashSet<Integer>();
+        result.add(var.getSerialNumber());
+        return result;
+    }
+
+    public Set<Integer> getDeadTemps(){
+        Set<Integer> result = new HashSet<Integer>();
+        result.add(dst.getSerialNumber());
+        return result;
     }
 
     /***************/

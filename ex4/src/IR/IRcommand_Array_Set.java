@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR; import MIPS.*;
+package IR; import MIPS.*; import java.util.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -24,6 +24,18 @@ public class IRcommand_Array_Set extends IRcommand
         this.array     = array;
         this.place     = place;
         this.exp       = exp;
+    }
+
+    public Set<Integer> getLiveTemps(){
+        Set<Integer> result = new HashSet<Integer>();
+        result.add(place.getSerialNumber());
+        result.add(exp.getSerialNumber());
+        result.add(array.getSerialNumber());
+        return result;
+    }
+
+    public Set<Integer> getDeadTemps(){
+        return null;
     }
 
     /***************/

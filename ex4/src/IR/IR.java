@@ -1,7 +1,8 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR; import MIPS.*;
+package IR; import MIPS.*; import java.util.*;
+import REG_ALLOC.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -38,6 +39,9 @@ public class IR
 			}
 			it.tail = new IRcommandList(cmd,null);
 		}
+
+		// add creation of cfg node
+		CFG.getInstance().addCFGNode(new CFG_node(cmd));
 	}
 	
 	/***************/

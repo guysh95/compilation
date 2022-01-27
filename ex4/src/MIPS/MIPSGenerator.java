@@ -31,7 +31,7 @@ public class MIPSGenerator
 		fileWriter.close();
 	}
 
-	static label_counter = 0;
+	static int label_counter = 0;
 
 	public static String labelGenerator(String msg)
 	{
@@ -274,7 +274,7 @@ public class MIPSGenerator
 		fileWriter.format("\tbeq Temp_%d,$zero,%s\n",i1,label);				
 	}
 
-	public void return(TEMP t, String funcName)
+	public void return1(TEMP t, String funcName)
 	{
 		// Might need to change consider epilogue name for method/function
 		int i1 = oprnd1.getSerialNumber();

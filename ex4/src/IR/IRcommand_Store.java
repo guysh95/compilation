@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR; import MIPS.*;
+package IR; import MIPS.*; import java.util.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -23,7 +23,17 @@ public class IRcommand_Store extends IRcommand
 		this.src      = src;
 		this.var_name = var_name;
 	}
-	
+
+	public Set<Integer> getLiveTemps(){
+		Set<Integer> result = new HashSet<Integer>();
+		result.add(src.getSerialNumber());
+		return result;
+	}
+
+	public Set<Integer> getDeadTemps(){
+		return null;
+	}
+
 	/***************/
 	/* MIPS me !!! */
 	/***************/
