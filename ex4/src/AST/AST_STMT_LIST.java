@@ -76,12 +76,12 @@ public class AST_STMT_LIST extends AST_Node
 		}
 		AST_STMT current;
 		TYPE stmtType;
-		System.out.println("Semanting AST_STMT_LIST");
-		System.out.println("Expected return type is " + expectedReturnType);
+		// System.out.println("Semanting AST_STMT_LIST");
+		// System.out.println("Expected return type is " + expectedReturnType);
 		for(AST_STMT_LIST pointer = this; pointer != null; pointer = pointer.tail) {
 			current = pointer.head;
 			// check if current statement is a return statment
-			System.out.println("looking at statment of type " + current);
+			// System.out.println("looking at statment of type " + current);
 			if (current.getClass().getSimpleName().equals("AST_STMT_IF")) {
 				((AST_STMT_IF)current).SemantBodyMe(scope, expectedReturnType);
 				continue;

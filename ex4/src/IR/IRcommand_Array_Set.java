@@ -45,5 +45,6 @@ public class IRcommand_Array_Set extends IRcommand
     {
         // todo: create mips command for this
         //MIPSGenerator.getInstance().store(var_name,src);
+        MIPSGenerator.getInstance().putArrayValue(array, place, exp);
     }
 }

@@ -62,6 +62,11 @@ public class Main
 			/* [8] IR the AST ... */
 			/**********************/
 			AST.IRme();
+
+
+			CFG.getInstance().runAnalysis();
+
+			int[] registerColorTable = IG.getInstance.coloring();
 			
 			/***********************/
 			/* [9] MIPS the IR ... */

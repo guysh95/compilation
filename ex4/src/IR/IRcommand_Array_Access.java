@@ -48,6 +48,10 @@ public class IRcommand_Array_Access extends IRcommand
     {
         //MIPSGenerator.getInstance().load(dst,var_name);
         // todo: need to create relevant mips command
+        MIPSGenerator.getInstance().getArrayValue(t1,t2,dst);
+
+
+
     }
 
 
