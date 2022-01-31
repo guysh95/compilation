@@ -94,4 +94,8 @@ public class AST_STMT_RETURN extends AST_STMT
 		return t1; // if no exp then t1 = null
 
 	}
+
+	public void AnnotateMe() {
+		if (exp != null) exp.AnnotateMe();
+	}
 }

@@ -114,4 +114,9 @@ public class AST_FUNCARGS extends AST_Node
 		return null; //not supposed to reach here
 	}
 
+	public void AnnotateMe() {
+		ANNOTATE_TABLE.getInstance().enter(id);
+		if (fa != null) fa.AnnotateMe();
+	}
+
 }

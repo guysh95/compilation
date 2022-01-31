@@ -3,6 +3,7 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 import TEMP.*; import IR.*; import MIPS.*;
+import ANNOTATE_TABLE.*;
 
 public class AST_VARDEC_ASSIGN extends AST_DEC
 {
@@ -119,5 +120,11 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, t));
 		// storing result
 		return null;
+	}
+
+	public void AnnotateMe(){
+		//TODO: add check if global scope or class scope
+		ANNOTATE_TABLE.getInstance().enter(name);
+		exp.AnnotateMe()
 	}
 }

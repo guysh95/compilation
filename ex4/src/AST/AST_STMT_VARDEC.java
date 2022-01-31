@@ -69,4 +69,8 @@ public class AST_STMT_VARDEC extends AST_STMT {
         if (vd != null) return vd.IRme();
         return null;
     }
+
+    public void AnnotateMe(){
+        if (vd != null) vd.AnnotateMe();
+    }
 }

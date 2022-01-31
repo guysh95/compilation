@@ -69,4 +69,8 @@ public class AST_EXP_PAREN extends AST_EXP {
         if (child != null) return child.IRme();
         return null;
     }
+
+    public void AnnotateMe() {
+        if (child != null) child.AnnotateMe();
+    }
 }

@@ -228,10 +228,16 @@ public class AST_EXP_FCALL extends AST_EXP {
             }
         }
 
-
-
-
         return dest;
     }
 
+    public void AnnotateMe() {
+        if (caller != null) {
+            // method call
+            var.AnnotateMe();
+            //TODO: figure id method offset in var
+        }
+        //TODO: consider recursive case
+        if (expList != null) exps.AnnotateMe();
+    }
 }

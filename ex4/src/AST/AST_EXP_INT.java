@@ -59,4 +59,6 @@ public class AST_EXP_INT extends AST_EXP
 		IR.getInstance().Add_IRcommand(new IRcommandConstInt(t,value));
 		return t;
 	}
+
+	public void AnnotateMe() { }
 }

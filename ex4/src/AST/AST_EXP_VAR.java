@@ -70,4 +70,8 @@ public class AST_EXP_VAR extends AST_EXP
 		return var.IRme();
 	}
 
+	public void AnnotateMe() {
+		if (var != null) var.AnnotateMe();
+	}
+
 }

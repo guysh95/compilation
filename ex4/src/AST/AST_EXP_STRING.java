@@ -60,4 +60,6 @@ public class AST_EXP_STRING extends AST_EXP {
         IR.getInstance().Add_IRcommand(new IRcommandConstString(t,str_val));
         return t;
     }
+
+    public void AnnotateMe() { }
 }

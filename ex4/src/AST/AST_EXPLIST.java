@@ -108,4 +108,9 @@ public class AST_EXPLIST extends AST_Node {
         return tlist;
     }
 
+    public void AnnotateMe() {
+        head.AnnotateMe();
+        if (tail != null) tail.AnnotateMe();
+    }
+
 }

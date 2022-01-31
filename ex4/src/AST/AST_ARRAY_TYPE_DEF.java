@@ -98,4 +98,9 @@ public class AST_ARRAY_TYPE_DEF extends AST_DEC {
     {
         return null; //not supposed to reach here
     }
+
+    public void AnnotateMe()
+    {
+        //TODO: Maybe need to do something here
+    }
 }

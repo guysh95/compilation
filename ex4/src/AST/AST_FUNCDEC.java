@@ -3,6 +3,7 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 import TEMP.*; import IR.*; import MIPS.*;
+import ANNOTATE_TABLE.*;
 
 public class AST_FUNCDEC extends AST_DEC
 {
@@ -11,7 +12,6 @@ public class AST_FUNCDEC extends AST_DEC
     public AST_FUNCARGS fa;
     public AST_STMT_LIST sl;
 	public int row;
-
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -108,7 +108,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/****************************/
 		/* [1] Begin Function Scope */
 		/****************************/
-		//System.out.println("######### Semanting " + id + " ##########");
+		System.out.println("######### Semanting " + id + " ##########");
 		if (scope != null && scope.isClass()) {
 			TYPE_FUNCTION fatherFunc = ((TYPE_CLASS)scope).searchInFathersFunc(id, row);
 			//System.out.println(id + " already exist and its returnType is " + fatherFunc);
@@ -186,5 +186,14 @@ public class AST_FUNCDEC extends AST_DEC
 		if (sl != null) sl.IRme();
 
 		return null;
+	}
+
+	public void AnnotateMe()
+	{
+		ANNOTATE_TABLE.getInstance().startScope(id);
+		ANNOTATE_TABLE.getInstance().addingParams = true;
+		if (fa != null) fa.AnnotateMe();
+		ANNOTATE_TABLE.getInstance().addingParams = false;
+		if (sl != null) sl.AnnotateMe();
 	}
 }

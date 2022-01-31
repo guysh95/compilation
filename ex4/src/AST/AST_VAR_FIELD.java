@@ -155,4 +155,9 @@ public class AST_VAR_FIELD extends AST_VAR
 		return null;
 	}
 
+	public void AnnotateMe(){
+		var.AnnotateMe();
+		//TODO: figure fieldName offset in var's class
+	}
+
 }

@@ -3,6 +3,7 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 import TEMP.*; import IR.*; import MIPS.*;
+import ANNOTATE_TABLE.*;
 
 public class AST_VAR_SIMPLE extends AST_VAR
 {
@@ -11,6 +12,9 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	/************************/
 	public String name;
 	public int row;
+	public int offset;
+	// positive offset - local
+	// negative offset - param
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -104,4 +108,8 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		return null;
 	}
 
+	public void AnnotateMe(){
+		this.offset = ANNOTATE_TABLE.getInstance().find(name);
+		//TODO: check if offset is 0 -> maybe id is global\class field
+	}
 }

@@ -161,35 +161,12 @@ public class SYMBOL_TABLE
 		/**************************************************************************/
 		/* Pop elements from the symbol table stack until a SCOPE-BOUNDARY is hit */		
 		/**************************************************************************/
-		/* if(!saveElements) { */
-			while (top.name != "SCOPE-BOUNDARY")
-			{
-				table[top.index] = top.next;
-				top_index = top_index-1;
-				top = top.prevtop;
-			}
-		/* }
-		else{
-			// we want to save class\function elements for comparison later
-			while (top.name != "SCOPE-BOUNDARY")
-			{
-				table[top.index] = top.next;
-				top_index = top_index-1;
-
-				if (subFields == null) {
-					//first class field/ param
-					subFields = top;
-					subFields.next = null;
-					subFields.prevtop = null;
-				}
-				else {
-					top.next = subFields;
-					subFields = top;
-					subFields.prevtop= null;
-				}
-				top = top.prevtop;
-			}
-		} */
+		while (top.name != "SCOPE-BOUNDARY")
+		{
+			table[top.index] = top.next;
+			top_index = top_index-1;
+			top = top.prevtop;
+		}
 		/**************************************/
 		/* Pop the SCOPE-BOUNDARY sign itself */		
 		/**************************************/

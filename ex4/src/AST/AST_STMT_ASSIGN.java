@@ -115,5 +115,10 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		return null;
 	}
 
+	public void AnnotateMe() {
+		var.AnnotateMe();
+		exp.AnnotateMe();
+	}
+
 }
 

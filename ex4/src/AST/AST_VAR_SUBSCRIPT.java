@@ -113,4 +113,9 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		// no need to return anything because we assign it - and finish with store
 		return null;
 	}
+
+	public void AnnotateMe(){
+		var.AnnotateMe();
+		exp.AnnotateMe();
+	}
 }

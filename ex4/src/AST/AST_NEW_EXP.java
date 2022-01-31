@@ -147,4 +147,8 @@ public class AST_NEW_EXP extends AST_Node {
         IR.getInstance().Add_IRcommand(new IRcommand_New_Array(t, t1));
         return t;
     }
+
+    public void AnnotateMe(){
+        if (e != null) e.AnnoateMe();
+    }
 }
