@@ -44,7 +44,6 @@ public class IRcommand_Binop_Divide_Integers extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // MIPSGenerator.getInstance().add(dst,t1,t2);
-        // todo: create divide func in mips
+        MIPSGenerator.getInstance().div(dst,t1,t2);
     }
 }

@@ -383,10 +383,40 @@ public class MIPSGenerator
 	public void beqz(TEMP oprnd1,String label)
 	{
 		int i1 = regColorTable[oprnd1.getSerialNumber()];
-
 		fileWriter.format("\tbeq Temp_%d,$zero,%s\n",i1,label);
 	}
 
+	public void bnez(TEMP oprnd1, String label)
+	{
+		int i1 = regColorTable[oprnd1.getSerialNumber()];
+		fileWriter.format("\tbne Temp_%d,$zero,%s\n",i1,label);
+	}
+
+	public void compareStrLoop(TEMP firstStr, TEMP secondStr, String eqLabel, String notEqLabel)
+	{
+		int s1 = regColorTable[firstStr.getSerialNumber()];
+		int s2 = regColorTable[secondStr.getSerialNumber()];
+		String loopLabel = labelGenerator("compareLoop");
+
+		// start string compare loop
+		label(loopLabel);
+
+		// get first char from firstStr and secondStr
+		fileWriter.format("\tlb $s1,(Temp_%d)\n", s1);
+		fileWriter.format("\tlb $s2,(Temp_%d)\n", s2);
+
+		// compare chars, if not equal jump to notEqLabel
+		fileWriter.format("\tbne $s1,$s2,%s\n", notEqLabel);
+
+		// check if s1 is the End Of String, if so jump to eqLabel
+		fileWriter.format("\tbeq $s1,$zero,%s\n", eqLabel);
+
+		// point to next char in both strings
+		fileWriter.format("\taddi Temp_%d,Temp_%d,1\n", s1,s1);
+		fileWriter.format("\taddi Temp_%d,Temp_%d,1\n", s2,s2);
+
+		jump(loopLabel);
+	}
 
 	public void mallocArray(TEMP size, TEMP dest)
 	{
