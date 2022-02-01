@@ -3,6 +3,7 @@ package AST;
 import java.io.*;
 import java.io.PrintWriter;
 import TEMP.*; import IR.*; import MIPS.*;
+import ANNOTATE_TABLE.*;
 
 public class AST_GRAPHVIZ
 {

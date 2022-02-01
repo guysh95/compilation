@@ -3,6 +3,7 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 import TEMP.*; import IR.*; import MIPS.*;
+import ANNOTATE_TABLE.*;
 
 public class AST_CFIELD_VAR extends AST_CFIELD
 {

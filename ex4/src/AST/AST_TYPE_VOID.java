@@ -3,6 +3,7 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 import TEMP.*; import IR.*; import MIPS.*;
+import ANNOTATE_TABLE.*;
 
 public class AST_TYPE_VOID extends AST_TYPE {
 

@@ -1,6 +1,7 @@
 package AST;
 import TYPES.*;
 import TEMP.*; import IR.*; import MIPS.*;
+import ANNOTATE_TABLE.*;
 
 
 public abstract class AST_Node

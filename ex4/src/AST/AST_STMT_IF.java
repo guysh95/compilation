@@ -4,6 +4,7 @@ import TYPES.*;
 import SYMBOL_TABLE.*;
 import TEMP.*; import IR.*; import MIPS.*;
 import REG_ALLOC.*;
+import ANNOTATE_TABLE.*;
 
 public class AST_STMT_IF extends AST_STMT
 {
