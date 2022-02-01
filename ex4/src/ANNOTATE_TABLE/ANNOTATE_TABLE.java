@@ -10,6 +10,9 @@ public class ANNOTATE_TABLE
     private int paramCounter = 1;
     public boolean addingParams = true;
 
+    private ANNOTATE_CLIST classHead = null;
+    private int classCounter = 1;
+
     private void enterSpecific(String varName, int counter, ANNOTATE_NODE head){
         ANNOTATE_NODE newNode = new ANNOTATE_NODE(varName, counter, null);
         if (this.head != null)
@@ -33,7 +36,16 @@ public class ANNOTATE_TABLE
         this.scopeName = scopeName;
     }
 
-    public void endScope(){
+    public void endScope(boolean isClass){
+        if (isClass) {
+            ANNOTATE_CLIST newClass = new ANNOTATE_CLIST(this.scopeName, this.classCounter, this.localHead);
+            this.classCounter++;
+            if (this.classHead == null)
+                this.classHead = newClass;
+            else
+                this.classHead.setNext(newClass);
+        }
+
         this.localHead = null;
         this.paramHead = null;
         this.localCounter = 1;
@@ -63,6 +75,22 @@ public class ANNOTATE_TABLE
             p = p.getNext();
         }
         return 0;
+    }
+
+    public int findInClasses(String className, String varName){
+        ANNOTATE_CLIST classPointer = this.classHead;
+        while (classPointer != null) {
+            if (classPointer.getClassName().equals(className)) {
+                ANNOTATE_NODE varPointer = classPointer.getCFields();
+                while (varPointer != null){
+                    if (varPointer.getName().equals(varName)){
+                        return varPointer.getIndex();
+                    }
+                    varPointer = varPointer.getNext();
+                }
+            }
+            classPointer = classPointer.getNext();
+        }
     }
 
     /**************************************/
