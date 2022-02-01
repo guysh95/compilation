@@ -402,8 +402,8 @@ public class MIPSGenerator
 		label(loopLabel);
 
 		// get first char from firstStr and secondStr
-		fileWriter.format("\tlb $s1,(Temp_%d)\n", s1);
-		fileWriter.format("\tlb $s2,(Temp_%d)\n", s2);
+		fileWriter.format("\tlb $s1,0(Temp_%d)\n", s1);
+		fileWriter.format("\tlb $s2,0(Temp_%d)\n", s2);
 
 		// compare chars, if not equal jump to notEqLabel
 		fileWriter.format("\tbne $s1,$s2,%s\n", notEqLabel);
@@ -416,6 +416,63 @@ public class MIPSGenerator
 		fileWriter.format("\taddi Temp_%d,Temp_%d,1\n", s2,s2);
 
 		jump(loopLabel);
+	}
+
+	public void addStrings(TEMP dst, TEMP firstStr, TEMP secondStr)
+	{
+		int s1 = regColorTable[firstStr.getSerialNumber()];
+		int s2 = regColorTable[secondStr.getSerialNumber()];
+		int dstidx = regColorTable[dst.getSerialNumber()];
+
+		String copyFirst = labelGenerator("copyFirst");
+		String copySecond = labelGenerator("copySecond");
+		String doneCopying = labelGenerator("doneCopying");
+
+		// iterate on first string and add it to destination string
+		label(copyFirst);
+
+		// copy first char of first string to $s3 register
+		fileWriter.format("\tlb $s3,0(Temp_%d)\n", s1);
+
+		// move to copy second string if char is zero (null byte)
+		fileWriter.format("\tbeq $s3,$zero,%s\n", copySecond);
+
+		// save char to destination string
+		fileWriter.format("\tsb $s3,0(Temp_%d)\n", dstidx);
+
+		// point to next char in the string and dst string
+		fileWriter.format("\taddi Temp_%d,Temp_%d,1\n", s1,s1);
+		fileWriter.format("\taddi Temp_%d,Temp_%d,1\n", dstidx,dstidx);
+
+		// jump to start of the copying loop
+		jump(copyFirst);
+
+		// iterate on second string and add it to destination string
+		label(copySecond);
+
+		// copy first char of second string to $s3 register
+		fileWriter.format("\tlb $s3,0(Temp_%d)\n", s2);
+
+		// move to done copying if char is zero (null byte)
+		fileWriter.format("\tbeq $s3,$zero,%s\n", doneCopying);
+
+		// save char to destination string
+		fileWriter.format("\tsb $s3,0(Temp_%d)\n", dstidx);
+
+		// point to next char in the string and dst string
+		fileWriter.format("\taddi Temp_%d,Temp_%d,1\n", s2,s2);
+		fileWriter.format("\taddi Temp_%d,Temp_%d,1\n", dstidx,dstidx);
+
+		// jump to start of the copying loop
+		jump(copySecond);
+
+
+		// When done copying:
+		label(doneCopying);
+
+		// add the null terminate string - zero
+		fileWriter.format("\tsb $zero,0(Temp_%d)\n", dstidx);
+
 	}
 
 	public void mallocArray(TEMP size, TEMP dest)
