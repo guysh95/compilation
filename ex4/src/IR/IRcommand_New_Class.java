@@ -44,5 +44,25 @@ public class IRcommand_New_Class extends IRcommand
     {
         // todo: create mips command for this
         //MIPSGenerator.getInstance().store(var_name,src);
+
+        // need to allocate (counter + 1) * 4 bytes for vtable and all fields
+        int space = (countFieldsInFathers() + 1) * 4;
+        MIPSGenerator.getInstance().mallocSpace(dest, space);
+
+        // assuming we have an address for the class vtable as "vtableAddress"
+        MIPSGenerator.getInstance().swByOffset(vtableAddress, dest, 0);
+
+
+    }
+
+    public int countFieldsInFathers()
+    {
+        TYPE_CLASS p = this.type;
+        int counter = 0;
+        while (p != null) {
+            counter += p.fieldsCount;
+            p = p.father;
+        }
+        return counter;
     }
 }

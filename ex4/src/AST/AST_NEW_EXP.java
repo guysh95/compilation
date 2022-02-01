@@ -142,7 +142,8 @@ public class AST_NEW_EXP extends AST_Node {
             IR.getInstance().Add_IRcommand(new IRcommand_New_Class(t, (TYPE_CLASS)classType));
             return t;
         }
-        IR.getInstance().Add_IRcommand(new IRcommand_New_Class(t, className));
+        System.out.println("Invalid call for newClassIRme");
+        System.exit(1);
         return t;
     }
 

@@ -474,6 +474,25 @@ public class MIPSGenerator
 		fileWriter.format("\tsb $zero,0(Temp_%d)\n", dstidx);
 
 	}
+	public void swByOffset(TEMP value, TEMP dest, int offset)
+	{
+		int validx = regColorTable[value.getSerialNumber()];
+		int dstidx = regColorTable[dest.getSerialNumber()];
+		fileWriter.format("\tsw Temp_%d,%d(Temp_%d)\n", validx, offset, dstidx);
+	}
+
+	public void mallocSpace(TEMP dest, int space)
+	{
+		int dstidx = regColorTable[dest.getSerialNumber()];
+
+		// malloc space
+		fileWriter.format("\tli $a0,%d\n",space);
+		fileWriter.format("\tli $v0,9\n");
+		fileWriter.print("\tsyscall\n");
+
+		// store space address into dest
+		fileWriter.format("\tmove Temp_%d,$v0\n",dstidx);
+	}
 
 	public void mallocArray(TEMP size, TEMP dest)
 	{
