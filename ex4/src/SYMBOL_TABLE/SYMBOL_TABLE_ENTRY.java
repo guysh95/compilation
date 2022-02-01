@@ -34,10 +34,8 @@ public class SYMBOL_TABLE_ENTRY
 	public SYMBOL_TABLE_ENTRY prevtop;
 	public SYMBOL_TABLE_ENTRY next;
 
-	/*********************************************/
-	/* subFields table entries (for class and maybe function arguments)... */
-	/*********************************************/
-	SYMBOL_TABLE_ENTRY subFields;
+
+	public Integer paramIndex;
 
 	/****************************************************/
 	/* The prevtop_index is just for debug purposes ... */
@@ -53,7 +51,7 @@ public class SYMBOL_TABLE_ENTRY
 		int index,
 		SYMBOL_TABLE_ENTRY next,
 		SYMBOL_TABLE_ENTRY prevtop,
-		SYMBOL_TABLE_ENTRY subFields,
+		Integer paramIndex,
 		int prevtop_index)
 	{
 		this.index = index;
@@ -61,7 +59,7 @@ public class SYMBOL_TABLE_ENTRY
 		this.type = type;
 		this.next = next;
 		this.prevtop = prevtop;
-		this.subFields = subFields;
+		this.paramIndex = paramIndex;
 		this.prevtop_index = prevtop_index;
 	}
 }

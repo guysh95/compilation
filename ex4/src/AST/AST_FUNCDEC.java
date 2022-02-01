@@ -141,9 +141,9 @@ public class AST_FUNCDEC extends AST_DEC
 				throw new lineException(Integer.toString(this.row));
 			}
 			// argument type exist in scope and is not void
-			SYMBOL_TABLE.getInstance().enter(it.id, argType);
-			type_list = new TYPE_LIST(argType, type_list);
 			paramCount++;
+			SYMBOL_TABLE.getInstance().enterParam(it.id, argType, paramCount);
+			type_list = new TYPE_LIST(argType, type_list);
 			//TODO remember to check parameter list with the super overridden method
 		}
 		info.setNumParams(paramCount);
@@ -160,7 +160,7 @@ public class AST_FUNCDEC extends AST_DEC
 		//System.out.println("====> lets semant function body in AST_FUNCDEC");
 		int[] localCount = {0};
 		sl.SemantFunctionMe(scope, returnType, localCount);
-		info.setBumLocals(localCount[0]);
+		info.setNumLocals(localCount[0]);
 		//System.out.println("====> We finished semanting body in AST_FUNCDEC");
 
 		/*****************/

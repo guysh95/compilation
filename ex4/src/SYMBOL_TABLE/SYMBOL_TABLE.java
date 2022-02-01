@@ -28,7 +28,6 @@ public class SYMBOL_TABLE
 	private SYMBOL_TABLE_ENTRY top;
 	private int top_index = 0;
 	private int scopeLayer = 0;
-	private SYMBOL_TABLE_ENTRY subFields = null;
 	
 	/**************************************************************/
 	/* A very primitive hash function for exposition purposes ... */
@@ -65,8 +64,7 @@ public class SYMBOL_TABLE
 		/**************************************************************************/
 		/* [3] Prepare a new symbol table entry with name, type, next and prevtop */
 		/**************************************************************************/
-		SYMBOL_TABLE_ENTRY e = new SYMBOL_TABLE_ENTRY(name,t,hashValue,next,top,subFields,top_index++);
-		subFields = null;
+		SYMBOL_TABLE_ENTRY e = new SYMBOL_TABLE_ENTRY(name,t,hashValue,next,top,null,top_index++);
 		/**********************************************/
 		/* [4] Update the top of the symbol table ... */
 		/**********************************************/
@@ -83,8 +81,11 @@ public class SYMBOL_TABLE
 		PrintMe();
 	}
 
-	public void enterParam(String name, TYPE t){
+	public void enterParam(String name, TYPE t, int paramIndex){
 		this.enter(name, t);
+		this.top.paramIndex = new Integer(paramIndex);
+		// paramIndex is null -> entry is not param
+		// paramIndex is not null -> entry is param and it offset in the function is paramIndex
 	}
 
 	public boolean isGlobalScope() {
@@ -343,6 +344,7 @@ public class SYMBOL_TABLE
 					break;
 				}
 				if(e.type instanceof TYPE_FUNCTION) continue;
+				if(e.paramIndex != null) continue;
 				offset++;
 			}
 			info.setOffset(offset);

@@ -85,11 +85,11 @@ public class AST_STMT_LIST extends AST_Node
 			// check if current statement is a return statment
 			// System.out.println("looking at statment of type " + current);
 			if (current.getClass().getSimpleName().equals("AST_STMT_IF")) {
-				((AST_STMT_IF)current).SemantBodyMe(scope, expectedReturnType);
+				((AST_STMT_IF)current).SemantBodyMe(scope, expectedReturnType, localCount);
 				continue;
 			}
 			if (current.getClass().getSimpleName().equals("AST_STMT_WHILE")) {
-				((AST_STMT_WHILE)current).SemantBodyMe(scope, expectedReturnType);
+				((AST_STMT_WHILE)current).SemantBodyMe(scope, expectedReturnType, localCount);
 				continue;
 			}
 			if (current.getClass().getSimpleName().equals("AST_STMT_RETURN")) {
