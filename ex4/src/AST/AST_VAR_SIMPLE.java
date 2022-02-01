@@ -62,35 +62,53 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		TYPE t = null;
 		// search in this scope
 		t = SYMBOL_TABLE.getInstance().findInScope(name);
+		// t is null ====> name is not a defined in scope
+		// t is not null ====> name is a local var in scope
 		if (scope != null) System.out.println("scope is " + scope.name + " and its type is " + scope);
-		//we are inside scope
 		if (t == null && scope != null) {
+			// name is not a defined in current scope
 			// search in class scope and superclasses scope
 				System.out.println("scope is " + scope + " and its type is " + scope);
 				if (scope.isClass()) {
+					// we are in a method call
+					// name is not defined in current boundary scope
 					System.out.println("BLAH");
 					TYPE_CLASS tc = (TYPE_CLASS) scope;
 					TYPE myVarType = tc.findInClass(name);
 					System.out.println("myVar is " + myVarType);
 					if (myVarType == null) {
+						// name is not current class field and not current boundary scope var
+						// we are in a method call
 						TYPE_CLASS_VAR_DEC fatherVar = tc.searchInFathersVar(name, row);
 						if (fatherVar == null) {
+							// name is not a class field and not current boundary scope var
 							t = SYMBOL_TABLE.getInstance().find(name);
-							if (t != null) return t;
+							if (t != null) {
+								//name is global var or function local var or param
+								return t;
+							}
 							System.out.format(">> ERROR ID %s does not exists\n", name);
 							throw new lineException(Integer.toString(this.row));
 						}
+						// name is superclass field / method
 						return fatherVar.t;
 					}
 					else {
-						// found in class scope
+						// name is class field / method
 						return myVarType;
 					}
 			}
 		}
+		// name is or global or local func
+		// we are not in a method
 		if (t == null)	t = SYMBOL_TABLE.getInstance().find(name);
-		if (t != null)
+		if (t != null) {
+			if (t instanceof TYPE_FUNCTION) {
+				// we are calling a function
+
+			}
 			return t;
+		}
 		// we are in global scope
 		System.out.format(">> ERROR ID %s does not exists\n", name);
 		throw new lineException(Integer.toString(this.row));

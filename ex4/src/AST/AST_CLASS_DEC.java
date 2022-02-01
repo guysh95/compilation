@@ -72,10 +72,12 @@ public class AST_CLASS_DEC extends AST_DEC {
         System.out.println("###$#$#$#$#$#$ now we semant " + className + " class #$#$#$#$#$#$#$#$#$#$");
         TYPE extended_type = null;
         TYPE_CLASS extended_type_casted = null;
+
         if (SYMBOL_TABLE.getInstance().isGlobalScope() == false){
             System.out.print("Class not defined in global scope");
             throw new lineException(Integer.toString(this.row));
         }
+
         if (extendedClass != null){
             extended_type = SYMBOL_TABLE.getInstance().find(extendedClass);
             if (extended_type == null){
@@ -89,6 +91,7 @@ public class AST_CLASS_DEC extends AST_DEC {
                 extended_type_casted = (TYPE_CLASS) extended_type;
             }
         }
+
         if (SYMBOL_TABLE.getInstance().find(className) != null){
             System.out.format("%s Class already defined", className);
             throw new lineException(Integer.toString(this.row));
@@ -109,22 +112,24 @@ public class AST_CLASS_DEC extends AST_DEC {
 
         TYPE_CLASS tclass = new TYPE_CLASS(extended_type_casted,className,dataMembers);
 
-        //TODO nned to replace here recursive instances TYPE_ID with new TYPE_CLASS
+        //TODO need to replace here recursive instances TYPE_ID with new TYPE_CLASS
+        /**
+         * here we can count class fields and class methods
+        * WITHOUT
+        * superclass's fields and methods
+         */
+        int fieldsCount = 0;
+        int methodCount = 0;
         System.out.println(tclass.name + " data members are: ");
         for(TYPE_LIST ptr = tclass.data_members; ptr != null; ptr = ptr.tail){
             if (ptr.head.isVar()) {
-                TYPE_CLASS_VAR_DEC var = ((TYPE_CLASS_VAR_DEC)ptr.head);
-                if (var.t.getClass().getSimpleName().equals("TYPE_ID")) {
-                    System.out.println("Hey my name is " + var.name + " My Type is " + var.t);
-                }
-                if (className.equals(((TYPE_CLASS_VAR_DEC)ptr.head).t.name)) {
+                if (className.equals(((TYPE_CLASS_VAR_DEC)ptr.head).t.name))
                     ((TYPE_CLASS_VAR_DEC)ptr.head).t = tclass;
-                    System.out.println(((TYPE_CLASS_VAR_DEC)ptr.head).name);
-                    System.out.println(((TYPE_CLASS_VAR_DEC)ptr.head).name + " and its type is " + ((TYPE_CLASS_VAR_DEC)ptr.head).t);
-                }
+                fieldsCount++;
             }
             else if (ptr.head.isFunction()) {
                 System.out.println("Hey my name is " + ((TYPE_FUNCTION)ptr.head).name + " My Type is " + ((TYPE_FUNCTION)ptr.head));
+                methodCount++;
             }
         }
 
@@ -133,10 +138,13 @@ public class AST_CLASS_DEC extends AST_DEC {
         /*****************/
         SYMBOL_TABLE.getInstance().endScope(true);
 
+        tclass.fieldsCount = fieldsCount;
+        tclass.methodCount = methodCount;
+
         /************************************************/
         /* [4] Enter the Class Type to the Symbol Table */
         /************************************************/
-        SYMBOL_TABLE.getInstance().enter(className,tclass);
+        SYMBOL_TABLE.getInstance().enter(className, tclass);
 
         /*********************************************************/
         /* [5] Return value is irrelevant for class declarations */

@@ -351,4 +351,8 @@ public class SYMBOL_TABLE
 		}
 	}
 
+	public AnnotAst getVarAnnotations(AnnotAst info){
+
+	}
+
 }

@@ -12,16 +12,19 @@ package IR; import MIPS.*; import java.util.*;
 /*******************/
 import TEMP.*;
 import MIPS.*;
+import TYPES.*;
 
 public class IRcommand_New_Class extends IRcommand
 {
     TEMP dest;
     String typeName;
+    TYPE_CLASS type;
 
-    public IRcommand_New_Class(TEMP dest, String typeName)
+    public IRcommand_New_Class(TEMP dest, TYPE_CLASS classType)
     {
         this.dest     = dest;
-        this.typeName = typeName;
+        this.typeName = classType.name;
+        this.type = classType;
     }
 
     public Set<Integer> getLiveTemps(){

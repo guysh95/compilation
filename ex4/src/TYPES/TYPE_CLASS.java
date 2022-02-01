@@ -14,6 +14,8 @@ public class TYPE_CLASS extends TYPE
 	/* packed together with the class methods         */
 	/**************************************************/
 	public TYPE_LIST data_members;
+	public int fieldsCount;
+	public int methodCount;
 
 	public boolean isClass() { return true;}
 
@@ -82,7 +84,7 @@ public class TYPE_CLASS extends TYPE
 			}
 
 		}
-		//no arr with same name in ancestors
+		// no arr with same name in ancestors
 		return null;
 	}
 
