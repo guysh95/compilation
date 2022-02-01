@@ -42,8 +42,6 @@ public class IRcommand_Call extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: create mips command for function calls
-        // MIPSGenerator.getInstance().print_int(t);
         MIPSGenerator.getInstance().callFunc(funcName, args, null);
     }
 }

@@ -40,9 +40,6 @@ public class IRcommand_New_Array extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: create mips command for this
-        // need to save array size array allocated memory
         MIPSGenerator.getInstance().mallocArray(t1, dest);
-        //MIPSGenerator.getInstance().store(var_name,src);
     }
 }

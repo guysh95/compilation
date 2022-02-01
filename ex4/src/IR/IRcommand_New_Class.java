@@ -42,17 +42,13 @@ public class IRcommand_New_Class extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: create mips command for this
-        //MIPSGenerator.getInstance().store(var_name,src);
-
         // need to allocate (counter + 1) * 4 bytes for vtable and all fields
         int space = (countFieldsInFathers() + 1) * 4;
         MIPSGenerator.getInstance().mallocSpace(dest, space);
 
+        String vtableLabel = "vt_" + typeName;
         // assuming we have an address for the class vtable as "vtableAddress"
-        MIPSGenerator.getInstance().swByOffset(vtableAddress, dest, 0);
-
-
+        MIPSGenerator.getInstance().loadAddressToDest(vtableLabel, dest);
     }
 
     public int countFieldsInFathers()

@@ -37,6 +37,13 @@ public class IRcommand_Return extends IRcommand
     public void MIPSme()
     {
         // todo: create relevant mips command
+        // need to get return address here somehow maybe $ra?
+        if (t == null) {
+
+        }
+        else {
+            // t holds return value
+        }
         //MIPSGenerator.getInstance().store(var_name,src);
     }
 }

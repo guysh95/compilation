@@ -82,6 +82,13 @@ public class MIPSGenerator
 	//	return t;
 	//}
 
+	public void loadAddressToDest(String address, TEMP dst)
+	{
+		int dstidx = regColorTable[dst.getSerialNumber()];
+		fileWriter.format("\tla $s4,%s\n", address);
+		fileWriter.format("\tsw $s4,%d(Temp_%d)\n", 0, dstidx);
+	}
+
 	public void functionPrologue(int localCount)
 	{
 		int localSpace = localCount * 4;
@@ -131,6 +138,30 @@ public class MIPSGenerator
 		fileWriter.format("\tjal %s\n", funcName);
 		fileWriter.format("\taddu $sp,$sp,%d\n", counter*4);
 		if(dst != null) {
+			int dstidx = regColorTable[dst.getSerialNumber()];
+			fileWriter.format("\tmove Temp_%d,$v0\n", dstidx);
+		}
+	}
+
+	public void callMethod(TEMP caller, int methodOffset, TEMP_LIST args, TEMP dst)
+	{
+		int counter = 0;
+		int idxprm;
+		for (TEMP_LIST t = tlist; t != null; t = tlist.tail) {
+			idxprm = regColorTable[tlist.head.getSerialNumber()];
+			fileWriter.format("\tsubu $sp,$sp,4\n");
+			fileWriter.format("\tsw Temp_%d,0($sp)\n",idxprm);
+			counter++;
+		}
+		int clridx = regColorTable[caller.getSerialNumber()];
+		fileWriter.format("\tsubu $sp,$sp,4\n");
+		fileWriter.format("\tsw Temp_%d,0($sp)\n",clridx);
+		counter++;
+		fileWriter.format("\tlw $s0,0(Temp_%d)\n",clridx);
+		fileWriter.format("\tlw $s1,%d(Temp_%d)\n",methodOffset,clridx);
+		fileWriter.format("\tjalr $s1\n");
+		fileWriter.format("\taddu $sp,$sp,%d\n", counter*4);
+		if (dst != null) {
 			int dstidx = regColorTable[dst.getSerialNumber()];
 			fileWriter.format("\tmove Temp_%d,$v0\n", dstidx);
 		}
@@ -196,7 +227,6 @@ public class MIPSGenerator
 	}
 	/*public void store(String var_name,TEMP src)
 	{
-		//TODO add all cases of store commands as shown in tirgul 10 page 8
 		int idxsrc=src.getSerialNumber();
 		fileWriter.format("\tsw Temp_%d,global_%s\n",idxsrc,var_name);		
 	}*/
@@ -428,6 +458,9 @@ public class MIPSGenerator
 		String copySecond = labelGenerator("copySecond");
 		String doneCopying = labelGenerator("doneCopying");
 
+		// save string start address at s0
+		fileWriter.format("\tmove $s0,Temp_%d\n", dstidx);
+
 		// iterate on first string and add it to destination string
 		label(copyFirst);
 
@@ -472,7 +505,8 @@ public class MIPSGenerator
 
 		// add the null terminate string - zero
 		fileWriter.format("\tsb $zero,0(Temp_%d)\n", dstidx);
-
+		// return dst temp to point at the start of the string
+		fileWriter.format("\tmove Temp_%d,$s0\n", dstidx);
 	}
 	public void swByOffset(TEMP value, TEMP dest, int offset)
 	{

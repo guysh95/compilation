@@ -49,7 +49,8 @@ public class IRcommand_Virtual_Call_Assign extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: create mips command for virtual calls
-        // MIPSGenerator.getInstance().print_int(t);
+        // todo: get method offset here somehow
+        int methodOffset = 0;
+        MIPSGenerator.getInstance().callMethod(var, methodOffset, args, dest);
     }
 }

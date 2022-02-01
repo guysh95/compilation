@@ -44,8 +44,6 @@ public class IRcommand_Binop_EQ_Strings extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: add mips command for equal strings
-
         /*******************************/
         /* [1] Allocate 3 fresh labels */
         /*******************************/
