@@ -13,6 +13,7 @@ public class AST_STMT_LIST extends AST_Node
 	public AST_STMT head;
 	public AST_STMT_LIST tail;
 	public TYPE expectedReturnType;
+	public int[] localCount;
 	public int row;
 
 	/******************/
@@ -118,14 +119,16 @@ public class AST_STMT_LIST extends AST_Node
 					throw new lineException(Integer.toString(((AST_STMT_RETURN)current).row));
 				}
 			}
+			if (current instanceof AST_STMT_VARDEC) localCount[0]++;
 			// current statment is not a return statment
 			current.SemantMe(scope);
 		}
 		return null;
 	}
 
-	public void SemantFunctionMe(TYPE scope, TYPE returnType) {
+	public void SemantFunctionMe(TYPE scope, TYPE returnType, int[] localCount) {
 		this.expectedReturnType = returnType;
+		this.localCount = localCount;
 		this.SemantMe(scope);
 	}
 

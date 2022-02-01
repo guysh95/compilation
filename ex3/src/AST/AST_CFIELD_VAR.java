@@ -72,7 +72,7 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 		} */
 		return t1;
 
-		//TODO need to check if var already exists in super class
+
 	}
 
 	public TYPE SemantClassMe(TYPE_CLASS scope) {

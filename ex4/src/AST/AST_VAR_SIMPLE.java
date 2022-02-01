@@ -15,6 +15,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	public int offset;
 	// positive offset - local
 	// negative offset - param
+	public AnnotAst nodeInfo;
 
 	/******************/
 	/* CONSTRUCTOR(S) */

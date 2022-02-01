@@ -12,6 +12,7 @@ public class AST_STMT_IF extends AST_STMT
 	public AST_STMT_LIST body;
 	public TYPE expReturnType;
 	public int row;
+	public int[] localCount;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
@@ -88,7 +89,7 @@ public class AST_STMT_IF extends AST_STMT
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
-		body.SemantFunctionMe(scope, expReturnType);
+		body.SemantFunctionMe(scope, expReturnType, localCount);
 
 		/*****************/
 		/* [3] End Scope */
@@ -101,8 +102,9 @@ public class AST_STMT_IF extends AST_STMT
 		return null;
 	}
 
-	public void SemantBodyMe(TYPE scope, TYPE returnType) {
+	public void SemantBodyMe(TYPE scope, TYPE returnType, int[] localCount) {
 		this.expReturnType = returnType;
+		this.localCount = localCount;
 		this.SemantMe(scope);
 	}
 

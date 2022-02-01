@@ -11,6 +11,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
     public String name;
     public AST_EXP exp;
 	public int row;
+	public AnnotAst info;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -107,6 +108,8 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 				//System.exit(0);
 			}
 		}
+		//Annotations
+		SYMBOL_TABLE.getInstance().setAstAnnotations(info);
 
 		SYMBOL_TABLE.getInstance().enter(name, t1);
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, name);

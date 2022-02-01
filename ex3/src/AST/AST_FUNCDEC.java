@@ -137,10 +137,8 @@ public class AST_FUNCDEC extends AST_DEC
 				System.out.println(">> ERROR: void param isn't defined");
 				throw new lineException(Integer.toString(this.row));
 			}
-			// argument type exist in scope and is not void
 			SYMBOL_TABLE.getInstance().enter(it.id, argType);
 			type_list = new TYPE_LIST(argType, type_list);
-			//TODO remember to check parameter list with the super overridden method
 		}
 
 		/*******************/
@@ -176,6 +174,4 @@ public class AST_FUNCDEC extends AST_DEC
 		return tfunc;
 
 	}
-	//TODO look at funcargs
-	// cant be in the same scope
 }

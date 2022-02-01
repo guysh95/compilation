@@ -12,6 +12,7 @@ public class AST_STMT_WHILE extends AST_STMT
 	public AST_STMT_LIST body;
 	public TYPE expReturnType;
 	public int row;
+	public int[] localCount;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
@@ -85,7 +86,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
-		body.SemantFunctionMe(scope, expReturnType);
+		body.SemantFunctionMe(scope, expReturnType, localCount);
 
 		/*****************/
 		/* [3] End Scope */
@@ -98,8 +99,9 @@ public class AST_STMT_WHILE extends AST_STMT
 		return null;
 	}
 
-	public void SemantBodyMe(TYPE scope, TYPE returnType) {
+	public void SemantBodyMe(TYPE scope, TYPE returnType, int[] localCount) {
 		this.expReturnType = returnType;
+		this.localCount = localCount;
 		this.SemantMe(scope);
 	}
 
@@ -153,9 +155,6 @@ public class AST_STMT_WHILE extends AST_STMT
 		node_end_label.prev = node_jump_end; // fix prev of end label to be from to conditional jump
 
 		node_jump_start.next = node_start_label; //fix next from jump to be to start label
-
-
-
 
 		/*******************/
 		/* [8] return null */

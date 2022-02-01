@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 /* PROJECT IMPORTS */
 /*******************/
 import TYPES.*;
+import ANNOTATE_TABLE.*;
 
 /****************/
 /* SYMBOL TABLE */
@@ -82,6 +83,10 @@ public class SYMBOL_TABLE
 		PrintMe();
 	}
 
+	public void enterParam(String name, TYPE t){
+		this.enter(name, t);
+	}
+
 	public boolean isGlobalScope() {
 		return (scopeLayer == 0);
 	}
@@ -132,7 +137,7 @@ public class SYMBOL_TABLE
 	/***************************************************************************/
 	/* begine scope = Enter the <SCOPE-BOUNDARY> element to the data structure */
 	/***************************************************************************/
-	public void beginScope()
+	public void beginScope(String scopeName, boolean isClass)
 	{
 		/************************************************************************/
 		/* Though <SCOPE-BOUNDARY> entries are present inside the symbol table, */
@@ -140,12 +145,17 @@ public class SYMBOL_TABLE
 		/* a special TYPE_FOR_SCOPE_BOUNDARIES was developed for them. This     */
 		/* class only contain their type name which is the bottom sign: _|_     */
 		/************************************************************************/
-		enter(
-			"SCOPE-BOUNDARY",
-			new TYPE_FOR_SCOPE_BOUNDARIES("NONE"));
-
+		if (scopeName != null) { //function or class boundary
+			enter(
+					"SCOPE-BOUNDARY",
+					new TYPE_FOR_SCOPE_BOUNDARIES(scopeName, isClass));
+		}
+		else {
+			enter(
+					"SCOPE-BOUNDARY",
+					new TYPE_FOR_SCOPE_BOUNDARIES("NONE", false));
+		}
 		scopeLayer++;
-
 		/*********************************************/
 		/* Print the symbol table after every change */
 		/*********************************************/
@@ -294,32 +304,49 @@ public class SYMBOL_TABLE
 			/***************************************/
 			/* [3] Enter library function PrintInt */
 			/***************************************/
-			instance.enter(
-				"PrintInt",
-				new TYPE_FUNCTION(
-					TYPE_VOID.getInstance(),
-					"PrintInt",
-					new TYPE_LIST(
-						TYPE_INT.getInstance(),
-						null)));
+			instance.enter("PrintInt", new TYPE_FUNCTION(TYPE_VOID.getInstance(), "PrintInt", new TYPE_LIST(TYPE_INT.getInstance(), null)));
 
-			instance.enter(
-					"PrintString",
-					new TYPE_FUNCTION(
-							TYPE_VOID.getInstance(),
-							"PrintString",
-							new TYPE_LIST(
-									TYPE_STRING.getInstance(),
-									null)));
+			instance.enter("PrintString", new TYPE_FUNCTION(TYPE_VOID.getInstance(), "PrintString", new TYPE_LIST(TYPE_STRING.getInstance(), null)));
 
-			instance.enter(
-					"PrintTrace",
-					new TYPE_FUNCTION(
-							TYPE_VOID.getInstance(),
-							"PrintTrace",
-							null));
+			instance.enter("PrintTrace", new TYPE_FUNCTION(TYPE_VOID.getInstance(), "PrintTrace", null));
 			
 		}
 		return instance;
 	}
+
+	/**
+	 *
+	 * for vardec ast nodes to set their annotations
+	 */
+	public void setAstAnnotations(AnnotAst info) {
+		// check if global
+		if (this.isGlobalScope()) {
+			info.setGlobal();
+		}
+		else {
+			SYMBOL_TABLE_ENTRY e;
+			TYPE_FOR_SCOPE_BOUNDARIES t;
+			int offset = 0;
+			for (e = top; e != null; e = e.prevtop)
+			{
+				if(e.name.equals("SCOPE-BOUNDARY")){
+					t = (TYPE_FOR_SCOPE_BOUNDARIES)e.type;
+					if (t.name.equals("NONE")) continue;
+					if (t.classBound) {
+						info.setField();
+						info.setClassName(t.name);
+					}
+					if (t.funcBound) {
+						info.setLocal();
+						info.setFuncName(t.name);
+					}
+					break;
+				}
+				if(e.type instanceof TYPE_FUNCTION) continue;
+				offset++;
+			}
+			info.setOffset(offset);
+		}
+	}
+
 }

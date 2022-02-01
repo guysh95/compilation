@@ -107,7 +107,6 @@ public class AST_CLASS_DEC extends AST_DEC {
 
         TYPE_CLASS tclass = new TYPE_CLASS(extended_type_casted,className,dataMembers);
 
-        //TODO nned to replace here recursive instances TYPE_ID with new TYPE_CLASS
         System.out.println(tclass.name + " data members are: ");
         for(TYPE_LIST ptr = tclass.data_members; ptr != null; ptr = ptr.tail){
             if (ptr.head.isVar()) {

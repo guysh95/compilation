@@ -12,6 +12,7 @@ public class AST_FUNCDEC extends AST_DEC
     public AST_FUNCARGS fa;
     public AST_STMT_LIST sl;
 	public int row;
+	public AnnotFunc info;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -129,6 +130,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/***************************/
 		/* [2] Semant Input Params */
 		/***************************/
+		int paramCount = 0;
 		for (AST_FUNCARGS it = fa; it != null; it = it.fa)
 		{
 			//System.out.println("AAAAAAAaaaaAAAAAAA");
@@ -141,8 +143,10 @@ public class AST_FUNCDEC extends AST_DEC
 			// argument type exist in scope and is not void
 			SYMBOL_TABLE.getInstance().enter(it.id, argType);
 			type_list = new TYPE_LIST(argType, type_list);
+			paramCount++;
 			//TODO remember to check parameter list with the super overridden method
 		}
+		info.setNumParams(paramCount);
 
 		/*******************/
 		/* [3] Semant Body */
@@ -154,7 +158,9 @@ public class AST_FUNCDEC extends AST_DEC
 		}
 		SYMBOL_TABLE.getInstance().enter(id,tfunc);
 		//System.out.println("====> lets semant function body in AST_FUNCDEC");
-		sl.SemantFunctionMe(scope, returnType);
+		int[] localCount = {0};
+		sl.SemantFunctionMe(scope, returnType, localCount);
+		info.setBumLocals(localCount[0]);
 		//System.out.println("====> We finished semanting body in AST_FUNCDEC");
 
 		/*****************/

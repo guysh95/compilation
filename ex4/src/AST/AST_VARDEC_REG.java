@@ -3,13 +3,13 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 import TEMP.*; import IR.*; import MIPS.*;
-import ANNOTATE_TABLE.*;
 
 public class AST_VARDEC_REG extends AST_DEC
 {
 	public AST_TYPE type;
     public String id;
 	public int row;
+	public AnnotAst info;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -96,6 +96,9 @@ public class AST_VARDEC_REG extends AST_DEC
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t, id);
 		System.out.println("now we are at vardec reg with: " + id);
 		System.out.println("t3 is now: "+ t3.name + " and its type is " + t3.t.name);
+
+		SYMBOL_TABLE.getInstance().setAstAnnotations(info);
+
 		SYMBOL_TABLE.getInstance().enter(id,t);
 
 		/*********************************************************/
@@ -109,10 +112,5 @@ public class AST_VARDEC_REG extends AST_DEC
 		IR.getInstance().Add_IRcommand(new IRcommand_Allocate(id));
 
 		return null;
-	}
-
-	public void AnnotateMe() {
-		//TODO: check if global or a class field
-		ANNOTATE_TABLE.getInstance().enter(id);
 	}
 }
