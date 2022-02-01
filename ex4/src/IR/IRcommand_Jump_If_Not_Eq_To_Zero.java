@@ -39,7 +39,6 @@ public class IRcommand_Jump_If_Not_Eq_To_Zero extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: add mips command
-        
+        MIPSGenerator.getInstance().bnez(t, label_name);
     }
 }

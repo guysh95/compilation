@@ -40,6 +40,6 @@ public class IRcommandConstNIL extends IRcommand
     public void MIPSme()
     {
         // todo: create liNIL that will look different then string
-        //MIPSGenerator.getInstance().liString(t,value);
+        MIPSGenerator.getInstance().liInt(t,0);
     }
 }
