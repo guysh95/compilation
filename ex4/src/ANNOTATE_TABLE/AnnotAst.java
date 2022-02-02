@@ -2,7 +2,7 @@ package ANNOTATE_TABLE;
 
 public class AnnotAst
 {
-    private int type;
+    public int type;
     /**
      * type vals and meaning:
      * 0 - global
@@ -14,6 +14,13 @@ public class AnnotAst
     private int offset;
     private String funcName;
     private String className;
+
+    public AnnotAst(int type, int offset, String funcName, String className) {
+        this.type = type;
+        this.offset = offset;
+        this.funcName = funcName;
+        this.className = className;
+    }
 
     public void setGlobal() {
         this.type = 0;

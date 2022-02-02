@@ -65,8 +65,6 @@ public class Main
 
 
 			CFG.getInstance().runAnalysis();
-
-			int[] registerColorTable = IG.getInstance.coloring();
 			
 			/***********************/
 			/* [9] MIPS the IR ... */

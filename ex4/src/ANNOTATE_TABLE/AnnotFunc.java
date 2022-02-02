@@ -1,9 +1,14 @@
 package ANNOTATE_TABLE;
 
-public class AnnotAst
+public class AnnotFunc
 {
     private int numParams;
     private int numLocals;
+
+    public AnnotFunc(int numParams, int numLocals) {
+        this.numParams = numParams;
+        this.numLocals = numLocals;
+    }
 
     public int getNumParams() {
         return numParams;

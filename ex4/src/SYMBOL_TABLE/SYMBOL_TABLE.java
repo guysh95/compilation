@@ -354,7 +354,8 @@ public class SYMBOL_TABLE
 	}
 
 	public AnnotAst getVarAnnotations(AnnotAst info, String name){
-		TYPE t
+		TYPE t = this.find(name);
+		AnnotAst info
 		if (inClassScope && inFuncScope) {
 
 		}
