@@ -12,6 +12,9 @@ public class AST_CLASS_DEC extends AST_DEC {
     public AST_CFIELD_LIST list;
     public int row;
 
+    public TYPE_CLASS tclass = null;
+    public TYPE_CLASS ext_tclass = null;
+
     public AST_CLASS_DEC(String className, String extendedClass, AST_CFIELD_LIST list, int row) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
@@ -89,6 +92,7 @@ public class AST_CLASS_DEC extends AST_DEC {
                 throw new lineException(Integer.toString(this.row));
             } else {
                 extended_type_casted = (TYPE_CLASS) extended_type;
+                this.ext_tclass = extended_type_casted;
             }
         }
 
@@ -149,8 +153,17 @@ public class AST_CLASS_DEC extends AST_DEC {
         /*********************************************************/
         /* [5] Return value is irrelevant for class declarations */
         /*********************************************************/
+
+
         /** we have class type, method count and father class */
 
+        this.tclass = tclass;
+
         return tclass;
+    }
+
+    public TEMP IRme()
+    {
+        IR.getInstance().Add_IRcommand(new IRcommand_Class_Dec_VTable(tclass,ext_tclass));
     }
 }
