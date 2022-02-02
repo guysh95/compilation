@@ -120,7 +120,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 	public TEMP IRme(){
 
 		TEMP t = exp.IRme();
-		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, t));
+		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, t, info));
 		// storing result
 		return null;
 	}
