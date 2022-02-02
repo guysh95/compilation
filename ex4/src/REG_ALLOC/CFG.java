@@ -72,7 +72,7 @@ public class CFG
                 curr.outTemps = curr.jumpFrom.inTemps; //add in from jump
             }
         }
-
+        //todo: need to think on another way to check it
         //check if change was made
         if(curr.inTemps != curr.outTemps){
             k = 1;  // means that a change happend in the analysis
@@ -98,7 +98,7 @@ public class CFG
     public void runAnalysis(){
         int flag = 1;
         while (flag != 0){  // will be 0 only after an analysis run without changes
-            flag = livenessRec(this.head);
+            flag = livenessRec(this.tail);
         }
     }
 }
