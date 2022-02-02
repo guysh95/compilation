@@ -43,7 +43,8 @@ public class IRcommand_Field_Set extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: create mips command for this
+        // todo: create mips command for this assuming we have correct offset
+        int fieldOffset = 4;
         //MIPSGenerator.getInstance().store(var_name,src);
     }
 }

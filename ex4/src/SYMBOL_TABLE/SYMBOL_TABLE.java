@@ -28,6 +28,8 @@ public class SYMBOL_TABLE
 	private SYMBOL_TABLE_ENTRY top;
 	private int top_index = 0;
 	private int scopeLayer = 0;
+	boolean inFuncScope = false;
+	boolean inClassScope = false;
 	
 	/**************************************************************/
 	/* A very primitive hash function for exposition purposes ... */
@@ -351,8 +353,14 @@ public class SYMBOL_TABLE
 		}
 	}
 
-	public AnnotAst getVarAnnotations(AnnotAst info){
+	public AnnotAst getVarAnnotations(AnnotAst info, String name){
+		TYPE t
+		if (inClassScope && inFuncScope) {
 
+		}
+		else if (inFuncScope) {
+
+		}
 	}
 
 }
