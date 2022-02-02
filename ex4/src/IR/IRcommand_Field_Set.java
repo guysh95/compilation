@@ -16,13 +16,13 @@ import MIPS.*;
 public class IRcommand_Field_Set extends IRcommand
 {
     TEMP var;
-    String methodName;
+    String fieldName;
     TEMP exp;
 
-    public IRcommand_Field_Set(TEMP var, String methodName, TEMP exp)
+    public IRcommand_Field_Set(TEMP var, String fieldName, TEMP exp)
     {
-        this.var     = var;
-        this.methodName     = methodName;
+        this.var       = var;
+        this.fieldName = fieldName;
         this.exp       = exp;
     }
 
@@ -43,8 +43,12 @@ public class IRcommand_Field_Set extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: create mips command for this assuming we have correct offset
+        // todo: get the correct offset
         int fieldOffset = 4;
-        //MIPSGenerator.getInstance().store(var_name,src);
+
+        // IR representation: "var.fieldName = exp"
+        // MIPS representation: "sw $exp,offset($var)"
+        MIPSme();.getInstance().swByOffset(exp, var, fieldOffset);
+
     }
 }
