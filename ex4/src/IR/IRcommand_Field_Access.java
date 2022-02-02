@@ -43,8 +43,11 @@ public class IRcommand_Field_Access extends IRcommand
     /***************/
     public void MIPSme()
     {
-        //MIPSGenerator.getInstance().load(dst,var_name);
-        // todo: need to create mips command assuming we have field offset
+        // todo: get the correct offset
         int fieldOffset = 4;
+
+        // IR representation: "dst = var.fieldName"
+        // MIPS representation: "lw $dst,offset($var)"
+        MIPSme();.getInstance().lwByOffset(dst, var, fieldOffset);
     }
 }

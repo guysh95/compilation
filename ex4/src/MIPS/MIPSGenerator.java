@@ -508,11 +508,19 @@ public class MIPSGenerator
 		// return dst temp to point at the start of the string
 		fileWriter.format("\tmove Temp_%d,$s0\n", dstidx);
 	}
-	public void swByOffset(TEMP value, TEMP dest, int offset)
+
+	public void swByOffset(TEMP value, TEMP memory, int offset)
 	{
 		int validx = regColorTable[value.getSerialNumber()];
+		int memidx = regColorTable[memory.getSerialNumber()];
+		fileWriter.format("\tsw Temp_%d,%d(Temp_%d)\n", validx, offset, memidx);
+	}
+
+	public void lwByOffset(TEMP dest, TEMP memory, int offset)
+	{
 		int dstidx = regColorTable[dest.getSerialNumber()];
-		fileWriter.format("\tsw Temp_%d,%d(Temp_%d)\n", validx, offset, dstidx);
+		int memidx = regColorTable[memory.getSerialNumber()];
+		fileWriter.format("\tlw Temp_%d,%d(Temp_%d)\n", dstidx, offset, memidx);
 	}
 
 	public void mallocSpace(TEMP dest, int space)
