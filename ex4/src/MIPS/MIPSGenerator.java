@@ -523,6 +523,17 @@ public class MIPSGenerator
 		fileWriter.format("\tlw Temp_%d,%d(Temp_%d)\n", dstidx, offset, memidx);
 	}
 
+	public void initVTable(String className)
+	{
+		fileWriter.format("\t.data\n");
+		label("vt_" + className);
+	}
+
+	public void enterMethodLabel(String className, String methodName)
+	{
+		fileWriter.format("\t.word %s_%s\n", className, methodName);
+	}
+
 	public void mallocSpace(TEMP dest, int space)
 	{
 		int dstidx = regColorTable[dest.getSerialNumber()];
