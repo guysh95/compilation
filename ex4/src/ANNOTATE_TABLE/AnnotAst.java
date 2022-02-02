@@ -15,11 +15,16 @@ public class AnnotAst
     private String funcName;
     private String className;
 
-    public AnnotAst(int type, int offset, String funcName, String className) {
-        this.type = type;
+    public AnnotAst(int offset, String funcName, String className) {
         this.offset = offset;
         this.funcName = funcName;
         this.className = className;
+    }
+
+    public AnnotAst() {
+        this.offset = 0;
+        this.funcName = null;
+        this.className = null;
     }
 
     public void setGlobal() {
@@ -56,5 +61,19 @@ public class AnnotAst
 
     public void setOffset(int offset) {
         this.offset = offset;
+    }
+
+    public boolean isGlobal() {
+        return (this.type == 0)
+    }
+
+    public boolean isLocal() {
+        return (this.type == 1)
+    }
+    public boolean isParam() {
+        return (this.type == 2)
+    }
+    public boolean isField() {
+        return (this.type == 3)
     }
 }

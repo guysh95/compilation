@@ -7,6 +7,7 @@ package SYMBOL_TABLE;
 /* PROJECT IMPORTS */
 /*******************/
 import TYPES.*;
+import ANNOTATE_TABLE.*;
 
 /**********************/
 /* SYMBOL TABLE ENTRY */
@@ -34,7 +35,7 @@ public class SYMBOL_TABLE_ENTRY
 	public SYMBOL_TABLE_ENTRY prevtop;
 	public SYMBOL_TABLE_ENTRY next;
 
-
+	public AnnotAst info;
 	public Integer paramIndex;
 
 	/****************************************************/
