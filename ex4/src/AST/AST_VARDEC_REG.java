@@ -97,9 +97,9 @@ public class AST_VARDEC_REG extends AST_DEC
 		System.out.println("now we are at vardec reg with: " + id);
 		System.out.println("t3 is now: "+ t3.name + " and its type is " + t3.t.name);
 
-		SYMBOL_TABLE.getInstance().setAstAnnotations(info);
+		this.info = SYMBOL_TABLE.getInstance().setAstAnnotations();
 
-		SYMBOL_TABLE.getInstance().enter(id,t);
+		SYMBOL_TABLE.getInstance().enterVar(id,t, this.info);
 
 		/*********************************************************/
 		/* [4] Return value is irrelevant for class declarations */

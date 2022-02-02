@@ -149,6 +149,8 @@ public class AST_CLASS_DEC extends AST_DEC {
         /*********************************************************/
         /* [5] Return value is irrelevant for class declarations */
         /*********************************************************/
+        /** we have class type, method count and father class */
+
         return tclass;
     }
 }

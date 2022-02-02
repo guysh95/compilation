@@ -83,11 +83,19 @@ public class SYMBOL_TABLE
 		PrintMe();
 	}
 
-	public void enterParam(String name, TYPE t, int paramIndex){
+	public void enterParam(String name, TYPE t, int paramIndex, String funcName){
 		this.enter(name, t);
 		this.top.paramIndex = new Integer(paramIndex);
+		this.top.info = new AnnotAst(paramIndex, funcName, null);
+		this.top.info.setParam();
 		// paramIndex is null -> entry is not param
 		// paramIndex is not null -> entry is param and it offset in the function is paramIndex
+	}
+
+	public void enterVar(String name, TYPE t, AnnotAst info)
+	{
+		this.enter(name, t);
+		this.top.info = info;
 	}
 
 	public boolean isGlobalScope() {
@@ -321,8 +329,9 @@ public class SYMBOL_TABLE
 	 *
 	 * for vardec ast nodes to set their annotations
 	 */
-	public void setAstAnnotations(AnnotAst info) {
+	public AnnotAst setAstAnnotations() {
 		// check if global
+		AnnotAst info = new AnnotAst();
 		if (this.isGlobalScope()) {
 			info.setGlobal();
 		}
@@ -351,16 +360,52 @@ public class SYMBOL_TABLE
 			}
 			info.setOffset(offset);
 		}
+		return info;
 	}
 
-	public AnnotAst getVarAnnotations(AnnotAst info, String name){
-		TYPE t = this.find(name);
-		AnnotAst info
-		if (inClassScope && inFuncScope) {
+	public SYMBOL_TABLE_ENTRY findEntry(String name)
+	{
+		SYMBOL_TABLE_ENTRY e;
 
+		for (e = table[hash(name)]; e != null; e = e.next)
+		{
+
+			if (name.equals(e.name))
+			{
+				System.out.println("found!");
+				return e;
+			}
+		}
+		System.out.println("leaving found");
+		return null;
+	}
+
+	public TYPE_CLASS getScopeClass
+
+	public AnnotAst getVarAnnotations(String name){
+		SYMBOL_TABLE_ENTRY e = this.findEntry(name);
+		if (inClassScope && inFuncScope) {
+			if (e == null) {
+				// variable is not defined need to look in father class
+			}
+			else {
+				AnnotAst InnerScopeInfo = e.info; // need to add annotations to table_entry
+				TYPE t = e.type;
+				if (InnerScopeInfo.isGlobal()) {
+					// need to look in father class
+					if(true) // not found in father fields
+						return InnerScopeInfo;
+					else
+						return null // return whatever found in father class in AnnotAst form
+				}
+				else
+					return InnerScopeInfo;
+			}
 		}
 		else if (inFuncScope) {
-
+			if (e == null) System.exit(1); // error variable is not defined
+			AnnotAst InnerScopeInfo = e.info; // need to add annotations to table_entry
+			return InnerScopeInfo;
 		}
 	}
 
