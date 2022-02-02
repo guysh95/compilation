@@ -40,10 +40,19 @@ public class IRcommand_Load extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		if(info.type == 0){	// todo: implement global load
-
-		} else if (info.type == 1){ // todo: implement local load
-
+		if (info.isGlobal()) {
+			String varLabel = "global_" + var_name;
+			MIPSGenerator.getInstance().loadGlobal(dst, varLabel);
+		if (info.isLocal()) {
+			MIPSGenerator.getInstance().loadLocal(dst, info.getOffset());
+		}
+		if (info.isParam()) {
+			MIPSGenerator.getInstance().loadParam(dst, info.getOffset());
+		}
+		if (info.isField()) {
+			//TODO: need to figure how to access field
+			// probably instance is first argument of method so
+			// we access first argument and then store in the right offset
 		}
 		MIPSGenerator.getInstance().load(dst,var_name);
 	}

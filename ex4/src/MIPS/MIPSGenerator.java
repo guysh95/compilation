@@ -191,6 +191,43 @@ public class MIPSGenerator
 		fileWriter.format(".data\n");
 		fileWriter.format("\tglobal_%s: .asciiz %s\n",var_name, value);
 	}
+
+	public void loadGlobal(TEMP dst, String label) {
+		int idxdst = regColorTable[dst.getSerialNumber()];
+		fileWriter.format("\tlw Temp_%d,%s\n",idxdst,label);
+	}
+
+	public void loadLocal(TEMP dst, int offset) {
+		int idxdst = regColorTable[dst.getSerialNumber()];
+		// assuming we store all temps ....
+		offset = -1 * ( (offset * 4 ) + 40 );
+		fileWriter.format("\tlw Temp_%d,%d($fp)\n",idxdst, offset);
+	}
+
+	public void loadParam(TEMP dst, int offset) {
+		int idxdst = regColorTable[dst.getSerialNumber()];
+		offset = (offset * 4 ) + 4; // additinoal 4 to skip return address
+		fileWriter.format("\tlw Temp_%d,%d($fp)\n",idxdst, offset);
+	}
+
+	public void storeGlobal(TEMP src, String label) {
+		int idxsrc = regColorTable[src.getSerialNumber()];
+		fileWriter.format("\tsw Temp_%d,%s\n",idxsrc,label);
+	}
+
+	public void storeLocal(TEMP src, int offset) {
+		int idxsrc = regColorTable[src.getSerialNumber()];
+		// assuming we store all temps ....
+		offset = -1 * ( (offset * 4 ) + 40 );
+		fileWriter.format("\tsw Temp_%d,%d($fp)\n",idxsrc, offset);
+	}
+
+	public void storeParam(TEMP src, int offset) {
+		int idxsrc = regColorTable[src.getSerialNumber()];
+		offset = (offset * 4 ) + 4; // additinoal 4 to skip return address
+		fileWriter.format("\tsw Temp_%d,%d($fp)\n",idxsrc, offset);
+	}
+
 	public void MemoryAccess(boolean isLoad, TEMP dst,String gVarName, TEMP src, Integer index)
 	{
 		int idxdst = regColorTable[dst.getSerialNumber()];

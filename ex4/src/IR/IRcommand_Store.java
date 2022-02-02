@@ -41,11 +41,20 @@ public class IRcommand_Store extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		if(info.type == 0){	// todo: implement global store
-
-		} else if (info.type == 1){ // todo: implement local store
-
-		}
+		if (info.isGlobal()) {
+			String varLabel = "global_" + var_name;
+			MIPSGenerator.getInstance().storeGlobal(src, varLabel);
+			if (info.isLocal()) {
+				MIPSGenerator.getInstance().storeLocal(src, info.getOffset());
+			}
+			if (info.isParam()) {
+				MIPSGenerator.getInstance().storeParam(src, info.getOffset());
+			}
+			if (info.isField()) {
+				//TODO: need to figure how to access field
+				// probably instance is first argument so
+				// we access first argument and then store in the right offset
+			}
 		MIPSGenerator.getInstance().store(var_name,src);
 	}
 }
