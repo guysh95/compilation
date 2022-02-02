@@ -185,7 +185,10 @@ public class AST_FUNCDEC extends AST_DEC
 
 	public TEMP IRme()
 	{
-		IR.getInstance().Add_IRcommand(new IRcommand_Label(id));
+		IRcommand_Label_Function cmd = new IRcommand_Label(id);
+		//CFG.setCFGInstance(cmd.func_cfg);
+		IR.getInstance().Add_IRcommand(cmd);
+
 		// no need to IRme func args - because we checked in semant me that
 		// the declare and call have the same params - so when we use IRcommand_Call
 		// we use the registers that provided there

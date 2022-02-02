@@ -12,6 +12,7 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 	/* simple variable name */
 	/************************/
 	public String name;
+	public AnnotAst nodeInfo;
 	
 	/************************************************/
 	/* PRIMITIVE AD-HOC COUNTER FOR LOCAL VARIABLES */
@@ -52,7 +53,7 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 	public TEMP IRme()
 	{
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
-		IR.getInstance().Add_IRcommand(new IRcommand_Load(t,name));
+		IR.getInstance().Add_IRcommand(new IRcommand_Load(t,name, nodeInfo));
 		return t;
 	}
 	public TYPE SemantMe()

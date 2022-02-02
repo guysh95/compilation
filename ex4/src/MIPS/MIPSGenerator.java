@@ -559,7 +559,8 @@ public class MIPSGenerator
 		// Might need to change consider epilogue name for method/function
 		int i1 = regColorTable[t.getSerialNumber()];
 		fileWriter.format("\tmove $v0,Temp_%d\n",i1);
-		fileWriter.format("\tj %s_epilogue\n",funcName);
+		functionEpilogue();
+		//fileWriter.format("\tj %s_epilogue\n",funcName);
 	}
 	
 	/**************************************/
