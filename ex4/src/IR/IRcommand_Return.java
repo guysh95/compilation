@@ -36,15 +36,17 @@ public class IRcommand_Return extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: create relevant mips command assuming we have calller label:
-        String callerLabel = "guy_is_gever";
-        // need to get return address here somehow maybe $ra?
-        if (t == null) {
+        MIPSGenerator.getInstance().return1(t);
 
-        }
-        else {
+        // todo: create relevant mips command assuming we have calller label:
+        //String callerLabel = "guy_is_gever";
+        // need to get return address here somehow maybe $ra?
+        //if (t == null) {
+
+        //}
+        //else {
             // t holds return value
-        }
+        //}
         //MIPSGenerator.getInstance().store(var_name,src);
     }
 }

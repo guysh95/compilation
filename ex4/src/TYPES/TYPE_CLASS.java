@@ -88,6 +88,44 @@ public class TYPE_CLASS extends TYPE
 		return null;
 	}
 
+	public int getOffsetForVar(String name){
+		int count;
+		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
+			count = 0;
+			for(TYPE_LIST it = currFather.data_members; it != null; it = it.tail){
+				if(it.head.isVar()){
+					tvar = (TYPE_CLASS_VAR_DEC) it.head;
+					System.out.println("######found var name: " + tvar.name);
+					if(name.equals(tvar.name)){
+						// result ancsFieldCount + offset in current class
+						TYPE_CLASS currGrandpa = currFather.father;
+						return count + currGrandpa.countFieldWithAncs();
+					}
+						count++;
+				}
+
+			}
+		}
+		//no var with same name in ancestors
+		return -1;
+	}
+
+	public int countFieldWithAncs() {
+		int result = this.fieldsCount;
+		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
+			result += currFather.fieldsCount;
+		}
+		return result;
+	}
+
+	public int countMethodWithAncs() {
+		int result = this.methodCount;
+		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
+			result += currFather.methodCount;
+		}
+		return result;
+	}
+
 
 	/****************/
 	/* CTROR(S) ... */

@@ -109,9 +109,9 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 			}
 		}
 		//Annotations
-		SYMBOL_TABLE.getInstance().setAstAnnotations(info);
+		this.info = SYMBOL_TABLE.getInstance().setAstAnnotations();
 
-		SYMBOL_TABLE.getInstance().enter(name, t1);
+		SYMBOL_TABLE.getInstance().enterVar(name, t1, this.info);
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, name);
 		return t3;
 
@@ -120,7 +120,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 	public TEMP IRme(){
 
 		TEMP t = exp.IRme();
-		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, t));
+		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, t, info));
 		// storing result
 		return null;
 	}

@@ -85,16 +85,19 @@ public class AST_VAR_SIMPLE extends AST_VAR
 							t = SYMBOL_TABLE.getInstance().find(name);
 							if (t != null) {
 								//name is global var or function local var or param
+								nodeInfo = SYMBOL_TABLE.getInstance().getVarAnnotations(name, null);
 								return t;
 							}
 							System.out.format(">> ERROR ID %s does not exists\n", name);
 							throw new lineException(Integer.toString(this.row));
 						}
-						// name is superclass field / method
+						// name is superclass field
+						nodeInfo = SYMBOL_TABLE.getInstance().getVarAnnotations(name, tc);
 						return fatherVar.t;
 					}
 					else {
-						// name is class field / method
+						// name is class field
+						nodeInfo = SYMBOL_TABLE.getInstance().getVarAnnotations(name, null);
 						return myVarType;
 					}
 			}
@@ -103,10 +106,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		// we are not in a method
 		if (t == null)	t = SYMBOL_TABLE.getInstance().find(name);
 		if (t != null) {
-			if (t instanceof TYPE_FUNCTION) {
-				// we are calling a function
-
-			}
+			nodeInfo = SYMBOL_TABLE.getInstance().getVarAnnotations(name, null);
 			return t;
 		}
 		// we are in global scope
@@ -117,12 +117,12 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	public TEMP IRme()
 	{
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
-		IR.getInstance().Add_IRcommand(new IRcommand_Load(t,name));
+		IR.getInstance().Add_IRcommand(new IRcommand_Load(t,name, nodeInfo));
 		return t;
 	}
 
 	public TEMP assignIRme(TEMP texp){
-		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, texp));
+		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, texp, nodeInfo));
 		// I think it does not return anything because we assign it - and finish with store
 		return null;
 	}

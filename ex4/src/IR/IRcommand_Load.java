@@ -17,11 +17,13 @@ public class IRcommand_Load extends IRcommand
 {
 	TEMP dst;
 	String var_name;
+	AnnotAst info;
 	
-	public IRcommand_Load(TEMP dst,String var_name)
+	public IRcommand_Load(TEMP dst,String var_name, AnnotAst info)
 	{
 		this.dst      = dst;
 		this.var_name = var_name;
+		this.info = info;
 	}
 
 	public Set<Integer> getLiveTemps(){
@@ -38,6 +40,11 @@ public class IRcommand_Load extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
+		if(info.type == 0){	// todo: implement global load
+
+		} else if (info.type == 1){ // todo: implement local load
+
+		}
 		MIPSGenerator.getInstance().load(dst,var_name);
 	}
 }

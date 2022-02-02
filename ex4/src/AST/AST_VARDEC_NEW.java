@@ -137,16 +137,16 @@ public class AST_VARDEC_NEW extends AST_DEC
 		}
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, id);
 
-		SYMBOL_TABLE.getInstance().setAstAnnotations(info);
+		this.info = SYMBOL_TABLE.getInstance().setAstAnnotations();
 
-		SYMBOL_TABLE.getInstance().enter(id, t1);
+		SYMBOL_TABLE.getInstance().enterVar(id, t1, this.info);
 		return t3;
 	}
 
 	public TEMP IRme(){
 
 		TEMP t = exp.newIRme();
-		IR.getInstance().Add_IRcommand(new IRcommand_Store(id, t));
+		IR.getInstance().Add_IRcommand(new IRcommand_Store(id, t, info));
 		// storing result
 		return null;
 	}

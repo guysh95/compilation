@@ -104,7 +104,7 @@ public class AST_CLASS_DEC extends AST_DEC {
         /*************************/
         /* [1] Begin Class Scope */
         /*************************/
-        SYMBOL_TABLE.getInstance().beginScope();
+        SYMBOL_TABLE.getInstance().beginScope(className, true, extended_type_casted);
 
         /***************************/
         /* [2] Semant Data Members */
@@ -153,7 +153,12 @@ public class AST_CLASS_DEC extends AST_DEC {
         /*********************************************************/
         /* [5] Return value is irrelevant for class declarations */
         /*********************************************************/
+
+
+        /** we have class type, method count and father class */
+
         this.tclass = tclass;
+
         return tclass;
     }
 

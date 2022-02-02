@@ -125,7 +125,7 @@ public class AST_FUNCDEC extends AST_DEC
 				}
 			}
 		}
-		SYMBOL_TABLE.getInstance().beginScope();
+		SYMBOL_TABLE.getInstance().beginScope(id, false, null);
 
 		/***************************/
 		/* [2] Semant Input Params */
@@ -142,7 +142,7 @@ public class AST_FUNCDEC extends AST_DEC
 			}
 			// argument type exist in scope and is not void
 			paramCount++;
-			SYMBOL_TABLE.getInstance().enterParam(it.id, argType, paramCount);
+			SYMBOL_TABLE.getInstance().enterParam(it.id, argType, paramCount, id);
 			type_list = new TYPE_LIST(argType, type_list);
 			//TODO remember to check parameter list with the super overridden method
 		}
@@ -185,7 +185,10 @@ public class AST_FUNCDEC extends AST_DEC
 
 	public TEMP IRme()
 	{
-		IR.getInstance().Add_IRcommand(new IRcommand_Label(id));
+		IRcommand_Label_Function cmd = new IRcommand_Label(id);
+		//CFG.setCFGInstance(cmd.func_cfg);
+		IR.getInstance().Add_IRcommand(cmd);
+
 		// no need to IRme func args - because we checked in semant me that
 		// the declare and call have the same params - so when we use IRcommand_Call
 		// we use the registers that provided there
