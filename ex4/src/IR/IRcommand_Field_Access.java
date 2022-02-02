@@ -48,6 +48,6 @@ public class IRcommand_Field_Access extends IRcommand
 
         // IR representation: "dst = var.fieldName"
         // MIPS representation: "lw $dst,offset($var)"
-        MIPSme();.getInstance().lwByOffset(dst, var, fieldOffset);
+        MIPSGenerator.getInstance().lwByOffset(dst, var, fieldOffset);
     }
 }
