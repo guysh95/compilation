@@ -125,7 +125,7 @@ public class AST_FUNCDEC extends AST_DEC
 				}
 			}
 		}
-		SYMBOL_TABLE.getInstance().beginScope();
+		SYMBOL_TABLE.getInstance().beginScope(id, false, null);
 
 		/***************************/
 		/* [2] Semant Input Params */
@@ -142,7 +142,7 @@ public class AST_FUNCDEC extends AST_DEC
 			}
 			// argument type exist in scope and is not void
 			paramCount++;
-			SYMBOL_TABLE.getInstance().enterParam(it.id, argType, paramCount);
+			SYMBOL_TABLE.getInstance().enterParam(it.id, argType, paramCount, id);
 			type_list = new TYPE_LIST(argType, type_list);
 			//TODO remember to check parameter list with the super overridden method
 		}

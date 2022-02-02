@@ -83,11 +83,19 @@ public class SYMBOL_TABLE
 		PrintMe();
 	}
 
-	public void enterParam(String name, TYPE t, int paramIndex){
+	public void enterParam(String name, TYPE t, int paramIndex, String funcName){
 		this.enter(name, t);
 		this.top.paramIndex = new Integer(paramIndex);
+		this.top.info = new AnnotAst(paramIndex, funcName, null);
+		this.top.info.setParam();
 		// paramIndex is null -> entry is not param
 		// paramIndex is not null -> entry is param and it offset in the function is paramIndex
+	}
+
+	public void enterVar(String name, TYPE t, AnnotAst info)
+	{
+		this.enter(name, t);
+		this.top.info = info;
 	}
 
 	public boolean isGlobalScope() {
@@ -140,7 +148,7 @@ public class SYMBOL_TABLE
 	/***************************************************************************/
 	/* begine scope = Enter the <SCOPE-BOUNDARY> element to the data structure */
 	/***************************************************************************/
-	public void beginScope(String scopeName, boolean isClass)
+	public void beginScope(String scopeName, boolean isClass, TYPE_CLASS tc)
 	{
 		/************************************************************************/
 		/* Though <SCOPE-BOUNDARY> entries are present inside the symbol table, */
@@ -151,12 +159,12 @@ public class SYMBOL_TABLE
 		if (scopeName != null) { //function or class boundary
 			enter(
 					"SCOPE-BOUNDARY",
-					new TYPE_FOR_SCOPE_BOUNDARIES(scopeName, isClass));
+					new TYPE_FOR_SCOPE_BOUNDARIES(scopeName, isClass, tc));
 		}
 		else {
 			enter(
 					"SCOPE-BOUNDARY",
-					new TYPE_FOR_SCOPE_BOUNDARIES("NONE", false));
+					new TYPE_FOR_SCOPE_BOUNDARIES("NONE", false, tc));
 		}
 		scopeLayer++;
 		/*********************************************/
@@ -321,8 +329,9 @@ public class SYMBOL_TABLE
 	 *
 	 * for vardec ast nodes to set their annotations
 	 */
-	public void setAstAnnotations(AnnotAst info) {
+	public AnnotAst setAstAnnotations() {
 		// check if global
+		AnnotAst info = new AnnotAst();
 		if (this.isGlobalScope()) {
 			info.setGlobal();
 		}
@@ -338,6 +347,11 @@ public class SYMBOL_TABLE
 					if (t.classBound) {
 						info.setField();
 						info.setClassName(t.name);
+						if (t.father != null) {
+							// count here how many fields father have
+							//counted :)
+							offset += t.father.countFieldWithAncs();
+						}
 					}
 					if (t.funcBound) {
 						info.setLocal();
@@ -351,17 +365,85 @@ public class SYMBOL_TABLE
 			}
 			info.setOffset(offset);
 		}
+		return info;
 	}
 
-	public AnnotAst getVarAnnotations(AnnotAst info, String name){
-		TYPE t = this.find(name);
-		AnnotAst info
-		if (inClassScope && inFuncScope) {
+	public SYMBOL_TABLE_ENTRY findEntry(String name)
+	{
+		SYMBOL_TABLE_ENTRY e;
 
+		for (e = table[hash(name)]; e != null; e = e.next)
+		{
+
+			if (name.equals(e.name))
+			{
+				System.out.println("found!");
+				return e;
+			}
+		}
+		System.out.println("leaving found");
+		return null;
+	}
+
+	/**
+	 *
+	 * for accessing vars :)
+	 */
+	// this is done (?)
+	public AnnotAst getVarAnnotations(String name, TYPE_CLASS tc){
+		SYMBOL_TABLE_ENTRY e = this.findEntry(name);
+		if (inClassScope && inFuncScope) {
+			/**  method call */
+			if (e == null) {
+				/** looking in ancestors fields
+				 * (var isnt current class field)
+				 * (var isnt a defined local/global)
+				 */
+				if (tc == null) {
+					System.out.println("shouldn't be here: getVarAnnotations error C");
+					System.exit(1)
+				}
+				int offset = tc.getOffsetForVar(name);
+				if (offset == -1) {
+					System.out.println("shouldn't be here: getVarAnnotations error B");
+					System.exit(1) // shouldn't happen
+				}
+				AnnotAst res = new AnnotAst(offset, null, tc.name);
+				res.setField(); /** ancestor class field */
+				return res;
+			}
+			else {
+				AnnotAst InnerScopeInfo = e.info; // need to add annotations to table_entry
+				TYPE t = e.type;
+				if (InnerScopeInfo.isGlobal()) {
+					/** var is global var but maybe also a parent class field */
+					// need to look in father class
+					if(tc == null) // not in super class case
+						return InnerScopeInfo;
+					else {
+						// maybe in father class
+						int offset = tc.getOffsetForVar(name);
+						if (offset == -1) return InnerScopeInfo;
+						AnnotAst res = new AnnotAst(offset, null, tc.name);
+						res.setField();
+						return res;
+					}
+				}
+				else /** var is local/global/param or current class field */
+					return InnerScopeInfo;
+			}
 		}
 		else if (inFuncScope) {
-
+			if (e == null) {
+				System.out.println("shouldn't be here: getVarAnnotations error A");
+				System.exit(1); // error variable is not defined
+			}
+			AnnotAst InnerScopeInfo = e.info;
+			/** var is local/global/param */
+			return InnerScopeInfo;
 		}
+		System.out.println("shouldn't be here: getVarAnnotations error");
+		return null;
 	}
 
 }
