@@ -125,7 +125,7 @@ public class AST_FUNCDEC extends AST_DEC
 				}
 			}
 		}
-		SYMBOL_TABLE.getInstance().beginScope();
+		SYMBOL_TABLE.getInstance().beginScope(id, false, null);
 
 		/***************************/
 		/* [2] Semant Input Params */
