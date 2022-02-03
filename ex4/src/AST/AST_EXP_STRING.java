@@ -62,5 +62,4 @@ public class AST_EXP_STRING extends AST_EXP {
         return t;
     }
 
-    public void AnnotateMe() { }
 }

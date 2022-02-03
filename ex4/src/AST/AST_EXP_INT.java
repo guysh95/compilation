@@ -61,5 +61,4 @@ public class AST_EXP_INT extends AST_EXP
 		return t;
 	}
 
-	public void AnnotateMe() { }
 }

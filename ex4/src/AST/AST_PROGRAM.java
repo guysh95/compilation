@@ -79,13 +79,4 @@ public class AST_PROGRAM extends AST_Node{
         return null;
     }
 
-    public void AnnotateMe()
-    {
-        head.AnnotateMe();
-        for(AST_PROGRAM curr = tail; curr != null; curr = curr.tail){
-            curr.head.AnnotateMe();
-            //tlist = new TEMP_LIST(t1, tlist);
-        }
-        return null;
-    }
 }

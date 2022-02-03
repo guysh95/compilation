@@ -32,5 +32,4 @@ public abstract class AST_Node
 		return null; //not supposed to reach here
 	}
 
-	public void AnnotateMe() {return null;}
 }

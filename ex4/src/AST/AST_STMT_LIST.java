@@ -148,9 +148,4 @@ public class AST_STMT_LIST extends AST_Node
 		return tlist;
 	}
 
-	public void AnnotateMe() {
-		head.AnnotateMe();
-		if (tail != null) tail.AnnotateMe();
-	}
-	
 }

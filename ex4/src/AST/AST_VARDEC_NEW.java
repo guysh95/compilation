@@ -150,10 +150,4 @@ public class AST_VARDEC_NEW extends AST_DEC
 		// storing result
 		return null;
 	}
-
-	public void AnnotateMe(){
-		//TODO: check if in global scope or in class
-		ANNOTATE_TABLE.getInstance().enter(id);
-		if(exp != null) exp.AnnotateMe();
-	}
 }

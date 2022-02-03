@@ -147,9 +147,4 @@ public class AST_STMT_IF extends AST_STMT
 		return null;
 	}
 
-	public void AnnotateMe()
-	{
-		cond.AnnotateMe();
-		body.AnnotateMe();
-	}
 }

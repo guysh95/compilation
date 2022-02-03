@@ -138,9 +138,4 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 		TEMP t = exp.newIRme();
 		return t;
 	}
-
-	public void AnnotateMe() {
-		var.AnnotateMe();
-		exp.AnnotateMe();
-	}
 }
