@@ -124,10 +124,4 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 		// storing result
 		return null;
 	}
-
-	public void AnnotateMe(){
-		//TODO: add check if global scope or class scope
-		ANNOTATE_TABLE.getInstance().enter(name);
-		exp.AnnotateMe()
-	}
 }

@@ -215,8 +215,4 @@ public class AST_EXP_BINOP extends AST_EXP
 		return dst;
 	}
 
-	public void AnnotateMe() {
-		if (left != null) left.AnnotateMe();
-		if (right != null) right.AnnotateMe();
-	}
 }
