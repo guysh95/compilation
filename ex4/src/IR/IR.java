@@ -49,13 +49,18 @@ public class IR
 	/***************/
 	public void MIPSme()
 	{
+		int count = 1;
+		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", count++));
 		if (head != null) head.MIPSme();
 		while (tail != null)
 		{
+			System.out.println(String.format("Debug file is: %s, counter: %d", "IR", count++));
 			tail.head.MIPSme();
 			tail = tail.tail;
 		}
+		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", count++));
 		MIPSGenerator.getInstance().mainStub();
+		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", count++));
 	}
 
 	/**************************************/

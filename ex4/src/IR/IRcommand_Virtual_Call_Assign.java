@@ -11,7 +11,6 @@ package IR; import MIPS.*; import java.util.*;
 /* PROJECT IMPORTS */
 /*******************/
 import TEMP.*;
-import MIPS.*;
 
 public class IRcommand_Virtual_Call_Assign extends IRcommand
 {

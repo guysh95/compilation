@@ -273,7 +273,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		TEMP_LIST targs = null;
 		if (var != null) {	// this is virtual call - method
 			TEMP tvar = var.IRme();
-			int methodOffset = callerClass.getOffsetForMethod(fieldName);
+			int methodOffset = callerClass.getOffsetForMethod(id);
 			if (exps != null) {		// there are args
 				targs = exps.listIRme();
 				IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call(tvar, methodOffset, targs));

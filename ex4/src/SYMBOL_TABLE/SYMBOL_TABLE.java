@@ -345,12 +345,13 @@ public class SYMBOL_TABLE
 					t = (TYPE_FOR_SCOPE_BOUNDARIES)e.type;
 					if (t.name.equals("NONE")) continue;
 					if (t.classBound) {
+						TYPE_CLASS tc = t.scopeClassType;
 						info.setField();
-						info.setClassName(t.name);
-						if (t.father != null) {
+						info.setClassName(tc.name);
+						if (tc.father != null) {
 							// count here how many fields father have
 							//counted :)
-							offset += t.father.countFieldWithAncs();
+							offset += tc.father.countFieldWithAncs();
 						}
 					}
 					if (t.funcBound) {

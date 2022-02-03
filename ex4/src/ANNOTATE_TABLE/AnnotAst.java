@@ -63,6 +63,10 @@ public class AnnotAst
         this.offset = offset;
     }
 
+    public int getOffset() {
+        return offset;
+    }
+
     public boolean isGlobal() {
         return (this.type == 0);
     }

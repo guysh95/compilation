@@ -165,5 +165,6 @@ public class AST_CLASS_DEC extends AST_DEC {
     public TEMP IRme()
     {
         IR.getInstance().Add_IRcommand(new IRcommand_Class_Dec_VTable(tclass,ext_tclass));
+        return null;
     }
 }

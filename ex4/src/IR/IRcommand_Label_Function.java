@@ -12,16 +12,17 @@ package IR; import MIPS.*; import java.util.*;
 /*******************/
 import TEMP.*;
 import MIPS.*;
+import REG_ALLOC.*;
 
 public class IRcommand_Label_Function extends IRcommand
 {
     public String label_name;
-    public CFG func_cfg;
+    // public CFG func_cfg;
 
     public IRcommand_Label_Function(String label_name)
     {
         this.label_name = label_name;
-        this.func_cfg = new CFG(label_name);
+        // this.func_cfg = new CFG(label_name);
     }
 
     public Set<Integer> getLiveTemps(){

@@ -46,7 +46,7 @@ public class IRcommand_Array_Access extends IRcommand
     /***************/
     public void MIPSme()
     {
-        MIPSGenerator.getInstance().getArrayValue(t1,t2,dst);
+        MIPSGenerator.getInstance().getArrayValue(var,exp,dst);
     }
 
 

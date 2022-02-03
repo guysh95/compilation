@@ -137,9 +137,9 @@ public class AST_NEW_EXP extends AST_Node {
         TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
         AST_TYPE_SIMPLE classType = (AST_TYPE_SIMPLE) new_name;
         String className = classType.type;
-        TYPE classType = SYMBOL_TABLE.getInstance().find(className);
-        if (classType instanceof TYPE_CLASS) {
-            IR.getInstance().Add_IRcommand(new IRcommand_New_Class(t, (TYPE_CLASS)classType));
+        TYPE tc = SYMBOL_TABLE.getInstance().find(className);
+        if (tc instanceof TYPE_CLASS) {
+            IR.getInstance().Add_IRcommand(new IRcommand_New_Class(t, (TYPE_CLASS)tc));
             return t;
         }
         System.out.println("Invalid call for newClassIRme");

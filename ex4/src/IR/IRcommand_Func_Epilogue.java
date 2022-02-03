@@ -14,9 +14,9 @@ import AST.*;
 /*******************/
 import TEMP.*;
 
-public class IRcommand_Class_Func_Epilogue extends IRcommand
+public class IRcommand_Func_Epilogue extends IRcommand
 {
-    public IRcommand_Class_Func_Epilogue() {}
+    public IRcommand_Func_Epilogue() {}
 
     public Set<Integer> getLiveTemps(){ return  null; }
 

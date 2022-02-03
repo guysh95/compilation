@@ -57,36 +57,37 @@ public class Main
 			/* [7] Semant the AST ... */
 			/**************************/
 			AST.SemantMe(null);
-
+			System.out.println("semanting complete");
 			/**********************/
 			/* [8] IR the AST ... */
 			/**********************/
 			AST.IRme();
-
+			System.out.println("IR complete");
 			/*******************************************/
 			/* [8.5] Run register allocation on IR ... */
 			/*******************************************/
 			CFG.getInstance().runAnalysis();
-			
+			System.out.println("analysis complete");
 			/***********************/
 			/* [9] MIPS the IR ... */
 			/***********************/
 			IR.getInstance().MIPSme();
-
+			System.out.println("MIPSme complete");
 			/**************************************/
 			/* [10] Finalize AST GRAPHIZ DOT file */
 			/**************************************/
-			AST_GRAPHVIZ.getInstance().finalizeFile();			
-
+			AST_GRAPHVIZ.getInstance().finalizeFile();
+			System.out.println("this bullshit complete");
 			/***************************/
 			/* [11] Finalize MIPS file */
 			/***************************/
-			MIPSGenerator.getInstance().finalizeFile();			
-
+			MIPSGenerator.getInstance().finalizeFile();
+			System.out.println("finalizing file complete");
 			/**************************/
 			/* [12] Close output file */
 			/**************************/
 			file_writer.close();
+			System.out.println("closed file ido");
     	}
 
 		catch (lineException e){

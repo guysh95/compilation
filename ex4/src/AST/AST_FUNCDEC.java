@@ -12,7 +12,7 @@ public class AST_FUNCDEC extends AST_DEC
     public AST_FUNCARGS fa;
     public AST_STMT_LIST sl;
 	public int row;
-	public AnnotFunc info;
+	public AnnotFunc info = new AnnotFunc();
 	TYPE_CLASS methodOwner = null;
 
 	/******************/
@@ -85,7 +85,6 @@ public class AST_FUNCDEC extends AST_DEC
 		/*******************/
 		/* [0] return type */
 		/*******************/
-
 		returnType = SYMBOL_TABLE.getInstance().find(type.SemantMe(scope).name);
 		if (returnType == null)
 		{
@@ -128,11 +127,11 @@ public class AST_FUNCDEC extends AST_DEC
 			}
 		}
 		SYMBOL_TABLE.getInstance().beginScope(id, false, null);
-
 		/***************************/
 		/* [2] Semant Input Params */
 		/***************************/
 		int paramCount = 0;
+		System.out.println("fa is " + fa);
 		for (AST_FUNCARGS it = fa; it != null; it = it.fa)
 		{
 			//System.out.println("AAAAAAAaaaaAAAAAAA");
@@ -147,8 +146,9 @@ public class AST_FUNCDEC extends AST_DEC
 			SYMBOL_TABLE.getInstance().enterParam(it.id, argType, paramCount, id);
 			type_list = new TYPE_LIST(argType, type_list);
 		}
+		System.out.println("We got here <><><><>");
 		info.setNumParams(paramCount);
-
+		System.out.println("We got here !@!@!@!@!@");
 		/*******************/
 		/* [3] Semant Body */
 		/*******************/
@@ -190,7 +190,7 @@ public class AST_FUNCDEC extends AST_DEC
 		if(id.equals("main"))
 			id = "user_main";
 		if (methodOwner == null) {
-			IRcommand_Label_Function cmd = new IRcommand_Label(id);
+			IRcommand_Label_Function cmd = new IRcommand_Label_Function(id);
 			//CFG.setCFGInstance(cmd.func_cfg);
 			IR.getInstance().Add_IRcommand(cmd);
 			//print prologue with this function localCount
@@ -206,7 +206,7 @@ public class AST_FUNCDEC extends AST_DEC
 		else {
 			String className = methodOwner.name;
 			String methodLabel = className + "_" + id; // A_f
-			IRcommand_Label_Function cmd = new IRcommand_Label(methodLabel);
+			IRcommand_Label_Function cmd = new IRcommand_Label_Function(methodLabel);
 			IR.getInstance().Add_IRcommand(cmd);
 			if (sl != null) sl.IRme();
 			// epilogue label:

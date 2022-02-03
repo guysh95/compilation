@@ -94,7 +94,7 @@ public class AST_STMT_LIST extends AST_Node
 				continue;
 			}
 			if (current.getClass().getSimpleName().equals("AST_STMT_RETURN")) {
-				stmtType = ((AST_STMT_RETURN)current).SemantReturnMe(scope, expectedReturnType);
+				stmtType = ((AST_STMT_RETURN)current).SemantReturnMe(scope, expectedReturnType, funcName);
 				if (stmtType != expectedReturnType) {
 					if (expectedReturnType.isArray() && (stmtType == TYPE_NIL.getInstance())){
 						continue;

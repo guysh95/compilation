@@ -143,12 +143,12 @@ public class MIPSGenerator
 		}
 	}
 
-	public void callMethod(TEMP caller, int methodOffset, TEMP_LIST args, TEMP dst)
+	public void callMethod(TEMP caller, int methodOffset, TEMP_LIST tlist, TEMP dst)
 	{
 		int counter = 0;
 		int idxprm;
 		for (TEMP_LIST t = tlist; t != null; t = tlist.tail) {
-			idxprm = regColorTable[tlist.head.getSerialNumber()];
+			idxprm = regColorTable[t.head.getSerialNumber()];
 			fileWriter.format("\tsubu $sp,$sp,4\n");
 			fileWriter.format("\tsw Temp_%d,0($sp)\n",idxprm);
 			counter++;
@@ -167,7 +167,7 @@ public class MIPSGenerator
 		}
 	}
 
-	public void reverseTempList(TEMP_LIST tlist) {
+	public TEMP_LIST reverseTempList(TEMP_LIST tlist) {
 		TEMP_LIST prev = null;
 		TEMP_LIST current = tlist;
 		TEMP_LIST next = null;
@@ -392,14 +392,13 @@ public class MIPSGenerator
 		int arrayLoc = regColorTable[arr.getSerialNumber()];
 		int offset = regColorTable[place.getSerialNumber()];
 		int vlidx = regColorTable[value.getSerialNumber()];
-		fileWriter.format("\tsw Temp_%d,Temp_%d(Temp_%d)\n",vidx,offset,arr);
+		fileWriter.format("\tsw Temp_%d,Temp_%d(Temp_%d)\n",vlidx,offset,arr);
 	}
 
 	private void arrayAccessBoundrayCheck(TEMP arr, TEMP place/*, TEMP check*/)
 	{
 		int arrayLoc = regColorTable[arr.getSerialNumber()];
 		int indexVal = regColorTable[place.getSerialNumber()];
-		int chkidx = regColorTable[check.getSerialNumber()];
 		String label1 = labelGenerator("not_error");
 		String label2 = labelGenerator("not_error");
 		// temp to hold size of array : -4(Temp_arrayLoc)
@@ -619,7 +618,7 @@ public class MIPSGenerator
 	public void mallocArray(TEMP size, TEMP dest)
 	{
 		int i1 = regColorTable[size.getSerialNumber()];
-		int destIndex = regColorTable[dst.getSerialNumber()];
+		int destIndex = regColorTable[dest.getSerialNumber()];
 		fileWriter.format("\taddi Temp_%d,Temp_%d, 1\n",i1, i1); // inc size by 1
 		// mult by 4
 		fileWriter.format("\tsll Temp_%d,Temp_%d, 2\n",i1, i1);

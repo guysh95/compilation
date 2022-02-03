@@ -14,11 +14,11 @@ import AST.*;
 /*******************/
 import TEMP.*;
 
-public class IRcommand_Class_Func_Prologue extends IRcommand
+public class IRcommand_Func_Prologue extends IRcommand
 {
     int localCount;
 
-    public IRcommand_Class_Func_Prologue(int localCount) {
+    public IRcommand_Func_Prologue(int localCount) {
         this.localCount = localCount;
     }
 

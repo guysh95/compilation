@@ -12,6 +12,7 @@ package IR; import MIPS.*; import java.util.*;
 /*******************/
 import TEMP.*;
 import MIPS.*;
+import ANNOTATE_TABLE.*;
 
 public class IRcommand_Load extends IRcommand {
 	TEMP dst;

@@ -5,9 +5,7 @@ public class AnnotFunc
     private int numParams;
     private int numLocals;
 
-    public AnnotFunc(int numParams, int numLocals) {
-        this.numParams = numParams;
-        this.numLocals = numLocals;
+    public AnnotFunc() {
     }
 
     public int getNumParams() {

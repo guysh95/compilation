@@ -3,6 +3,7 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 import TEMP.*; import IR.*; import MIPS.*;
+import ANNOTATE_TABLE.*;
 
 public class AST_VARDEC_REG extends AST_DEC
 {
@@ -109,7 +110,7 @@ public class AST_VARDEC_REG extends AST_DEC
 
 	public TEMP IRme()
 	{
-		IR.getInstance().Add_IRcommand(new IRcommand_Allocate(id));
+		// IR.getInstance().Add_IRcommand(new IRcommand_Allocate(id));
 
 		return null;
 	}
