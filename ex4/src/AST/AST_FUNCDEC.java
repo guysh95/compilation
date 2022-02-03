@@ -216,12 +216,4 @@ public class AST_FUNCDEC extends AST_DEC
 		return null;
 	}
 
-	public void AnnotateMe()
-	{
-		ANNOTATE_TABLE.getInstance().startScope(id);
-		ANNOTATE_TABLE.getInstance().addingParams = true;
-		if (fa != null) fa.AnnotateMe();
-		ANNOTATE_TABLE.getInstance().addingParams = false;
-		if (sl != null) sl.AnnotateMe();
-	}
 }

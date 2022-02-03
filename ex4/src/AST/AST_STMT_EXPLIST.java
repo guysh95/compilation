@@ -291,15 +291,6 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		// nothing to return because this is statement
 		return null;
 	}
-
-	public void AnnotateMe() {
-		if(var != null) {
-			var.AnnotateMe();
-			//TODO: figure id method offset in var
-		}
-		//TODO: consider recursive case
-		if (exps != null) exps.AnnotateMe();
-	}
 }
 
 

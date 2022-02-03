@@ -127,8 +127,4 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		return null;
 	}
 
-	public void AnnotateMe(){
-		this.offset = ANNOTATE_TABLE.getInstance().find(name);
-		//TODO: check if offset is 0 -> maybe id is global\class field
-	}
 }
