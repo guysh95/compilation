@@ -146,7 +146,6 @@ public class AST_FUNCDEC extends AST_DEC
 			paramCount++;
 			SYMBOL_TABLE.getInstance().enterParam(it.id, argType, paramCount, id);
 			type_list = new TYPE_LIST(argType, type_list);
-			//TODO remember to check parameter list with the super overridden method
 		}
 		info.setNumParams(paramCount);
 
@@ -188,22 +187,21 @@ public class AST_FUNCDEC extends AST_DEC
 
 	public TEMP IRme()
 	{
-		//todo: consider case of method declaration!
-		//todo: get local count to IR
 		if(id.equals("main"))
 			id = "user_main";
 		if (methodOwner == null) {
 			IRcommand_Label_Function cmd = new IRcommand_Label(id);
 			//CFG.setCFGInstance(cmd.func_cfg);
 			IR.getInstance().Add_IRcommand(cmd);
+			//print prologue with this function localCount
+			IR.getInstance().Add_IRcommand(new IRcommand_Func_Prologue(info.getNumLocals()));
 
 			// no need to IRme func args - because we checked in semant me that
 			// the declare and call have the same params - so when we use IRcommand_Call
 			// we use the registers that provided there
 			if (sl != null) sl.IRme();
-			// label:
+			// epilogue label:
 			IR.getInstance().Add_IRcommand(new IRcommand_Label(String.format("%s_epilogue", id)));
-			//TODO: add here IR to print function epiloge for current function
 		}
 		else {
 			String className = methodOwner.name;
@@ -211,8 +209,8 @@ public class AST_FUNCDEC extends AST_DEC
 			IRcommand_Label_Function cmd = new IRcommand_Label(methodLabel);
 			IR.getInstance().Add_IRcommand(cmd);
 			if (sl != null) sl.IRme();
+			// epilogue label:
 			IR.getInstance().Add_IRcommand(new IRcommand_Label(String.format("%s_epilogue", methodLabel)));
-			//TODO: add here IR to print function epiloge for current function
 		}
 		IR.getInstance().Add_IRcommand(new IRcommand_Func_Epilogue());
 		return null;

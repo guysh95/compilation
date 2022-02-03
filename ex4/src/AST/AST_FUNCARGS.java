@@ -73,7 +73,6 @@ public class AST_FUNCARGS extends AST_Node
         if (fa != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,fa.SerialNumber);
 
 	}
-	//TODO add semantme(scope)
 	public TYPE SemantMe(TYPE scope) {
 		TYPE t = null;
 		TYPE t2 = null;

@@ -116,7 +116,7 @@ public class AST_CLASS_DEC extends AST_DEC {
 
         TYPE_CLASS tclass = new TYPE_CLASS(extended_type_casted,className,dataMembers);
 
-        //TODO need to replace here recursive instances TYPE_ID with new TYPE_CLASS
+        //replace here recursive instances TYPE_ID with new TYPE_CLASS
         /**
          * here we can count class fields and class methods
         * WITHOUT

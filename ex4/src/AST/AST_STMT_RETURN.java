@@ -104,7 +104,6 @@ public class AST_STMT_RETURN extends AST_STMT
 		else {
 			returnOwner = methodOwner + "_" + funcName;
 		}
-		//TODO: figure function name for return mips command
 		IR.getInstance().Add_IRcommand(new IRcommand_Return(t1, returnOwner));
 		return t1; // if no exp then t1 = null
 
