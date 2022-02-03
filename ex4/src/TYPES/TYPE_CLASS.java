@@ -113,7 +113,7 @@ public class TYPE_CLASS extends TYPE
 
 	public int getOffsetForMethod(String name){
 		int count;
-		TYPE_FUNCTION tfunc = null
+		TYPE_FUNCTION tfunc = null;
 		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
 			count = 0;
 			for(TYPE_LIST it = currFather.data_members; it != null; it = it.tail){

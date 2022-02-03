@@ -64,16 +64,16 @@ public class AnnotAst
     }
 
     public boolean isGlobal() {
-        return (this.type == 0)
+        return (this.type == 0);
     }
 
     public boolean isLocal() {
-        return (this.type == 1)
+        return (this.type == 1);
     }
     public boolean isParam() {
-        return (this.type == 2)
+        return (this.type == 2);
     }
     public boolean isField() {
-        return (this.type == 3)
+        return (this.type == 3);
     }
 }

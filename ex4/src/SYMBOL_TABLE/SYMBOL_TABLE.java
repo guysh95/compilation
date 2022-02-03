@@ -401,12 +401,12 @@ public class SYMBOL_TABLE
 				 */
 				if (tc == null) {
 					System.out.println("shouldn't be here: getVarAnnotations error C");
-					System.exit(1)
+					System.exit(1);
 				}
 				int offset = tc.getOffsetForVar(name);
 				if (offset == -1) {
 					System.out.println("shouldn't be here: getVarAnnotations error B");
-					System.exit(1) // shouldn't happen
+					System.exit(1); // shouldn't happen
 				}
 				AnnotAst res = new AnnotAst(offset, null, tc.name);
 				res.setField(); /** ancestor class field */

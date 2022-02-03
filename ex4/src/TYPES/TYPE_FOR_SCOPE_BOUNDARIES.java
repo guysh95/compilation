@@ -12,15 +12,15 @@ public class TYPE_FOR_SCOPE_BOUNDARIES extends TYPE
 		this.name = name;
 		if(name.equals("NONE")) {
 			this.funcBound = false;
-			this classBound = false;
+			this.classBound = false;
 		}
 		else if (forClass) {
 			this.funcBound = false;
-			this classBound = true;
+			this.classBound = true;
 		}
 		else {
 			this.funcBound = true;
-			this classBound = false;
+			this.classBound = false;
 		}
 	}
 }

@@ -13,49 +13,48 @@ package IR; import MIPS.*; import java.util.*;
 import TEMP.*;
 import MIPS.*;
 
-public class IRcommand_Load extends IRcommand
-{
+public class IRcommand_Load extends IRcommand {
 	TEMP dst;
 	String var_name;
 	AnnotAst info;
-	
-	public IRcommand_Load(TEMP dst,String var_name, AnnotAst info)
-	{
-		this.dst      = dst;
+
+	public IRcommand_Load(TEMP dst, String var_name, AnnotAst info) {
+		this.dst = dst;
 		this.var_name = var_name;
 		this.info = info;
 	}
 
-	public Set<Integer> getLiveTemps(){
+	public Set<Integer> getLiveTemps() {
 		return null;
 	}
 
-	public Set<Integer> getDeadTemps(){
+	public Set<Integer> getDeadTemps() {
 		Set<Integer> result = new HashSet<Integer>();
 		result.add(dst.getSerialNumber());
 		return result;
 	}
 	/***************/
 	/* MIPS me !!! */
+
 	/***************/
-	public void MIPSme()
-	{
+	public void MIPSme() {
 		if (info.isGlobal()) {
 			String varLabel = "global_" + var_name;
 			MIPSGenerator.getInstance().loadGlobal(dst, varLabel);
-		if (info.isLocal()) {
-			MIPSGenerator.getInstance().loadLocal(dst, info.getOffset());
-		}
-		if (info.isParam()) {
-			MIPSGenerator.getInstance().loadParam(dst, info.getOffset());
-		}
-		if (info.isField()) {
-			// assuming instance is first argument of method so
-			// we access first argument and then load from the right offset
-			if (info.isField()) {
-				MIPSGenerator.getInstance().loadFieldMethod(dst, info.getOffset());
+			if (info.isLocal()) {
+				MIPSGenerator.getInstance().loadLocal(dst, info.getOffset());
 			}
+			if (info.isParam()) {
+				MIPSGenerator.getInstance().loadParam(dst, info.getOffset());
+			}
+			if (info.isField()) {
+				// assuming instance is first argument of method so
+				// we access first argument and then load from the right offset
+				if (info.isField()) {
+					MIPSGenerator.getInstance().loadFieldMethod(dst, info.getOffset());
+				}
+			}
+			// MIPSGenerator.getInstance().load(dst,var_name);
 		}
-		// MIPSGenerator.getInstance().load(dst,var_name);
 	}
 }

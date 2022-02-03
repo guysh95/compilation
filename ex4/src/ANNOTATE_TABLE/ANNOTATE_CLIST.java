@@ -7,7 +7,7 @@ public class ANNOTATE_CLIST
     private String className;
     private ANNOTATE_CLIST next;
 
-    public ANNOTATE_NODE(String className, int index, ANNOTATE_NODE cFields) {
+    public ANNOTATE_CLIST(String className, int index, ANNOTATE_NODE cFields) {
         this.className = className;
         this.index = index;
         this.cFields = cFields;

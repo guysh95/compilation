@@ -273,7 +273,7 @@ public class MIPSGenerator
 			}
 			else if (index != null) {
 				int offset = 4 * index.intValue();
-				location = location + String.format("+%d",offset)
+				location = location + String.format("+%d",offset);
 			}
 			if (isLoad)
 				fileWriter.format("\tlw Temp_%d,%s\n",idxdst,location);
@@ -377,7 +377,7 @@ public class MIPSGenerator
 		label(end);
 	}
 
-	public getArrayValue(TEMP arr, TEMP place, TEMP dst)
+	public void getArrayValue(TEMP arr, TEMP place, TEMP dst)
 	{
 		arrayAccessBoundrayCheck(arr, place);
 		int arrayLoc = regColorTable[arr.getSerialNumber()];
@@ -386,7 +386,7 @@ public class MIPSGenerator
 		fileWriter.format("\tlw Temp_%d,Temp_%d(Temp_%d)\n",dstidx,offset,arr);
 	}
 
-	public putArrayValue(TEMP arr, TEMP place, TEMP value)
+	public void putArrayValue(TEMP arr, TEMP place, TEMP value)
 	{
 		arrayAccessBoundrayCheck(arr, place);
 		int arrayLoc = regColorTable[arr.getSerialNumber()];
@@ -655,7 +655,7 @@ public class MIPSGenerator
 
 	public void mainStub()
 	{
-		fileWriter.format("main:\n",);
+		fileWriter.format("main:\n");
 		fileWriter.format("\tjal user_main\n");
 		exitGracefully();
 	}

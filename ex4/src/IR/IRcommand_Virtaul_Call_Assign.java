@@ -17,7 +17,7 @@ public class IRcommand_Virtual_Call_Assign extends IRcommand
 {
     TEMP dest;
     TEMP var;
-    int methodOffset
+    int methodOffset;
     TEMP_LIST args = null;
 
     public IRcommand_Virtual_Call_Assign(TEMP dest, TEMP var, int methodOffset, TEMP_LIST args)

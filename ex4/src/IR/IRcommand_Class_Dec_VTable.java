@@ -37,7 +37,7 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
     {
         // initialize label for VTable
         String className = currentClass.name;
-        MIPSGenerator.getInstance().initVTable(className)
+        MIPSGenerator.getInstance().initVTable(className);
 
         // TODO: this implementation doesn't support overriding methods
         // insert all classes into a stack

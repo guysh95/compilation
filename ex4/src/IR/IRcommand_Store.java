@@ -13,34 +13,32 @@ package IR; import MIPS.*; import java.util.*;
 import TEMP.*;
 import MIPS.*;
 
-public class IRcommand_Store extends IRcommand
-{
+public class IRcommand_Store extends IRcommand {
 	String var_name;
 	TEMP src;
 	AnnotAst info;
-	
-	public IRcommand_Store(String var_name,TEMP src, AnnotAst info)
-	{
-		this.src      = src;
+
+	public IRcommand_Store(String var_name, TEMP src, AnnotAst info) {
+		this.src = src;
 		this.var_name = var_name;
 		this.info = info;
 	}
 
-	public Set<Integer> getLiveTemps(){
+	public Set<Integer> getLiveTemps() {
 		Set<Integer> result = new HashSet<Integer>();
 		result.add(src.getSerialNumber());
 		return result;
 	}
 
-	public Set<Integer> getDeadTemps(){
+	public Set<Integer> getDeadTemps() {
 		return null;
 	}
 
 	/***************/
 	/* MIPS me !!! */
+
 	/***************/
-	public void MIPSme()
-	{
+	public void MIPSme() {
 		if (info.isGlobal()) {
 			String varLabel = "global_" + var_name;
 			MIPSGenerator.getInstance().storeGlobal(src, varLabel);
@@ -55,6 +53,7 @@ public class IRcommand_Store extends IRcommand
 				// we access first argument and then store in the right offset
 				MIPSGenerator.getInstance().storeFieldMethod(src, info.getOffset());
 			}
-		// MIPSGenerator.getInstance().store(var_name,src);
+			// MIPSGenerator.getInstance().store(var_name,src);
+		}
 	}
 }
