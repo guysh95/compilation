@@ -15,6 +15,7 @@ public class AST_STMT_LIST extends AST_Node
 	public TYPE expectedReturnType;
 	public int[] localCount;
 	public int row;
+	public String funcName;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -85,11 +86,11 @@ public class AST_STMT_LIST extends AST_Node
 			// check if current statement is a return statment
 			// System.out.println("looking at statment of type " + current);
 			if (current.getClass().getSimpleName().equals("AST_STMT_IF")) {
-				((AST_STMT_IF)current).SemantBodyMe(scope, expectedReturnType, localCount);
+				((AST_STMT_IF)current).SemantBodyMe(scope, expectedReturnType, localCount, funcName);
 				continue;
 			}
 			if (current.getClass().getSimpleName().equals("AST_STMT_WHILE")) {
-				((AST_STMT_WHILE)current).SemantBodyMe(scope, expectedReturnType, localCount);
+				((AST_STMT_WHILE)current).SemantBodyMe(scope, expectedReturnType, localCount, funcName);
 				continue;
 			}
 			if (current.getClass().getSimpleName().equals("AST_STMT_RETURN")) {
@@ -126,10 +127,11 @@ public class AST_STMT_LIST extends AST_Node
 		return null;
 	}
 
-	public void SemantFunctionMe(TYPE scope, TYPE returnType, int[] localCount) {
+	public void SemantFunctionMe(TYPE scope, TYPE returnType, int[] localCount, String funcName) {
 		this.expectedReturnType = returnType;
 		this.localCount = localCount;
 		this.SemantMe(scope);
+		this.funcName = funcName;
 	}
 
 	public TEMP IRme()

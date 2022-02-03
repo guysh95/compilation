@@ -13,7 +13,8 @@ public class AST_STMT_RETURN extends AST_STMT
 	public AST_EXP exp;
 	public TYPE expectedReturnType;
 	public int row;
-
+	String funcName;
+	String methodOwner = null;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -69,6 +70,10 @@ public class AST_STMT_RETURN extends AST_STMT
 
 	public TYPE SemantMe(TYPE scope){
 		TYPE t = null;
+		if (scope != null && scope.isClass()) {
+			TYPE_CLASS tc = (TYPE_CLASS)scope;
+			this.methodOwner = tc.name;
+		}
 		if (exp == null){
 			return TYPE_VOID.getInstance();
 		} else {
@@ -81,8 +86,9 @@ public class AST_STMT_RETURN extends AST_STMT
 		}
 	}
 
-	public TYPE SemantReturnMe(TYPE scope, TYPE returnType){
+	public TYPE SemantReturnMe(TYPE scope, TYPE returnType, String funcName){
 		this.expectedReturnType = returnType;
+		this.funcName = funcName;
 		return this.SemantMe(scope);
 	}
 
@@ -91,7 +97,15 @@ public class AST_STMT_RETURN extends AST_STMT
 		if (exp != null){
 			t1 = exp.IRme();
 		}
-		IR.getInstance().Add_IRcommand(new IRcommand_Return(t1));
+		String returnOwner;
+		if(methodOwner == null) {
+			returnOwner = funcName;
+		}
+		else {
+			returnOwner = methodOwner + "_" + funcName;
+		}
+		//TODO: figure function name for return mips command
+		IR.getInstance().Add_IRcommand(new IRcommand_Return(t1, returnOwner));
 		return t1; // if no exp then t1 = null
 
 	}

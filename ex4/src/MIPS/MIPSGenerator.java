@@ -644,11 +644,11 @@ public class MIPSGenerator
 
 	public void return1(TEMP t, String funcName)
 	{
-		// Might need to change consider epilogue name for method/function
-		int i1 = regColorTable[t.getSerialNumber()];
-		fileWriter.format("\tmove $v0,Temp_%d\n",i1);
-		functionEpilogue();
-		//fileWriter.format("\tj %s_epilogue\n",funcName);
+		if (t != null) {
+			int i1 = regColorTable[t.getSerialNumber()];
+			fileWriter.format("\tmove $v0,Temp_%d\n",i1);
+		}
+		fileWriter.format("\tj %s_epilogue\n",funcName);
 	}
 	
 	/**************************************/

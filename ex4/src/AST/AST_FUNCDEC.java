@@ -13,6 +13,7 @@ public class AST_FUNCDEC extends AST_DEC
     public AST_STMT_LIST sl;
 	public int row;
 	public AnnotFunc info;
+	TYPE_CLASS methodOwner = null;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -111,6 +112,7 @@ public class AST_FUNCDEC extends AST_DEC
 		/****************************/
 		System.out.println("######### Semanting " + id + " ##########");
 		if (scope != null && scope.isClass()) {
+			methodOwner = (TYPE_CLASS)scope;
 			TYPE_FUNCTION fatherFunc = ((TYPE_CLASS)scope).searchInFathersFunc(id, row);
 			//System.out.println(id + " already exist and its returnType is " + fatherFunc);
 			if (fatherFunc != null && returnType != fatherFunc.returnType) {
@@ -153,13 +155,14 @@ public class AST_FUNCDEC extends AST_DEC
 		/*******************/
 		TYPE_FUNCTION tfunc = new TYPE_FUNCTION(returnType,id,type_list);
 		if (scope != null && scope.isClass()) {
+			methodOwner = (TYPE_CLASS)scope;
 			((TYPE_CLASS)scope).data_members = new TYPE_LIST(tfunc, ((TYPE_CLASS)scope).data_members);
 			//System.out.println("scope of function is " + scope.name);
 		}
 		SYMBOL_TABLE.getInstance().enter(id,tfunc);
 		//System.out.println("====> lets semant function body in AST_FUNCDEC");
 		int[] localCount = {0};
-		sl.SemantFunctionMe(scope, returnType, localCount);
+		sl.SemantFunctionMe(scope, returnType, localCount, id);
 		info.setNumLocals(localCount[0]);
 		//System.out.println("====> We finished semanting body in AST_FUNCDEC");
 
@@ -185,15 +188,31 @@ public class AST_FUNCDEC extends AST_DEC
 
 	public TEMP IRme()
 	{
-		IRcommand_Label_Function cmd = new IRcommand_Label(id);
-		//CFG.setCFGInstance(cmd.func_cfg);
-		IR.getInstance().Add_IRcommand(cmd);
+		//todo: consider case of method declaration!
+		//todo: get local count to IR
+		if (methodOwner == null) {
+			IRcommand_Label_Function cmd = new IRcommand_Label(id);
+			//CFG.setCFGInstance(cmd.func_cfg);
+			IR.getInstance().Add_IRcommand(cmd);
 
-		// no need to IRme func args - because we checked in semant me that
-		// the declare and call have the same params - so when we use IRcommand_Call
-		// we use the registers that provided there
-		if (sl != null) sl.IRme();
-
+			// no need to IRme func args - because we checked in semant me that
+			// the declare and call have the same params - so when we use IRcommand_Call
+			// we use the registers that provided there
+			if (sl != null) sl.IRme();
+			// label:
+			IR.getInstance().Add_IRcommand(new IRcommand_Label(String.format("%s_epilogue", id)));
+			//TODO: add here IR to print function epiloge for current function
+		}
+		else {
+			String className = methodOwner.name;
+			String methodLabel = className + "_" + id; // A_f
+			IRcommand_Label_Function cmd = new IRcommand_Label(methodLabel);
+			IR.getInstance().Add_IRcommand(cmd);
+			if (sl != null) sl.IRme();
+			IR.getInstance().Add_IRcommand(new IRcommand_Label(String.format("%s_epilogue", methodLabel)));
+			//TODO: add here IR to print function epiloge for current function
+		}
+		IR.getInstance().Add_IRcommand(new IRcommand_Func_Epilogue());
 		return null;
 	}
 

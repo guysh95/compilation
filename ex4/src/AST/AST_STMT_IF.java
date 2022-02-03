@@ -13,6 +13,7 @@ public class AST_STMT_IF extends AST_STMT
 	public TYPE expReturnType;
 	public int row;
 	public int[] localCount;
+	public String funcName;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
@@ -89,7 +90,7 @@ public class AST_STMT_IF extends AST_STMT
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
-		body.SemantFunctionMe(scope, expReturnType, localCount);
+		body.SemantFunctionMe(scope, expReturnType, localCount, funcName);
 
 		/*****************/
 		/* [3] End Scope */
@@ -102,10 +103,11 @@ public class AST_STMT_IF extends AST_STMT
 		return null;
 	}
 
-	public void SemantBodyMe(TYPE scope, TYPE returnType, int[] localCount) {
+	public void SemantBodyMe(TYPE scope, TYPE returnType, int[] localCount, String funcName) {
 		this.expReturnType = returnType;
 		this.localCount = localCount;
 		this.SemantMe(scope);
+		this.funcName = funcName;
 	}
 
 	public TEMP IRme()

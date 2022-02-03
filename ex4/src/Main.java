@@ -15,7 +15,7 @@ public class Main
 		Lexer l;
 		Parser p;
 		Symbol s;
-		AST_DEC_LIST AST;
+		AST_PROGRAM AST;
 		FileReader file_reader;
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
@@ -46,7 +46,7 @@ public class Main
 			/***********************************/
 			/* [5] 3 ... 2 ... 1 ... Parse !!! */
 			/***********************************/
-			AST = (AST_DEC_LIST) p.parse().value;
+			AST = (AST_PROGRAM) p.parse().value;
 			
 			/*************************/
 			/* [6] Print the AST ... */
@@ -56,14 +56,16 @@ public class Main
 			/**************************/
 			/* [7] Semant the AST ... */
 			/**************************/
-			AST.SemantMe();
+			AST.SemantMe(null);
 
 			/**********************/
 			/* [8] IR the AST ... */
 			/**********************/
 			AST.IRme();
 
-
+			/*******************************************/
+			/* [8.5] Run register allocation on IR ... */
+			/*******************************************/
 			CFG.getInstance().runAnalysis();
 			
 			/***********************/
@@ -86,11 +88,53 @@ public class Main
 			/**************************/
 			file_writer.close();
     	}
-			     
+
+		catch (lineException e){
+			try {
+
+				file_writer = new PrintWriter(outputFilename);
+				file_writer.print("ERROR(" + e.getMessage() + ")");
+				System.out.println("Semantic Error");
+				file_writer.close();
+			}
+			catch (Exception e2) {
+				System.out.println("### we got exception! e2");
+				e2.printStackTrace();
+			}
+		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			try {
+				file_writer = new PrintWriter(outputFilename);
+				if (e.getMessage().equals("lexical")) {
+					file_writer.print("ERROR");
+					System.out.println("Lexical Error");
+				}
+				else if (isNumeric(e.getMessage()))
+				{
+					file_writer.print("ERROR(" + e.getMessage() + ")");
+					System.out.println("Syntax Error");
+				}
+				file_writer.close();
+			}
+			catch (Exception e2) {
+				System.out.println("### we got exception! e2");
+				e2.printStackTrace();
+			}
 		}
+
+
+
+	}
+
+	public static boolean isNumeric(String str) {
+		try {
+			Double.parseDouble(str);
+			return true;
+		} catch(NumberFormatException e){
+			return false;
+		}
+
 	}
 }
 

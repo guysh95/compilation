@@ -45,6 +45,5 @@ public class IRcommand_Field_Set extends IRcommand
         // IR representation: "var.fieldName = exp"
         // MIPS representation: "sw $exp,offset($var)"
         MIPSGenerator.getInstance().swByOffset(exp, var, fieldOffset);
-
     }
 }

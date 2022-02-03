@@ -1,7 +1,7 @@
 /***********/
 /* PACKAGE */
 /***********/
-package IR; import MIPS.*; import java.util.*;
+package IR; import java.util.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -17,13 +17,13 @@ public class IRcommand_Field_Access extends IRcommand
 {
     TEMP dst;
     TEMP var;
-    String fieldName;
+    int fieldOffset;
 
-    public IRcommand_Field_Access(TEMP dst, TEMP var, String fieldName)
+    public IRcommand_Field_Access(TEMP dst, TEMP var, int fieldOffset)
     {
         this.dst      = dst;
         this.var = var;
-        this.fieldName = fieldName;
+        this.fieldOffset = fieldOffset;
     }
 
     public Set<Integer> getLiveTemps(){
@@ -43,9 +43,6 @@ public class IRcommand_Field_Access extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: get the correct offset
-        int fieldOffset = 4;
-
         // IR representation: "dst = var.fieldName"
         // MIPS representation: "lw $dst,offset($var)"
         MIPSGenerator.getInstance().lwByOffset(dst, var, fieldOffset);
