@@ -432,7 +432,7 @@ public class MIPSGenerator
 
 	public void label(String inlabel)
 	{
-		if (inlabel.equals("main"))
+		if (inlabel.equals("user_main"))
 		{
 			fileWriter.format(".text\n");
 			fileWriter.format("%s:\n",inlabel);
@@ -648,7 +648,16 @@ public class MIPSGenerator
 			int i1 = regColorTable[t.getSerialNumber()];
 			fileWriter.format("\tmove $v0,Temp_%d\n",i1);
 		}
+		if (funcName.equals("main"))
+			funcName = "user_main";
 		fileWriter.format("\tj %s_epilogue\n",funcName);
+	}
+
+	public void mainStub()
+	{
+		fileWriter.format("main:\n",);
+		fileWriter.format("\tjal user_main\n");
+		exitGracefully();
 	}
 	
 	/**************************************/

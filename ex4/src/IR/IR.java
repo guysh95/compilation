@@ -50,7 +50,12 @@ public class IR
 	public void MIPSme()
 	{
 		if (head != null) head.MIPSme();
-		if (tail != null) tail.MIPSme();
+		while (tail != null)
+		{
+			tail.head.MIPSme();
+			tail = tail.tail;
+		}
+		MIPSGenerator.getInstance().mainStub();
 	}
 
 	/**************************************/

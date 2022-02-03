@@ -190,6 +190,8 @@ public class AST_FUNCDEC extends AST_DEC
 	{
 		//todo: consider case of method declaration!
 		//todo: get local count to IR
+		if(id.equals("main"))
+			id = "user_main";
 		if (methodOwner == null) {
 			IRcommand_Label_Function cmd = new IRcommand_Label(id);
 			//CFG.setCFGInstance(cmd.func_cfg);
