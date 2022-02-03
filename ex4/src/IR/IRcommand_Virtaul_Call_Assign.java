@@ -17,14 +17,14 @@ public class IRcommand_Virtual_Call_Assign extends IRcommand
 {
     TEMP dest;
     TEMP var;
-    String methodName;
+    int methodOffset
     TEMP_LIST args = null;
 
-    public IRcommand_Virtual_Call_Assign(TEMP dest, TEMP var, String methodName, TEMP_LIST args)
+    public IRcommand_Virtual_Call_Assign(TEMP dest, TEMP var, int methodOffset, TEMP_LIST args)
     {
         this.dest = dest;
         this.var = var;
-        this.methodName = methodName;
+        this.methodOffset = methodOffset;
         this.args = args;
     }
 
@@ -49,8 +49,6 @@ public class IRcommand_Virtual_Call_Assign extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: get method offset here somehow
-        int methodOffset = 0;
         MIPSGenerator.getInstance().callMethod(var, methodOffset, args, dest);
     }
 }

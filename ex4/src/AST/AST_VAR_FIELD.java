@@ -10,6 +10,7 @@ public class AST_VAR_FIELD extends AST_VAR
 	public AST_VAR var;
 	public String fieldName;
 	public int row;
+	TYPE_CLASS fieldOwnerClass;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -88,6 +89,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		{
 			System.out.println(t.name + " is a class, we are in var field");
 			tc = (TYPE_CLASS) t;
+			fieldOwnerClass = tc;
 		}
 
 		/************************************/
@@ -145,13 +147,15 @@ public class AST_VAR_FIELD extends AST_VAR
 	{
 		TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
 		TEMP t2 = var.IRme();
-		IR.getInstance().Add_IRcommand(new IRcommand_Field_Access(dest, t2, fieldName));
+		int fieldOffset = fieldOwnerClass.getOffsetForVar(fieldName);
+		IR.getInstance().Add_IRcommand(new IRcommand_Field_Access(dest, t2, fieldOffset));
 		return dest;
 	}
 
 	public TEMP assignIRme(TEMP texp){
 		TEMP t2 = var.IRme();
-		IR.getInstance().Add_IRcommand(new IRcommand_Field_Set(t2, fieldName, texp));
+		int fieldOffset = fieldOwnerClass.getOffsetForVar(fieldName);
+		IR.getInstance().Add_IRcommand(new IRcommand_Field_Set(t2, fieldOffset, texp));
 		// I think it does not return anything because we assign it - and finish with store
 		return null;
 	}

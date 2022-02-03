@@ -51,10 +51,10 @@ public class IRcommand_Store extends IRcommand
 				MIPSGenerator.getInstance().storeParam(src, info.getOffset());
 			}
 			if (info.isField()) {
-				//TODO: need to figure how to access field
-				// probably instance is first argument so
+				// assuming instance is first argument of method so
 				// we access first argument and then store in the right offset
+				MIPSGenerator.getInstance().storeFieldMethod(src, info.getOffset());
 			}
-		MIPSGenerator.getInstance().store(var_name,src);
+		// MIPSGenerator.getInstance().store(var_name,src);
 	}
 }

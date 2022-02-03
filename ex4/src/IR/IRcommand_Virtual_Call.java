@@ -11,18 +11,17 @@ package IR; import MIPS.*; import java.util.*;
 /* PROJECT IMPORTS */
 /*******************/
 import TEMP.*;
-import MIPS.*;
 
 public class IRcommand_Virtual_Call extends IRcommand
 {
     TEMP var; // t1
-    String methodName; // m2
+    int methodOffset; // m2
     TEMP_LIST args = null; // t2 .... tn
 
-    public IRcommand_Virtual_Call(TEMP var, String methodName, TEMP_LIST args)
+    public IRcommand_Virtual_Call(TEMP var, int methodOffset, TEMP_LIST args)
     {
         this.var = var;
-        this.methodName = methodName;
+        this.methodOffset = methodOffset;
         this.args = args;
     }
 
@@ -45,8 +44,6 @@ public class IRcommand_Virtual_Call extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: get method offset here somehow
-        int methodOffset = 0;
         MIPSGenerator.getInstance().callMethod(var, methodOffset, args, null);
     }
 }

@@ -13,6 +13,7 @@ public class AST_EXP_FCALL extends AST_EXP {
     public String fieldName;
     public AST_EXPLIST explist;
     public int row;
+    public TYPE_CLASS callerClass;
 
     /******************/
     /* CONSTRUCTOR(S) */
@@ -109,6 +110,7 @@ public class AST_EXP_FCALL extends AST_EXP {
                     {
                         System.out.println("found field in class " +tc.name);
 
+                        this.callerClass = tc;
                         return tfunc.returnType;
                     }
                 }
@@ -136,6 +138,7 @@ public class AST_EXP_FCALL extends AST_EXP {
             }
 
             System.out.println("we have same params for func call!");
+            this.callerClass = tc;
             return tfunc.returnType;
 
         } else { // caller is null
@@ -214,11 +217,12 @@ public class AST_EXP_FCALL extends AST_EXP {
         TEMP_LIST targs = null;
         if(caller != null){             // calling method - virtual call
             TEMP tcaller = caller.IRme();
+            int methodOffset = callerClass.getOffsetForMethod(fieldName);
             if(explist != null){        //there are args for method
                 targs = explist.listIRme();
-                IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call_Assign(dest, tcaller, fieldName, targs));
+                IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call_Assign(dest, tcaller, methodOffset, targs));
             } else {                    // there are no args for method
-                IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call_Assign(dest, tcaller, fieldName, null));
+                IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call_Assign(dest, tcaller, methodOffset, null));
             }
         } else {                        // calling function
             if(explist != null){        //there are args for function

@@ -90,6 +90,7 @@ public class TYPE_CLASS extends TYPE
 
 	public int getOffsetForVar(String name){
 		int count;
+		TYPE_CLASS_VAR_DEC tvar = null;
 		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
 			count = 0;
 			for(TYPE_LIST it = currFather.data_members; it != null; it = it.tail){
@@ -107,6 +108,29 @@ public class TYPE_CLASS extends TYPE
 			}
 		}
 		//no var with same name in ancestors
+		return -1;
+	}
+
+	public int getOffsetForMethod(String name){
+		int count;
+		TYPE_FUNCTION tfunc = null
+		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
+			count = 0;
+			for(TYPE_LIST it = currFather.data_members; it != null; it = it.tail){
+				if(it.head.isFunction()){
+					tfunc = (TYPE_FUNCTION) it.head;
+					System.out.println("######found func name: " + tfunc.name);
+					if(name.equals(tfunc.name)){
+						// result ancsFieldCount + offset in current class
+						TYPE_CLASS currGrandpa = currFather.father;
+						return count + currGrandpa.countMethodWithAncs();
+					}
+					count++;
+				}
+
+			}
+		}
+		//no method with same name in ancestors
 		return -1;
 	}
 

@@ -50,10 +50,12 @@ public class IRcommand_Load extends IRcommand
 			MIPSGenerator.getInstance().loadParam(dst, info.getOffset());
 		}
 		if (info.isField()) {
-			//TODO: need to figure how to access field
-			// probably instance is first argument of method so
-			// we access first argument and then store in the right offset
+			// assuming instance is first argument of method so
+			// we access first argument and then load from the right offset
+			if (info.isField()) {
+				MIPSGenerator.getInstance().loadFieldMethod(dst, info.getOffset());
+			}
 		}
-		MIPSGenerator.getInstance().load(dst,var_name);
+		// MIPSGenerator.getInstance().load(dst,var_name);
 	}
 }

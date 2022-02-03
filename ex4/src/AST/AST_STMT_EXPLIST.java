@@ -14,6 +14,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
     public String id;
     public AST_EXPLIST exps;
 	public int row;
+	public TYPE_CLASS callerClass;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -130,9 +131,11 @@ public class AST_STMT_EXPLIST extends AST_STMT
 							System.out.format(">> ERROR no %s same amount of params for func\n",id);
 							throw new lineException(Integer.toString(this.row));
 						} else {
+							callerClass = tc;
 							return tfunc.returnType;
 						}
 					}
+					callerClass = tc;
 					return tfunc.returnType;
 				}
 
@@ -270,11 +273,12 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		TEMP_LIST targs = null;
 		if (var != null) {	// this is virtual call - method
 			TEMP tvar = var.IRme();
+			int methodOffset = callerClass.getOffsetForMethod(fieldName);
 			if (exps != null) {		// there are args
 				targs = exps.listIRme();
-				IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call(tvar, id, targs));
+				IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call(tvar, methodOffset, targs));
 			} else {		// there are no args
-				IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call(tvar, id, null));
+				IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call(tvar, methodOffset, null));
 			}
 		} else {			// this is a call - function
 			if(exps != null){        //there are args for function

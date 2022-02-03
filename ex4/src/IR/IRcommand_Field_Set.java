@@ -11,18 +11,17 @@ package IR; import MIPS.*; import java.util.*;
 /* PROJECT IMPORTS */
 /*******************/
 import TEMP.*;
-import MIPS.*;
 
 public class IRcommand_Field_Set extends IRcommand
 {
     TEMP var;
-    String fieldName;
+    int fieldOffset;
     TEMP exp;
 
-    public IRcommand_Field_Set(TEMP var, String fieldName, TEMP exp)
+    public IRcommand_Field_Set(TEMP var, int fieldOffset, TEMP exp)
     {
         this.var       = var;
-        this.fieldName = fieldName;
+        this.fieldOffset = fieldOffset;
         this.exp       = exp;
     }
 
@@ -43,9 +42,6 @@ public class IRcommand_Field_Set extends IRcommand
     /***************/
     public void MIPSme()
     {
-        // todo: get the correct offset
-        int fieldOffset = 4;
-
         // IR representation: "var.fieldName = exp"
         // MIPS representation: "sw $exp,offset($var)"
         MIPSGenerator.getInstance().swByOffset(exp, var, fieldOffset);

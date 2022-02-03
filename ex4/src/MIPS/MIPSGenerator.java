@@ -228,6 +228,38 @@ public class MIPSGenerator
 		fileWriter.format("\tsw Temp_%d,%d($fp)\n",idxsrc, offset);
 	}
 
+	public void loadFieldMethod(TEMP dst, int offset) {
+		int idxdst = regColorTable[dst.getSerialNumber()];
+		// loading instance address
+		// instance is first argument to method
+		// we use $s0 register for the action
+		fileWriter.format("\tlw $s0,8($fp)\n");
+		/** instance construct:
+		 // 0 --- vt
+		 // 4 --- 1st field
+		 // 8 --- 2nd field
+		 // :
+		 // 4n -- n-th field
+		 */
+		fileWriter.format("\tlw Temp_%d,%d($s0)\n",idxdst, 4 * offset);
+	}
+
+	public void storeFieldMethod(TEMP src, int offset) {
+		int idxsrc = regColorTable[src.getSerialNumber()];
+		// loading instance address
+		// instance is first argument to method
+		// we use $s0 register for the action
+		fileWriter.format("\tlw $s0,8($fp)\n");
+		/** instance construct:
+		 // 0 --- vt
+		 // 4 --- 1st field
+		 // 8 --- 2nd field
+		 // :
+		 // 4n -- n-th field
+		 */
+		fileWriter.format("\tsw Temp_%d,%d($s0)\n",idxsrc, 4 * offset);
+	}
+
 	public void MemoryAccess(boolean isLoad, TEMP dst,String gVarName, TEMP src, Integer index)
 	{
 		int idxdst = regColorTable[dst.getSerialNumber()];
