@@ -35,6 +35,7 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
     /***************/
     public void MIPSme()
     {
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Class_Dec_VTable.java"));
         // initialize label for VTable
         String className = currentClass.name;
         MIPSGenerator.getInstance().initVTable(className);

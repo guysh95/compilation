@@ -44,6 +44,7 @@ public class IRcommand_Virtual_Call extends IRcommand
     /***************/
     public void MIPSme()
     {
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Virtual_Call.java"));
         MIPSGenerator.getInstance().callMethod(var, methodOffset, args, null);
     }
 }

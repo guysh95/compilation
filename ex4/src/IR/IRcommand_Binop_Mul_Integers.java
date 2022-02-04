@@ -44,6 +44,7 @@ public class IRcommand_Binop_Mul_Integers extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
+		System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Binop_Mul_Integers.java"));
 		MIPSGenerator.getInstance().mul(dst,t1,t2);
 	}
 }

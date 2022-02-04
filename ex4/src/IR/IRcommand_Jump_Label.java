@@ -35,6 +35,7 @@ public class IRcommand_Jump_Label extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
+		System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Jump_Label.java"));
 		MIPSGenerator.getInstance().jump(label_name);
 	}
 }

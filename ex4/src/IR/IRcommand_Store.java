@@ -40,21 +40,26 @@ public class IRcommand_Store extends IRcommand {
 
 	/***************/
 	public void MIPSme() {
+		System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Store.java"));
 		if (info.isGlobal()) {
 			String varLabel = "global_" + var_name;
+			System.out.println(String.format("Debug =======> storing global at %s", varLabel));
 			MIPSGenerator.getInstance().storeGlobal(src, varLabel);
-			if (info.isLocal()) {
-				MIPSGenerator.getInstance().storeLocal(src, info.getOffset());
-			}
-			if (info.isParam()) {
-				MIPSGenerator.getInstance().storeParam(src, info.getOffset());
-			}
-			if (info.isField()) {
-				// assuming instance is first argument of method so
-				// we access first argument and then store in the right offset
-				MIPSGenerator.getInstance().storeFieldMethod(src, info.getOffset());
-			}
-			// MIPSGenerator.getInstance().store(var_name,src);
 		}
+		if (info.isLocal()) {
+			System.out.println(String.format("Debug =======> storing local"));
+			MIPSGenerator.getInstance().storeLocal(src, info.getOffset());
+		}
+		if (info.isParam()) {
+			System.out.println(String.format("Debug =======> storing param"));
+			MIPSGenerator.getInstance().storeParam(src, info.getOffset());
+		}
+		if (info.isField()) {
+			// assuming instance is first argument of method so
+			// we access first argument and then store in the right offset
+			System.out.println(String.format("Debug =======> storing in field"));
+			MIPSGenerator.getInstance().storeFieldMethod(src, info.getOffset());
+		}
+		// MIPSGenerator.getInstance().store(var_name,src);
 	}
 }

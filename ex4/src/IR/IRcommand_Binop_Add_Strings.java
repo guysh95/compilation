@@ -44,6 +44,7 @@ public class IRcommand_Binop_Add_Strings extends IRcommand
     /***************/
     public void MIPSme()
     {
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Binop_Add_Strings.java"));
         MIPSGenerator.getInstance().addStrings(dst,t1,t2);
     }
 }

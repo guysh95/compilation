@@ -115,7 +115,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		String label_end   = IRcommand.getFreshLabel("end_while");
 		String label_start = IRcommand.getFreshLabel("start_while");
 
-		System.out.println(String.format("IRme in filename: %s and counter is: %d, with labels: %s, %s", "AST_STMT_WHILE", 1, label_start, label_end"));
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, with labels: %s, %s", "AST_STMT_WHILE", 1, label_start, label_end));
 
 		/*********************************/
 		/* [2] entry label for the while */

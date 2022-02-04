@@ -53,9 +53,9 @@ public class IG{
             /*******************************/
             /* [0] The instance itself ... */
             /*******************************/
-            System.out.println("arrived here");
+            System.out.println("We are in IG, 1");
             int numTemps = TEMP_FACTORY.getInstance().getNumTemps();
-            System.out.println(numTemps);
+            System.out.println("num of temps in use are: " + numTemps);
             instance = new IG(numTemps);
         }
         return instance;

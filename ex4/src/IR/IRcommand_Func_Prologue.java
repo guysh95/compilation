@@ -31,6 +31,7 @@ public class IRcommand_Func_Prologue extends IRcommand
     /***************/
     public void MIPSme()
     {
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Func_Prologue.java"));
         MIPSGenerator.getInstance().functionPrologue(localCount);
     }
 }

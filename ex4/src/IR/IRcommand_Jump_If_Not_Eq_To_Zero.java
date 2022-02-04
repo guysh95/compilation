@@ -39,6 +39,7 @@ public class IRcommand_Jump_If_Not_Eq_To_Zero extends IRcommand
     /***************/
     public void MIPSme()
     {
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Jump_If_Not_Eq_To_Zero.java"));
         MIPSGenerator.getInstance().bnez(t, label_name);
     }
 }

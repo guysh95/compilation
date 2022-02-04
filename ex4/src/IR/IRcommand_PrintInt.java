@@ -37,6 +37,7 @@ public class IRcommand_PrintInt extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
+		System.out.println(String.format("Debug ---> file is: %s", "IRcommand_PrintInt.java"));
 		MIPSGenerator.getInstance().print_int(t);
 	}
 }

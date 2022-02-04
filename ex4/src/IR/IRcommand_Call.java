@@ -42,6 +42,7 @@ public class IRcommand_Call extends IRcommand
     /***************/
     public void MIPSme()
     {
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Call.java"));
         MIPSGenerator.getInstance().callFunc(funcName, args, null);
     }
 }

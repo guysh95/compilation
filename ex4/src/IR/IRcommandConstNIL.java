@@ -39,6 +39,7 @@ public class IRcommandConstNIL extends IRcommand
     /***************/
     public void MIPSme()
     {
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommandConstNIL.java"));
         MIPSGenerator.getInstance().liInt(t,0);
     }
 }
