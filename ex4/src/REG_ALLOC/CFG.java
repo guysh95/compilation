@@ -61,30 +61,41 @@ public class CFG
             return k;
         }
 
+        //check if change was made - save it before change
+        Set<Integer> beforeChange = new HashSet<Integer> ();
+        beforeChange.addAll(curr.inTemps);
+        //System.out.println("work on " + curr.cmd +" that has in temps *before change* : "+ beforeChange);
+
+
         // update out fields for current node
-        if (curr != this.tail){
-            curr.outTemps = curr.next.inTemps; // add in from next
-            if (curr.jumpFrom != null) {
+        if (curr.next != null){
+            curr.outTemps.clear();
+            curr.outTemps.addAll(curr.next.inTemps); // add in from next
+            if (curr.jumpTo != null) {
                     curr.outTemps.addAll(curr.jumpTo.inTemps); //add in from jump
             }
         } else {
-            if (curr.jumpFrom != null) {
-                curr.outTemps = curr.jumpFrom.inTemps; //add in from jump
+            if (curr.jumpTo != null) {
+                curr.outTemps.clear();
+                curr.outTemps.addAll(curr.jumpTo.inTemps); // add in from next
             }
         }
-        //todo: need to think on another way to check it
-        //check if change was made
-        if(curr.inTemps != curr.outTemps){
-            k = 1;  // means that a change happend in the analysis
-        }
+
 
         // update in fields for current node
         Set<Integer> liveTemps = curr.cmd.getLiveTemps();
         Set<Integer> deadTemps = curr.cmd.getDeadTemps();
         curr.inTemps = curr.outTemps;
+        //System.out.println("before live and dead:  " + curr.inTemps);
         if(liveTemps != null) { curr.inTemps.addAll(liveTemps); }
         if(deadTemps != null) { curr.inTemps.removeAll(deadTemps); }
 
+        //check if change was made
+        if(!(beforeChange.equals(curr.inTemps))){
+            k = 1;
+        }
+
+        //System.out.println("work on " + curr.cmd +" that has in temps *after change*: "+ curr.inTemps + " and k is: "+k);
         // run recursive for prev and jumpFrom
         k += livenessRec(curr.prev);
         if(curr.jumpFrom != null) {
@@ -97,8 +108,16 @@ public class CFG
 
     public void runAnalysis(){
         int flag = 1;
+        int counter = 0;
         while (flag != 0){  // will be 0 only after an analysis run without changes
+            //System.out.println(String.format("start liveness abaylsis num %d", counter++));
             flag = livenessRec(this.tail);
+
         }
+        System.out.println("CFG live analysis results:");
+        for(CFG_node curr = head; curr!=null; curr=curr.next){
+            System.out.println("&&  "+curr.cmd +" " +curr.inTemps);
+        }
+
     }
 }

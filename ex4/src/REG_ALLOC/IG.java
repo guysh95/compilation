@@ -34,7 +34,9 @@ public class IG{
             this.adj[i] = new HashSet<Integer>();
         //add edges
         iterateCFG();
-
+        //System.out.println("edges in the IG:");
+        for (int i=0; i<numTemps; ++i)
+            System.out.println(this.adj[i]);
         /*
         IG_node[] vertices = new IG_node[numTemps+1]; //because it starts from 0 and counts the last one
         for(int i=0; i++; i<=numTemps){
@@ -65,8 +67,10 @@ public class IG{
     private void addEdge(int v, int w){
         //Function to add an edge into the graph
         this.adj[v].add(w);
+        //System.out.println("add first");
         this.adj[w].add(v); //Graph is undirected
-
+        //System.out.println("add second");
+        return;
 
         /*
         boolean f1 = v1.neighbors.add(v2);
@@ -78,21 +82,32 @@ public class IG{
     }
 
     private void iterateCFG(){
+        //System.out.println("start iterateCFG() to build cfg edges");
         CFG_node head = CFG.getInstance().getCFGHead();
-        for(CFG_node curr=head; curr.next!=null; curr=curr.next){
+        for(CFG_node curr=head; curr!=null; curr=curr.next){
+            System.out.println(curr.cmd+"  "+curr.inTemps);
             if(!curr.inTemps.isEmpty()) {
+                //System.out.println("inTemps is not empty!");
                 Integer[] relationed = curr.inTemps.toArray(new Integer[0]); //returns the set as an array
-                for (int i = 0; i < relationed.length - 1; i++) {
-                    //IG_node v1 = IG.getInstance().vertices[relationed[i]]
-                    int v = relationed[i];
-                    for (int k = i + 1; i < relationed.length;  k++) {
-                        //IG_node v2 = IG.getInstance().vertices[relationed[k]]
-                        int w = relationed[k];
-                        addEdge(v, w);
+                if(relationed.length > 1) { // check that there is not only one temp - and then nothing to do
+                    for (int i = 0; i < relationed.length - 1; i++) {
+                        //IG_node v1 = IG.getInstance().vertices[relationed[i]]
+
+                        int v = relationed[i];
+                        for (int k = i + 1; k < relationed.length; k++) {
+                            //IG_node v2 = IG.getInstance().vertices[relationed[k]]
+                            int w = relationed[k];
+                            //System.out.println("adding edges: "+v+" "+w);
+                            addEdge(v, w);
+                            //System.out.println("added edges: "+v+" "+w);
+                        }
                     }
                 }
+
             }
         }
+        System.out.println("finished iterations");
+        return;
     }
 
     private void checkIfAllFalse(boolean[] array){
