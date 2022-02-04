@@ -67,7 +67,7 @@ public class AST_EXP_PAREN extends AST_EXP {
 
     public TEMP IRme()
     {
-        System.out.println(String.format("IRme in filename: %s and counter is: %d"s, "AST_EXP_PAREN", 1));
+        System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_EXP_PAREN", 1));
 
         if (child != null) return child.IRme();
         return null;
