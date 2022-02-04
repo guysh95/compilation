@@ -12,6 +12,8 @@ public class AST_EXP_BINOP extends AST_EXP
 	public AST_EXP left;
 	public AST_EXP right;
 	public int row;
+	public TYPE leftType = null;
+	public TYPE rightType = null;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -85,8 +87,14 @@ public class AST_EXP_BINOP extends AST_EXP
 		TYPE t1 = null;
 		TYPE t2 = null;
 
-		if (left  != null) t1 = left.SemantMe(scope);
-		if (right != null) t2 = right.SemantMe(scope);
+		if (left  != null) {
+			t1 = left.SemantMe(scope);
+			leftType = t1;
+		}
+		if (right != null) {
+			t2 = right.SemantMe(scope);
+			rightType = t2;
+		}
 
 		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
 		{
@@ -153,11 +161,11 @@ public class AST_EXP_BINOP extends AST_EXP
 	{
 		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_EXP_BINOP", 1));
 		// we use semant me to get the type
-		TYPE s1 = null;
-		TYPE s2 = null;
+		TYPE s1 = this.leftType;
+		TYPE s2 = this.rightType;
 
-		if (left  != null) s1 = left.SemantMe(null);
-		if (right != null) s2 = right.SemantMe(null);
+		//if (left  != null) s1 = left.SemantMe(null);
+		//if (right != null) s2 = right.SemantMe(null);
 
 		TEMP t1 = null;
 		TEMP t2 = null;
