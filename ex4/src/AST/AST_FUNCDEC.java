@@ -190,7 +190,7 @@ public class AST_FUNCDEC extends AST_DEC
 		if(id.equals("main"))
 			id = "user_main";
 		if (methodOwner == null) {
-			IRcommand_Label_Function cmd = new IRcommand_Label_Function(id);
+			IRcommand_Label cmd = new IRcommand_Label(id);
 			//CFG.setCFGInstance(cmd.func_cfg);
 			IR.getInstance().Add_IRcommand(cmd);
 			//print prologue with this function localCount
@@ -199,16 +199,16 @@ public class AST_FUNCDEC extends AST_DEC
 			// no need to IRme func args - because we checked in semant me that
 			// the declare and call have the same params - so when we use IRcommand_Call
 			// we use the registers that provided there
-			if (sl != null) sl.IRme();
+			if (sl != null) sl.listIRme();
 			// epilogue label:
 			IR.getInstance().Add_IRcommand(new IRcommand_Label(String.format("%s_epilogue", id)));
 		}
 		else {
 			String className = methodOwner.name;
 			String methodLabel = className + "_" + id; // A_f
-			IRcommand_Label_Function cmd = new IRcommand_Label_Function(methodLabel);
+			IRcommand_Label cmd = new IRcommand_Label(methodLabel);
 			IR.getInstance().Add_IRcommand(cmd);
-			if (sl != null) sl.IRme();
+			if (sl != null) sl.listIRme();
 			// epilogue label:
 			IR.getInstance().Add_IRcommand(new IRcommand_Label(String.format("%s_epilogue", methodLabel)));
 		}

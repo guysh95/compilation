@@ -53,7 +53,9 @@ public class IG{
             /*******************************/
             /* [0] The instance itself ... */
             /*******************************/
+            System.out.println("arrived here");
             int numTemps = TEMP_FACTORY.getInstance().getNumTemps();
+            System.out.println(numTemps);
             instance = new IG(numTemps);
         }
         return instance;

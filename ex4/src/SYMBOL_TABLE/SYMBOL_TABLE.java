@@ -391,7 +391,7 @@ public class SYMBOL_TABLE
 	 * for accessing vars :)
 	 */
 	// this is done (?)
-	public AnnotAst getVarAnnotations(String name, TYPE_CLASS tc){
+	public AnnotAst (String name, TYPE_CLASS tc){
 		SYMBOL_TABLE_ENTRY e = this.findEntry(name);
 		if (inClassScope && inFuncScope) {
 			/**  method call */

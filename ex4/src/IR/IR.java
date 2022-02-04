@@ -49,6 +49,11 @@ public class IR
 	/***************/
 	public void MIPSme()
 	{
+		System.out.println(head);
+		while(tail != null){
+			System.out.println(tail.head);
+			tail = tail.tail;
+		}
 		int count = 1;
 		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", count++));
 		if (head != null) head.MIPSme();

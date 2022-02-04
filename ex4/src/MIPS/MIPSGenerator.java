@@ -431,6 +431,7 @@ public class MIPSGenerator
 
 	public void label(String inlabel)
 	{
+
 		if (inlabel.equals("user_main"))
 		{
 			fileWriter.format(".text\n");
@@ -676,6 +677,7 @@ public class MIPSGenerator
 	{
 		if (instance == null)
 		{
+
 			/*******************************/
 			/* [0] The instance itself ... */
 			/*******************************/
