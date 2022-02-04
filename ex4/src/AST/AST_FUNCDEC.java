@@ -194,7 +194,7 @@ public class AST_FUNCDEC extends AST_DEC
 
 		if (methodOwner == null) {
 			System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_FUNCDEC", 1, "methodOwner is null"));
-			IRcommand_Label cmd = new IRcommand_Label(id);
+			IRcommand_Label cmd = new IRcommand_Label_Function(id);
 			//CFG.setCFGInstance(cmd.func_cfg);
 			IR.getInstance().Add_IRcommand(cmd);
 			//print prologue with this function localCount

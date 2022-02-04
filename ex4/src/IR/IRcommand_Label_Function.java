@@ -39,7 +39,6 @@ public class IRcommand_Label_Function extends IRcommand
     /***************/
     public void MIPSme()
     {
-
-        MIPSGenerator.getInstance().label(label_name);
+        MIPSGenerator.getInstance().funcLabel(label_name);
     }
 }
