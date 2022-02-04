@@ -12,6 +12,9 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
     public AST_EXP exp;
 	public int row;
 	public AnnotAst info;
+	boolean isAssignNIL = false;
+	Integer assignVal = null;
+	String assignString = null;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -109,6 +112,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 			}
 		}
 		//Annotations
+		saveAssignedValue();
 		this.info = SYMBOL_TABLE.getInstance().setAstAnnotations();
 
 		SYMBOL_TABLE.getInstance().enterVar(name, t1, this.info);
@@ -117,11 +121,43 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 
 	}
 
+	public void saveAssignedValue() {
+		if (exp instanceof AST_EXP_INT) {
+			AST_EXP_INT exp_int = (AST_EXP_INT)exp;
+			assignVal = new Integer(exp_int.value);
+		}
+		if (exp instanceof AST_EXP_STRING) {
+			AST_EXP_STRING exp_string = (AST_EXP_STRING)exp;
+			assignString = exp_string.str_val;
+		}
+		if (exp instanceof  AST_EXP_NIL) {
+			isAssignNIL = true;
+		}
+	}
+
 	public TEMP IRme(){
-		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_ASSIGN", 1, "start IRme"));
-		TEMP t = exp.IRme();
-		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_ASSIGN", 2, "finished IR exp"));
-		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, t, info));
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VARDEC_ASSIGN", 1, "start IRme"));
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VARDEC_ASSIGN", 2, "finished IR exp"));
+		if(info.isGlobal()) {
+			System.out.println("Debug ---> AST_VARDEC_ASSIGN variable is global");
+			//TODO: figure here if value is int, string or NIL
+			// then get that value to here
+			// and handle each case
+			if (assignVal != null) {
+				System.out.println("DADASDASDASDAS");
+				IR.getInstance().Add_IRcommand(new IRcommand_New_Global_Int(name, assignVal.intValue()));
+			}
+			if (assignString != null) {
+				IR.getInstance().Add_IRcommand(new IRcommand_New_Global_String(name, assignString));
+			}
+			if (isAssignNIL) {
+				IR.getInstance().Add_IRcommand(new IRcommand_New_Global_Nil(name));
+			}
+		}
+		else {
+			TEMP t = exp.IRme();
+			IR.getInstance().Add_IRcommand(new IRcommand_Store(name, t, info));
+		}
 		// storing result
 		return null;
 	}
