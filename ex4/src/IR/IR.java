@@ -61,6 +61,7 @@ public class IR
 		{
 			System.out.println(String.format("Debug file is: %s, counter: %d", "IR", count++));
 			tail.head.MIPSme();
+
 			tail = tail.tail;
 		}
 		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", count++));

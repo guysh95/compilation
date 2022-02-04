@@ -88,7 +88,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 								nodeInfo = SYMBOL_TABLE.getInstance().getVarAnnotations(name, null);
 								return t;
 							}
-							System.out.format(">> ERROR ID %s does not exists\n", name);
+							System.out.format(">> ERROR ID %s does not exists1\n", name);
 							throw new lineException(Integer.toString(this.row));
 						}
 						// name is superclass field
@@ -110,7 +110,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			return t;
 		}
 		// we are in global scope
-		System.out.format(">> ERROR ID %s does not exists\n", name);
+		System.out.format(">> ERROR ID %s does not exists2\n", name);
 		throw new lineException(Integer.toString(this.row));
 	}
 

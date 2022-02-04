@@ -80,4 +80,6 @@ public class AnnotAst
     public boolean isField() {
         return (this.type == 3);
     }
+
+    public int getType() {return this.type; }
 }
