@@ -47,6 +47,7 @@ public class AST_EXP_NIL extends AST_EXP {
 
     public TEMP IRme()
     {
+        System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_EXP_NIL", 1));
         TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
         IR.getInstance().Add_IRcommand(new IRcommandConstNIL(t));
         return t;

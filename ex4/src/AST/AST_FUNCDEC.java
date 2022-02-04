@@ -187,9 +187,13 @@ public class AST_FUNCDEC extends AST_DEC
 
 	public TEMP IRme()
 	{
-		if(id.equals("main"))
+		if(id.equals("main")) {
 			id = "user_main";
+		}
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, id: %s", "AST_FUNCDEC", 0, id));
+
 		if (methodOwner == null) {
+			System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_FUNCDEC", 1, "methodOwner is null"));
 			IRcommand_Label cmd = new IRcommand_Label(id);
 			//CFG.setCFGInstance(cmd.func_cfg);
 			IR.getInstance().Add_IRcommand(cmd);
@@ -204,6 +208,7 @@ public class AST_FUNCDEC extends AST_DEC
 			IR.getInstance().Add_IRcommand(new IRcommand_Label(String.format("%s_epilogue", id)));
 		}
 		else {
+			System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_FUNCDEC", 2, "methodOwner exists"));
 			String className = methodOwner.name;
 			String methodLabel = className + "_" + id; // A_f
 			IRcommand_Label cmd = new IRcommand_Label(methodLabel);
@@ -213,6 +218,7 @@ public class AST_FUNCDEC extends AST_DEC
 			IR.getInstance().Add_IRcommand(new IRcommand_Label(String.format("%s_epilogue", methodLabel)));
 		}
 		IR.getInstance().Add_IRcommand(new IRcommand_Func_Epilogue());
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_FUNCDEC", 3, "EOF"));
 		return null;
 	}
 

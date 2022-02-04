@@ -95,14 +95,20 @@ public class AST_EXPLIST extends AST_Node {
 
     public TEMP IRme()
     {
+        System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_EXPLIST", 0));
         return null; //need to return temp list from here
     }
 
     public TEMP_LIST listIRme(){
+        System.out.println(String.format("ListIRme in filename: %s and counter is: %d", "AST_EXPLIST", 1));
+
         TEMP t1 = head.IRme();
         TEMP_LIST tlist = new TEMP_LIST(t1, null);
 
+        int counter = 2;
+
         for(AST_EXPLIST curr = tail; curr != null; curr = curr.tail){
+            System.out.println(String.format("ListIRme in filename: %s and counter is: %d", "AST_EXPLIST", counter++));
             t1 = curr.head.IRme();
             tlist = new TEMP_LIST(t1, tlist);
         }

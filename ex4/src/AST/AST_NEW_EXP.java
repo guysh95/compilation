@@ -127,13 +127,16 @@ public class AST_NEW_EXP extends AST_Node {
 
     public TEMP newIRme(){    // called from AST_VARDEC_NEW / AST_STMT_ASSIGN_NEW
         if (e != null){ // new array
+            System.out.println(String.format("newIRme in filename: %s and counter is: %d, %s", "AST_NEW_EXP", 1, "new array"));
             return newArrayIRme();
         } else{         // new class
+            System.out.println(String.format("newIRme in filename: %s and counter is: %d, %s", "AST_NEW_EXP", 2, "new class"));
             return newClassIRme();
         }
     }
 
     public TEMP newClassIRme(){
+        System.out.println(String.format("newClassIRme in filename: %s and counter is: %d, %s", "AST_NEW_EXP", 3, "new class"));
         TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
         AST_TYPE_SIMPLE classType = (AST_TYPE_SIMPLE) new_name;
         String className = classType.type;
@@ -148,6 +151,7 @@ public class AST_NEW_EXP extends AST_Node {
     }
 
     public TEMP newArrayIRme(){
+        System.out.println(String.format("newArrayIRme in filename: %s and counter is: %d, %s", "AST_NEW_EXP", 4, "new array"));
         TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
         TEMP t1 = e.IRme();
         IR.getInstance().Add_IRcommand(new IRcommand_New_Array(t, t1));

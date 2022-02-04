@@ -56,6 +56,7 @@ public class AST_EXP_INT extends AST_EXP
 
 	public TEMP IRme()
 	{
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, value: %d", "AST_EXP_INT", 1, value));
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
 		IR.getInstance().Add_IRcommand(new IRcommandConstInt(t,value));
 		return t;

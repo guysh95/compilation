@@ -67,6 +67,7 @@ public class AST_STMT_VARDEC extends AST_STMT {
     }
 
     public TEMP IRme(){
+        System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_VARDEC", 1);
         if (vd != null) return vd.IRme();
         return null;
     }

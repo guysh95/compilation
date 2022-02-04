@@ -68,6 +68,8 @@ public class AST_EXP_VAR extends AST_EXP
 
 	public TEMP IRme()
 	{
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_EXP_VAR", 1));
+
 		return var.IRme();
 	}
 

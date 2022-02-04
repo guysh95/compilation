@@ -118,6 +118,7 @@ public class AST_CFIELD_FUNC extends AST_CFIELD
 	}
 
 	public TEMP IRme(){
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_CFIELD_FUNC", 1));
 		v.IRme();
 		// stores the results
 		return null;
