@@ -40,7 +40,9 @@ public class IRcommand_Store extends IRcommand {
 
 	/***************/
 	public void MIPSme() {
+
 		System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Store.java"));
+		System.out.println(info.getType());
 		if (info.isGlobal()) {
 			String varLabel = "global_" + var_name;
 			System.out.println(String.format("Debug =======> storing global at %s", varLabel));

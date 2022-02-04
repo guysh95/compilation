@@ -442,6 +442,13 @@ public class MIPSGenerator
 			fileWriter.format("%s:\n",inlabel);
 		}
 	}
+
+	public void funcLabel(String inlabel)
+	{
+		fileWriter.format(".text\n");
+		fileWriter.format("%s:\n",inlabel);
+	}
+
 	public void jump(String inlabel)
 	{
 		fileWriter.format("\tj %s\n",inlabel);
