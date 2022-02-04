@@ -71,11 +71,13 @@ public class AST_PROGRAM extends AST_Node{
 
     public TEMP IRme(){
         // no need to return anything - all stored, need only to IR all decs
+        System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_PROGRAM", 1, "HERE WE GO!"));
         head.IRme();
         for(AST_PROGRAM curr = tail; curr != null; curr = curr.tail){
             curr.head.IRme();
             //tlist = new TEMP_LIST(t1, tlist);
         }
+        System.out.println(String.format("now we IR program"));
         return null;
     }
 

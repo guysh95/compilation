@@ -57,6 +57,7 @@ public class AST_EXP_STRING extends AST_EXP {
 
     public TEMP IRme()
     {
+        System.out.println(String.format("IRme in filename: %s and counter is: %d, value: %s", "AST_EXP_STRING", 1, str_val));
         TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
         IR.getInstance().Add_IRcommand(new IRcommandConstString(t,str_val));
         return t;

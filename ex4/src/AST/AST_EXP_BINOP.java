@@ -151,6 +151,7 @@ public class AST_EXP_BINOP extends AST_EXP
 
 	public TEMP IRme()
 	{
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_EXP_BINOP", 1));
 		// we use semant me to get the type
 		TYPE s1 = null;
 		TYPE s2 = null;
@@ -162,8 +163,12 @@ public class AST_EXP_BINOP extends AST_EXP
 		TEMP t2 = null;
 		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
 
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_EXP_BINOP", 2));
 		if (left  != null) t1 = left.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_EXP_BINOP", 3));
 		if (right != null) t2 = right.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d and binop is: %d", "AST_EXP_BINOP", 4, bOP));
+
 
 		if (bOP == 0) //added option for string
 		{
@@ -172,37 +177,26 @@ public class AST_EXP_BINOP extends AST_EXP
 			} else {
 				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Add_Strings(dst,t1,t2));
 			}
-
 		}
 		if (bOP == 1)
 		{
-			IR.
-					getInstance().
-					Add_IRcommand(new IRcommand_Binop_Sub_Integers(dst,t1,t2));
+			IR.getInstance().Add_IRcommand(new IRcommand_Binop_Sub_Integers(dst,t1,t2));
 		}
 		if (bOP == 2)
 		{
-			IR.
-					getInstance().
-					Add_IRcommand(new IRcommand_Binop_Mul_Integers(dst,t1,t2));
+			IR.getInstance().Add_IRcommand(new IRcommand_Binop_Mul_Integers(dst,t1,t2));
 		}
 		if (bOP == 3)
 		{
-			IR.
-					getInstance().
-					Add_IRcommand(new IRcommand_Binop_Divide_Integers(dst,t1,t2));
+			IR.getInstance().Add_IRcommand(new IRcommand_Binop_Divide_Integers(dst,t1,t2));
 		}
 		if (bOP == 4)
 		{
-			IR.
-					getInstance().
-					Add_IRcommand(new IRcommand_Binop_LT_Integers(dst,t1,t2));
+			IR.getInstance().Add_IRcommand(new IRcommand_Binop_LT_Integers(dst,t1,t2));
 		}
 		if (bOP == 5)
 		{
-			IR.
-					getInstance().
-					Add_IRcommand(new IRcommand_Binop_GT_Integers(dst,t1,t2));
+			IR.getInstance().Add_IRcommand(new IRcommand_Binop_GT_Integers(dst,t1,t2));
 		}
 		if (bOP == 6)
 		{
@@ -212,6 +206,7 @@ public class AST_EXP_BINOP extends AST_EXP
 				IR.getInstance().Add_IRcommand(new IRcommand_Binop_EQ_Strings(dst,t1,t2));
 			}
 		}
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_EXP_BINOP", 5));
 		return dst;
 	}
 

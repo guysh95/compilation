@@ -115,6 +115,8 @@ public class AST_STMT_WHILE extends AST_STMT
 		String label_end   = IRcommand.getFreshLabel("end_while");
 		String label_start = IRcommand.getFreshLabel("start_while");
 
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, with labels: %s, %s", "AST_STMT_WHILE", 1, label_start, label_end"));
+
 		/*********************************/
 		/* [2] entry label for the while */
 		/*********************************/
@@ -126,6 +128,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		/* [3] cond.IRme(); */
 		/********************/
 		TEMP cond_temp = cond.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_WHILE", 2, "finished IR cond"));
 
 		/******************************************/
 		/* [4] Jump conditionally to the loop end */
@@ -138,6 +141,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		/* [5] body.IRme() */
 		/*******************/
 		body.listIRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_WHILE", 3, "finished IR body"));
 
 		/******************************/
 		/* [6] Jump to the loop entry */
@@ -157,6 +161,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		node_end_label.prev = node_jump_end; // fix prev of end label to be from to conditional jump
 
 		node_jump_start.next = node_start_label; //fix next from jump to be to start label
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_WHILE", 4, "finished IRme"));
 
 		/*******************/
 		/* [8] return null */

@@ -118,11 +118,16 @@ public class AST_CFIELD_LIST extends AST_Node
 
 	public TEMP_LIST listIRme(){
 		// no need to return anything - all stored, need only to IR all stmt
+		int counter = 1;
+		System.out.println(String.format("ListIRme filename: %s and counter is: %d", "AST_CFIELD_LIST", counter++));
 		head.IRme();
+		System.out.println(String.format("ListIRme in filename: %s and counter is: %d", "AST_CFIELD_LIST", counter++));
 		for(AST_CFIELD_LIST curr = tail; curr != null; curr = curr.tail){
+			System.out.println(String.format("ListIRme in loop in filename: %s and counter is: %d", "AST_CFIELD_LIST", counter++));
 			curr.head.IRme();
 			//tlist = new TEMP_LIST(t1, tlist);
 		}
+		System.out.println(String.format("ListIRme in filename: %s and its EOF", "AST_CFIELD_LIST"));
 		return null;
 	}
 }

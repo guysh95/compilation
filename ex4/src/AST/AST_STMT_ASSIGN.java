@@ -109,8 +109,11 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	}
 
 	public TEMP IRme(){
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_ASSIGN", 1));
 		TEMP t1 = exp.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_ASSIGN", 2));
 		TEMP t2 = var.assignIRme(t1);
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_ASSIGN", 3));
 		// nothing to return because we store the result (in assignIRme we set the result
 		// to field, array or store it for reg var
 		return null;

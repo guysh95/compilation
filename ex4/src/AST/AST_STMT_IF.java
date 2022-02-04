@@ -112,6 +112,7 @@ public class AST_STMT_IF extends AST_STMT
 
 	public TEMP IRme()
 	{
+
 		/*******************************/
 		/* [1] Allocate fresh label */
 		/*******************************/
@@ -121,6 +122,7 @@ public class AST_STMT_IF extends AST_STMT
 		/* [3] cond.IRme(); */
 		/********************/
 		TEMP cond_temp = cond.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_IF", 1, "finished IR condition"));
 
 		/******************************************/
 		/* [4] Jump conditionally to the loop end */
@@ -133,6 +135,7 @@ public class AST_STMT_IF extends AST_STMT
 		/* [5] body.IRme() */
 		/*******************/
 		body.listIRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_IF", 2, "finished IR body"));
 
 		/**********************/
 		/* [7] Loop end label */

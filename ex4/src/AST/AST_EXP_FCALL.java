@@ -213,25 +213,34 @@ public class AST_EXP_FCALL extends AST_EXP {
     }
 
     public TEMP IRme(){
+        System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_EXP_FCALL", 1));
         TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
         TEMP_LIST targs = null;
+
         if(caller != null){             // calling method - virtual call
+            System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_EXP_FCALL", 2, "caller is null"));
             TEMP tcaller = caller.IRme();
             int methodOffset = callerClass.getOffsetForMethod(fieldName);
             if(explist != null){        //there are args for method
+                System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_EXP_FCALL", 3, "args exist"));
                 targs = explist.listIRme();
                 IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call_Assign(dest, tcaller, methodOffset, targs));
             } else {                    // there are no args for method
+                System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_EXP_FCALL", 4, "args not exist"));
                 IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call_Assign(dest, tcaller, methodOffset, null));
             }
         } else {                        // calling function
+            System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_EXP_FCALL", 5, "caller exist"));
             if(explist != null){        //there are args for function
+                System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_EXP_FCALL", 6, "args exist"));
                 targs = explist.listIRme();
                 IR.getInstance().Add_IRcommand(new IRcommand_Call_Assign(dest, fieldName, targs));
             } else {                    // there are no args for function
+                System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_EXP_FCALL", 7, "args not exist"));
                 IR.getInstance().Add_IRcommand(new IRcommand_Call_Assign(dest, fieldName, null));
             }
         }
+        System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_EXP_FCALL", 8, "EOF"));
 
         return dest;
     }

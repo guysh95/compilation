@@ -134,7 +134,7 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 	}
 
 	public TEMP IRme(){
-
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_ASSIGN_NEW", 1));
 		TEMP t = exp.newIRme();
 		return t;
 	}

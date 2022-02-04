@@ -145,15 +145,19 @@ public class AST_VAR_FIELD extends AST_VAR
 
 	public TEMP IRme()
 	{
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_FIELD", 1, "start IRme"));
 		TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
 		TEMP t2 = var.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_FIELD", 2, "finished IR var"));
 		int fieldOffset = fieldOwnerClass.getOffsetForVar(fieldName);
 		IR.getInstance().Add_IRcommand(new IRcommand_Field_Access(dest, t2, fieldOffset));
 		return dest;
 	}
 
 	public TEMP assignIRme(TEMP texp){
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_FIELD", 3, "start assignIRme"));
 		TEMP t2 = var.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_FIELD", 4, "finished IR var"));
 		int fieldOffset = fieldOwnerClass.getOffsetForVar(fieldName);
 		IR.getInstance().Add_IRcommand(new IRcommand_Field_Set(t2, fieldOffset, texp));
 		// I think it does not return anything because we assign it - and finish with store

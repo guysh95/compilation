@@ -164,7 +164,9 @@ public class AST_CLASS_DEC extends AST_DEC {
 
     public TEMP IRme()
     {
+        System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_CFIELD_LIST", 1));
         IR.getInstance().Add_IRcommand(new IRcommand_Class_Dec_VTable(tclass,ext_tclass));
+        System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_CFIELD_LIST", 2));
         return null;
     }
 }

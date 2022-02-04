@@ -269,22 +269,29 @@ public class AST_STMT_EXPLIST extends AST_STMT
 	}
 
 	public TEMP IRme(){
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_EXPLIST", 1));
 		TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
 		TEMP_LIST targs = null;
 		if (var != null) {	// this is virtual call - method
+			System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 2, "ITS A METHOD"));
 			TEMP tvar = var.IRme();
 			int methodOffset = callerClass.getOffsetForMethod(id);
 			if (exps != null) {		// there are args
+				System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 3, "THERE ARE ARGS"));
 				targs = exps.listIRme();
 				IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call(tvar, methodOffset, targs));
 			} else {		// there are no args
+				System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 4, "NO ARGS"));
 				IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call(tvar, methodOffset, null));
 			}
 		} else {			// this is a call - function
+			System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 5, "ITS A FUNCTION"));
 			if(exps != null){        //there are args for function
+				System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 6, "THERE ARE ARGS"));
 				targs = exps.listIRme();
 				IR.getInstance().Add_IRcommand(new IRcommand_Call(id, targs));
 			} else {                    // there are no args for function
+				System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 7, "NO ARGS"));
 				IR.getInstance().Add_IRcommand(new IRcommand_Call(id, null));
 			}
 		}

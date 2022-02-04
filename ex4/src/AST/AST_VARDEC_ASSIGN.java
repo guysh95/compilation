@@ -118,8 +118,9 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 	}
 
 	public TEMP IRme(){
-
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_ASSIGN", 1, "start IRme"));
 		TEMP t = exp.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_ASSIGN", 2, "finished IR exp"));
 		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, t, info));
 		// storing result
 		return null;

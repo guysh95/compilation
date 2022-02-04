@@ -94,8 +94,10 @@ public class AST_STMT_RETURN extends AST_STMT
 
 	public TEMP IRme(){
 		TEMP t1 = null;
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_RETURN", 1));
 		if (exp != null){
 			t1 = exp.IRme();
+			System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_RETURN", 2, "finished IR exp"));
 		}
 		String returnOwner;
 		if(methodOwner == null) {
@@ -104,6 +106,8 @@ public class AST_STMT_RETURN extends AST_STMT
 		else {
 			returnOwner = methodOwner + "_" + funcName;
 		}
+
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, returnOwner %s", "AST_STMT_RETURN", 3, returnOwner));
 		IR.getInstance().Add_IRcommand(new IRcommand_Return(t1, returnOwner));
 		return t1; // if no exp then t1 = null
 

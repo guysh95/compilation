@@ -97,7 +97,10 @@ public class AST_CFIELD_VAR extends AST_CFIELD
 	}
 
 	public TEMP IRme(){
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_CFIELD_LIST", 1));
 		v.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_CFIELD_LIST", 2));
+
 		// stores the results
 		return null;
 	}

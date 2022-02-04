@@ -99,16 +99,22 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 
 	public TEMP IRme()
 	{
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_SUBSCRIPT", 1, "start IRme"));
 		TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
 		TEMP t1 = var.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_SUBSCRIPT", 2, "finished IR var"));
 		TEMP t2 = subscript.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_SUBSCRIPT", 3, "finished IR subscript"));
 		IR.getInstance().Add_IRcommand(new IRcommand_Array_Access(dest, t1, t2));
 		return dest;
 	}
 
 	public TEMP assignIRme(TEMP texp){
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_SUBSCRIPT", 4, "start assignIRme"));
 		TEMP t1 = var.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_SUBSCRIPT", 5, "finished IR var"));
 		TEMP t2 = subscript.IRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_SUBSCRIPT", 6, "finished IR subscript"));
 
 		IR.getInstance().Add_IRcommand(new IRcommand_Array_Set(t1, t2, texp));
 		// no need to return anything because we assign it - and finish with store
