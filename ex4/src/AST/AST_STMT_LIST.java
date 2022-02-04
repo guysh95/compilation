@@ -94,6 +94,7 @@ public class AST_STMT_LIST extends AST_Node
 				continue;
 			}
 			if (current.getClass().getSimpleName().equals("AST_STMT_RETURN")) {
+				System.out.println(String.format("IRme in filename: %s and counter is: %d, funcName %s specialCase", "AST_STMT_LIST", 4, funcName));
 				stmtType = ((AST_STMT_RETURN)current).SemantReturnMe(scope, expectedReturnType, funcName);
 				if (stmtType != expectedReturnType) {
 					if (expectedReturnType.isArray() && (stmtType == TYPE_NIL.getInstance())){
@@ -128,10 +129,11 @@ public class AST_STMT_LIST extends AST_Node
 	}
 
 	public void SemantFunctionMe(TYPE scope, TYPE returnType, int[] localCount, String funcName) {
+		System.out.println(String.format("SemantMe in filename: %s and counter is: %d, returnOwner %s specialCase", "AST_STMT_LIST", 68, funcName));
 		this.expectedReturnType = returnType;
 		this.localCount = localCount;
-		this.SemantMe(scope);
 		this.funcName = funcName;
+		this.SemantMe(scope);
 	}
 
 	public TEMP IRme()
@@ -140,7 +142,7 @@ public class AST_STMT_LIST extends AST_Node
 	}
 
 	public TEMP_LIST listIRme(){
-		System.out.println(String.format("listIRme in filename: %s and counter is: %d", "AST_STMT_LIST", 1));
+		System.out.println(String.format("listIRme in  filename: %s and counter is: %d", "AST_STMT_LIST", 1));
 
 		TEMP t1 = head.IRme();
 		TEMP_LIST tlist = new TEMP_LIST(t1, null);

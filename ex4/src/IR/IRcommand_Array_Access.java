@@ -46,8 +46,9 @@ public class IRcommand_Array_Access extends IRcommand
     /***************/
     public void MIPSme()
     {
-        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Array_Access"));
+        System.out.println(String.format("Debug ---> file is: %s 1", "IRcommand_Array_Access"));
         MIPSGenerator.getInstance().getArrayValue(var,exp,dst);
+        System.out.println(String.format("Debug ---> file is: %s 2", "IRcommand_Array_Access"));
     }
 
 

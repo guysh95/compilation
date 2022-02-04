@@ -67,8 +67,6 @@ public class IR
 		//	tail = tail.tail;
 		//}
 		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", 3));
-		MIPSGenerator.getInstance().mainStub();
-		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", 4));
 	}
 
 	/**************************************/

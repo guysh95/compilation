@@ -287,9 +287,11 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		} else {			// this is a call - function
 			System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 5, "ITS A FUNCTION"));
 			if(exps != null){        //there are args for function
-				System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 6, "THERE ARE ARGS"));
-				targs = exps.listIRme();
-				IR.getInstance().Add_IRcommand(new IRcommand_Call(id, targs));
+				if (!checkForLibraryFunction()) {
+					System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 6, "THERE ARE ARGS"));
+					targs = exps.listIRme();
+					IR.getInstance().Add_IRcommand(new IRcommand_Call(id, targs));
+				}
 			} else {                    // there are no args for function
 				System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 7, "NO ARGS"));
 				IR.getInstance().Add_IRcommand(new IRcommand_Call(id, null));
@@ -297,6 +299,25 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		}
 		// nothing to return because this is statement
 		return null;
+	}
+
+
+	public boolean checkForLibraryFunction() {
+		TEMP_LIST targs = null;
+		TEMP t;
+		if (id.equals("PrintInt")) {
+			targs = exps.listIRme();
+			t = targs.head;
+			IR.getInstance().Add_IRcommand(new IRcommand_PrintInt(t));
+			return true;
+		}
+		if (id.equals("PrintString")) {
+			targs = exps.listIRme();
+			t = targs.head;
+			IR.getInstance().Add_IRcommand(new IRcommand_PrintString(t));
+			return true;
+		}
+		return false;
 	}
 }
 
