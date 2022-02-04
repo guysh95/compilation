@@ -34,6 +34,7 @@ public class IRcommand_Allocate extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
+		System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Allocate.java"));
 		// MIPSGenerator.getInstance().allocate(var_name);
 	}
 }

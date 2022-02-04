@@ -144,8 +144,9 @@ public class AST_VARDEC_NEW extends AST_DEC
 	}
 
 	public TEMP IRme(){
-
+		System.out.println("Debug ---> IR in: AST_VARDEC_NEW.java");
 		TEMP t = exp.newIRme();
+		System.out.println("Debug ---> IR in: AST_VARDEC_NEW.java, after IRing exp");
 		IR.getInstance().Add_IRcommand(new IRcommand_Store(id, t, info));
 		// storing result
 		return null;

@@ -44,6 +44,7 @@ public class IRcommand_Binop_Add_Integers extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
+		System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Binop_Add_Integers.java"));
 		MIPSGenerator.getInstance().add(dst,t1,t2);
 	}
 }

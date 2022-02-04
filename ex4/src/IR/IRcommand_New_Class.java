@@ -42,12 +42,15 @@ public class IRcommand_New_Class extends IRcommand
     /***************/
     public void MIPSme()
     {
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_New_Class.java"));
         // need to allocate (counter + 1) * 4 bytes for vtable and all fields
         int space = (countFieldsInFathers() + 1) * 4;
+        System.out.println(String.format("Debug ======> Creating new instance of: %s  ; size of is %d", typeName, space));
         MIPSGenerator.getInstance().mallocSpace(dest, space);
 
         String vtableLabel = "vt_" + typeName;
         // assuming we have an address for the class vtable as "vtableAddress"
+        System.out.println(String.format("Debug ======> loading vt of %s at: %s", typeName, vtableLabel));
         MIPSGenerator.getInstance().loadAddressToDest(vtableLabel, dest);
     }
 

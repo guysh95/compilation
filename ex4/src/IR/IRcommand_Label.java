@@ -36,6 +36,7 @@ public class IRcommand_Label extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
+		System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Label.java"));
 		MIPSGenerator.getInstance().label(label_name);
 	}
 }

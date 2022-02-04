@@ -37,7 +37,7 @@ public class IRcommand_Return extends IRcommand
     /***************/
     public void MIPSme()
     {
-
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Return.java"));
         MIPSGenerator.getInstance().return1(t, returnOwner);
     }
 }

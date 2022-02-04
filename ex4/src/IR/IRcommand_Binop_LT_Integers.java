@@ -44,6 +44,7 @@ public class IRcommand_Binop_LT_Integers extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
+		System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Binop_LT_Integers.java"));
 		/*******************************/
 		/* [1] Allocate 2 fresh labels */
 		/*******************************/

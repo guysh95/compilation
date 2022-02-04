@@ -44,6 +44,7 @@ public class IRcommand_Binop_Sub_Integers extends IRcommand
     /***************/
     public void MIPSme()
     {
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Binop_Sub_Integers.java"));
         MIPSGenerator.getInstance().sub(dst,t1,t2);
     }
 }

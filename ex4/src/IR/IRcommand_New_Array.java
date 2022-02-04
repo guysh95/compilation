@@ -40,6 +40,7 @@ public class IRcommand_New_Array extends IRcommand
     /***************/
     public void MIPSme()
     {
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Load.java"));
         MIPSGenerator.getInstance().mallocArray(t1, dest);
     }
 }

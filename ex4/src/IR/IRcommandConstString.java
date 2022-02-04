@@ -40,6 +40,7 @@ public class IRcommandConstString extends IRcommand
     /***************/
     public void MIPSme()
     {
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommandConstString.java"));
         MIPSGenerator.getInstance().liString(t,value);
     }
 }

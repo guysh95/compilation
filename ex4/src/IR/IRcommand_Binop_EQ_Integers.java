@@ -44,6 +44,7 @@ public class IRcommand_Binop_EQ_Integers extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
+		System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Binop_EQ_Integers.java"));
 		/*******************************/
 		/* [1] Allocate 3 fresh labels */
 		/*******************************/

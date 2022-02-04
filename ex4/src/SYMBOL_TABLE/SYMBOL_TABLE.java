@@ -28,8 +28,8 @@ public class SYMBOL_TABLE
 	private SYMBOL_TABLE_ENTRY top;
 	private int top_index = 0;
 	private int scopeLayer = 0;
-	boolean inFuncScope = false;
-	boolean inClassScope = false;
+	public boolean inFuncScope = false;
+	public boolean inClassScope = false;
 	
 	/**************************************************************/
 	/* A very primitive hash function for exposition purposes ... */
@@ -160,6 +160,12 @@ public class SYMBOL_TABLE
 			enter(
 					"SCOPE-BOUNDARY",
 					new TYPE_FOR_SCOPE_BOUNDARIES(scopeName, isClass, tc));
+			if (isClass) {
+				inClassScope = true;
+			}
+			else {
+				inFuncScope = true;
+			}
 		}
 		else {
 			enter(
@@ -188,6 +194,15 @@ public class SYMBOL_TABLE
 			top_index = top_index-1;
 			top = top.prevtop;
 		}
+		TYPE_FOR_SCOPE_BOUNDARIES type = (TYPE_FOR_SCOPE_BOUNDARIES)top.type;
+		// check if we end scope of function or class...
+		if(type.funcBound == true) {
+			inFuncScope = false;
+		}
+		if(type.classBound == true) {
+			inClassScope = false;
+		}
+
 		/**************************************/
 		/* Pop the SCOPE-BOUNDARY sign itself */		
 		/**************************************/
@@ -391,7 +406,8 @@ public class SYMBOL_TABLE
 	 * for accessing vars :)
 	 */
 	// this is done (?)
-	public AnnotAst (String name, TYPE_CLASS tc){
+	public AnnotAst getVarAnnotations(String name, TYPE_CLASS tc){
+		System.out.println("getVarAnnotations getting annotations for: " + name);
 		SYMBOL_TABLE_ENTRY e = this.findEntry(name);
 		if (inClassScope && inFuncScope) {
 			/**  method call */

@@ -111,7 +111,7 @@ public class AST_VARDEC_REG extends AST_DEC
 	public TEMP IRme()
 	{
 		// IR.getInstance().Add_IRcommand(new IRcommand_Allocate(id));
-
+		System.out.println("Debug ---> IR in: AST_VARDEC_REG.java");
 		return null;
 	}
 }

@@ -44,6 +44,8 @@ public class IRcommand_Field_Set extends IRcommand
     {
         // IR representation: "var.fieldName = exp"
         // MIPS representation: "sw $exp,offset($var)"
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Class_Field_Set.java"));
+        System.out.println(String.format("Debug ---------> offset is: %d", fieldOffset));
         MIPSGenerator.getInstance().swByOffset(exp, var, fieldOffset);
     }
 }
