@@ -148,7 +148,9 @@ public class IG{
             // Reset the values back to true for the next iteration
             Arrays.fill(available, true);
         }
-
+        System.out.println("Debug ---> IG file after coloring");
+        System.out.println("reg allocation is: ");
+        System.out.println(Arrays.toString(result));
         return result;
 
     }

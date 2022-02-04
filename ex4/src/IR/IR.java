@@ -50,23 +50,25 @@ public class IR
 	public void MIPSme()
 	{
 		System.out.println(head);
-		while(tail != null){
-			System.out.println(tail.head);
-			tail = tail.tail;
+		for(IRcommandList p = tail; p != null; p = p.tail) {
+			System.out.println(p.head);
 		}
-		int count = 1;
-		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", count++));
+		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", 1));
 		if (head != null) head.MIPSme();
-		while (tail != null)
-		{
-			System.out.println(String.format("Debug file is: %s, counter: %d", "IR", count++));
-			tail.head.MIPSme();
-
-			tail = tail.tail;
+		for(IRcommandList p = tail; p != null; p = p.tail) {
+			System.out.println(String.format("Debug file is: %s, counter: %d", "IR", 2));
+			p.head.MIPSme();
 		}
-		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", count++));
+		//while (tail != null)
+		//{
+		//	System.out.println(String.format("Debug file is: %s, counter: %d", "IR", 2));
+		//	tail.head.MIPSme();
+		//
+		//	tail = tail.tail;
+		//}
+		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", 3));
 		MIPSGenerator.getInstance().mainStub();
-		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", count++));
+		System.out.println(String.format("Debug file is: %s, counter: %d", "IR", 4));
 	}
 
 	/**************************************/
