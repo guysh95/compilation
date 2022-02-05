@@ -51,6 +51,9 @@ public class AST_EXP_INT extends AST_EXP
 	}
 
 	public TYPE SemantMe(TYPE scope) {
+		if(this.value > 32767){
+			throw new lineException(Integer.toString(this.row));
+		}
 		return TYPE_INT.getInstance();
 	}
 

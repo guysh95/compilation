@@ -69,7 +69,7 @@ import java.lang.Math;
 	public int getTokenStartPosition() { return yycolumn + 1; }
 
 	public Symbol check_integer(int val) throws RuntimeException {
-		if (val <= (Math.pow(2, 15) - 1)){
+		if (val <= Math.pow(2, 15)){
 			return symbol(TokenNames.INT, new Integer(yytext()));
 		} else{
 			/* throw new RuntimeException("Integer is too big"); */

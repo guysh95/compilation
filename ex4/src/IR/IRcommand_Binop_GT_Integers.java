@@ -54,11 +54,11 @@ public class IRcommand_Binop_GT_Integers extends IRcommand
         String label_AssignZero = getFreshLabel("AssignZero");
 
         /******************************************/
-        /* [2] if (t1< t2) goto label_AssignOne;  */
-        /*     if (t1>=t2) goto label_AssignZero; */
+        /* [2] if (t1> t2) goto label_AssignOne;  */
+        /*     if (t1<=t2) goto label_AssignZero; */
         /******************************************/
-        MIPSGenerator.getInstance().blt(t1,t2,label_AssignZero);
-        MIPSGenerator.getInstance().bge(t1,t2,label_AssignOne);
+        MIPSGenerator.getInstance().bgt(t1,t2,label_AssignOne);
+        MIPSGenerator.getInstance().ble(t1,t2,label_AssignZero);
 
         /************************/
         /* [3] label_AssignOne: */

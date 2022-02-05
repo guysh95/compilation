@@ -493,6 +493,12 @@ public class MIPSGenerator
 		int i2 = regColorTable[oprnd2.getSerialNumber()];
 		fileWriter.format("\tbge $t%d,$t%d,%s\n",i1,i2,label);
 	}
+	public void ble(TEMP oprnd1,TEMP oprnd2,String label)
+	{
+		int i1 = regColorTable[oprnd1.getSerialNumber()];
+		int i2 = regColorTable[oprnd2.getSerialNumber()];
+		fileWriter.format("\tble $t%d,$t%d,%s\n",i1,i2,label);
+	}
 	public void bgt(TEMP oprnd1,TEMP oprnd2,String label)
 	{
 		int i1 = regColorTable[oprnd1.getSerialNumber()];
