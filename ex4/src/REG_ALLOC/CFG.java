@@ -64,7 +64,7 @@ public class CFG
         //check if change was made - save it before change
         Set<Integer> beforeChange = new HashSet<Integer> ();
         beforeChange.addAll(curr.inTemps);
-        //System.out.println("work on " + curr.cmd +" that has in temps *before change* : "+ beforeChange);
+        System.out.println("work on " + curr.cmd +" that has in temps *before change* : "+ beforeChange);
 
 
         // update out fields for current node
@@ -95,12 +95,12 @@ public class CFG
             k = 1;
         }
 
-        //System.out.println("work on " + curr.cmd +" that has in temps *after change*: "+ curr.inTemps + " and k is: "+k);
-        // run recursive for prev and jumpFrom
+        System.out.println("work on " + curr.cmd +" that has in temps *after change*: "+ curr.inTemps + " and k is: "+k);
+        // run recursive for prev, for now we dont use the jumpFrom (no need)
         k += livenessRec(curr.prev);
-        if(curr.jumpFrom != null) {
-            k += livenessRec(curr.jumpFrom);
-        }
+        //if(curr.jumpFrom != null) {
+            // k += livenessRec(curr.jumpFrom);
+        //}
         return k;
 
     }
@@ -114,10 +114,10 @@ public class CFG
             flag = livenessRec(this.tail);
 
         }
-        System.out.println("CFG live analysis results:");
-        for(CFG_node curr = head; curr!=null; curr=curr.next){
-            System.out.println("&&  "+curr.cmd +" " +curr.inTemps);
-        }
+        //System.out.println("CFG live analysis results:");
+        //for(CFG_node curr = head; curr!=null; curr=curr.next){
+        //    System.out.println("&&  "+curr.cmd +" " +curr.inTemps);
+        //}
 
     }
 }

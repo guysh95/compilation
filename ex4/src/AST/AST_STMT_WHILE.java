@@ -158,9 +158,10 @@ public class AST_STMT_WHILE extends AST_STMT
 
 		CFG_node node_end_label = CFG.getInstance().getCFGTail(); //supposed to get the node for the jump command
 		node_jump_end.jumpTo = node_end_label;
-		node_end_label.prev = node_jump_end; // fix prev of end label to be from to conditional jump
+		node_end_label.jumpFrom = node_jump_end;
 
-		node_jump_start.next = node_start_label; //fix next from jump to be to start label
+		node_jump_start.jumpTo = node_start_label;
+		// need to consider changing it's cfg_node next field to null
 		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_WHILE", 4, "finished IRme"));
 
 		/*******************/

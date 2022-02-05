@@ -85,7 +85,7 @@ public class IG{
         //System.out.println("start iterateCFG() to build cfg edges");
         CFG_node head = CFG.getInstance().getCFGHead();
         for(CFG_node curr=head; curr!=null; curr=curr.next){
-            System.out.println(curr.cmd+"  "+curr.inTemps);
+            //System.out.println(curr.cmd+"  "+curr.inTemps);
             if(!curr.inTemps.isEmpty()) {
                 //System.out.println("inTemps is not empty!");
                 Integer[] relationed = curr.inTemps.toArray(new Integer[0]); //returns the set as an array
