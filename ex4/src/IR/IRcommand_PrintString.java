@@ -13,14 +13,13 @@ package IR; import MIPS.*; import java.util.*;
 import TEMP.*;
 import MIPS.*;
 
-public class IRcommand_Return extends IRcommand
+public class IRcommand_PrintString extends IRcommand
 {
     TEMP t;
-    String returnOwner;
-    public IRcommand_Return(TEMP t, String returnOwner)
+
+    public IRcommand_PrintString(TEMP t)
     {
         this.t = t;
-        this.returnOwner = returnOwner;
     }
 
     public Set<Integer> getLiveTemps(){
@@ -32,14 +31,13 @@ public class IRcommand_Return extends IRcommand
     public Set<Integer> getDeadTemps(){
         return null;
     }
+
     /***************/
     /* MIPS me !!! */
     /***************/
     public void MIPSme()
     {
-        System.out.println(String.format("Debug ---> file is: %s 1", "IRcommand_Return.java"));
-        System.out.println("We want to return to " + returnOwner);
-        MIPSGenerator.getInstance().return1(t, returnOwner);
-        System.out.println(String.format("Debug ---> file is: %s 2", "IRcommand_Return.java"));
+        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_PrintString.java"));
+        MIPSGenerator.getInstance().print_string(t);
     }
 }

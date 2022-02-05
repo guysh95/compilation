@@ -161,6 +161,7 @@ public class AST_FUNCDEC extends AST_DEC
 		SYMBOL_TABLE.getInstance().enter(id,tfunc);
 		//System.out.println("====> lets semant function body in AST_FUNCDEC");
 		int[] localCount = {0};
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, returnOwner %s specialCase", "AST_FUNCDEC", 4, id));
 		sl.SemantFunctionMe(scope, returnType, localCount, id);
 		info.setNumLocals(localCount[0]);
 		//System.out.println("====> We finished semanting body in AST_FUNCDEC");

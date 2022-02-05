@@ -43,7 +43,10 @@ public class IRcommand_Array_Set extends IRcommand
     /***************/
     public void MIPSme()
     {
-        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Array_Set"));
+        System.out.println(String.format("Debug ---> file is: %s 1", "IRcommand_Array_Set"));
+        System.out.println(array.getSerialNumber());
+        System.out.println(place.getSerialNumber());
+        System.out.println(exp.getSerialNumber());
         MIPSGenerator.getInstance().putArrayValue(array, place, exp);
     }
 }

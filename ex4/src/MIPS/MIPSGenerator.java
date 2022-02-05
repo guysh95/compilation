@@ -28,6 +28,11 @@ public class MIPSGenerator
 	/***********************/
 	public void finalizeFile()
 	{
+		fileWriter.format("main:\n");
+		fileWriter.format("\tjal user_main\n");
+		fileWriter.format("\tli $a0, 10\n");
+		fileWriter.format("\tli $v0, 11\n");
+		fileWriter.print("\tsyscall\n");
 		fileWriter.print("\tli $v0,10\n");
 		fileWriter.print("\tsyscall\n");
 		fileWriter.close();
@@ -392,11 +397,18 @@ public class MIPSGenerator
 
 	public void getArrayValue(TEMP arr, TEMP place, TEMP dst)
 	{
+		System.out.println("Debug ---> MIPS: getArrrayValue 1");
 		arrayAccessBoundrayCheck(arr, place);
+		// System.out.println("Debug ---> MIPS: getArrrayValue 2");
 		int arrayLoc = regColorTable[arr.getSerialNumber()];
+		// System.out.println("Debug ---> MIPS: getArrrayValue 3");
 		int offset = regColorTable[place.getSerialNumber()];
+		// System.out.println("Debug ---> MIPS: getArrrayValue 4");
 		int dstidx = regColorTable[dst.getSerialNumber()];
-		fileWriter.format("\tlw $t%d,$t%d($t%d)\n",dstidx,offset,arr);
+		// System.out.println("Debug ---> MIPS: getArrrayValue 5");
+		fileWriter.format("\tadd $s0,$t%d,$t%d\n",offset,arrayLoc);
+		fileWriter.format("\tlw $t%d,0($s0)\n",dstidx);
+		// System.out.println("Debug ---> MIPS: getArrrayValue 6");
 	}
 
 	public void putArrayValue(TEMP arr, TEMP place, TEMP value)
@@ -405,7 +417,8 @@ public class MIPSGenerator
 		int arrayLoc = regColorTable[arr.getSerialNumber()];
 		int offset = regColorTable[place.getSerialNumber()];
 		int vlidx = regColorTable[value.getSerialNumber()];
-		fileWriter.format("\tsw $t%d,$t%d($t%d)\n",vlidx,offset,arr);
+		fileWriter.format("\tadd $s0,$t%d,$t%d\n",offset,arrayLoc);
+		fileWriter.format("\tsw $t%d,0($s0)\n",vlidx);
 	}
 
 	private void arrayAccessBoundrayCheck(TEMP arr, TEMP place/*, TEMP check*/)
@@ -673,12 +686,12 @@ public class MIPSGenerator
 		fileWriter.format("\tj %s_epilogue\n",funcName);
 	}
 
-	public void mainStub()
-	{
-		fileWriter.format("main:\n");
-		fileWriter.format("\tjal user_main\n");
-		exitGracefully();
-	}
+//	public void mainStub()
+//	{
+//		fileWriter.format("main:\n");
+//		fileWriter.format("\tjal user_main\n");
+//		exitGracefully();
+//	}
 	
 	/**************************************/
 	/* USUAL SINGLETON IMPLEMENTATION ... */

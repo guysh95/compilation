@@ -101,9 +101,11 @@ public class AST_STMT_RETURN extends AST_STMT
 		}
 		String returnOwner;
 		if(methodOwner == null) {
+			System.out.println(String.format("IRme in filename: %s and counter is: %d, funcName %s", "AST_STMT_RETURN", 4, funcName));
 			returnOwner = funcName;
 		}
 		else {
+			System.out.println(String.format("IRme in filename: %s and counter is: %d, methodOwner %s, funcName %s", "AST_STMT_RETURN", 5, methodOwner, funcName));
 			returnOwner = methodOwner + "_" + funcName;
 		}
 
