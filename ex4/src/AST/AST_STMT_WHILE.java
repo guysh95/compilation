@@ -87,6 +87,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, funcName %s", "AST_STMT_WHILE", 1, funcName));
 		body.SemantFunctionMe(scope, expReturnType, localCount, funcName);
 
 		/*****************/
@@ -100,7 +101,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		return null;
 	}
 
-	public void SemantBodyMe(TYPE scope, TYPE returnType, int[] localCount, String FuncName) {
+	public void SemantBodyMe(TYPE scope, TYPE returnType, int[] localCount, String funcName) {
 		this.expReturnType = returnType;
 		this.localCount = localCount;
 		this.funcName = funcName;

@@ -90,6 +90,7 @@ public class AST_STMT_IF extends AST_STMT
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, funcName %s", "AST_STMT_IF", 1, funcName));
 		body.SemantFunctionMe(scope, expReturnType, localCount, funcName);
 
 		/*****************/
@@ -127,7 +128,7 @@ public class AST_STMT_IF extends AST_STMT
 		/******************************************/
 		/* [4] Jump conditionally to the loop end */
 		/******************************************/
-		IR.getInstance().Add_IRcommand(new IRcommand_Jump_If_Not_Eq_To_Zero(cond_temp,label_end));
+		IR.getInstance().Add_IRcommand(new IRcommand_Jump_If_Eq_To_Zero(cond_temp,label_end));
 
 		CFG_node node1 = CFG.getInstance().getCFGTail(); //supposed to get the node for the jump command
 
