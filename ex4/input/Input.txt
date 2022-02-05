@@ -12,7 +12,6 @@ void main()
     p     := 2;
 	start := 2;
 	end := 100;
-	
     while (p < end+1)
     {
         i := 2;

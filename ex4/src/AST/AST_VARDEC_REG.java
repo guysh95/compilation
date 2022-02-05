@@ -111,6 +111,10 @@ public class AST_VARDEC_REG extends AST_DEC
 	public TEMP IRme()
 	{
 		// IR.getInstance().Add_IRcommand(new IRcommand_Allocate(id));
+		if (info.isGlobal()) {
+			System.out.println("Debug ---> AST_VARDEC_REG variable is global");
+			IR.getInstance().Add_IRcommand(new IRcommand_New_Global_Int(id, 0));
+		}
 		System.out.println("Debug ---> IR in: AST_VARDEC_REG.java");
 		return null;
 	}
