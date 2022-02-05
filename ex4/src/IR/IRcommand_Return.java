@@ -24,9 +24,14 @@ public class IRcommand_Return extends IRcommand
     }
 
     public Set<Integer> getLiveTemps(){
-        Set<Integer> result = new HashSet<Integer>();
-        result.add(t.getSerialNumber());
-        return result;
+        if(t != null){
+            Set<Integer> result = new HashSet<Integer>();
+            result.add(t.getSerialNumber());
+            return result;
+        }
+        else {
+            return null;
+        }
     }
 
     public Set<Integer> getDeadTemps(){
