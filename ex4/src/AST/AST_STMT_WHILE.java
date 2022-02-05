@@ -103,8 +103,8 @@ public class AST_STMT_WHILE extends AST_STMT
 	public void SemantBodyMe(TYPE scope, TYPE returnType, int[] localCount, String FuncName) {
 		this.expReturnType = returnType;
 		this.localCount = localCount;
-		this.SemantMe(scope);
 		this.funcName = funcName;
+		this.SemantMe(scope);
 	}
 
 	public TEMP IRme()

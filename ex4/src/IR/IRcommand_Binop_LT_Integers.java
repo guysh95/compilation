@@ -56,8 +56,8 @@ public class IRcommand_Binop_LT_Integers extends IRcommand
 		/* [2] if (t1< t2) goto label_AssignOne;  */
 		/*     if (t1>=t2) goto label_AssignZero; */
 		/******************************************/
-		MIPSGenerator.getInstance().blt(t1,t2,label_AssignOne);
-		MIPSGenerator.getInstance().bge(t1,t2,label_AssignZero);
+		MIPSGenerator.getInstance().blt(t1,t2,label_AssignZero);
+		MIPSGenerator.getInstance().bge(t1,t2,label_AssignOne);
 
 		/************************/
 		/* [3] label_AssignOne: */

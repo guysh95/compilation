@@ -130,12 +130,13 @@ public class MIPSGenerator
 	}
 
 	public void callFunc(String funcName, TEMP_LIST tlist, TEMP dst) {
-		tlist = reverseTempList(tlist);
+		// tlist = reverseTempList(tlist);
 		int counter = 0;
 		int idxprm;
 		// prepare function arguments
-		for (TEMP_LIST t = tlist; t != null; t = tlist.tail) {
-			idxprm = regColorTable[tlist.head.getSerialNumber()];
+		for (TEMP_LIST t = tlist; t != null; t = t.tail) {
+			System.out.println("MIPSme: callFunc in Loop round: " + counter);
+			idxprm = regColorTable[t.head.getSerialNumber()];
 			fileWriter.format("\tsubu $sp,$sp,4\n");
 			fileWriter.format("\tsw $t%d,0($sp)\n",idxprm);
 			counter++;
@@ -152,7 +153,7 @@ public class MIPSGenerator
 	{
 		int counter = 0;
 		int idxprm;
-		for (TEMP_LIST t = tlist; t != null; t = tlist.tail) {
+		for (TEMP_LIST t = tlist; t != null; t = t.tail) {
 			idxprm = regColorTable[t.head.getSerialNumber()];
 			fileWriter.format("\tsubu $sp,$sp,4\n");
 			fileWriter.format("\tsw $t%d,0($sp)\n",idxprm);
