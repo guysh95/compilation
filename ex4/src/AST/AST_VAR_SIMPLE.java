@@ -116,14 +116,14 @@ public class AST_VAR_SIMPLE extends AST_VAR
 
 	public TEMP IRme()
 	{
-		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_SIMPLE", 1, "start IRme"));
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s info " +nodeInfo, "AST_VAR_SIMPLE", 1, name));
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
 		IR.getInstance().Add_IRcommand(new IRcommand_Load(t,name, nodeInfo));
 		return t;
 	}
 
 	public TEMP assignIRme(TEMP texp){
-		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_VAR_SIMPLE", 2, "start assignIRme"));
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s info " +nodeInfo, "AST_VAR_SIMPLE", 2, name));
 		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, texp, nodeInfo));
 		// I think it does not return anything because we assign it - and finish with store
 		return null;

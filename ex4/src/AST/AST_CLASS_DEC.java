@@ -104,13 +104,13 @@ public class AST_CLASS_DEC extends AST_DEC {
         /*************************/
         /* [1] Begin Class Scope */
         /*************************/
-        SYMBOL_TABLE.getInstance().beginScope(className, true, extended_type_casted);
+        TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className, null);
+        SYMBOL_TABLE.getInstance().beginScope(className, true, t);
 
         /***************************/
         /* [2] Semant Data Members */
         /***************************/
         System.out.println("now we semant the class fields");
-        TYPE_CLASS t = new TYPE_CLASS(extended_type_casted,className, null);
 
         TYPE_LIST dataMembers = list.getTypesClass(t);
 
