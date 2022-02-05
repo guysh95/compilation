@@ -8,7 +8,7 @@ int fib(int n) {
 }
 
 void main() {
-    PrintInt(fib(15));
+    PrintInt(fib(9));
     return;
 }
 

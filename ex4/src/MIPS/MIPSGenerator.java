@@ -400,16 +400,15 @@ public class MIPSGenerator
 	{
 		System.out.println("Debug ---> MIPS: getArrrayValue 1");
 		arrayAccessBoundrayCheck(arr, place);
-		// System.out.println("Debug ---> MIPS: getArrrayValue 2");
 		int arrayLoc = regColorTable[arr.getSerialNumber()];
-		// System.out.println("Debug ---> MIPS: getArrrayValue 3");
 		int offset = regColorTable[place.getSerialNumber()];
-		// System.out.println("Debug ---> MIPS: getArrrayValue 4");
 		int dstidx = regColorTable[dst.getSerialNumber()];
-		// System.out.println("Debug ---> MIPS: getArrrayValue 5");
-		fileWriter.format("\tadd $s0,$t%d,$t%d\n",offset,arrayLoc);
+
+		fileWriter.format("\tsll $s1,$t%d,2\n",offset);
+
+		fileWriter.format("\tadd $s0,$s1,$t%d\n",arrayLoc);
 		fileWriter.format("\tlw $t%d,0($s0)\n",dstidx);
-		// System.out.println("Debug ---> MIPS: getArrrayValue 6");
+
 	}
 
 	public void putArrayValue(TEMP arr, TEMP place, TEMP value)
@@ -418,7 +417,8 @@ public class MIPSGenerator
 		int arrayLoc = regColorTable[arr.getSerialNumber()];
 		int offset = regColorTable[place.getSerialNumber()];
 		int vlidx = regColorTable[value.getSerialNumber()];
-		fileWriter.format("\tadd $s0,$t%d,$t%d\n",offset,arrayLoc);
+		fileWriter.format("\tsll $s1,$t%d,2\n",offset);
+		fileWriter.format("\tadd $s0,$s1,$t%d\n",arrayLoc);
 		fileWriter.format("\tsw $t%d,0($s0)\n",vlidx);
 	}
 
@@ -657,7 +657,6 @@ public class MIPSGenerator
 		fileWriter.format("\taddi $t%d,$t%d, 1\n",i1, i1); // inc size by 1
 		// mult by 4
 		fileWriter.format("\tsll $t%d,$t%d, 2\n",i1, i1);
-
 		// malloc (size + 1)*4 bytes
 		fileWriter.format("\tmove $a0,$t%d\n",i1);
 		fileWriter.format("\tli $v0,9\n");
