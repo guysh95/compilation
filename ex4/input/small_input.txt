@@ -1,5 +1,11 @@
+int p;
+
 void main()
 {
-    int p := 1;
-    p := p + 1;
+    p := 1;
+    p := p + 17;
+    PrintInt(p);
+    while ( p < 6 ){
+        p := p - 1;
+    }
 }
