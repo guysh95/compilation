@@ -28,7 +28,7 @@ public class IRcommand_Call_Assign extends IRcommand
 
     public Set<Integer> getLiveTemps(){
         Set<Integer> result = new HashSet<Integer>();
-        for(TEMP_LIST tlist=args; tlist.tail!=null; tlist=tlist.tail){
+        for(TEMP_LIST tlist=args; tlist!=null; tlist=tlist.tail){
             TEMP arg = tlist.head;
             result.add(arg.getSerialNumber());
         }
