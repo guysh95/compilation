@@ -93,7 +93,8 @@ public class AST_VARDEC_NEW extends AST_DEC
 		try {
 			for(TYPE_CLASS texp = (TYPE_CLASS) t2; texp != null; texp = texp.father){
 				if (texp == t1) {
-					SYMBOL_TABLE.getInstance().enter(id, t1);
+					this.info = SYMBOL_TABLE.getInstance().setAstAnnotations();
+					SYMBOL_TABLE.getInstance().enterVar(id, t1, info);
 					return null;
 				}
 			}
@@ -116,7 +117,8 @@ public class AST_VARDEC_NEW extends AST_DEC
 						for (TYPE_CLASS dadOfIns = instanceClass.father; dadOfIns != null; dadOfIns = dadOfIns.father) {
 							System.out.println("in dadofins");
 							if (dadOfIns == pointerClass) {
-								SYMBOL_TABLE.getInstance().enter(id, ((TYPE_ARRAY) t1));
+								this.info = SYMBOL_TABLE.getInstance().setAstAnnotations();
+								SYMBOL_TABLE.getInstance().enterVar(id, ((TYPE_ARRAY) t1), info);
 								return null;
 							}
 						}
@@ -146,7 +148,7 @@ public class AST_VARDEC_NEW extends AST_DEC
 	public TEMP IRme(){
 		System.out.println("Debug ---> IR in: AST_VARDEC_NEW.java");
 		TEMP t = exp.newIRme();
-		System.out.println("Debug ---> IR in: AST_VARDEC_NEW.java, after IRing exp");
+		System.out.println("Debug ---> IR in: AST_VARDEC_NEW.java, after IRing exp " + info + " " + id);
 		IR.getInstance().Add_IRcommand(new IRcommand_Store(id, t, info));
 		// storing result
 		return null;

@@ -100,7 +100,10 @@ public class TYPE_CLASS extends TYPE
 					if(name.equals(tvar.name)){
 						// result ancsFieldCount + offset in current class
 						TYPE_CLASS currGrandpa = currFather.father;
-						return count + currGrandpa.countFieldWithAncs();
+						if (currGrandpa != null){
+							count += currGrandpa.countFieldWithAncs();
+						}
+						return count;
 					}
 						count++;
 				}
@@ -123,7 +126,10 @@ public class TYPE_CLASS extends TYPE
 					if(name.equals(tfunc.name)){
 						// result ancsFieldCount + offset in current class
 						TYPE_CLASS currGrandpa = currFather.father;
-						return count + currGrandpa.countMethodWithAncs();
+						if (currGrandpa != null) {
+							count += currGrandpa.countMethodWithAncs();
+						}
+						return count;
 					}
 					count++;
 				}
