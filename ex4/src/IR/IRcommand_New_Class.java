@@ -47,11 +47,32 @@ public class IRcommand_New_Class extends IRcommand
         int space = (countFieldsInFathers() + 1) * 4;
         System.out.println(String.format("Debug ======> Creating new instance of: %s  ; size of is %d", typeName, space));
         MIPSGenerator.getInstance().mallocSpace(dest, space);
-
         String vtableLabel = "vt_" + typeName;
         // assuming we have an address for the class vtable as "vtableAddress"
         System.out.println(String.format("Debug ======> loading vt of %s at: %s", typeName, vtableLabel));
         MIPSGenerator.getInstance().loadAddressToDest(vtableLabel, dest);
+
+        TYPE_CLASS_VAR_DEC tvar = null;
+        int offset;
+        TYPE_CLASS p = this.type;
+        while(p != null) {
+            for(TYPE_LIST it = p.data_members; it != null; it = it.tail){
+                if(it.head.isVar()) {
+                    tvar = (TYPE_CLASS_VAR_DEC) it.head;
+                    if (tvar.assignVal != null) {
+                        offset = type.getOffsetForVar(tvar.name);
+                        MIPSGenerator.getInstance().swFieldInt(dest, offset, tvar.assignVal.intValue());
+                    }
+                    if (tvar.assignString != null) {
+                        offset = type.getOffsetForVar(tvar.name);
+                        MIPSGenerator.getInstance().swFieldString(dest, offset, tvar.assignString);
+                    }
+                }
+            }
+            p = p.father;
+        }
+
+
     }
 
     public int countFieldsInFathers()

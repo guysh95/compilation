@@ -121,21 +121,27 @@ public class TYPE_CLASS extends TYPE
 	public int getOffsetForMethod(String name){
 		int count;
 		TYPE_FUNCTION tfunc = null;
-		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
-			count = 0;
+		System.out.println("getOffsetForMethod ---> looking for " + name);
+		for(TYPE_CLASS currFather = this; currFather != null; currFather = currFather.father){
+			count = currFather.methodCount;
+			System.out.println("getOffsetForMethod ---> B looking for " + name);
 			for(TYPE_LIST it = currFather.data_members; it != null; it = it.tail){
+				System.out.println("getOffsetForMethod ---> C looking for " + name + " and current is " + it.head.name);
+				System.out.println("getOffsetForMethod ---> C looking for " + name + " and current is " + it.head.isFunction());
 				if(it.head.isFunction()){
 					tfunc = (TYPE_FUNCTION) it.head;
-					System.out.println("######found func name: " + tfunc.name);
+					System.out.println("getOffsetForMethod ---> current is " + tfunc.name);
+					System.out.println("getOffsetForMethod ---> current counter is " + count);
 					if(name.equals(tfunc.name)){
 						// result ancsFieldCount + offset in current class
 						TYPE_CLASS currGrandpa = currFather.father;
 						if (currGrandpa != null) {
 							count += currGrandpa.countMethodWithAncs();
 						}
-						return count;
+						System.out.println("getOffsetForMethod ---> answer is " + count);
+						return count - 1;
 					}
-					count++;
+					count--;
 				}
 
 			}

@@ -164,7 +164,7 @@ public class MIPSGenerator
 		fileWriter.format("\tsw $t%d,0($sp)\n",clridx);
 		counter++;
 		fileWriter.format("\tlw $s0,0($t%d)\n",clridx);
-		fileWriter.format("\tlw $s1,%d($t%d)\n",methodOffset,clridx);
+		fileWriter.format("\tlw $s1,%d($s0)\n",4*methodOffset);
 		fileWriter.format("\tjalr $s1\n");
 		fileWriter.format("\taddu $sp,$sp,%d\n", counter*4);
 		if (dst != null) {
@@ -732,6 +732,23 @@ public class MIPSGenerator
 		/** pointer to array is pointing to 0 */
 	}
 
+	public void swFieldInt(TEMP dest, int offset, int value) {
+		int destIndex = regColorTable[dest.getSerialNumber()];
+
+		fileWriter.format("\tli $s0,%d\n", value);
+		fileWriter.format("\tsw $s0,%d($t%d)\n",4*offset, destIndex);
+	}
+
+	public void swFieldString(TEMP dest, int offset, String value) {
+		int destIndex = regColorTable[dest.getSerialNumber()];
+
+		String str_label = labelGenerator("str");
+		fileWriter.format(".data\n");
+		fileWriter.format("%s: .asciiz %s\n",str_label, value);
+		fileWriter.format(".text\n");
+		fileWriter.format("\tla $s0,%s\n",str_label);
+		fileWriter.format("\tsw $s0,%d($t%d)\n",4*offset, destIndex);
+	}
 
 	public void return1(TEMP t, String funcName)
 	{

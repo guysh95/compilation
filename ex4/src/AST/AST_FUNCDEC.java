@@ -212,8 +212,10 @@ public class AST_FUNCDEC extends AST_DEC
 			System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_FUNCDEC", 2, "methodOwner exists"));
 			String className = methodOwner.name;
 			String methodLabel = className + "_" + id; // A_f
-			IRcommand_Label cmd = new IRcommand_Label(methodLabel);
-			IR.getInstance().Add_IRcommand(cmd);
+
+			IR.getInstance().Add_IRcommand(new IRcommand_Label(methodLabel));
+			IR.getInstance().Add_IRcommand(new IRcommand_Func_Prologue(info.getNumLocals()));
+
 			if (sl != null) sl.listIRme();
 			// epilogue label:
 			IR.getInstance().Add_IRcommand(new IRcommand_Label(String.format("%s_epilogue", methodLabel)));
