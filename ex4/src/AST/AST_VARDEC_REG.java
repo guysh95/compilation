@@ -99,7 +99,7 @@ public class AST_VARDEC_REG extends AST_DEC
 		System.out.println("t3 is now: "+ t3.name + " and its type is " + t3.t.name);
 
 		this.info = SYMBOL_TABLE.getInstance().setAstAnnotations();
-
+		System.out.println("Debug ---> AST_VARDEC_REG semantMe: var is " + id + " offset is " + info.getOffset());
 		SYMBOL_TABLE.getInstance().enterVar(id,t, this.info);
 
 		/*********************************************************/
