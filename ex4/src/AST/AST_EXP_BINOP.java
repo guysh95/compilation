@@ -115,6 +115,7 @@ public class AST_EXP_BINOP extends AST_EXP
 		}
 
 		if ((bOP == 0) && (t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance())) {
+
 			return TYPE_STRING.getInstance();
 		}
 		if (bOP == 6) {

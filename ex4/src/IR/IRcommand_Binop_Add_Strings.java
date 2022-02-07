@@ -30,13 +30,13 @@ public class IRcommand_Binop_Add_Strings extends IRcommand
         Set<Integer> result = new HashSet<Integer>();
         result.add(t1.getSerialNumber());
         result.add(t2.getSerialNumber());
+        result.add(dst.getSerialNumber());
         return result;
     }
 
     public Set<Integer> getDeadTemps(){
-        Set<Integer> result = new HashSet<Integer>();
-        result.add(dst.getSerialNumber());
-        return result;
+        //Set<Integer> result = new HashSet<Integer>();
+        return null;
     }
 
     /***************/
@@ -44,7 +44,8 @@ public class IRcommand_Binop_Add_Strings extends IRcommand
     /***************/
     public void MIPSme()
     {
-        System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Binop_Add_Strings.java"));
+        System.out.println(String.format("Debug ---> file is: %s, dst: %d, s1: %d, s2: %d",
+                "IRcommand_Binop_Add_Strings.java", dst.getSerialNumber(), t1.getSerialNumber(), t2.getSerialNumber()));
         MIPSGenerator.getInstance().addStrings(dst,t1,t2);
     }
 }

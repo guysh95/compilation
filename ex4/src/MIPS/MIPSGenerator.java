@@ -191,18 +191,20 @@ public class MIPSGenerator
 		//TODO: maybe need to change
 		// assuming NIL is 0 for now
 		fileWriter.format(".data\n");
-		fileWriter.format("\tglobal_%s: .word %d\n",var_name, 0);
+		fileWriter.format("global_%s: .word %d\n",var_name, 0);
 	}
 
 	public void allocateGlobalInt(String var_name, int value)
 	{
 		fileWriter.format(".data\n");
-		fileWriter.format("\tglobal_%s: .word %d\n",var_name, value);
+		fileWriter.format("global_%s: .word %d\n",var_name, value);
 	}
-	public void allocateGlobalString(String var_name, String value)
+	public void  allocateGlobalString(String var_name, String value)
 	{
+		String str_label = labelGenerator("str");
 		fileWriter.format(".data\n");
-		fileWriter.format("\tglobal_%s: .asciiz %s\n",var_name, value);
+		fileWriter.format("%s: .asciiz %s\n",str_label, value);
+		fileWriter.format("global_%s: .word %s\n",var_name,str_label);
 	}
 
 	public void loadGlobal(TEMP dst, String label) {
@@ -327,7 +329,11 @@ public class MIPSGenerator
 	{
 		int idx= regColorTable[t.getSerialNumber()];
 		//Maybe need to add asciiz for null terminator in end of string
-		fileWriter.format("\tli $t%d,%s\n",idx,value);
+		String str_label = labelGenerator("str");
+		fileWriter.format(".data\n");
+		fileWriter.format("%s: .asciiz %s\n",str_label, value);
+		fileWriter.format(".text\n");
+		fileWriter.format("\tla $t%d,%s\n",idx,str_label);
 	}
 
 	public void move(TEMP dst, TEMP src)
@@ -557,11 +563,57 @@ public class MIPSGenerator
 		jump(loopLabel);
 	}
 
+	private void countMallocString(int s1, int s2, int dstidx)
+	{
+		String countFirst = labelGenerator("countFirst");
+		String startSecond = labelGenerator("startSecond");
+		String countSecond = labelGenerator("countSecond");
+		String countFinish = labelGenerator("countFinish");
+
+
+		fileWriter.format("\tmove $s0,$t%d\n", s1);
+		// init counter
+
+		fileWriter.format("\tmove $s6,$zero\n");
+		// count len of first string
+		label(countFirst);
+		//load char
+		fileWriter.format("\tlb $s3,0($s0)\n");
+		//if char is zero termin go count second string
+		fileWriter.format("\tbeq $s3,$zero,%s\n", startSecond);
+		fileWriter.format("\taddi $s6,1\n");
+		//move index
+		fileWriter.format("\taddi $s0,$s0,1\n");
+		jump(countFirst);
+
+		label(startSecond);
+
+		fileWriter.format("\tmove $s0,$t%d\n", s2);
+		label(countSecond);
+		fileWriter.format("\tlb $s3,0($s0)\n");
+
+		fileWriter.format("\tbeq $s3,$zero,%s\n", countFinish);
+		fileWriter.format("\taddi $s6,$s6,1\n");
+
+		fileWriter.format("\taddi $s0,$s0,1\n");
+		jump(countSecond);
+
+		label(countFinish);
+
+		//allocate space for destination
+		fileWriter.format("\tmove $a0,$s6\n");
+		fileWriter.format("\tli $v0,9\n");
+		fileWriter.format("\tsyscall\n");
+		fileWriter.format("\tmove $t%d,$v0\n",dstidx);
+	}
+
 	public void addStrings(TEMP dst, TEMP firstStr, TEMP secondStr)
 	{
 		int s1 = regColorTable[firstStr.getSerialNumber()];
 		int s2 = regColorTable[secondStr.getSerialNumber()];
 		int dstidx = regColorTable[dst.getSerialNumber()];
+
+		countMallocString(s1,s2,dstidx);
 
 		String copyFirst = labelGenerator("copyFirst");
 		String copySecond = labelGenerator("copySecond");
