@@ -28,13 +28,12 @@ public class IRcommand_Field_Set extends IRcommand
     public Set<Integer> getLiveTemps(){
         Set<Integer> result = new HashSet<Integer>();
         result.add(exp.getSerialNumber());
+        result.add(var.getSerialNumber());
         return result;
     }
 
     public Set<Integer> getDeadTemps(){
-        Set<Integer> result = new HashSet<Integer>();
-        result.add(var.getSerialNumber());
-        return result;
+        return null;
     }
 
     /***************/

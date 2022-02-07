@@ -110,7 +110,7 @@ public class CFG
         int flag = 1;
         int counter = 0;
         while (flag != 0){  // will be 0 only after an analysis run without changes
-            //System.out.println(String.format("start liveness abaylsis num %d", counter++));
+            System.out.println(String.format("start liveness anaylsis num %d", counter++));
             flag = livenessRec(this.tail);
 
         }
