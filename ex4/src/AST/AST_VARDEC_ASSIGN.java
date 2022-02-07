@@ -115,6 +115,8 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 		saveAssignedValue();
 		this.info = SYMBOL_TABLE.getInstance().setAstAnnotations();
 
+		System.out.println("Debug ---> AST_VARDEC_ASSIGN semantMe: var is " + name + " offset is " + info.getOffset());
+
 		SYMBOL_TABLE.getInstance().enterVar(name, t1, this.info);
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, name);
 		return t3;

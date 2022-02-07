@@ -91,21 +91,25 @@ public class TYPE_CLASS extends TYPE
 	public int getOffsetForVar(String name){
 		int count;
 		TYPE_CLASS_VAR_DEC tvar = null;
-		for(TYPE_CLASS currFather = this.father; currFather != null; currFather = currFather.father){
-			count = 0;
+		System.out.println("Debug --->> getOffsetForVar for " + name + " in " + this.name);
+		for(TYPE_CLASS currFather = this; currFather != null; currFather = currFather.father){
+			count = currFather.fieldsCount;
 			for(TYPE_LIST it = currFather.data_members; it != null; it = it.tail){
 				if(it.head.isVar()){
 					tvar = (TYPE_CLASS_VAR_DEC) it.head;
-					System.out.println("######found var name: " + tvar.name);
+					System.out.println("Debug --->> getOffsetForVar, current is " + tvar.name);
+					System.out.println("Debug --->> getOffsetForVar, current counter is " + count);
 					if(name.equals(tvar.name)){
 						// result ancsFieldCount + offset in current class
 						TYPE_CLASS currGrandpa = currFather.father;
 						if (currGrandpa != null){
 							count += currGrandpa.countFieldWithAncs();
 						}
+						System.out.println("Debug --->> getOffsetForVar result for " + name + " in " + this.name);
+						System.out.println("Debug --->> getOffsetForVar counter is " + count );
 						return count;
 					}
-						count++;
+						count--;
 				}
 
 			}

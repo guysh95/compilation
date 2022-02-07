@@ -46,7 +46,7 @@ public class IRcommand_Field_Access extends IRcommand
         // IR representation: "dst = var.fieldName"
         // MIPS representation: "lw $dst,offset($var)"
         System.out.println(String.format("Debug ---> file is: %s", "IRcommand_Class_Field_Access.java"));
-        System.out.println(String.format("Debug ---------> offset is: %d", fieldOffset));
+        System.out.println(String.format("Debug ---------> Class_Field offset is: %d", fieldOffset));
         MIPSGenerator.getInstance().lwByOffset(dst, var, fieldOffset);
     }
 }

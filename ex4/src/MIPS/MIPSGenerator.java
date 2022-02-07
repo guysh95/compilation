@@ -622,14 +622,14 @@ public class MIPSGenerator
 	{
 		int validx = regColorTable[value.getSerialNumber()];
 		int memidx = regColorTable[memory.getSerialNumber()];
-		fileWriter.format("\tsw $t%d,%d($t%d)\n", validx, offset, memidx);
+		fileWriter.format("\tsw $t%d,%d($t%d)\n", validx, 4*offset, memidx);
 	}
 
 	public void lwByOffset(TEMP dest, TEMP memory, int offset)
 	{
 		int dstidx = regColorTable[dest.getSerialNumber()];
 		int memidx = regColorTable[memory.getSerialNumber()];
-		fileWriter.format("\tlw $t%d,%d($t%d)\n", dstidx, offset, memidx);
+		fileWriter.format("\tlw $t%d,%d($t%d)\n", dstidx, 4*offset, memidx);
 	}
 
 	public void initVTable(String className)
