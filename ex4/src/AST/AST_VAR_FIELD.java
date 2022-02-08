@@ -167,13 +167,13 @@ public class AST_VAR_FIELD extends AST_VAR
 	}
 
 	public TEMP_LIST beforeAssign() {
-		TEMP_LIST tlist = var.computeExpBeforeAssign();
+		TEMP_LIST tlist = var.beforeAssign();
 		return tlist;
 	}
 
 	public TEMP afterAssign(TEMP_LIST exps) {
 		TEMP t2 = var.afterAssign(exps);
 		int fieldOffset = fieldOwnerClass.getOffsetForVar(fieldName);
-		IR.getInstance().Add_IRcommand(new IRcommand_Field_Set(t2, fieldOffset, texp));
+		return null;
 	}
 }

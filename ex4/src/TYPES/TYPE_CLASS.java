@@ -119,7 +119,7 @@ public class TYPE_CLASS extends TYPE
 		return -1;
 	}
 
-	public int getOffsetForMethod(String name){
+	public int getOffsetForMethod_ver2(String name){
 		int count;
 		TYPE_FUNCTION tfunc = null;
 		System.out.println("getOffsetForMethod ---> looking for " + name);
@@ -151,7 +151,7 @@ public class TYPE_CLASS extends TYPE
 		return -1;
 	}
 
-	public int getOffsetForMethod_ver2(String name){
+	public int getOffsetForMethod(String name){
 		Stack<TYPE_CLASS> allClasses = new Stack<TYPE_CLASS>();
 		TYPE_CLASS p = this;
 		while (p != null) {

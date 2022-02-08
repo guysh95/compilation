@@ -130,6 +130,6 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 	public TEMP afterAssign(TEMP_LIST exps) {
 		TEMP t1 = var.afterAssign(exps.tail);
 		TEMP t2 = exps.head;
-		IR.getInstance().Add_IRcommand(new IRcommand_Array_Set(t1, t2, texp));
+		return null;
 	}
 }

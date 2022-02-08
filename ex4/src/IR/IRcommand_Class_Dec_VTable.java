@@ -42,8 +42,8 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
 
         // TODO: this implementation doesn't support overriding methods
         // insert all classes into a stack
-        /*
-        Previous implementation
+
+        // Previous implementation
 
         Stack<TYPE_CLASS> allClasses = new Stack<TYPE_CLASS>();
         TYPE_CLASS p = currentClass;
@@ -54,6 +54,7 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
 
         // remove all classes from stack, one by one, and add MIPS method labels to VTable
         Stack<String> methodNames = new Stack<String>();
+        List<String[]> methodTuples = new ArrayList<String[]>(); // [ , ]
         String curr_name;
         while (!allClasses.empty()) {
             p = allClasses.pop();
@@ -64,18 +65,34 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
             }
             while(!methodNames.empty()) {
                 curr_name = methodNames.pop();
-                MIPSGenerator.getInstance().enterMethodLabel(p.name, curr_name);
+                int index = getIndex(methodTuples, curr_name);
+                String[] arr = {curr_name, p.name};
+                if (index == -1) {
+
+                    methodTuples.add(arr);
+                }
+                else {
+                    methodTuples.set(index, arr);
+                }
+
             }
         }
 
-         */
+        for (int i = 0; i < methodTuples.size(); i++) {
+            String[] element = methodTuples.get(i);
+            String methodLabel = element[1] + "_" + element[0];
+            MIPSGenerator.getInstance().enterMethodLabel(methodLabel);
+        }
+
 
 
         // new implementation:
         //Stack<String> methodNamesPerClass = new Stack<String>();
+        /*
         Stack<String> methodNames = new Stack<String>();
         HashMap<String, String> insertedMethods = new HashMap<String, String>();
         TYPE_CLASS p = currentClass;
+        String curr_name;
         while (p != null) {
             for(TYPE_LIST ptr = p.data_members; ptr != null; ptr = ptr.tail){
                 if (ptr.head.isFunction()) {
@@ -87,19 +104,25 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
                     }
                 }
             }
-            /*while(!methodNamesPerClass.empty()) {
-                curr_name = methodNamesPerClass.pop();
-                methodNames.push(curr_name);
-            }*/
             p = p.father;
         }
 
         while(!methodNames.empty()) {
             curr_name = methodNames.pop();
-            MIPSGenerator.getInstance().enterMethodLabel(p.name, curr_name);
+            MIPSGenerator.getInstance().enterMethodLabel(curr_name);
         }
-
+        */
         MIPSGenerator.getInstance().endDataSection();
 
+    }
+
+    public int getIndex(List<String[]> methods, String curr_name) {
+        for (int i = 0; i < methods.size(); i++) {
+            String[] element = methods.get(i);
+            if (element[0].equals(curr_name)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
