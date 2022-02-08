@@ -699,9 +699,9 @@ public class MIPSGenerator
 		label("vt_" + className);
 	}
 
-	public void enterMethodLabel(String className, String methodName)
+	public void enterMethodLabel(String classMethodName)
 	{
-		fileWriter.format("\t.word %s_%s\n", className, methodName);
+		fileWriter.format("\t.word %s\n", classMethodName);
 	}
 
 	public void endDataSection()
