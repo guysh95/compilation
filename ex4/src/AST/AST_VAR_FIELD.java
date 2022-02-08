@@ -70,7 +70,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		TYPE_CLASS tc = null;
 		TYPE_CLASS_VAR_DEC tvar = null;
 		TYPE_ARRAY tarr = null;
-
+		System.out.println("We are Semanting in AST_VAR_FIELD BIBI");
 		/******************************/
 		/* [1] Recursively semant var */
 		/******************************/
@@ -166,4 +166,14 @@ public class AST_VAR_FIELD extends AST_VAR
 		return null;
 	}
 
+	public TEMP_LIST beforeAssign() {
+		TEMP_LIST tlist = var.computeExpBeforeAssign();
+		return tlist;
+	}
+
+	public TEMP afterAssign(TEMP_LIST exps) {
+		TEMP t2 = var.afterAssign(exps);
+		int fieldOffset = fieldOwnerClass.getOffsetForVar(fieldName);
+		IR.getInstance().Add_IRcommand(new IRcommand_Field_Set(t2, fieldOffset, texp));
+	}
 }

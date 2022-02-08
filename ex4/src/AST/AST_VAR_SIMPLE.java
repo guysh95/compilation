@@ -131,4 +131,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		return null;
 	}
 
+	public TEMP_LIST beforeAssign() {
+		return null;
+	}
 }

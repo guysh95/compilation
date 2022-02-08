@@ -1,5 +1,6 @@
 package TYPES;
 import AST.*;
+import java.util.*;
 
 public class TYPE_CLASS extends TYPE
 {
@@ -148,6 +149,36 @@ public class TYPE_CLASS extends TYPE
 		}
 		//no method with same name in ancestors
 		return -1;
+	}
+
+	public int getOffsetForMethod_ver2(String name){
+		Stack<TYPE_CLASS> allClasses = new Stack<TYPE_CLASS>();
+		TYPE_CLASS p = this;
+		while (p != null) {
+			allClasses.push(p);
+			p = p.father;
+		}
+		Stack<String> methodNames = new Stack<String>();
+		String curr_name;
+		int count = 0;
+		while (!allClasses.empty()) {
+			p = allClasses.pop();
+			for(TYPE_LIST ptr = p.data_members; ptr != null; ptr = ptr.tail){
+				if (ptr.head.isFunction()) {
+					methodNames.push(ptr.head.name);
+				}
+			}
+			while(!methodNames.empty()) {
+				curr_name = methodNames.pop();
+				if (name.equals(curr_name)){
+					return count;
+				}
+				count++;
+			}
+		}
+		// method not found
+		return -1;
+
 	}
 
 	public int countFieldWithAncs() {

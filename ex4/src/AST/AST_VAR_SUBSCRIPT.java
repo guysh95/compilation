@@ -68,7 +68,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		TYPE t = null;
 		TYPE_ARRAY ta = null;
 		TYPE sub_t = null;
-
+		System.out.println("We are Semanting in AST_VAR_SUBSCRIPT BIBI");
 		/******************************/
 		/* [1] Recursively semant var */
 		/******************************/
@@ -119,5 +119,17 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		IR.getInstance().Add_IRcommand(new IRcommand_Array_Set(t1, t2, texp));
 		// no need to return anything because we assign it - and finish with store
 		return null;
+	}
+
+	public TEMP_LIST beforeAssign() {
+		TEMP t2 = subscript.IRme();
+		TEMP_LIST tlist = var.beforeAssign();
+		return new TEMP_LIST(t2, tlist);
+	}
+
+	public TEMP afterAssign(TEMP_LIST exps) {
+		TEMP t1 = var.afterAssign(exps.tail);
+		TEMP t2 = exps.head;
+		IR.getInstance().Add_IRcommand(new IRcommand_Array_Set(t1, t2, texp));
 	}
 }
