@@ -72,7 +72,7 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
 
 
         // new implementation:
-        Stack<String> methodNamesPerClass = new Stack<String>();
+        //Stack<String> methodNamesPerClass = new Stack<String>();
         Stack<String> methodNames = new Stack<String>();
         HashMap<String, String> insertedMethods = new HashMap<String, String>();
         TYPE_CLASS p = currentClass;
@@ -81,15 +81,16 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
                 if (ptr.head.isFunction()) {
                     if (insertedMethods.get(ptr.head.name) == null)
                     {
-                        methodNamesPerClass.push(p.name+ "_" +ptr.head.name);
+                        // methodNamesPerClass.push(p.name+ "_" +ptr.head.name);
+                        methodNames.push(p.name+ "_" +ptr.head.name);
                         insertedMethods.put(ptr.head.name, p.name);
                     }
                 }
             }
-            while(!methodNamesPerClass.empty()) {
+            /*while(!methodNamesPerClass.empty()) {
                 curr_name = methodNamesPerClass.pop();
                 methodNames.push(curr_name);
-            }
+            }*/
             p = p.father;
         }
 
