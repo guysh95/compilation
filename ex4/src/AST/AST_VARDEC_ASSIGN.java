@@ -15,6 +15,7 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 	boolean isAssignNIL = false;
 	Integer assignVal = null;
 	String assignString = null;
+	boolean classDec = false;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -119,8 +120,17 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 
 		SYMBOL_TABLE.getInstance().enterVar(name, t1, this.info);
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, name, assignVal, assignString);
+		// need to see if we are inside a class declaration or no
+
+		classDec = inClassDec();
+		System.out.println("Debug --->> AST_VARDEC_ASSIGN for " + name + " classDec = " + classDec);
 		return t3;
 
+	}
+
+	public boolean inClassDec()
+	{
+		return SYMBOL_TABLE.getInstance().isInClassDec();
 	}
 
 	public void saveAssignedValue() {
@@ -156,9 +166,9 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 				IR.getInstance().Add_IRcommand(new IRcommand_New_Global_Nil(name));
 			}
 		}
-		else {
-			TEMP t = exp.IRme();
-			IR.getInstance().Add_IRcommand(new IRcommand_Store(name, t, info));
+		else if (!classDec){
+				TEMP t = exp.IRme();
+				IR.getInstance().Add_IRcommand(new IRcommand_Store(name, t, info));
 		}
 		// storing result
 		return null;

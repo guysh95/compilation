@@ -91,30 +91,37 @@ public class AST_STMT_EXPLIST extends AST_STMT
 		// if var is not null this is a method call
 		if (var != null){
 			t1 = var.SemantMe(scope);
-			System.out.println(t1 + " in AST_STMT_EXPSLIST and ");
+			System.out.println(t1 + " in AST_STMT_EXPLIST and ");
 			if (t1.isClass() == false)
 			{
 				System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,id);
 				throw new lineException(Integer.toString(this.row));
-				//System.exit(0);
 			}
-			//if (scope != null) System.out.println("our scope here is " + scope);
-			//System.out.println("we try to make class of " + t1.name);
+
+			// get type_class of caller
 			if (scope != null && scope.name == t1.name && scope.isClass()) {
 				tc = (TYPE_CLASS) scope;
 			}
 			else {
 				tc = (TYPE_CLASS) t1;
 			}
+			callerClass = tc;
+
+			System.out.println("Debug >>> AST_STMT_EXPLIST A looking for " + id);
 
 			// check that id in class scope
 			for (TYPE_LIST it=tc.data_members;it != null;it=it.tail) {
+				System.out.println("Debug >>> AST_STMT_EXPLIST current is of type " + it.head);
+				System.out.println("Debug >>> AST_STMT_EXPLIST current is " + it.head.name);
 				if (it.head.name.equals(id)) {
 					t2 = it.head;
+					break;
 				}
 			}
-
-			if (t2 == null){ //not in same class
+			System.out.println("Debug >>> AST_STMT_EXPLIST B we found " + t2.name);
+			if (t2 == null){
+				//not found in class scope, lets search in ancestors
+				System.out.println("Debug >>> AST_STMT_EXPLIST C");
 				tfunc = tc.searchInFathersFunc(id, this.row);
 				if (tfunc == null){ // if it is not a function
 					System.out.format(">> ERROR id is not a function in AST_STMT_EXPLIST");
@@ -122,32 +129,38 @@ public class AST_STMT_EXPLIST extends AST_STMT
 
 				} else { // if it is a function
 					if (exps != null){ //if there are exps
+						System.out.println("Debug >>> AST_STMT_EXPLIST D");
 						if(!sameParams(tfunc.params, exps.getTypes(scope))){
 							System.out.format(">> ERROR params not matching in exp_fcall");
 							throw new lineException(Integer.toString(this.row));
 						}
 					} else { // if there are no exps
 						if (tfunc.params != null){
+							System.out.println("Debug >>> AST_STMT_EXPLIST E");
 							System.out.format(">> ERROR no %s same amount of params for func\n",id);
 							throw new lineException(Integer.toString(this.row));
 						} else {
-							callerClass = tc;
+							System.out.println("Debug >>> AST_STMT_EXPLIST F");
+
 							return tfunc.returnType;
 						}
 					}
-					callerClass = tc;
+					System.out.println("Debug >>> AST_STMT_EXPLIST G");
+
 					return tfunc.returnType;
 				}
 
 			}
-
+			System.out.println("Debug >>> AST_STMT_EXPLIST H");
 			if (! t2.getClass().getSimpleName().equals("TYPE_FUNCTION")) {
 				System.out.format(">> ERROR provided explist although this is not a function\n");
 				throw new lineException(Integer.toString(this.row));
-				//System.exit(0);
 			}
+			// method is in defined in current class
 			TYPE_FUNCTION t3 = (TYPE_FUNCTION) t2;
 			if (exps != null){
+				// there are arguments to method
+				System.out.println("Debug >>> AST_STMT_EXPLIST I");
 				texps = exps.getTypes(null);
 				for (TYPE_LIST it=t3.params;it != null;it=it.tail) {
 					if (texps.head == null){
@@ -156,16 +169,21 @@ public class AST_STMT_EXPLIST extends AST_STMT
 					}
 					checkArgument(it.head, texps.head);
 					texps = texps.tail;
+					System.out.println("Debug >>> AST_STMT_EXPLIST J");
 				}
 				if (texps.head != null){
 					System.out.format(">> ERROR to many parameters for function\n");
 					throw new lineException(Integer.toString(this.row));
 				}
 			}
+			// there are no arguments to method
+			if (t3.params != null){
+				System.out.println("Debug >>> AST_STMT_EXPLIST E");
+				System.out.format(">> ERROR no %s same amount of params for func\n",id);
+				throw new lineException(Integer.toString(this.row));
+			}
+			return t3.returnType;
 
-
-
-			return null;
 		} else { // var is null
 			// this is a function call
 			// System.out.println("We are in stmt calling " + id);
@@ -276,6 +294,7 @@ public class AST_STMT_EXPLIST extends AST_STMT
 			System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 2, "ITS A METHOD"));
 			TEMP tvar = var.IRme();
 			int methodOffset = callerClass.getOffsetForMethod(id);
+			System.out.println(String.format("IRme in filename: %s and counter is: %d, %s offset %d", "AST_STMT_EXPLIST", 2, "ITS A METHOD", methodOffset));
 			if (exps != null) {		// there are args
 				System.out.println(String.format("IRme in filename: %s and counter is: %d, %s", "AST_STMT_EXPLIST", 3, "THERE ARE ARGS"));
 				targs = exps.listIRme();

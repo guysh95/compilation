@@ -23,6 +23,7 @@ public class IRcommand_Load extends IRcommand {
 		this.dst = dst;
 		this.var_name = var_name;
 		this.info = info;
+		System.out.println("IRcommand_Load -> no problem here");
 	}
 
 	public Set<Integer> getLiveTemps() {

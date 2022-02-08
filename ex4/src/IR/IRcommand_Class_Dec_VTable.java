@@ -58,7 +58,7 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
                 }
             }
         }
-
+        MIPSGenerator.getInstance().endDataSection();
 
 
         // TODO: add node of new class VTable to vtableMap

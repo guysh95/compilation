@@ -463,4 +463,7 @@ public class SYMBOL_TABLE
 		return null;
 	}
 
+	public boolean isInClassDec() {
+		return (inClassScope && !inFuncScope);
+	}
 }

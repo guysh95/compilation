@@ -116,8 +116,9 @@ public class AST_VAR_SIMPLE extends AST_VAR
 
 	public TEMP IRme()
 	{
-		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s info " +nodeInfo, "AST_VAR_SIMPLE", 1, name));
+		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s info " + nodeInfo, "AST_VAR_SIMPLE", 1, name));
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+		System.out.println("Debug >>> AST_VAR_SIMPLE A");
 		IR.getInstance().Add_IRcommand(new IRcommand_Load(t,name, nodeInfo));
 		return t;
 	}

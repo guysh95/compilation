@@ -695,6 +695,11 @@ public class MIPSGenerator
 		fileWriter.format("\t.word %s_%s\n", className, methodName);
 	}
 
+	public void endDataSection()
+	{
+		fileWriter.format(".text\n");
+	}
+
 	public void mallocSpace(TEMP dest, int space)
 	{
 		int dstidx = regColorTable[dest.getSerialNumber()];
