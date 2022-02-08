@@ -209,10 +209,10 @@ public class AST_EXP_BINOP extends AST_EXP
 		}
 		if (bOP == 6)
 		{
-			if((s1 == TYPE_INT.getInstance()) && (s2 == TYPE_INT.getInstance())){
-				IR.getInstance().Add_IRcommand(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
-			} else {
+			if((s1 == TYPE_STRING.getInstance()) && (s2 == TYPE_STRING.getInstance())){
 				IR.getInstance().Add_IRcommand(new IRcommand_Binop_EQ_Strings(dst,t1,t2));
+			} else {
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
 			}
 		}
 		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_EXP_BINOP", 5));

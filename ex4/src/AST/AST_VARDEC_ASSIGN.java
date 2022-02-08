@@ -88,7 +88,8 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 
 		if (type != null) t1 = type.SemantMe(scope);
 		if (exp != null) t2 = exp.SemantMe(scope);
-		if (scope != null){ // we are in class
+		if (scope != null && inClassDec()){ // we are in class
+
 			try{
 				AST_EXP_INT check1 = (AST_EXP_INT) exp;
 			} catch (Exception e1){
@@ -117,12 +118,15 @@ public class AST_VARDEC_ASSIGN extends AST_DEC
 		this.info = SYMBOL_TABLE.getInstance().setAstAnnotations();
 
 		System.out.println("Debug ---> AST_VARDEC_ASSIGN semantMe: var is " + name + " offset is " + info.getOffset());
-
+		classDec = inClassDec();
+		if ( classDec ) {
+			info.setOffset(info.getOffset() + 1);
+		}
 		SYMBOL_TABLE.getInstance().enterVar(name, t1, this.info);
 		TYPE_CLASS_VAR_DEC t3 = new TYPE_CLASS_VAR_DEC(t1, name, assignVal, assignString);
 		// need to see if we are inside a class declaration or no
 
-		classDec = inClassDec();
+
 		System.out.println("Debug --->> AST_VARDEC_ASSIGN for " + name + " classDec = " + classDec);
 		return t3;
 

@@ -125,6 +125,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 
 	public TEMP assignIRme(TEMP texp){
 		System.out.println(String.format("IRme in filename: %s and counter is: %d, %s info " +nodeInfo, "AST_VAR_SIMPLE", 2, name));
+		System.out.println("IRme in AST_VAR_SIMPLE for " + name + " offset is " + nodeInfo.getOffset() + " and isField: " + nodeInfo.isField());
 		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, texp, nodeInfo));
 		// I think it does not return anything because we assign it - and finish with store
 		return null;

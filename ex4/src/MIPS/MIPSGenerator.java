@@ -74,6 +74,9 @@ public class MIPSGenerator
 
 	public void exitGracefully()
 	{
+		fileWriter.format("\tli $a0, 10\n");
+		fileWriter.format("\tli $v0, 11\n");
+		fileWriter.print("\tsyscall\n");
 		fileWriter.format("\tli $v0,10\n");
 		fileWriter.format("\tsyscall\n");
 	}
@@ -455,10 +458,16 @@ public class MIPSGenerator
 
 	public void pointerDereference(TEMP pointer)
 	{
+		System.out.println("pointerDeref --->> A pointer is " + pointer);
 		int idx = regColorTable[pointer.getSerialNumber()];
+		System.out.println("pointerDeref --->> B ");
 		String conLabel = labelGenerator("not_error");
-		fileWriter.format("\tbne $t%d,$zero,%s\n",conLabel);
+		System.out.println("pointerDeref --->> C ");
+		fileWriter.format("\tbne $t%d,$zero,%s\n",idx,conLabel);
+		System.out.println("pointerDeref --->> D ");
 		printGlobalString("string_invalid_ptr_dref");
+		exitGracefully();
+		System.out.println("pointerDeref --->> E ");
 		label(conLabel);
 	}
 

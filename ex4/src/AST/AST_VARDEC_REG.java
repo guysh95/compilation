@@ -100,12 +100,22 @@ public class AST_VARDEC_REG extends AST_DEC
 
 		this.info = SYMBOL_TABLE.getInstance().setAstAnnotations();
 		System.out.println("Debug ---> AST_VARDEC_REG semantMe: var is " + id + " offset is " + info.getOffset());
+
+		if ( inClassDec() ) {
+			info.setOffset(info.getOffset() + 1);
+		}
+
 		SYMBOL_TABLE.getInstance().enterVar(id,t, this.info);
 
 		/*********************************************************/
 		/* [4] Return value is irrelevant for class declarations */
 		/*********************************************************/
 		return t3;
+	}
+
+	public boolean inClassDec()
+	{
+		return SYMBOL_TABLE.getInstance().isInClassDec();
 	}
 
 	public TEMP IRme()

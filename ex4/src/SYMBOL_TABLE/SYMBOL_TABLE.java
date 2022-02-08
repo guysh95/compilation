@@ -426,6 +426,7 @@ public class SYMBOL_TABLE
 					System.exit(1); // shouldn't happen
 				}
 				AnnotAst res = new AnnotAst(offset, null, tc.name);
+				System.out.println("getVarAnnotations A getting annotations for: " + name  + " offset " + offset);
 				res.setField(); /** ancestor class field */
 				return res;
 			}
@@ -441,13 +442,18 @@ public class SYMBOL_TABLE
 						// maybe in father class
 						int offset = tc.getOffsetForVar(name);
 						if (offset == -1) return InnerScopeInfo;
+						System.out.println("getVarAnnotations B getting annotations for: " + name + " offset " + offset);
 						AnnotAst res = new AnnotAst(offset, null, tc.name);
 						res.setField();
 						return res;
 					}
 				}
-				else /** var is local/global/param or current class field */
+				else {
+					/** var is local/global/param or current class field */
+					System.out.println("getVarAnnotations C getting annotations for: " + name + " offset " + InnerScopeInfo.getOffset());
 					return InnerScopeInfo;
+				}
+
 			}
 		}
 		else if (inFuncScope) {

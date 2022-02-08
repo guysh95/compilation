@@ -13,6 +13,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	public AST_VAR var;
 	public AST_EXP exp;
 	public int row;
+	private AST_VAR_SUBSCRIPT sub_var;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
@@ -110,6 +111,10 @@ public class AST_STMT_ASSIGN extends AST_STMT
 
 	public TEMP IRme(){
 		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_ASSIGN", 1));
+		//if (var instanceof AST_VAR_SUBSCRIPT) {
+		//	AST_VAR_SUBSCRIPT sub_var = (AST_VAR_SUBSCRIPT)var;
+		//	System.out.println(sub_var.subscript);
+		//}
 		TEMP t1 = exp.IRme();
 		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_ASSIGN", 2));
 		TEMP t2 = var.assignIRme(t1);

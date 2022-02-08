@@ -50,19 +50,23 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
         }
 
         // remove all classes from stack, one by one, and add MIPS method labels to VTable
+        Stack<String> methodNames = new Stack<String>();
+        String curr_name;
         while (!allClasses.empty()) {
             p = allClasses.pop();
             for(TYPE_LIST ptr = p.data_members; ptr != null; ptr = ptr.tail){
                 if (ptr.head.isFunction()) {
-                    MIPSGenerator.getInstance().enterMethodLabel(p.name, ptr.head.name);
+                    methodNames.push(ptr.head.name);
                 }
+            }
+            while(!methodNames.empty()) {
+                curr_name = methodNames.pop();
+                MIPSGenerator.getInstance().enterMethodLabel(p.name, curr_name);
             }
         }
         MIPSGenerator.getInstance().endDataSection();
 
 
         // TODO: add node of new class VTable to vtableMap
-
-
     }
 }
