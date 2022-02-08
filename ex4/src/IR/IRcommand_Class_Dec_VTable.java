@@ -42,6 +42,9 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
 
         // TODO: this implementation doesn't support overriding methods
         // insert all classes into a stack
+        /*
+        Previous implementation
+
         Stack<TYPE_CLASS> allClasses = new Stack<TYPE_CLASS>();
         TYPE_CLASS p = currentClass;
         while (p != null) {
@@ -64,9 +67,38 @@ public class IRcommand_Class_Dec_VTable extends IRcommand
                 MIPSGenerator.getInstance().enterMethodLabel(p.name, curr_name);
             }
         }
+
+         */
+
+
+        // new implementation:
+        Stack<String> methodNamesPerClass = new Stack<String>();
+        Stack<String> methodNames = new Stack<String>();
+        HashMap<String, String> insertedMethods = new HashMap<String, String>();
+        TYPE_CLASS p = currentClass;
+        while (p != null) {
+            for(TYPE_LIST ptr = p.data_members; ptr != null; ptr = ptr.tail){
+                if (ptr.head.isFunction()) {
+                    if (insertedMethods.get(ptr.head.name) == null)
+                    {
+                        methodNamesPerClass.push(p.name+ "_" +ptr.head.name);
+                        insertedMethods.put(ptr.head.name, p.name);
+                    }
+                }
+            }
+            while(!methodNamesPerClass.empty()) {
+                curr_name = methodNamesPerClass.pop();
+                methodNames.push(curr_name);
+            }
+            p = p.father;
+        }
+
+        while(!methodNames.empty()) {
+            curr_name = methodNames.pop();
+            MIPSGenerator.getInstance().enterMethodLabel(p.name, curr_name);
+        }
+
         MIPSGenerator.getInstance().endDataSection();
 
-
-        // TODO: add node of new class VTable to vtableMap
     }
 }
