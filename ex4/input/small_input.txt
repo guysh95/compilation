@@ -1,11 +1,40 @@
-int p;
+class Person
+{
+    int M1()
+    {
+        return 6;
+    }
+
+    int M2()
+    {
+        return 9;
+    }
+}
+
+class Student extends Person
+{
+    int B1()
+    {
+        return 100;
+    }
+
+    int B2()
+    {
+        return 101;
+    }
+
+    int B3()
+    {
+        return 69;
+    }
+}
 
 void main()
 {
-    p := 1;
-    p := p + 17;
-    PrintInt(p);
-    while ( p < 6 ){
-        p := p - 1;
-    }
+    Student ido := new Student;
+    PrintInt(ido.M1());
+    PrintInt(ido.M2());
+    PrintInt(ido.B1());
+    PrintInt(ido.B2());
+    PrintInt(ido.B3());
 }

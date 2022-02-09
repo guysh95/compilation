@@ -7,9 +7,7 @@ import ANNOTATE_TABLE.*;
 
 public class AST_VAR_SIMPLE extends AST_VAR
 {
-	/************************/
-	/* simple variable name */
-	/************************/
+
 	public String name;
 	public int row;
 	public int offset;
@@ -17,41 +15,17 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	// negative offset - param
 	public AnnotAst nodeInfo;
 
-	/******************/
-	/* CONSTRUCTOR(S) */
-	/******************/
+
 	public AST_VAR_SIMPLE(String name, int row)
 	{
-		/******************************/
-		/* SET A UNIQUE SERIAL NUMBER */
-		/******************************/
 		SerialNumber = AST_Node_Serial_Number.getFresh();
-	
-		/***************************************/
-		/* PRINT CORRESPONDING DERIVATION RULE */
-		/***************************************/
-		System.out.format("====================== var -> ID( %s )\n",name);
 
-		/*******************************/
-		/* COPY INPUT DATA NENBERS ... */
-		/*******************************/
 		this.name = name;
 		this.row = row;
 	}
 
-	/**************************************************/
-	/* The printing message for a simple var AST node */
-	/**************************************************/
 	public void PrintMe()
 	{
-		/**********************************/
-		/* AST NODE TYPE = AST SIMPLE VAR */
-		/**********************************/
-		System.out.format("AST NODE SIMPLE VAR( %s )\n",name);
-
-		/*********************************/
-		/* Print to AST GRAPHIZ DOT file */
-		/*********************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
 			String.format("SIMPLE\nVAR\n(%s)",name));
@@ -131,7 +105,28 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		return null;
 	}
 
-	public TEMP_LIST beforeAssign() {
+	public TEMP_LIST computeArrayOffsets() {
 		return null;
 	}
+
+
+	public TEMP storeExp(TEMP_LIST exps, TEMP assigned) {
+		if (exps != null) {
+			System.out.println("It's an error!");
+			System.exit(1);
+		}
+		IR.getInstance().Add_IRcommand(new IRcommand_Store(name, assigned, nodeInfo));
+		return null;
+	}
+
+	public TEMP getVarTemp(TEMP_LIST exps) {
+		if (exps != null) {
+			System.out.println("It's an error!");
+			System.exit(1);
+		}
+		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+		IR.getInstance().Add_IRcommand(new IRcommand_Load(t, name, nodeInfo));
+		return t;
+	}
+
 }

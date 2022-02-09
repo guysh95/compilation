@@ -112,6 +112,16 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 
 	public TEMP IRme(){
 		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_ASSIGN_NEW", 1));
+		TEMP_LIST arrayOffsets = var.computeArrayOffsets();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_ASSIGN_NEW", 2));
+		TEMP t = exp.newIRme();
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_ASSIGN_NEW", 3));
+		var.storeExp(arrayOffsets, t);
+		return t;
+	}
+
+	public TEMP IRme_ver2(){
+		System.out.println(String.format("IRme in filename: %s and counter is: %d", "AST_STMT_ASSIGN_NEW", 1));
 		TEMP t = exp.newIRme();
 		var.assignIRme(t);
 		return t;

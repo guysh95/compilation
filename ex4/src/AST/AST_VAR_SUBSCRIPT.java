@@ -16,50 +16,20 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 	/******************/
 	public AST_VAR_SUBSCRIPT(AST_VAR var,AST_EXP subscript, int row)
 	{
-		/******************************/
-		/* SET A UNIQUE SERIAL NUMBER */
-		/******************************/
 		SerialNumber = AST_Node_Serial_Number.getFresh();
-
-		/***************************************/
-		/* PRINT CORRESPONDING DERIVATION RULE */
-		/***************************************/
-		System.out.print("====================== var -> var [ exp ]\n");
-
-		/*******************************/
-		/* COPY INPUT DATA NENBERS ... */
-		/*******************************/
 		this.var = var;
 		this.subscript = subscript;
 		this.row = row;
 	}
 
-	/*****************************************************/
-	/* The printing message for a subscript var AST node */
-	/*****************************************************/
 	public void PrintMe()
 	{
-		/*************************************/
-		/* AST NODE TYPE = AST SUBSCRIPT VAR */
-		/*************************************/
 		System.out.print("AST NODE SUBSCRIPT VAR\n");
-
-		/****************************************/
-		/* RECURSIVELY PRINT VAR + SUBSRIPT ... */
-		/****************************************/
 		if (var != null) var.PrintMe();
 		if (subscript != null) subscript.PrintMe();
-		
-		/***************************************/
-		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
 			"SUBSCRIPT\nVAR\n...[...]");
-		
-		/****************************************/
-		/* PRINT Edges to AST GRAPHVIZ DOT file */
-		/****************************************/
 		if (var       != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 		if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,subscript.SerialNumber);
 	}
@@ -80,20 +50,17 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		if (t.isArray() == false) {
 			System.out.format(">> ERROR [%d:%d] access subscript of a non-array variable\n",6,6);
 			throw new lineException(Integer.toString(this.row));
-			//System.exit(0);
 		}
 		else {
 			ta = (TYPE_ARRAY) t;
 		}
-		/************************************/
+		/***************************************/
 		/* [3] Make sure subscript is integral */
-		/************************************/
+		/***************************************/
 		if (subscript.SemantMe(scope) != TYPE_INT.getInstance()) {
 			System.out.format(">> ERROR [%d:%d] expression inside subscript is not integral\n",2,2);
 			throw new lineException(Integer.toString(this.row));
-			//System.exit(0);
 		}
-
 		return ta.member_type;
 	}
 
@@ -121,15 +88,34 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		return null;
 	}
 
-	public TEMP_LIST beforeAssign() {
+	public TEMP_LIST computeArrayOffsets() {
 		TEMP t2 = subscript.IRme();
-		TEMP_LIST tlist = var.beforeAssign();
+		TEMP_LIST tlist = var.computeArrayOffsets();
 		return new TEMP_LIST(t2, tlist);
 	}
 
-	public TEMP afterAssign(TEMP_LIST exps) {
-		TEMP t1 = var.afterAssign(exps.tail);
+	public TEMP storeExp(TEMP_LIST exps, TEMP assigned) {
+		if (exps == null) {
+			System.out.println("It's an error!");
+			System.exit(1);
+		}
+		TEMP t1 = var.getVarTemp(exps.tail);
 		TEMP t2 = exps.head;
+		IR.getInstance().Add_IRcommand(new IRcommand_Array_Set(t1, t2, assigned));
 		return null;
 	}
+
+	public TEMP getVarTemp(TEMP_LIST exps) {
+		if (exps == null) {
+			System.out.println("It's an error!");
+			System.exit(1);
+		}
+		TEMP dest = TEMP_FACTORY.getInstance().getFreshTEMP();
+		TEMP t1 = var.getVarTemp(exps.tail);
+		TEMP t2 = exps.head;
+		IR.getInstance().Add_IRcommand(new IRcommand_Array_Access(dest, t1, t2));
+		return dest;
+	}
+
+
 }
