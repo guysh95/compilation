@@ -1,4 +1,0 @@
-int Check(string s)
-{
-    return s = nil;
-}

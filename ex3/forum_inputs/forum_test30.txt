@@ -1,9 +1,0 @@
-class Father { int i; }
-Father f := nil;
-
-class FatherN { int iN; }
-class SonN extends FatherN { int jN; }
-FatherN fN := new SonN;
-
-class FatherNN { int iNN; }
-class SonNN extends FatherNN { int jNN := 8; }

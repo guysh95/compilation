@@ -1,3 +1,0 @@
-class Person { int i; }
-Person p := new Person;
-p.j := 5;

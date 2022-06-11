@@ -1,8 +1,0 @@
-int foo() {
-    int x := 5;
-    if (x) {
-        return x;
-    }
-
-    return 2;
-}

@@ -1,6 +1,0 @@
-void foo() {
-    string x := "asd";
-    while (x) {
-        x := x;
-    }
-}

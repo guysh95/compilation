@@ -1,9 +1,0 @@
-int salary := 70;
-
-void foo(string salary)
-
-{
-
-     PrintInt(salary);
-
-}

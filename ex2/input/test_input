@@ -1,3 +1,0 @@
-string s1;
-int i := s1 = s2;
-string s2 := “aaaa” ;

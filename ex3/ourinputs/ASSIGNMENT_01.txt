@@ -1,3 +1,0 @@
-class Father { int i; }
-Father f := nil;
-

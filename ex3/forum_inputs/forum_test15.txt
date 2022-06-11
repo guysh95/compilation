@@ -1,9 +1,0 @@
-int j := 1;
-
-void main() {
-
-j := 2;
-
-string j;
-
-}
