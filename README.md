@@ -1,5 +1,5 @@
 # compilation
-An compiler wirtten in Java for the object oriented languge L.
+A compiler wirtten in Java for the object oriented languge L.
 
 L syntax is described here:
 
